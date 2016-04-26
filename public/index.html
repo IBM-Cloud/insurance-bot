@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cloud Insurance Co</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body>
+
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=649194155220548";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="container">
+        <div class="outline">
+            <div class="banner">
+                <div class="titleArea">
+                    <div class="logo"><img class="logoImage" src="images/cloud.svg"></div>
+                    <div class="name">Cloud Insurance Co.</div>
+                </div>
+                <div class="loginArea">
+                    <div class="menu">ABOUT</div>
+                    <div class="fb">
+                        <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="welcome">Cloud Insurance Co is a conceptual insurance site built using IBM Bluemix and IBM Watson. None of the policies are real ... the site exists to experiment and showcase cognitive and cloud computing ideas in the context of insurance.
+                <p>Log in with Facebook, chat with an AI message bot, follow the links to learn how it was built ...</p>
+            </div>
+            <div class="tiles">
+                <div class="tile">
+                    <img class="tileImage" src="images/house.svg">
+                    <div class="label">HOME</div>
+                </div>
+                <div class="tile">
+                    <img class="tileImage" src="images/health.svg">
+                    <div class="label">HEALTH</div>
+                </div>
+                <div class="tile">
+                    <img class="tileImage" src="images/car.svg">
+                    <div class="label">AUTO</div>
+                </div>
+            </div>
+            <div class="hero">
+                <img class="tileImage" src="images/watch.svg">
+                <div class="heroText">We value your time, with our instant and intelligent policy bot service</div>
+                <img class="botImage" src="images/bot.svg">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
