@@ -4,8 +4,9 @@ html {
     width: 100%;
     height: 100%;
     margin: 0 auto;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     color: #424142;
+    /*    -webkit-font-smoothing: antialiased;*/
 }
 
 .container {
