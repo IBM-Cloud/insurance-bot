@@ -1,0 +1,50 @@
+{
+
+	"payer_id": "AF456J23",
+	"payer_name": "John Appleseed",
+	"first_name": "John",
+	"last_name": "Appleseed",
+	"dob": "1986-09-01",
+	"gender": "M",
+	"active": true,
+	"registered_email": "johnappleseed@gmail.com ",
+	"registered_mobile": "",
+	"policy_number": "00143",
+	"created_at": "2014-05-12T03:15:10Z",
+	"policy_renewal_date": "2017-05-11",
+	"address": {
+		"street_line_1": "3500 WALNUT ST",
+		"street_line_2": "",
+		"state": "CA",
+		"zip": "94105",
+		"city": "SAN FRANCISCO"
+	},
+	"plan_type": {
+		"HC": "Health Care",
+		"VH": "Vehicle"
+	},
+	"HC": {
+		"plan_id":"AF456J23HC",
+		"created_date": "2014-05-12",
+		"active":true,
+		"eligibility": [{
+			"type": "glasses",
+			"description": "Reading Glasses comes under general policy",
+			"period_in_months": 24,
+			"eligibility_dates": {
+				"start": "2015-05-12",
+				"end": "2017-05-11"
+			}
+
+		}, {
+			"type": "prescription drugs",
+			"description": "Drugs prescribed by doctor",
+			"period_in_months": 12,
+			"eligibility_dates": {
+				"start": "2015-05-12",
+				"end": "2016-05-11"
+			}
+		}]
+	}
+
+}
