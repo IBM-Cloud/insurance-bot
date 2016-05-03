@@ -5,7 +5,7 @@ html {
     height: 100%;
     margin: 0 auto;
     font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    color: #424142;
+    color: #547190;
     /*    -webkit-font-smoothing: antialiased;*/
 }
 
@@ -41,13 +41,21 @@ html {
 
 .logo {}
 
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #547190;
+    border-bottom: 1px solid #c8e7e0;
+    padding-bottom: 1px
+}
+
 .logoImage {
-    height: 40px;
+    height: 46px;
 }
 
 .name {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
     margin-left: 10px;
 }
 
@@ -68,9 +76,28 @@ html {
 .fb {}
 
 .welcome {
-    color: #6d6e70;
-    font-size: 14px;
+    font-size: 16px;
     margin: 20px;
+    /* background: #f6fbf9; */
+    padding: 20px;
+    border-radius: 4px;
+    color: #6e97a2;
+    border: 1px solid #c8e7e0;
+}
+
+.github {
+    font-size: 16px;
+    margin: 36px;
+    margin-top: 50px;
+    background: #f6fbf9;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #c8e7e0;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .tiles {
@@ -86,7 +113,7 @@ html {
     width: 200px;
     height: 200px;
     border-radius: 5px;
-    border: 1px solid #e6e7e8;
+    border: 1px solid #a2b1c1;
     margin: 30px;
 }
 
@@ -102,7 +129,7 @@ html {
 
 .hero {
     border-radius: 5px;
-    border: 1px solid #e6e7e8;
+    border: 1px solid #a2b1c1;
     margin-top: 20px;
     margin-left: 36px;
     margin-right: 36px;
@@ -123,6 +150,6 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 280px;
-    margin: -20px;
+    height: 240px;
+    margin: -10px;
 }
