@@ -22,73 +22,78 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
+app.listen(appEnv.port, '0.0.0.0', function () {
 
-	// print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-  
-  app.set('json spaces', 6);
-  
-//Cloudant Initialization code 
-require('dotenv').load();
-  // Load the Cloudant library.
-var Cloudant = require('cloudant');
-var username =process.env.cloudant_username;
-var password = process.env.cloudant_password;
+    // print a message when the server starts listening
+    console.log("server starting on " + appEnv.url);
 
-// Initialize the library with CloudCo account.
-var cloudant = Cloudant({account:username,password:password});
-//("https://6808d18c-e663-41e7-8129-7f24a68593f0-bluemix:cf36bcf4f9cb3c5cafc13e20bb08c57e4b81b4526fcad06fb98dddd07684c059@6808d18c-e663-41e7-8129-7f24a68593f0-bluemix.cloudant.com");
+    app.set('json spaces', 6);
 
-cloudant.db.list(function(err, allDbs) {
-  console.log('All my databases: %s', allDbs)
-});
+    //Cloudant Initialization code 
+    require('dotenv').load();
+    // Load the Cloudant library.
+    var Cloudant = require('cloudant');
+    var username = process.env.cloudant_username;
+    var password = process.env.cloudant_password;
 
-//use Insurance DB
-var db=cloudant.db.use("insurance");
+    // Initialize the library with CloudCo account.
+    var cloudant = Cloudant({
+        account: username,
+        password: password
+    });
+    //("https://6808d18c-e663-41e7-8129-7f24a68593f0-bluemix:cf36bcf4f9cb3c5cafc13e20bb08c57e4b81b4526fcad06fb98dddd07684c059@6808d18c-e663-41e7-8129-7f24a68593f0-bluemix.cloudant.com");
 
-//Create Index
-/*var payer_name = {name:'payer-name', type:'json', index:{fields:['payer_name']}}
-db.index(payer_name, function(er, response) {
-  if (er) {
-    throw er;
-  }
+    cloudant.db.list(function (err, allDbs) {
+        console.log('All my databases: %s', allDbs)
+    });
 
-  console.log('Index creation result: %s', response.result);
-});*/
+    //use Insurance DB
+    var db = cloudant.db.use("insurance");
 
-//Indexes
-app.get("/insurance/indexes",function(req,res)
-{
-db.index(function(er, result) {
-  if (er) {
-    throw er;
-  }
+    //Create Index
+    /*var payer_name = {name:'payer-name', type:'json', index:{fields:['payer_name']}}
+    db.index(payer_name, function(er, response) {
+      if (er) {
+        throw er;
+      }
 
-  console.log('The database has %d indexes', result.indexes.length);
-  for (var i = 0; i < result.indexes.length; i++) {
-    console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
-  }
-  res.json(result.indexes);
-});
-});
+      console.log('Index creation result: %s', response.result);
+    });*/
 
-//Quering
-app.get("/insurance/query",function(req,res)
-{
-db.find({selector:{payer_name: 'John Appleseed'}}, function(er, result) {
-  if (er) {
-    throw er;
-  }
+    //Indexes
+    app.get("/insurance/indexes", function (req, res) {
+        db.index(function (er, result) {
+            if (er) {
+                throw er;
+            }
 
-  console.log('Found %d documents', result.docs.length);
-  for (var i = 0; i < result.docs.length; i++) {
-    console.log('  Doc id: %s', result.docs[i]._id);
-  }
-  res.json(result.docs);
-  
-});
-});
+            console.log('The database has %d indexes', result.indexes.length);
+            for (var i = 0; i < result.indexes.length; i++) {
+                console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
+            }
+            res.json(result.indexes);
+        });
+    });
+
+    //Quering
+    app.get("/insurance/query", function (req, res) {
+        db.find({
+            selector: {
+                payer_name: 'John Appleseed'
+            }
+        }, function (er, result) {
+            if (er) {
+                throw er;
+            }
+
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                console.log('  Doc id: %s', result.docs[i]._id);
+            }
+            res.json(result.docs);
+
+        });
+    });
 
 
 });
