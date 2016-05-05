@@ -89,12 +89,19 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                 jsonres: JSON.stringify(result.indexes)
             });
 
-
-
         });
-        
-
     });
+
+
+    //personal
+    app.get("/personal", function (req, res)
+    {
+            res.render('personal', {
+                title: 'Personal',
+                page: 'personal',
+            });
+    });
+
 
 
     //Quering
