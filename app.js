@@ -5,6 +5,8 @@
 //------------------------------------------------------------------------------
 
 var path = require('path');
+var appdata = require('./data.json');
+
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
@@ -94,12 +96,22 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
 
     //personal
-    app.get("/personal", function (req, res)
+    app.get("/member", function (req, res)
     {
-            res.render('personal', {
-                title: 'Personal',
-                page: 'personal',
-            });
+        var mypolicy = [];
+        var mypolicies = [];
+
+        mypolicies = appdata.policy;
+        appdata.policy.forEach(function(item){
+            mypolicy = mypolicy.concat(item.work);
+        });
+
+
+        res.render('member', {
+            title: 'Policy Member',
+            page: 'member',
+            policyDetails: mypolicies
+        });
     });
 
 
