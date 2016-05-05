@@ -139,6 +139,18 @@ a {
     justify-content: center;
     padding: 40px;
 }
+.json-respond {
+    border-radius: 5px;
+    border: 1px solid #a2b1c1;
+    margin-top: 20px;
+    margin-left: 36px;
+    margin-right: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
 
 .heroText {
     width: 360px;
