@@ -38,28 +38,32 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
 
-    app.set('json spaces', 6);
+    /* Twana - disable temp comment while demoing code to Adam
 
-    //Cloudant Initialization code 
-    require('dotenv').load();
-    // Load the Cloudant library.
-    var Cloudant = require('cloudant');
-    var username = process.env.cloudant_username;
-    var password = process.env.cloudant_password;
+        app.set('json spaces', 6);
 
-    // Initialize the library with CloudCo account.
-    var cloudant = Cloudant({
-        account: username,
-        password: password
-    });
-    //("https://6808d18c-e663-41e7-8129-7f24a68593f0-bluemix:cf36bcf4f9cb3c5cafc13e20bb08c57e4b81b4526fcad06fb98dddd07684c059@6808d18c-e663-41e7-8129-7f24a68593f0-bluemix.cloudant.com");
+        //Cloudant Initialization code
+        require('dotenv').load();
+        // Load the Cloudant library.
+        var Cloudant = require('cloudant');
+        var username = process.env.cloudant_username;
+        var password = process.env.cloudant_password;
 
-    cloudant.db.list(function (err, allDbs) {
-        console.log('All my databases: %s', allDbs)
-    });
+        // Initialize the library with CloudCo account.
+        var cloudant = Cloudant({
+            account: username,
+            password: password
+        });
+        //("https://6808d18c-e663-41e7-8129-7f24a68593f0-bluemix:cf36bcf4f9cb3c5cafc13e20bb08c57e4b81b4526fcad06fb98dddd07684c059@6808d18c-e663-41e7-8129-7f24a68593f0-bluemix.cloudant.com");
 
-    //use Insurance DB
-    var db = cloudant.db.use("insurance");
+        cloudant.db.list(function (err, allDbs) {
+            console.log('All my databases: %s', allDbs)
+        });
+
+        //use Insurance DB
+        var db = cloudant.db.use("insurance");
+
+    */
 
     //Create Index
     /*var payer_name = {name:'payer-name', type:'json', index:{fields:['payer_name']}}
@@ -74,6 +78,18 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     //Indexes
     app.get("/", function (req, res) {
 
+
+        //res.json(result.indexes);
+        res.render('index', {
+            title: 'Home',
+            page: 'home',
+            //jsonres: JSON.stringify(result.indexes)
+            jsonres: 'JSON Respond'
+        });
+
+
+        /* Twana - disable temp comment while demoing code to Adam
+
         db.index(function (er, result) {
             if (er) {
                 throw er;
@@ -84,14 +100,11 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                 console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
             }
 
-            //res.json(result.indexes);
-            res.render('index', {
-                title: 'Home',
-                page: 'home',
-                jsonres: JSON.stringify(result.indexes)
-            });
 
         });
+        */
+
+
     });
 
 
@@ -110,31 +123,32 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         res.render('member', {
             title: 'Policy Member',
             page: 'member',
-            policyDetails: mypolicies
+            policyDetails: mypolicies,
+            Membername: testAPI().response.name
         });
     });
 
+    /* Twana - disable temp comment while demoing code to Adam
+     //Quering
+        app.get("/insurance/query", function (req, res) {
+            db.find({
+                selector: {
 
+          payer_name: 'John Appleseed'
+                }
+            }, function (er, result) {
+                if (er) {
+                    throw er;
+                }
 
-    //Quering
-    app.get("/insurance/query", function (req, res) {
-        db.find({
-            selector: {
-                payer_name: 'John Appleseed'
-            }
-        }, function (er, result) {
-            if (er) {
-                throw er;
-            }
+                console.log('Found %d documents', result.docs.length);
+                for (var i = 0; i < result.docs.length; i++) {
+                    console.log('  Doc id: %s', result.docs[i]._id);
+                }
+                res.json(result.docs);
 
-            console.log('Found %d documents', result.docs.length);
-            for (var i = 0; i < result.docs.length; i++) {
-                console.log('  Doc id: %s', result.docs[i]._id);
-            }
-            res.json(result.docs);
-
+            });
         });
-    });
-
+        */
 
 });

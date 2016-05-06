@@ -73,7 +73,7 @@
      FB.api('/me', function (response) {
          console.log('Successful login for: ' + response.name);
          var fbbutton = document.getElementById('fbbutton');
-         window.location = "../views/member";
+         window.location = "../member";
          document.getElementById('status').innerHTML =
              '' + response.name + '';
      });
