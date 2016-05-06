@@ -123,8 +123,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         res.render('member', {
             title: 'Policy Member',
             page: 'member',
-            policyDetails: mypolicies,
-            Membername: testAPI().response.name
+            policyDetails: mypolicies
         });
     });
 

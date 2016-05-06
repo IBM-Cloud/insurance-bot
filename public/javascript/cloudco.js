@@ -74,7 +74,10 @@
          console.log('Successful login for: ' + response.name);
          var fbbutton = document.getElementById('fbbutton');
          window.location = "../member";
-         document.getElementById('status').innerHTML =
-             '' + response.name + '';
+
+         var div = document.getElementById('MemberName');
+         div.innerHTML = div.innerHTML + response.name;
+
+         alert('Welcome ' + response.name);
      });
  }
