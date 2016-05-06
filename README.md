@@ -1,14 +1,38 @@
-# Node.js Starter Overview
+# Insurance Policy Bot Overview
 
-The Node.js Starter demonstrates a simple, reusable Node.js web application based on the Express framework.
+[![Policy Bot](./design/video-cap.png)](https://vimeo.com/165460548 "Policy Bot Concept - Click to Watch!")
+
+**THIS APP IS A WORK IN PROGRESS**
+
+## Running the app on Bluemix
+<Either add a Deploy to Bluemix button or include detailed instructions on how to deploy the app(s) to Bluemix after cloning the repo. You should assume the user has little to no Bluemix experience and provide as much detail as possible in the steps.>
+
+Coming Soon!
+
+[Sign up for Bluemix][bluemix_signup_url] in the meantime!
+
+<Create sub-sections to break down larger sequences of steps. General rule of thumb is that you should not have more than 9 steps in each task. Include sanity checks, or ways for the developer to confirm what they have done so far is correct, every 20 steps. Also, avoid directly referencing the Bluemix UI components so that ACE changes don't invalidate your README.>
 
 ## Run the app locally
+Coming soon!
 
-1. [Install Node.js][]
-2. Download and extract the starter code from the Bluemix UI
-3. cd into the app directory
-4. Run `npm install` to install the app's dependencies
-5. Run `npm start` to start the app
-6. Access the running app in a browser at http://localhost:6001
+## API documentation
+The API methods that this component exposes requires the discovery of dependent services, however, the API will gracefully fail when they are not available.
 
-[Install Node.js]: https://nodejs.org/en/download/
+The API and data models are defined in ...
+
+## Contribute
+Please check out our [Contributing Guidelines]()for detailed information on how you can lend a hand.
+
+## Troubleshooting
+
+The primary source of debugging information for your Bluemix app is the logs. To see them, run the following command using the Cloud Foundry CLI:
+
+  ```
+  $ cf logs cloudco --recent
+  ```
+For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
+
+## License
+
+See [License.txt](License.txt) for license information.
