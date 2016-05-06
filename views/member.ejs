@@ -10,33 +10,63 @@
   <div class="outline">
     <% include partials/template/header.ejs %>
 
+    <% include partials/template/headEnding.ejs %>
+
     <section class="layout">
       <div class="primary">
 
         <div id="fb-root"></div>
+
+        <div class="welcomeText">
+          <% policyDetails.forEach(function(item) { %>
+          Hi <strong><%= item.name %>,</strong> <span>Welcome to CloudCo Insurance</span>
+        </div>
+
         <div class="welcome">
 
-          <% policyDetails.forEach(function(item) { %>
 
+          <div class="carInsurance">
+            <div class="insuranceTypeHeading">Car Insurance</div>
 
-          Welcome <strong><%= item.name %></strong><br>
-          Policy Number: <strong><%= item.number %></strong>
-
-          <br><br>              <hr/>
-
-
-
-
-          is a conceptual insurance site built using <a href="http://bluemix.net">IBM Bluemix</a> and <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">IBM Watson</a>.
-          <p>None of the policies are real ... the site exists to experiment and showcase cognitive and cloud computing ideas in the context of insurance.</p>
-          <p>Log in with Facebook, chat with an AI message bot, follow the links to learn how it was built ...</p>
-
-
-
+            <ul class="insuranceLeftList">
+              <li>Policy Number: <span><%= item.number %></span></li>
+              <li>Policy Start Date: <span><%= item.start %></span></li>
+              <li>Policy Renewal Date: <span><%= item.end %></span></li>
+              <li>Cover Type: <span><%= item.type[2] %></span></li>
+              <li>No Claim Bo Discount: <span><%= item.NoClaimBoDiscount[4]%></span> </li>
+              <li>Fire & Theft Protection: <span><%= item.FireTheft[0] %></span> </li>
+              <li>Step back bonus protection: <span><%= item.StepBack[0] %></span> </li>
+              <li>New Car replacement: <span><%= item.CarReplacement[0] %></span> </li>
+              <li>Windscreen Cover <span><%= item.Windscreen[0] %></span></li>
+              <li>Replacement locks up to: <span><%= item.ReplacementLocks[0] %></span></li>
+              <li>Outstanding Balance: <span><%= item.OutstandingBalance %></span> </li>
+            </ul>
+            <ul class="insuranceRightList">
+              <li><a href="#">How to make a claim</a></li>
+              <li><a href="#">Change your car</a></li>
+              <li><a href="#">Change your address</a></li>
+              <li><a href="#">Add another driver</a></li>
+              <li><a href="#">View policy document</a></li>
+              <li><a href="#">Temporary change of car</a></li>
+            </ul>
+          </div>
+          <div class="homeInsurance">
+            <div class="insuranceTypeHeading">
+              Home Insurance
+            </div>
+            <p>You have no home insurance cover. Click here to setup one and get 10% discount</p>
+          </div>
+          <div class="healthInsurance">
+            <div class="insuranceTypeHeading">
+              Home Insurance
+            </div>
+            <p>You have no home insurance cover. Click here to setup one and get 10% discount</p>
+          </div>
           <% }); %>
 
-
         </div>
+
+
 
 
       </div><!-- primary section -->
@@ -46,6 +76,8 @@
       </aside><!-- secondary -->
 
     </section><!-- layout section -->
+
+
   </div>
 </div>
 

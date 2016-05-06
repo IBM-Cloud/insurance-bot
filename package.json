@@ -10,7 +10,8 @@
     "cloudant": "^1.4.1",
     "express": "4.13.x",
     "ejs": "~2.3.3",
-    "body-parser": "~1.13.2"
+    "body-parser": "~1.13.2",
+    "dotenv":   ""
   },
   "repository": {},
   "engines": {

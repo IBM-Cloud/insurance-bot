@@ -15,12 +15,19 @@
       "start-time" : "17:31",
       "end" : "04/05/2017",
       "end-time" : "17:30",
-      "number" : "5e764375675",
+      "number" : "TA5764375675",
       "name" : "Tom Murphy",
       "no-claims" : "0",
       "claim-ref" : "",
       "claim-date" : "",
-      "type" : ["basic","mid pack","full pack"],
+      "type" : ["Basic Pack","Mid Pack","Fully Comprehensive"],
+      "FireTheft": ["Yes","No"],
+      "StepBack": ["Yes","No"],
+      "CarReplacement": ["Yes","No"],
+      "Windscreen": ["Yes","No"],
+      "ReplacementLocks": ["Yes","No"],
+      "OutstandingBalance": "€456.55",
+      "NoClaimBoDiscount": ["10%","20%","30%","40%","50%","60%"],
       "benefits" : [
                       {
                         "home": [
