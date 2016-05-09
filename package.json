@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "NodejsStarterApp",
   "version": "0.0.1",
   "private": true,
@@ -19,22 +18,3 @@
     "node": "4.2.x"
   }
 }
-=======
-    "name": "NodejsStarterApp",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "node app.js"
-    },
-    "dependencies": {
-        "cfenv": "1.0.x",
-        "cloudant": "^1.4.1",
-        "express": "4.13.x",
-        "dotenv": "*"
-    },
-    "repository": {},
-    "engines": {
-        "node": "4.2.x"
-    }
-}
->>>>>>> master
