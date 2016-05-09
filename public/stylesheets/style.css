@@ -85,6 +85,118 @@ a {
     /* border: 1px dotted #c8e7e0; */
 }
 
+.welcomeText {
+    font-size: 16px;
+    margin: 20px;
+    background: #2394a2;
+    padding: 20px;
+    border-radius: 4px;
+    color: white;
+    border: 1px solid #c8e7e0;
+}
+.welcomeText span{
+    color: #c8e7e0;
+}
+
+
+.carInsurance{
+    margin-bottom: 100px;
+    width: 100%;
+    float: left;
+}
+
+.insuranceTypeHeading {
+    font-size: 18px;
+    margin: -21px;
+    background: #c8e7e0;
+    padding: 10px 20px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.insuranceLeftList{
+    margin: 0px;
+    padding: 0px;
+    width: 48%;
+    margin-right: 4%;
+    float: left;
+    margin-top: 10px;
+}
+
+.insuranceRightList{
+    margin: 0px;
+    padding: 0px;
+    width: 40%;
+    float: right;
+    text-transform: uppercase;
+
+}
+
+
+
+.insuranceLeftList li{
+    list-style: none;
+    padding: 15px;
+    background: #547190;
+    font-size: 12px;
+    color: white;
+    font-weight: normal;
+
+
+}
+
+.insuranceLeftList li span{
+    font-weight: bold;
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: white;
+    width: 140px;
+    float: right;
+    text-align: center;
+}
+
+.insuranceRightList li{
+    list-style: none;
+    padding: 10px;
+    background: #547EAA;
+    margin: 10px;
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    border-radius: 2px;
+}
+.insuranceRightList li a{
+    color: #c8e7e0;
+}
+.insuranceRightList li a:hover{
+    color: white;
+}
+
+
+.homeInsurance{
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
+
+.healthInsurance{
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
+
+.healthInsurance p, .homeInsurance p, .carInsurance p{
+    color: #547190;
+}
+
+
+
+
 .github {
     font-size: 16px;
     margin: 36px;
@@ -98,6 +210,7 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 100px;
 }
 
 .tiles {
@@ -140,6 +253,18 @@ a {
     padding: 40px;
     background: #f4faf8;
 }
+.json-respond {
+    border-radius: 5px;
+    border: 1px solid #a2b1c1;
+    margin-top: 20px;
+    margin-left: 36px;
+    margin-right: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
 
 .heroText {
     width: 360px;
@@ -155,6 +280,19 @@ a {
     margin: -10px;
 }
 
+.member{
+
+}
+
+.member .welcome{
+    min-height: 900px;
+    border: 1px dotted #c8e7e0;
+}
+
+footer {
+
+
+}
 .glow {
     margin: 20px;
     background: #f4faf8;
