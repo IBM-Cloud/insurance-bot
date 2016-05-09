@@ -78,11 +78,11 @@ a {
 .welcome {
     font-size: 16px;
     margin: 20px;
-    /* background: #f6fbf9; */
+    background: #f4faf8;
     padding: 20px;
     border-radius: 4px;
     color: #6e97a2;
-    border: 1px solid #c8e7e0;
+    /* border: 1px dotted #c8e7e0; */
 }
 
 .welcomeText {
@@ -201,8 +201,15 @@ a {
     font-size: 16px;
     margin: 36px;
     margin-top: 50px;
+<<<<<<< HEAD
     background: #f6fbf9;
     border: 1px solid #c8e7e0;
+=======
+    /* background: #f6fbf9; */
+    padding: 20px;
+    border-radius: 4px;
+    /* border: 1px solid #c8e7e0; */
+>>>>>>> master
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -224,7 +231,7 @@ a {
     width: 200px;
     height: 200px;
     border-radius: 5px;
-    border: 1px solid #a2b1c1;
+    border: 1px dotted #c8e7e0;
     margin: 30px;
 }
 
@@ -240,7 +247,7 @@ a {
 
 .hero {
     border-radius: 5px;
-    border: 1px solid #a2b1c1;
+    /* border: 1px dotted #c8e7e0; */
     margin-top: 20px;
     margin-left: 36px;
     margin-right: 36px;
@@ -249,6 +256,7 @@ a {
     align-items: center;
     justify-content: center;
     padding: 40px;
+    background: #f4faf8;
 }
 .json-respond {
     border-radius: 5px;
@@ -273,9 +281,10 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 240px;
+    height: 180px;
     margin: -10px;
 }
+<<<<<<< HEAD
 .member{
 
 }
@@ -287,4 +296,18 @@ a {
 footer{
     padding-left: 10%;
     padding-right: 10%;
+=======
+
+.glow {
+    margin: 20px;
+    background: #f4faf8;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100px;
+    width: 70px;
+    border-radius: 100px;
+    padding: 20px;
+    align-self: center;
+>>>>>>> master
 }
