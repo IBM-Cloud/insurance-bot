@@ -82,7 +82,7 @@ a {
     padding: 20px;
     border-radius: 4px;
     color: #6e97a2;
-    /* border: 1px dotted #c8e7e0; */
+    border: 1px dotted #c8e7e0;
 }
 
 .welcomeText {
@@ -282,6 +282,8 @@ a {
 
 .member{
 
+
+
 }
 
 .member .welcome{
@@ -304,4 +306,5 @@ footer {
     border-radius: 100px;
     padding: 20px;
     align-self: center;
+
 }
