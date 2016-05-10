@@ -38,42 +38,6 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
 
-    /* Twana - disable temp comment while demoing code to Adam
-
-        app.set('json spaces', 6);
-
-        //Cloudant Initialization code
-        require('dotenv').load();
-        // Load the Cloudant library.
-        var Cloudant = require('cloudant');
-        var username = process.env.cloudant_username;
-        var password = process.env.cloudant_password;
-
-        // Initialize the library with CloudCo account.
-        var cloudant = Cloudant({
-            account: username,
-            password: password
-        });
-        //("https://6808d18c-e663-41e7-8129-7f24a68593f0-bluemix:cf36bcf4f9cb3c5cafc13e20bb08c57e4b81b4526fcad06fb98dddd07684c059@6808d18c-e663-41e7-8129-7f24a68593f0-bluemix.cloudant.com");
-
-        cloudant.db.list(function (err, allDbs) {
-            console.log('All my databases: %s', allDbs)
-        });
-
-        //use Insurance DB
-        var db = cloudant.db.use("insurance");
-
-    */
-
-    //Create Index
-    /*var payer_name = {name:'payer-name', type:'json', index:{fields:['payer_name']}}
-    db.index(payer_name, function(er, response) {
-      if (er) {
-        throw er;
-      }
-
-      console.log('Index creation result: %s', response.result);
-    });*/
 
     //Indexes
     app.get("/", function (req, res) {
@@ -109,13 +73,12 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
 
     //personal
-    app.get("/member", function (req, res)
-    {
+    app.get("/member", function (req, res) {
         var mypolicy = [];
         var mypolicies = [];
 
         mypolicies = appdata.policy;
-        appdata.policy.forEach(function(item){
+        appdata.policy.forEach(function (item) {
             mypolicy = mypolicy.concat(item.work);
         });
 
@@ -128,68 +91,78 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     });
 
 
-//----------------------------------------------------------------------------------
-// Cloudant connections
-//----------------------------------------------------------------------------------    
+    //----------------------------------------------------------------------------------
+    // Cloudant connections
+    //----------------------------------------------------------------------------------    
 
     //Added for Json Readability    
     app.set('json spaces', 6);
 
-        //Cloudant Initialization code
-        require('dotenv').load();
-        // Load the Cloudant library.
-        var Cloudant = require('cloudant');
-        var username = process.env.cloudant_username;
-        var password = process.env.cloudant_password;
+    //Cloudant Initialization code
+    require('dotenv').load();
+    // Load the Cloudant library.
+    var Cloudant = require('cloudant');
+    var username = process.env.cloudant_username;
+    var password = process.env.cloudant_password;
 
-        // Initialize the library with CloudCo account.
-        var cloudant = Cloudant({
-            account: username,
-            password: password
-        });
-      
+    // Initialize the library with CloudCo account.
+    var cloudant = Cloudant({
+        account: username,
+        password: password
+    });
 
-        cloudant.db.list(function (err, allDbs) {
-            console.log('All my databases: %s', allDbs)
-        });
 
-        //use Insurance DB
-        var db = cloudant.db.use("insurance");
+    cloudant.db.list(function (err, allDbs) {
+        console.log('All my databases: %s', allDbs)
+    });
+
+    //use Insurance DB
+    var db = cloudant.db.use("insurance");
 
 
 
     //Create Index
-    var payer_name = {name:'payer-name', type:'json', index:{fields:['payer_name']}}
-    db.index(payer_name, function(er, response) {
-      if (er) {
-        throw er;
-      }
+    app.post('/insurance/createindex', function (req, res) {
 
-      console.log('Index creation result: %s', response.result);
+        var payer_name = {
+            name: 'payer-name',
+            type: 'json',
+            index: {
+                fields: ['payer_name']
+            }
+        }
+        db.index(payer_name, function (er, response) {
+            if (er) {
+                throw er;
+            }
+            console.log('Index creation result: %s', response.result);
+            res.send('Index creation result: %s', response.result);
+        });
+
     });
 
 
-     //Quering with a query string
+    //Quering with a query string
     // localhost:6001/insurance/query?payername=John+Appleseed -- pass a payername as query string.
     // localhost:6001/insurance/query -- Will pick default user for now.
     app.get("/insurance/query", function (req, res) {
         db.find({
             selector: {
-                payer_name: (!req.query.payername)?'John Appleseed':req.query.payername
+                payer_name: (!req.query.payername) ? 'John Appleseed' : req.query.payername
             }
         }, function (er, result) {
-                if (er) {
-                    throw er;
-                }
+            if (er) {
+                throw er;
+            }
 
-                console.log('Found %d documents', result.docs.length);
-                for (var i = 0; i < result.docs.length; i++) {
-                    console.log('  Doc id: %s', result.docs[i]._id);
-                }
-                res.json(result.docs);
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                console.log('  Doc id: %s', result.docs[i]._id);
+            }
+            res.json(result.docs);
 
-            });
         });
-        
+    });
+
 
 });
