@@ -33,6 +33,22 @@ The primary source of debugging information for your Bluemix app is the logs. To
   ```
 For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
 
+## Cloudant
+
+Before querying the cloudant db - insurance
+
+ create a .env file with your Cloudant credentials in the root directory.
+  cloudant_username=myaccount # Replace myaccount with your account name
+  cloudant_password='secret'  # Replace secret with your password
+ 
+ or on a terminal
+ 
+    echo "/.env"                       >> .gitignore # Do not track .env in the revision history
+    echo "cloudant_username=myaccount" >  .env       # Replace myaccount with your account name
+    echo "cloudant_password='secret'"  >> .env       # Replace secret with your password
+ 
+ 
+
 ## License
 
 See [License.txt](License.txt) for license information.
