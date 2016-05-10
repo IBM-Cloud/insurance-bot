@@ -38,8 +38,8 @@ For more detailed information on troubleshooting your application, see the [Trou
 Before querying the cloudant db - insurance
 
  create a .env file with your Cloudant credentials in the root directory.
-  cloudant_username=myaccount # Replace myaccount with your account name
-  cloudant_password='secret'  # Replace secret with your password
+    cloudant_username=myaccount # Replace myaccount with your account name
+    cloudant_password='secret'  # Replace secret with your password
  
  or on a terminal
  
