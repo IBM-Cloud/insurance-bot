@@ -20,6 +20,26 @@ Coming soon!
 The API methods that this component exposes requires the discovery of dependent services, however, the API will gracefully fail when they are not available.
 
 The API and data models are defined in ...
+## Cloudant (DB)
+
+Before querying the cloudant db, Create a cloudant DB 'insurance' and follow the steps below,
+
+ create a .env file with your Cloudant credentials in the root directory.
+ ```
+  cloudant_username=myaccount # Replace myaccount with your account name
+  cloudant_password='secret'  # Replace secret with your password
+ ```
+ or on a terminal
+ 
+    echo "/.env"                       >> .gitignore # Do not track .env in the revision history
+    echo "cloudant_username=myaccount" >  .env       # Replace myaccount with your account name
+    echo "cloudant_password='secret'"  >> .env       # Replace secret with your password
+ 
+#### Querying
+  
+   Using a REST Client(namely Postman), 
+   
+   POST  -  http://<NodeJS Instance>/insurance/createindex                       # Creates all the indexes
 
 ## Contribute
 Please check out our [Contributing Guidelines]()for detailed information on how you can lend a hand.
@@ -33,22 +53,7 @@ The primary source of debugging information for your Bluemix app is the logs. To
   ```
 For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
 
-## Cloudant
 
-Before querying the cloudant db - insurance
-
- create a .env file with your Cloudant credentials in the root directory.
- ```
-  cloudant_username=myaccount # Replace myaccount with your account name
-  cloudant_password='secret'  # Replace secret with your password
- ```
- or on a terminal
- 
-    echo "/.env"                       >> .gitignore # Do not track .env in the revision history
-    echo "cloudant_username=myaccount" >  .env       # Replace myaccount with your account name
-    echo "cloudant_password='secret'"  >> .env       # Replace secret with your password
- 
- 
 
 ## License
 
