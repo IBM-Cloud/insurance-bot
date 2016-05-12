@@ -5,8 +5,6 @@
 //------------------------------------------------------------------------------
 
 var path = require('path');
-var appdata = require('./data.json');
-
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
@@ -39,56 +37,123 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     console.log("server starting on " + appEnv.url);
 
 
-    //Indexes
+
+
+
+    //Home page
     app.get("/", function (req, res) {
-
-
-        //res.json(result.indexes);
         res.render('index', {
             title: 'Home',
-            page: 'home',
-            //jsonres: JSON.stringify(result.indexes)
-            jsonres: 'JSON Respond'
+            page: 'homePage',
         });
+    });
 
 
-        /* Twana - disable temp comment while demoing code to Adam
-
-        db.index(function (er, result) {
+    //member page
+    app.get("/member", function (req, res) {
+        db.find({
+            selector: {
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
+            }
+        }, function (er, result) {
             if (er) {
                 throw er;
             }
 
-            console.log('The database has %d indexes', result.indexes.length);
-            for (var i = 0; i < result.indexes.length; i++) {
-                console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                //console.log('  Doc id: %s', result.docs[i]._id);
+
+                res.render('member', {
+                    title: 'Policy Member',
+                    page: 'member',
+                    memberData: result.docs[i]
+                });
+            }
+        });
+
+    });
+
+    //health page
+    app.get("/health", function (req, res) {
+        db.find({
+            selector: {
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
+            }
+        }, function (er, result) {
+            if (er) {
+                throw er;
             }
 
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                //console.log('  Doc id: %s', result.docs[i]._id);
 
+                res.render('health', {
+                    title: 'Health Member',
+                    page: 'health',
+                    memberData: result.docs[i]
+                });
+            }
         });
-        */
-
 
     });
 
 
-    //personal
-    app.get("/member", function (req, res) {
-        var mypolicy = [];
-        var mypolicies = [];
+    //home insurance page
+    app.get("/home", function (req, res) {
+        db.find({
+            selector: {
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
+            }
+        }, function (er, result) {
+            if (er) {
+                throw er;
+            }
 
-        mypolicies = appdata.policy;
-        appdata.policy.forEach(function (item) {
-            mypolicy = mypolicy.concat(item.work);
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                //console.log('  Doc id: %s', result.docs[i]._id);
+
+                res.render('home', {
+                    title: 'Home Policy',
+                    page: 'home',
+                    memberData: result.docs[i]
+                });
+            }
         });
 
-
-        res.render('member', {
-            title: 'Policy Member',
-            page: 'member',
-            policyDetails: mypolicies
-        });
     });
+
+    //car insurance page
+    app.get("/auto", function (req, res) {
+        db.find({
+            selector: {
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
+            }
+        }, function (er, result) {
+            if (er) {
+                throw er;
+            }
+
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                //console.log('  Doc id: %s', result.docs[i]._id);
+
+                res.render('auto', {
+                    title: 'Auto Policy',
+                    page: 'auto',
+                    memberData: result.docs[i]
+                });
+            }
+        });
+
+    });
+
+
+
+
+
 
 
     //----------------------------------------------------------------------------------
@@ -148,7 +213,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     app.get("/insurance/query", function (req, res) {
         db.find({
             selector: {
-                payer_name: (!req.query.payername) ? 'John Appleseed' : req.query.payername
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
             }
         }, function (er, result) {
             if (er) {
@@ -159,7 +224,9 @@ app.listen(appEnv.port, '0.0.0.0', function () {
             for (var i = 0; i < result.docs.length; i++) {
                 console.log('  Doc id: %s', result.docs[i]._id);
             }
-            res.json(result.docs);
+            var jsonRES = [];
+            jsonRES = result.docs;
+            res.json(jsonRES);
 
         });
     });

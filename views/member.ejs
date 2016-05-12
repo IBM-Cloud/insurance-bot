@@ -18,51 +18,65 @@
         <div id="fb-root"></div>
 
         <div class="welcomeText">
-          <% policyDetails.forEach(function(item) { %>
-          Hi <span id="MemberName"></span>, Welcome to CloudCo Insurance
+
+          Hi <%= memberData.first_name %>, <span id="MemberName"></span>Welcome to CloudCo Insurance
+
         </div>
 
         <div class="welcome">
 
 
-          <div class="carInsurance">
-            <div class="insuranceTypeHeading">Car Insurance</div>
+          <div class="userInsurance">
 
-            <ul class="insuranceLeftList">
-              <li>Policy Number: <span><%= item.number %></span></li>
-              <li>Policy Start Date: <span><%= item.start %></span></li>
-              <li>Policy Renewal Date: <span><%= item.end %></span></li>
-              <li>Cover Type: <span><%= item.type[2] %></span></li>
-              <li>No Claim Bo Discount: <span><%= item.NoClaimBoDiscount[4]%></span> </li>
-              <li>Fire & Theft Protection: <span><%= item.FireTheft[0] %></span> </li>
-              <li>Step back bonus protection: <span><%= item.StepBack[0] %></span> </li>
-              <li>New Car replacement: <span><%= item.CarReplacement[0] %></span> </li>
-              <li>Windscreen Cover <span><%= item.Windscreen[0] %></span></li>
-              <li>Replacement locks up to: <span><%= item.ReplacementLocks[0] %></span></li>
-              <li>Outstanding Balance: <span><%= item.OutstandingBalance %></span> </li>
-            </ul>
-            <ul class="insuranceRightList">
-              <li><a href="#">How to make a claim</a></li>
-              <li><a href="#">Change your car</a></li>
-              <li><a href="#">Change your address</a></li>
-              <li><a href="#">Add another driver</a></li>
-              <li><a href="#">View policy document</a></li>
-              <li><a href="#">Temporary change of car</a></li>
-            </ul>
-          </div>
-          <div class="homeInsurance">
-            <div class="insuranceTypeHeading">
-              Home Insurance
+            <div class="ui-userInfo">
+              <div class="userTypeHeading">USER ACCOUNT</div>
+
+              <ul>
+                <li>Account Reference: <span><%= memberData.payer_id %></span></li>
+                <li>Full Name: <span><%= memberData.payer_name %></span></li>
+                <li>Date Of Birth: <span><%= memberData.dob %></span></li>
+                <li>Gender: <span><%= memberData.gender %></span></li>
+                <li>Email: <span><%= memberData.registered_email %></span></li>
+                <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
+                <li class="address">Address: <span>
+                    <%= memberData.address.street_line_1 %><br>
+                    <%= memberData.address.street_line_2 %><br>
+                    <%= memberData.address.zip %>,<br>
+                    <%= memberData.address.country %>
+                  </span></li>
+                <li class="edit_account_details"><a href="#">Edit User Account</a></li>
+
+              </ul>
+
             </div>
-            <p>You have no home insurance cover. Click here to setup one and get 10% discount</p>
           </div>
-          <div class="healthInsurance">
-            <div class="insuranceTypeHeading">
-              Health Insurance
-            </div>
-            <p>You have no home insurance cover. Click here to setup one and get 10% discount</p>
-          </div>
-          <% }); %>
+
+
+            <aside class="insuranceIcons">
+                <h3>You have three policies under your account, <span>click to view details</span></h3>
+
+                <div class="tiles">
+                    <a href="/home"><div class="tile">
+                        <div class="glow">
+                            <img class="tileImage" src="images/wash/house.svg">
+                        </div>
+                        <div class="label ">HOME</div>
+                    </div></a>
+                    <a href="/health"><div class="tile">
+                        <div class="glow">
+                            <img class="tileImage" src="images/wash/health.svg">
+                        </div>
+                        <div class="label ">HEALTH</div>
+                    </div></a>
+                    <a href="/auto"><div class="tile">
+                        <div class="glow">
+                            <img class="tileImage " src="images/wash/car.svg">
+                        </div>
+                        <div class="label ">AUTO</div>
+                    </div></a>
+                </div>
+            </aside><!-- secondary -->
+
 
         </div>
 
