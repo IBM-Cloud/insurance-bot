@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/template/head.ejs %>
+</head>
+
+<body class="<%= page %>">
+
+<div class="container">
+  <div class="outline">
+    <% include partials/template/header.ejs %>
+
+    <% include partials/template/headEnding.ejs %>
+
+    <section class="layout">
+      <div class="primary">
+
+        <div id="fb-root"></div>
+
+        <div class="welcome">
+
+
+
+
+
+          <div class="carInsurance">
+            <div class="insuranceTypeHeading">Car Insurance</div>
+
+            <ul class="insuranceLeftList">
+              <li>Car Policy Number: <span><%= memberData.CarI.plan_id %></span></li>
+              <li>Car Policy Start Date: <span><%= memberData.CarI.eligibility[0].eligibility_dates.start %></span></li>
+              <li>Car Policy Renewal Date: <span><%= memberData.CarI.eligibility[0].eligibility_dates.end %></span></li>
+              <li>Policy Duration: <span><%= memberData.CarI.eligibility[0].period_in_months %></span> months</li>
+              <li>Cover Type: <span><%= memberData.CarI.eligibility[0].ptype %></span></li>
+
+              <li>No Claim Bo Discount: <span><%=memberData.CarI.eligibility[0].NoClaimBoDiscount[4] %></span> </li>
+              <li>Fire & Theft Protection: <span><%=memberData.CarI.eligibility[0].FireTheft[1]  %></span> </li>
+              <li>Step back bonus protection: <span><%=memberData.CarI.eligibility[0].CarReplacement[0]  %></span> </li>
+              <li>New Car replacement: <span><%=memberData.CarI.eligibility[0].CarReplacement[1]  %></span> </li>
+              <li>Windscreen Cover <span><%=memberData.CarI.eligibility[0].Windscreen[1]  %></span></li>
+              <li>Replacement locks up to: <span><%=memberData.CarI.eligibility[0].ReplacementLocks[1]  %></span></li>
+              <li>Outstanding Balance: <span><%=memberData.CarI.eligibility[0].OutstandingBalance  %></span> </li>
+            </ul>
+            <ul class="insuranceRightList">
+              <li><a href="#">How to make a claim</a></li>
+              <li><a href="#">Change your car</a></li>
+              <li><a href="#">Change your address</a></li>
+              <li><a href="#">Add another driver</a></li>
+              <li><a href="#">View policy document</a></li>
+              <li><a href="#">Temporary change of car</a></li>
+            </ul>
+          </div>
+
+
+
+          <hr>
+
+          <div class="userInsurance">
+
+            <div class="ui-userInfo">
+              <div class="userTypeHeading">USER ACCOUNT</div>
+
+              <ul>
+                <li>Account Reference: <span><%= memberData.payer_id %></span></li>
+                <li>Full Name: <span><%= memberData.payer_name %></span></li>
+                <li>Date Of Birth: <span><%= memberData.dob %></span></li>
+                <li>Gender: <span><%= memberData.gender %></span></li>
+                <li>Email: <span><%= memberData.registered_email %></span></li>
+                <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
+                <li class="address">Address: <span>
+                    <%= memberData.address.street_line_1 %><br>
+                    <%= memberData.address.street_line_2 %><br>
+                    <%= memberData.address.zip %>,<br>
+                    <%= memberData.address.country %>
+                  </span></li>
+                <li class="edit_account_details"><a href="#">Edit User Account</a></li>
+
+              </ul>
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+
+      </div><!-- primary section -->
+
+      <aside class="secondary">
+
+      </aside><!-- secondary -->
+
+    </section><!-- layout section -->
+
+
+  </div>
+</div>
+
+<% include partials/template/footer.ejs %>
+<% include partials/template/analytics.ejs %>
+
+</body>
+</html>

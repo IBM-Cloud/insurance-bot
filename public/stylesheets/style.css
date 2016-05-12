@@ -20,7 +20,7 @@ html {
     align-content: center;
     align-self: center;
     flex-direction: column;
-    max-width: 800px;
+    width: 800px;
 }
 
 .banner {
@@ -114,6 +114,14 @@ a {
     margin-bottom: 10px;
     font-weight: bolder;
 }
+.userTypeHeading {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: white;
+    margin-bottom: 10px;
+    background: #5E7C9C;
+    font-weight: bolder;
+}
 
 .insuranceLeftList{
     margin: 0px;
@@ -122,6 +130,16 @@ a {
     margin-right: 4%;
     float: left;
     margin-top: 10px;
+    background: #547190;
+}
+
+.ui-userInfo{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    background: #547190;
 }
 
 .insuranceRightList{
@@ -135,6 +153,7 @@ a {
 
 
 
+
 .insuranceLeftList li{
     list-style: none;
     padding: 15px;
@@ -144,6 +163,30 @@ a {
     font-weight: normal;
 
 
+}
+.ui-userInfo li{
+    list-style: none;
+    padding: 10px 15px;
+    background: #547190;
+    font-size: 14px;
+    color: white;
+    font-weight: normal;
+
+
+}
+
+.address {
+    height: 72px;
+}
+
+.edit_account_details a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #FFFFFF;
+    border: 1px solid #9DB8D5;
+    padding: 5px 11px;
+    border-radius: 3px;
+    background: #2394A2;
 }
 
 .insuranceLeftList li span{
@@ -158,12 +201,29 @@ a {
     float: right;
     text-align: center;
 }
+.ui-userInfo li span{
+    font-weight: bold;
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: #F4FAF8;
+    width: 70%;
+    float: right;
+    text-align: left;
+    opacity: 0.7;
+}
+
+.ui-userInfo ul{
+    padding: 0px;
+}
 
 .insuranceRightList li{
     list-style: none;
     padding: 10px;
     background: #547EAA;
-    margin: 10px;
+    margin: 10px 0px;
     font-size: 14px;
     text-align: center;
     color: black;
@@ -189,8 +249,13 @@ a {
     width: 100%;
     float: left;
 }
+.userInsurance{
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
 
-.healthInsurance p, .homeInsurance p, .carInsurance p{
+.healthInsurance p, .homeInsurance p, .carInsurance p, .userInsurance p{
     color: #547190;
 }
 
@@ -227,6 +292,15 @@ a {
     height: 200px;
     border-radius: 5px;
     border: 1px dotted #c8e7e0;
+    margin: 0px;
+    background: white;
+}
+.homePage .tile{
+    margin: 30px;
+}
+
+.tiles a{
+    border: none;
     margin: 30px;
 }
 
@@ -242,7 +316,6 @@ a {
 
 .hero {
     border-radius: 5px;
-    /* border: 1px dotted #c8e7e0; */
     margin-top: 20px;
     margin-left: 36px;
     margin-right: 36px;
@@ -280,16 +353,40 @@ a {
     margin: -10px;
 }
 
-.member{
+.homePage .member{
 
 
+    height: 150px;
 
 }
 
 .member .welcome{
-    min-height: 900px;
+    height: 800px;
     border: 1px dotted #c8e7e0;
 }
+.health .welcome{
+    height: 1100px;
+    border: 1px dotted #c8e7e0;
+}
+.auto .welcome{
+    height: 1200px;
+    border: 1px dotted #c8e7e0;
+}
+.home .welcome{
+    height: 1100px;
+    border: 1px dotted #c8e7e0;
+}
+
+
+.insuranceIcons{
+    float: left;
+    width: 100%;
+}
+.insuranceIcons h3{
+    text-align: center;
+}.insuranceIcons h3 span{
+     color: #547190;
+ }
 
 footer {
 
@@ -308,3 +405,29 @@ footer {
     align-self: center;
 
 }
+.ui-insuranceLeftList{
+    margin: 0px;
+    padding: 0px;
+}
+.benefits{
+    padding: 15px;
+    color: white;
+}
+.benefits h3 > span{
+    width: 100%;
+    border-bottom: 1px dotted white;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.benefits .benefits-heading{
+    color: #c8e7e0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.benefits p{
+    color: white;
+    font-size: 12px;
+}
+
