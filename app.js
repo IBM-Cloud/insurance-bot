@@ -16,6 +16,7 @@ var cfenv = require('cfenv');
 
 // create a new express server
 var app = express();
+var http=require('http');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -167,15 +168,32 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     require('dotenv').load();
     // Load the Cloudant library.
     var Cloudant = require('cloudant');
-    var username = process.env.cloudant_username;
+    //using Bluemix VCAP_SERVICES for Cloudant credentials
+    if (process.env.VCAP_SERVICES) {
+        // Running on Bluemix. Parse the port and host that we've been assigned.
+        var env = JSON.parse(process.env.VCAP_SERVICES);
+        var host = process.env.VCAP_APP_HOST;
+        var port = process.env.VCAP_APP_PORT;
+        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
+        // Also parse Cloudant settings.
+        var credentials = env['cloudantNoSQLDB'][0]['credentials'];
+        username =credentials.username;
+        password = credentials.password;
+
+    // Initialize the library with CloudCo account.
+     cloudant = Cloudant({
+        account: username,
+        password: password
+    });
+    }
+  /*  var username = process.env.cloudant_username;
     var password = process.env.cloudant_password;
 
     // Initialize the library with CloudCo account.
     var cloudant = Cloudant({
         account: username,
         password: password
-    });
-
+    });*/
 
     cloudant.db.list(function (err, allDbs) {
         console.log('All my databases: %s', allDbs)
