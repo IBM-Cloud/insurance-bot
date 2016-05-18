@@ -11,11 +11,11 @@
     "express": "4.13.x",
     "ejs": "~2.3.3",
     "body-parser": "~1.13.2",
-    "dotenv":   "*"
+    "dotenv": "*",
+    "log4js": "~0.6.36"
   },
   "repository": {},
   "engines": {
     "node": "4.2.x"
   }
 }
-

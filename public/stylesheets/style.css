@@ -430,3 +430,25 @@ footer {}
     color: white;
     font-size: 12px;
 }
+
+.about {
+    display: flex;
+    padding: 30px;
+    font-size: 14px;
+    border: 1px dotted #c8e7e0;
+    border-radius: 4px;
+}
+
+.cloudvideo {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    border: display: flex;
+    padding: 30px;
+    font-size: 14px;
+    border: 1px dotted #c8e7e0;
+    border-radius: 4px;
+}

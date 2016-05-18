@@ -1,0 +1,8 @@
+deploy:
+  edge: true
+  provider: cloudfoundry
+  api: api.ng.bluemix.net
+  username: $CF_USER
+  password: $CF_PASS
+  organization: $CF_ORG
+  space: demos
