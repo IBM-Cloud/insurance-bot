@@ -1,467 +1,432 @@
-        body,
-        html {
-            background-color: #fff;
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-            font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-            color: #547190;
-        }
-        
-        .container {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-        }
-        
-        .outline {
-            display: flex;
-            align-content: center;
-            align-self: center;
-            flex-direction: column;
-            width: 800px;
-        }
-        
-        .banner {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        
-        .titleArea {
-            margin-top: 40px;
-            margin-bottom: 40px;
-            flex: 2 0 0;
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-        }
-        
-        .logo {}
-        
-        a {
-            text-decoration: none;
-            font-weight: bold;
-            color: #547190;
-            border-bottom: 1px solid #c8e7e0;
-            padding-bottom: 1px;
-            font-family: sans-serif;
-            font-size: 14px;
-        }
-        
-        .logoImage {
-            height: 46px;
-        }
-        
-        .name {
-            font-weight: 700;
-            font-size: 22px;
-            margin-left: 10px;
-        }
-        
-        .loginArea {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-        }
-        
-        .menu {
-            font-size: 14px;
-            font-weight: 500;
-            margin-right: 20px;
-        }
-        
-        .fb {}
-        
-        .welcome {
-            font-size: 16px;
-            margin: 20px;
-            background: #f4faf8;
-            padding: 20px;
-            border-radius: 4px;
-            color: #6e97a2;
-            border: 1px dotted #c8e7e0;
-        }
-        
-        .welcomeText {
-            font-size: 16px;
-            margin: 20px;
-            background: #2394a2;
-            padding: 20px;
-            border-radius: 4px;
-            color: white;
-            border: 1px solid #c8e7e0;
-        }
-        
-        .welcomeText span {
-            color: #c8e7e0;
-        }
-        
-        .carInsurance {
-            margin-bottom: 100px;
-            width: 100%;
-            float: left;
-        }
-        
-        .insuranceTypeHeading {
-            font-size: 18px;
-            margin: -21px;
-            background: #c8e7e0;
-            padding: 10px 20px;
-            color: black;
-            margin-bottom: 10px;
-            font-weight: bolder;
-        }
-        
-        .userTypeHeading {
-            font-size: 18px;
-            padding: 10px 20px;
-            color: white;
-            margin-bottom: 10px;
-            background: #5E7C9C;
-            font-weight: bolder;
-        }
-        
-        .insuranceLeftList {
-            margin: 0px;
-            padding: 0px;
-            width: 48%;
-            margin-right: 4%;
-            float: left;
-            margin-top: 10px;
-            background: #547190;
-        }
-        
-        .ui-userInfo {
-            margin: 0px;
-            padding: 0px;
-            width: 100%;
-            float: left;
-            margin-top: 10px;
-            background: #547190;
-        }
-        
-        .insuranceRightList {
-            margin: 0px;
-            padding: 0px;
-            width: 40%;
-            float: right;
-            text-transform: uppercase;
-        }
-        
-        .insuranceLeftList li {
-            list-style: none;
-            padding: 15px;
-            background: #547190;
-            font-size: 12px;
-            color: white;
-            font-weight: normal;
-        }
-        
-        .ui-userInfo li {
-            list-style: none;
-            padding: 10px 15px;
-            background: #547190;
-            font-size: 14px;
-            color: white;
-            font-weight: normal;
-        }
-        
-        .address {
-            height: 72px;
-        }
-        
-        .edit_account_details a {
-            text-decoration: none;
-            font-weight: bold;
-            color: #FFFFFF;
-            border: 1px solid #9DB8D5;
-            padding: 5px 11px;
-            border-radius: 3px;
-            background: #2394A2;
-        }
-        
-        .insuranceLeftList li span {
-            font-weight: bold;
-            color: black;
-            font-size: 13px;
-            padding-left: 5px;
-            padding: 2px 5px;
-            border-radius: 2px;
-            background: white;
-            width: 140px;
-            float: right;
-            text-align: center;
-        }
-        
-        .ui-userInfo li span {
-            font-weight: bold;
-            color: black;
-            font-size: 13px;
-            padding-left: 5px;
-            padding: 5px 10px;
-            border-radius: 2px;
-            background: #F4FAF8;
-            width: 70%;
-            float: right;
-            text-align: left;
-            opacity: 0.7;
-        }
-        
-        .ui-userInfo ul {
-            padding: 0px;
-        }
-        
-        .insuranceRightList li {
-            list-style: none;
-            padding: 10px;
-            background: #547EAA;
-            margin: 10px 0px;
-            font-size: 14px;
-            text-align: center;
-            color: black;
-            font-weight: bold;
-            border-radius: 2px;
-        }
-        
-        .insuranceRightList li a {
-            color: #c8e7e0;
-        }
-        
-        .insuranceRightList li a:hover {
-            color: white;
-        }
-        
-        .homeInsurance {
-            margin-bottom: 40px;
-            width: 100%;
-            float: left;
-        }
-        
-        .healthInsurance {
-            margin-bottom: 40px;
-            width: 100%;
-            float: left;
-        }
-        
-        .userInsurance {
-            margin-bottom: 40px;
-            width: 100%;
-            float: left;
-        }
-        
-        .healthInsurance p,
-        .homeInsurance p,
-        .carInsurance p,
-        .userInsurance p {
-            color: #547190;
-        }
-        
-        .github {
-            font-size: 16px;
-            margin: 36px;
-            margin-top: 50px;
-            /* background: #f6fbf9; */
-            padding: 20px;
-            border-radius: 4px;
-            /* border: 1px solid #c8e7e0; */
-            text-align: center;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            height: 100px;
-        }
-        
-        .tiles {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
-        
-        .tile {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 200px;
-            height: 200px;
-            border-radius: 5px;
-            border: 1px dotted #c8e7e0;
-            margin: 0px;
-            background: white;
-        }
-        
-        .homePage .tile {
-            margin: 30px;
-        }
-        
-        .tiles a {
-            border: none;
-            margin: 30px;
-        }
-        
-        .timeImage {}
-        
-        .label {
-            text-align: center;
-            margin: 20px;
-            margin-top: 10px;
-            font-weight: 700;
-            font-size: 12px;
-        }
-        
-        .hero {
-            border-radius: 5px;
-            margin-top: 20px;
-            margin-left: 36px;
-            margin-right: 36px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            background: #f4faf8;
-        }
-        
-        .json-respond {
-            border-radius: 5px;
-            border: 1px solid #a2b1c1;
-            margin-top: 20px;
-            margin-left: 36px;
-            margin-right: 36px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-        
-        .heroText {
-            width: 360px;
-            padding: 20px;
-            padding-left: 80px;
-        }
-        
-        .botImage {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            height: 180px;
-            margin: -10px;
-        }
-        
-        .homePage .member {
-            height: 150px;
-        }
-        
-        .member .welcome {
-            height: 800px;
-            border: 1px dotted #c8e7e0;
-        }
-        
-        .health .welcome {
-            height: 1100px;
-            border: 1px dotted #c8e7e0;
-        }
-        
-        .auto .welcome {
-            height: 1200px;
-            border: 1px dotted #c8e7e0;
-        }
-        
-        .home .welcome {
-            height: 1100px;
-            border: 1px dotted #c8e7e0;
-        }
-        
-        .insuranceIcons {
-            float: left;
-            width: 100%;
-        }
-        
-        .insuranceIcons h3 {
-            text-align: center;
-        }
-        
-        .insuranceIcons h3 span {
-            color: #547190;
-        }
-        
-        footer {}
-        
-        .glow {
-            margin: 20px;
-            background: #f4faf8;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            height: 100px;
-            width: 70px;
-            border-radius: 100px;
-            padding: 20px;
-            align-self: center;
-        }
-        
-        .ui-insuranceLeftList {
-            margin: 0px;
-            padding: 0px;
-        }
-        
-        .benefits {
-            padding: 15px;
-            color: white;
-        }
-        
-        .benefits h3 > span {
-            width: 100%;
-            border-bottom: 1px dotted white;
-            float: left;
-            margin-bottom: 15px;
-        }
-        
-        .benefits .benefits-heading {
-            color: #c8e7e0;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .benefits p {
-            color: white;
-            font-size: 12px;
-        }
-        
-        .about {
-            display: flex;
-            flex-direction: row;
-            padding: 30px;
-            border: 1px solid #c8e7e0;
-            align-items: center;
-        }
-        
-        .message {
-            font-size: 12px;
-        }
-        
-        .cloudvideo {
-            margin-top: 30px;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            border: 1px solid #C8E7E0;
-        }
-        
-        .home {
-            text-decoration: none;
-            font-weight: bold;
-            color: #547190;
-            border-bottom: none;
-            padding-bottom: 1px;
-            font-family: sans-serif;
-            font-size: 22px;
-        }
+body,
+html {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #547190;
+    /*    -webkit-font-smoothing: antialiased;*/
+}
+
+.container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.outline {
+    display: flex;
+    align-content: center;
+    align-self: center;
+    flex-direction: column;
+    width: 800px;
+}
+
+.banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titleArea {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    flex: 2 0 0;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.logo {}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #547190;
+    border-bottom: 1px solid #c8e7e0;
+    padding-bottom: 1px
+}
+
+.logoImage {
+    height: 46px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.loginArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.menu {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.fb {}
+
+.welcome {
+    font-size: 16px;
+    margin: 20px;
+    background: #f4faf8;
+    padding: 20px;
+    border-radius: 4px;
+    color: #6e97a2;
+    border: 1px dotted #c8e7e0;
+}
+
+.welcomeText {
+    font-size: 16px;
+    margin: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    color: #547190;
+    font-weight: bold;
+    border: 1px solid #c8e7e0;
+}
+
+.welcomeText span {
+    color: #c8e7e0;
+}
+
+.carInsurance {
+    margin-bottom: 100px;
+    width: 100%;
+    float: left;
+}
+
+.insuranceTypeHeading {
+    font-size: 18px;
+    margin: -21px;
+    background: #c8e7e0;
+    padding: 10px 20px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.userTypeHeading {
+    font-size: 18px;
+    padding: 10px 10px;
+    color: #547190;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.insuranceLeftList {
+    margin: 0px;
+    padding: 0px;
+    width: 48%;
+    margin-right: 4%;
+    float: left;
+    margin-top: 10px;
+    background: #547190;
+}
+
+.ui-userInfo {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+}
+
+.insuranceRightList {
+    margin: 0px;
+    padding: 0px;
+    width: 40%;
+    float: right;
+    text-transform: uppercase;
+}
+
+.insuranceLeftList li {
+    list-style: none;
+    padding: 15px;
+    background: #547190;
+    font-size: 12px;
+    color: white;
+    font-weight: normal;
+}
+
+.ui-userInfo li {
+    list-style: none;
+    padding: 10px 15px;
+    /* background: #547190; */
+    font-size: 14px;
+    color: #547190;
+    font-weight: normal;
+}
+
+.address {
+    height: 72px;
+}
+
+.edit_account_details a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #547190;
+    border: 1px solid #9DB8D5;
+    padding: 5px 11px;
+    border-radius: 3px;
+    /* background: #2394A2; */
+}
+
+.insuranceLeftList li span {
+    font-weight: bold;
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: white;
+    width: 140px;
+    float: right;
+    text-align: center;
+}
+
+.ui-userInfo li span {
+    font-weight: bold;
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: white;
+    width: 70%;
+    float: right;
+    text-align: left;
+    opacity: 0.7;
+}
+
+.ui-userInfo ul {
+    padding: 0px;
+}
+
+.insuranceRightList li {
+    list-style: none;
+    padding: 10px;
+    background: #547EAA;
+    margin: 10px 0px;
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.insuranceRightList li a {
+    color: #c8e7e0;
+}
+
+.insuranceRightList li a:hover {
+    color: white;
+}
+
+.homeInsurance {
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
+
+.healthInsurance {
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
+
+.userInsurance {
+    margin-bottom: 40px;
+    width: 100%;
+    float: left;
+}
+
+.healthInsurance p,
+.homeInsurance p,
+.carInsurance p,
+.userInsurance p {
+    color: #547190;
+}
+
+.github {
+    font-size: 16px;
+    margin: 36px;
+    margin-top: 50px;
+    /* background: #f6fbf9; */
+    padding: 20px;
+    border-radius: 4px;
+    /* border: 1px solid #c8e7e0; */
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+.tiles {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    border: 1px dotted #c8e7e0;
+    margin: 0px;
+    background: white;
+}
+
+.homePage .tile {
+    margin: 30px;
+}
+
+.tiles a {
+    border: none;
+    margin: 30px;
+}
+
+.timeImage {}
+
+.label {
+    text-align: center;
+    margin: 20px;
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.hero {
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 36px;
+    margin-right: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #f4faf8;
+}
+
+.json-respond {
+    border-radius: 5px;
+    border: 1px solid #a2b1c1;
+    margin-top: 20px;
+    margin-left: 36px;
+    margin-right: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.heroText {
+    width: 360px;
+    padding: 20px;
+    padding-left: 80px;
+}
+
+.botImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 180px;
+    margin: -10px;
+}
+
+.homePage .member {
+    height: 150px;
+}
+
+.member .welcome {
+    height: 450px;
+    border: 1px dotted #c8e7e0;
+}
+
+.health .welcome {
+    height: 1100px;
+    border: 1px dotted #c8e7e0;
+}
+
+.auto .welcome {
+    height: 1200px;
+    border: 1px dotted #c8e7e0;
+}
+
+.home .welcome {
+    height: 1100px;
+    border: 1px dotted #c8e7e0;
+}
+
+.insuranceIcons {
+    float: left;
+    width: 100%;
+}
+
+.insuranceIcons h3 {
+    text-align: center;
+}
+
+.insuranceIcons h3 span {
+    color: #547190;
+}
+
+footer {}
+
+.glow {
+    margin: 20px;
+    background: #f4faf8;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100px;
+    width: 70px;
+    border-radius: 100px;
+    padding: 20px;
+    align-self: center;
+}
+
+.ui-insuranceLeftList {
+    margin: 0px;
+    padding: 0px;
+}
+
+.benefits {
+    padding: 15px;
+    color: white;
+}
+
+.benefits h3 > span {
+    width: 100%;
+    border-bottom: 1px dotted white;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.benefits .benefits-heading {
+    color: #c8e7e0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.benefits p {
+    color: white;
+    font-size: 12px;
+}
