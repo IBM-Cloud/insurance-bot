@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include partials/template/head.ejs %>
+</head>
+
+<body class="<%= page %>">
+
+    <div class="container">
+        <div class="outline">
+            <% include partials/template/header.ejs %>
+                <% include partials/template/loginLinks.ejs %>
+                    <% include partials/template/headEnding.ejs %>
+                        <section class="layout">
+
+                            <div class="about">
+                                <img class="botImage" src="images/wash/bot.svg">
+                                <div class="message">Hi, I'm Ana the analytic robot - Welcome to the Cloud Insurance Company.
+                                    <p><strong>This is an experimental site for trying out cognitive computing ideas in the context of insurance. Although it might look like things are real, it's all conceptual.</strong></p>
+
+                                    <p>We think that using messaging technologies and a little artificial intelligence might speed up interactions with our policy information.</p>
+
+                                    <p>We're just getting started, but you can see what we have in mind below.</p>
+                                </div>
+                            </div>
+
+                            <div class="cloudvideo">
+                                <iframe src="https://player.vimeo.com/video/165460548" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                <p><a href="https://vimeo.com/165460548">policy-bot</a> from <a href="https://vimeo.com/user30487092">Anton McConville</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+                            </div>
+                            <!-- secondary -->
+
+                            <!-- div class="json-respond">
+
+
+                            </div -->
+
+                        </section>
+                        <!-- layout section -->
+        </div>
+    </div>
+
+    <% include partials/template/footer.ejs %>
+        <% include partials/template/jsdefaults.ejs %>
+            <% include partials/template/analytics.ejs %>
+</body>
+
+</html>

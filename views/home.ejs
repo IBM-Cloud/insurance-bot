@@ -1,129 +1,131 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <% include partials/template/head.ejs %>
+    <% include partials/template/head.ejs %>
 </head>
 
 <body class="<%= page %>">
 
-<div class="container">
-  <div class="outline">
-    <% include partials/template/header.ejs %>
+    <div class="container">
+        <div class="outline">
+            <% include partials/template/header.ejs %>
 
-    <% include partials/template/headEnding.ejs %>
+                <% include partials/template/headEnding.ejs %>
 
-    <section class="layout">
-      <div class="primary">
+                    <section class="layout">
+                        <div class="primary">
+                            <div id="fb-root"></div>
+                            <div class="welcome">
+                                <div class="homeInsurance">
+                                    <div class="insuranceTypeHeading">Home Insurance</div>
 
-        <div id="fb-root"></div>
+                                    <div class="insuranceLeftList">
+                                        <ul class="ui-insuranceLeftList">
+                                            <li>Home Policy Number: <span><%= memberData.HomeI.plan_id %></span></li>
+                                            <li>Home Policy Start Date: <span><%= memberData.HomeI.created_date %></span></li>
+                                            <li>Home Policy Renewal Date: <span><%= memberData.HomeI.renewal_date %></span></li>
+                                            <li>Policy Duration: <span><%= memberData.HomeI.period_in_months %> months</span></li>
+                                        </ul>
 
-
-        <div class="welcome">
-
-
-
-
-          <div class="homeInsurance">
-            <div class="insuranceTypeHeading">Home Insurance</div>
-
-            <div class="insuranceLeftList">
-              <ul class="ui-insuranceLeftList">
-                <li>Home Policy Number: <span><%= memberData.HomeI.plan_id %></span></li>
-                <li>Home Policy Start Date: <span><%= memberData.HomeI.created_date %></span></li>
-                <li>Home Policy Renewal Date: <span><%= memberData.HomeI.renewal_date %></span></li>
-                <li>Policy Duration: <span><%= memberData.HomeI.period_in_months %> months</span></li>
-              </ul>
-
-              <div class="benefits">
-                <h3><span>Benefits</span></h3>
-                <p>
-                  <span class="benefits-heading">
+                                        <div class="benefits">
+                                            <h3><span>Benefits</span></h3>
+                                            <p>
+                                                <span class="benefits-heading">
                     <%=memberData.HomeI.eligibility[0].accidental %>
-                  </span><br>
-                  <%=memberData.HomeI.eligibility[0].accidental_description %>
-                </p>
+                  </span>
+                                                <br>
+                                                <%=memberData.HomeI.eligibility[0].accidental_description %>
+                                            </p>
 
-                <p>
-                  <span class="benefits-heading">
+                                            <p>
+                                                <span class="benefits-heading">
                     <%=memberData.HomeI.eligibility[0].bicycle %>
-                  </span><br>
-                  <%=memberData.HomeI.eligibility[0].bicycle_description %>
-                </p>
+                  </span>
+                                                <br>
+                                                <%=memberData.HomeI.eligibility[0].bicycle_description %>
+                                            </p>
 
-                <p>
-                  <span class="benefits-heading">
+                                            <p>
+                                                <span class="benefits-heading">
                     <%=memberData.HomeI.eligibility[0].theft %>
-                  </span><br>
-                  <%=memberData.HomeI.eligibility[0].theft_description %>
-                </p>
+                  </span>
+                                                <br>
+                                                <%=memberData.HomeI.eligibility[0].theft_description %>
+                                            </p>
 
-                <p>
-                  <span class="benefits-heading">
+                                            <p>
+                                                <span class="benefits-heading">
                     <%=memberData.HomeI.eligibility[0].mortgage %>
-                  </span><br>
-                  <%=memberData.HomeI.eligibility[0].mortgage_description %>
-                </p>
+                  </span>
+                                                <br>
+                                                <%=memberData.HomeI.eligibility[0].mortgage_description %>
+                                            </p>
 
-              </div>
-
-
-            </div>
+                                        </div>
 
 
-            <ul class="insuranceRightList">
-                <li><a href="#">How to make a claim</a></li>
-                <li><a href="#">Add other benefits</a></li>
-                <li><a href="#">View policy document</a></li>
-            </ul>
+                                    </div>
 
-          </div>
-                    <hr>
-          <div class="userInsurance">
 
-            <div class="ui-userInfo">
-              <div class="userTypeHeading">USER ACCOUNT</div>
+                                    <ul class="insuranceRightList">
+                                        <li><a href="#">How to make a claim</a></li>
+                                        <li><a href="#">Add other benefits</a></li>
+                                        <li><a href="#">View policy document</a></li>
+                                    </ul>
 
-              <ul>
-                <li>Account Reference: <span><%= memberData.payer_id %></span></li>
-                <li>Full Name: <span><%= memberData.payer_name %></span></li>
-                <li>Date Of Birth: <span><%= memberData.dob %></span></li>
-                <li>Gender: <span><%= memberData.gender %></span></li>
-                <li>Email: <span><%= memberData.registered_email %></span></li>
-                <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
-                <li class="address">Address: <span>
+                                </div>
+                                <hr>
+                                <div class="userInsurance">
+
+                                    <div class="ui-userInfo">
+                                        <div class="userTypeHeading">USER ACCOUNT</div>
+
+                                        <ul>
+                                            <li>Account Reference: <span><%= memberData.payer_id %></span></li>
+                                            <li>Full Name: <span><%= memberData.payer_name %></span></li>
+                                            <li>Date Of Birth: <span><%= memberData.dob %></span></li>
+                                            <li>Gender: <span><%= memberData.gender %></span></li>
+                                            <li>Email: <span><%= memberData.registered_email %></span></li>
+                                            <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
+                                            <li class="address">Address: <span>
                     <%= memberData.address.street_line_1 %><br>
                     <%= memberData.address.street_line_2 %><br>
                     <%= memberData.address.zip %>,<br>
                     <%= memberData.address.country %>
                   </span></li>
-                <li class="edit_account_details"><a href="#">Edit User Account</a></li>
+                                            <li class="edit_account_details"><a href="#">Edit User Account</a></li>
 
-              </ul>
+                                        </ul>
 
-            </div>
-          </div>
+                                    </div>
+                                </div>
 
+
+
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- primary section -->
+
+                        <aside class="secondary">
+
+                        </aside>
+                        <!-- secondary -->
+
+                    </section>
+                    <!-- layout section -->
 
 
         </div>
+    </div>
 
-
-
-
-      </div><!-- primary section -->
-
-      <aside class="secondary">
-
-      </aside><!-- secondary -->
-
-    </section><!-- layout section -->
-
-
-  </div>
-</div>
-
-<% include partials/template/footer.ejs %>
-<% include partials/template/analytics.ejs %>
+    <% include partials/template/footer.ejs %>
+        <% include partials/template/analytics.ejs %>
 
 </body>
+
 </html>

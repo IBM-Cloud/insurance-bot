@@ -44,10 +44,17 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     //Home page
     app.get("/", function (req, res) {
         res.render('index', {
-            title: 'Home',
+            title: 'Cloud Insurance Co - the one with the AI Bot',
             page: 'homePage',
         });
     });
+
+    app.get("/about", function (req, res) {
+        res.render('about', {
+            title: 'Cloud Insurance Co - About',
+            page: 'homePage',
+        });
+    })
 
 
     //member page
