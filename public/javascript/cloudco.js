@@ -84,16 +84,9 @@
          xmlhttp.onreadystatechange = function () {
              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                  var data = JSON.parse(xmlhttp.responseText);
-                 console.log(data);
 
                  if (data.outcome === true) {
-                     window.location = "../member?name=" + response.name;
-
-                     //                     var div = document.getElementById('MemberName');
-                     //                     div.innerHTML = div.innerHTML + response.name;
-                     //
-                     //                     document.getElementById('status').innerHTML = ''
-                     //                     alert('Welcome ' + response.name);
+                     window.location = "../member?name=" + response.name + '&&id=' + response.id;
                  }
              };
          }

@@ -55,14 +55,13 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         });
     })
 
-
     //member page
     app.get("/member", function (req, res) {
 
         var name = req.query.name;
+        var id = req.query.id;
 
         var db = cloudant.db.use("insurance");
-
 
         db.list(function (err, body) {
 
@@ -77,12 +76,14 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
                 var item;
 
+                /* TODO: should be able to use a find method here */
+
                 rows.forEach(function (account) {
                     db.get(account.id, {
                         revs_info: true
                     }, function (err, doc) {
 
-                        if (doc.name === name) {
+                        if (doc.name === name && doc.id === id) {
 
                             res.render('member', {
                                 title: 'Policy Member',
@@ -94,31 +95,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                 })
             }
         })
-
-        //        db.find({
-        //            selector: {
-        //                name: req.query.name
-        //            }
-        //        }, function (er, result) {
-        //            if (er) {
-        //                throw er;
-        //            }
-        //
-        //            console.log('Found %d documents', result.docs.length);
-        //            for (var i = 0; i < result.docs.length; i++) {
-        //                //console.log('  Doc id: %s', result.docs[i]._id);
-        //
-        //                res.render('member', {
-        //                    title: 'Policy Member',
-        //                    page: 'member',
-        //                    memberData: result.docs[i]
-        //                });
-        //            }
-        //        });
-        //        });
-
     });
-
 
 
     app.param('id', function (req, res, next, id) {
@@ -229,7 +206,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         var env = JSON.parse(process.env.VCAP_SERVICES);
         var host = process.env.VCAP_APP_HOST;
         var port = process.env.VCAP_APP_PORT;
-        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
+        //        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
         // Also parse Cloudant settings.
         var credentials = env['cloudantNoSQLDB'][0]['credentials'];
         username = credentials.username;
@@ -285,7 +262,6 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
     });
 
-
     //Quering with a query string
     // localhost:6001/insurance/query?payername=John+Appleseed -- pass a payername as query string.
     // localhost: 6001 / insurance / query -- Will pick default user for now.
@@ -309,6 +285,4 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
         });
     });
-
-
 });

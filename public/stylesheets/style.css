@@ -179,7 +179,7 @@ a {
     border: 1px solid #9DB8D5;
     padding: 5px 11px;
     border-radius: 3px;
-    /* background: #2394A2; */
+    background: #FFFFFF;
 }
 
 .insuranceLeftList li span {
@@ -451,4 +451,12 @@ footer {}
     font-size: 14px;
     border: 1px dotted #c8e7e0;
     border-radius: 4px;
+}
+
+.home {
+    text-decoration: none;
+    font-weight: bold;
+    color: #547190;
+    border-bottom: none;
+    padding-bottom: 1px;
 }
