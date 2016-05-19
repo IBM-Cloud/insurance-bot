@@ -21,7 +21,7 @@
                             <div class="welcomeText">
 
                                 Hi
-                                <%= memberData.first_name %>, <span id="MemberName"></span>Welcome to CloudCo Insurance
+                                <%= memberData.name %>, <span id="MemberName"></span>Welcome to CloudCo Insurance
 
                             </div>
 
@@ -34,17 +34,12 @@
                                         <div class="userTypeHeading">USER ACCOUNT</div>
 
                                         <ul>
-                                            <li>Account Reference: <span><%= memberData.payer_id %></span></li>
-                                            <li>Full Name: <span><%= memberData.payer_name %></span></li>
-                                            <li>Date Of Birth: <span><%= memberData.dob %></span></li>
+                                            <li>Account Reference: <span><%= memberData.id %></span></li>
+                                            <li>Full Name: <span><%= memberData.name %></span></li>
+                                            <li>Date Of Birth: <span><%= memberData.birthday %></span></li>
                                             <li>Gender: <span><%= memberData.gender %></span></li>
-                                            <li>Email: <span><%= memberData.registered_email %></span></li>
-                                            <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
                                             <li class="address">Address: <span>
-                    <%= memberData.address.street_line_1 %><br>
-                    <%= memberData.address.street_line_2 %><br>
-                    <%= memberData.address.zip %>,<br>
-                    <%= memberData.address.country %>
+
                   </span></li>
                                             <li class="edit_account_details"><a href="#">Edit User Account</a></li>
 

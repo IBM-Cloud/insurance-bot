@@ -9,6 +9,9 @@
      if (response.status === 'connected') {
          // Logged into your app and Facebook.
          testAPI();
+
+         /* write status into local storage, and redirect the page */
+
      } else if (response.status === 'not_authorized') {
          // The person is logged into Facebook, but not your app.
          document.getElementById('status').innerHTML = '';
@@ -27,6 +30,7 @@
          statusChangeCallback(response);
      });
  }
+
 
  window.fbAsyncInit = function () {
      FB.init({
@@ -71,12 +75,30 @@
      FB.api('/me', function (response) {
          console.log('Successful login for: ' + response.name);
          var fbbutton = document.getElementById('fbbutton');
-         window.location = "../member";
+         //         window.location = "../person/" + response.id + '~' + response.name;
 
-         var div = document.getElementById('MemberName');
-         div.innerHTML = div.innerHTML + response.name;
+         var url = "../person/" + response.id + '~' + response.name;
 
-         document.getElementById('status').innerHTML = ''
-         alert('Welcome ' + response.name);
+         var xmlhttp = new XMLHttpRequest();
+
+         xmlhttp.onreadystatechange = function () {
+             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                 var data = JSON.parse(xmlhttp.responseText);
+                 console.log(data);
+
+                 if (data.outcome === true) {
+                     window.location = "../member?name=" + response.name;
+
+                     //                     var div = document.getElementById('MemberName');
+                     //                     div.innerHTML = div.innerHTML + response.name;
+                     //
+                     //                     document.getElementById('status').innerHTML = ''
+                     //                     alert('Welcome ' + response.name);
+                 }
+             };
+         }
+
+         xmlhttp.open("GET", url, true);
+         xmlhttp.send();
      });
  }

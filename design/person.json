@@ -1,10 +1,15 @@
 {
-    name: 'Harry Potter',
-    id: '12345',
-    birthday: '1980-07-31',
-    gender: 'male',
-    address: '',
-    postcode: '',
+    name: '',
+    id: 0,
+    birthday: '',
+    gender: '',
+    address: {
+        number: '',
+        street: '',
+        state: '',
+        country: '',
+        postcode: ''
+    },
     logins: [],
     policies: [{
         policy: 'health',
@@ -16,7 +21,7 @@
                         limit: 100,
                         available: 0,
                         window: 2,
-                        amount: 1,
+                        instances: 1,
                         begin: '2016-01-01',
                         percentage: 80,
                         claims: [{
@@ -29,7 +34,7 @@
                         limit: 300,
                         available: 30,
                         window: 2,
-                        amount: 'limit',
+                        instances: 'limit',
                         begin: '2016-01-01',
                         percentage: 80,
                         claims: [{
@@ -45,7 +50,7 @@
                     item: 'Cleaning',
                     limit: 'unlimited',
                     window: 1,
-                    amount: 6,
+                    instances: 6,
                     begin: '2016-01-01',
                     percentage: 90,
                     claims: []
@@ -53,7 +58,7 @@
                     item: 'Orthodontics',
                     limit: 3000,
                     window: 'lifetime',
-                    amount: 'limit',
+                    instances: 'limit',
                     begin: '2016-01-01',
                     percentage: 80,
                     claims: []
@@ -61,7 +66,7 @@
                     item: 'X-Ray',
                     limit: 'unlimited',
                     window: 1,
-                    amount: 1,
+                    instances: 1,
                     begin: '2016-01-01',
                     percentage: 90,
                     claims: []
