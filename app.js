@@ -22,6 +22,8 @@ var logger = log4js.getLogger('application');
 var app = express();
 var http = require('http');
 
+var manager = require('./account');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,7 +38,7 @@ var appEnv = cfenv.getAppEnv();
 app.listen(appEnv.port, '0.0.0.0', function () {
 
     // print a message when the server starts listening
-    console.log("server starting on " + appEnv.url);
+    logger.info("server starting on " + appEnv.url);
 
     //Home page
     app.get("/", function (req, res) {
@@ -80,8 +82,6 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                         revs_info: true
                     }, function (err, doc) {
 
-                        console.log('found: ' + doc.id + ' ' + doc.name);
-
                         if (doc.name === name) {
 
                             res.render('member', {
@@ -89,8 +89,6 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                                 page: 'member',
                                 memberData: doc
                             });
-
-                            console.log('found a match');
                         }
                     })
                 })
@@ -121,185 +119,18 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
     });
 
-    function createAccountData(identifier, name) {
 
-        var data = {
-            name: name,
-            id: identifier,
-            birthday: '',
-            gender: '',
-            address: {
-                number: '',
-                street: '',
-                state: '',
-                country: '',
-                postcode: ''
-            },
-            logins: [],
-            policies: [{
-                policy: 'health',
-                categories: [{
-                        category: 'vision',
-                        symbol: '',
-                        coverage: [{
-                                item: 'Eye Test',
-                                limit: 100,
-                                available: 0,
-                                window: 2,
-                                instances: 1,
-                                begin: '2016-01-01',
-                                percentage: 80,
-                                claims: [{
-                                    date: '2016-05-17',
-                                    amount: 80
-                        }]
-                            },
-                            {
-                                item: 'Eye Wear',
-                                limit: 300,
-                                available: 30,
-                                window: 2,
-                                instances: 'limit',
-                                begin: '2016-01-01',
-                                percentage: 80,
-                                claims: [{
-                                    date: '2016-05-17',
-                                    amount: 337.50
-                        }]
-                    }]
-                },
-                    {
-                        category: 'dental',
-                        symbol: '',
-                        coverage: [{
-                            item: 'Cleaning',
-                            limit: 'unlimited',
-                            window: 1,
-                            instances: 6,
-                            begin: '2016-01-01',
-                            percentage: 90,
-                            claims: []
-            }, {
-                            item: 'Orthodontics',
-                            limit: 3000,
-                            window: 'lifetime',
-                            instances: 'limit',
-                            begin: '2016-01-01',
-                            percentage: 80,
-                            claims: []
-            }, {
-                            item: 'X-Ray',
-                            limit: 'unlimited',
-                            window: 1,
-                            instances: 1,
-                            begin: '2016-01-01',
-                            percentage: 90,
-                            claims: []
-            }]
-        }]
-    }]
-        }
-
-        return data;
-
-    }
-
-    function findAccount(id, name, response, callback) {
-
-        var outcome = false;
-
-        logger.info('Quick Analysis ...');
-
-        var db = cloudant.db.use("insurance");
-
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                logger.info("Number of accounts: " + count);
-
-                var item;
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        console.log('found: ' + doc.id + ' ' + doc.name);
-
-                        if (doc.id === id && doc.name === name) {
-                            outcome = true;
-                            callback(true, response, id, name);
-
-                            console.log('found a match');
-                        }
-                    })
-                })
-
-                if (count === 0 || outcome === false) {
-                    callback(outcome, response, id, name);
-                }
-            }
-        })
-    }
-
-    function handleAccountOutcome(outcome, response, id, name) {
-
-        console.log(outcome);
-
-        if (outcome === false) {
-
-            /* create a new account */
-
-            var db = cloudant.db.use("insurance");
-
-            var account = createAccountData(id, name);
-
-            db.insert(account, id, function (err, body, header) {
-                if (err) {
-
-                    console.log('account insertion failure', err.message)
-
-                    response.end(JSON.stringify({
-                        outcome: outcome
-                    }));
-
-                } else {
-                    console.log('Inserted a new account into the database.');
-
-                    response.end(JSON.stringify({
-                        outcome: true
-                    }));
-                }
-            });
-
-        } else {
-
-            console.log('returning a record');
-            response.end(JSON.stringify({
-                outcome: outcome
-            }));
-        }
-    }
 
     app.param('id', function (req, res, next, id) {
 
-        var components = id.split('~')
+        /* Facebook creds come in like this: id~name */
 
-        console.log(id);
+        var components = id.split('~')
 
         var identifier = components[0];
         var name = components[1];
 
-        console.log('id: ' + identifier);
-        console.log('name: ' + name);
-
-        findAccount(identifier, name, res, handleAccountOutcome);
+        manager.findAccount(identifier, name, res, manager.handleAccountOutcome);
     });
 
     app.get("/person/:id", function (req, res) {});
