@@ -22,6 +22,14 @@ var logger = log4js.getLogger('application');
 var app = express();
 var http = require('http');
 
+//bodyparser for POST requests.
+var bodyParser = require('body-parser');
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+// parse application/json 
+app.use(bodyParser.json());
+
 var manager = require('./account');
 
 // view engine setup
@@ -285,4 +293,88 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
         });
     });
+    
+        //-------------------------------------------------------------------
+    // CRUD operations
+    //-------------------------------------------------------------------
+
+    //Create a doc
+    function createDocument(req, res) {
+        var db = cloudant.db.use(req.body.db);
+        var cloudantResponse = this;
+        db.insert(req.body.doc, req.body.docname, function (error, response) {
+            if (!error) {
+                logger.info("Response" + response.result);
+                cloudantResponse.result = JSON.stringify(response);
+                return cloudantResponse;
+            }
+
+        });
+
+        res.send(cloudantResponse.result);
+        res.end();
+    }
+
+    //POST call to create a document.
+    app.post("/api/createdoc", createDocument);
+
+    //Read a doc
+    function readDocument(req, res) {
+        var db = cloudant.db.use(req.query.db);
+        var cloudantResponse = this;
+        db.get(req.query.docname, {
+            revs_info: true
+        }, function (error, response) {
+            if (!error) {
+                logger.info("Response" + response.result);
+                cloudantResponse.result = JSON.stringify(response);
+                return cloudantResponse;
+                //res.send(response.result);
+            }
+
+        });
+        res.send(cloudantResponse.result);
+        res.end();
+    }
+
+    //GET call to read a document.
+    app.get("/api/readdoc", readDocument);
+
+    //update a doc 
+    function updateDocument(req, res) {
+        var db = cloudant.db.use(req.body.db);
+        var cloudantResponse = this;
+        db.insert(req.body.doc, req.body.docname, function (error, response) {
+            if (!error) {
+               logger.info("Response" + response.result);
+                cloudantResponse.result = JSON.stringify(response.result);
+                return cloudantResponse;
+            }
+
+        });
+        res.send(cloudantResponse.result);
+        res.end();
+    }
+
+    //PUT call to update a document.
+    app.put("/api/updatedoc", updateDocument);
+
+    //Delete a doc
+    function deleteDocument(req, res) {
+        var db = cloudant.db.use(req.query.db);
+        var cloudantResponse = this;
+        db.destroy(req.query.docname, req.query.rev, function (error, response) {
+            if (!error) {
+                logger.info("Response" + response.result);
+                cloudantResponse.result = JSON.stringify(response.result);
+                return cloudantResponse;
+            }
+
+        });
+        res.send(cloudantResponse.result);
+        res.end();
+    }
+    //DELETE call to delete a document.
+    app.delete("/api/deletedoc", deleteDocument);
+
 });
