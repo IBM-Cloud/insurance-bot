@@ -44,10 +44,9 @@
                 <li>Health Policy Renewal Date: <span><%= memberData.policies[0].policyrenewal %></span></li>
               </ul>
 
-              <div class="benefits">
-                <h3><span>Benefits</span></h3>
-                <p>
 
+
+              <ul class="ui-insuranceLeftList">
                     <%
                     var CClaims = memberData.policies[0].categories[0].coverage[0].claims;
                     var CCoverage = memberData.policies[0].categories[0].coverage;
@@ -59,25 +58,29 @@
                       for(cat_i=0; cat_i<CCategories.length; cat_i++)
                       {
                         %>
-                          <span class="benefits-heading"><b>COVER:</b> <%=CCategories[cat_i].category %></span><br>
-                          <%=CCategories[cat_i].description %><br><br>
+                        <div class="benefits">
+                          <span><%=CCategories[cat_i].category %></span>
+                        </div>
+                          <%=CCategories[cat_i].description %>
                         <%
 
 
                         for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
                         {
                             %>
-                              <b>TYPE: </b> <%=CCategories[cat_i].coverage[cov_i].item %><br>
-                              <b>LIMIT: </b> <%=CCategories[cat_i].coverage[cov_i].limit %><br>
-                              <b>COVER BEGIN: </b> <%=CCategories[cat_i].coverage[cov_i].begin %><br>
-                              <b>PERCENTAGE: </b> <%=CCategories[cat_i].coverage[cov_i].percentage %><br>
-                              <b>No. Of Claims: </b> <%= CCategories[cat_i].coverage[cov_i].claims.length %><br>
+                            <li>TYPE: <span><%=CCategories[cat_i].coverage[cov_i].item %></span></li>
+                            <li>LIMIT: <span><%=CCategories[cat_i].coverage[cov_i].limit %></span></li>
+                            <li>COVER BEGIN: <span><%=CCategories[cat_i].coverage[cov_i].begin %></span></li>
+                            <li>PERCENTAGE: <span><%=CCategories[cat_i].coverage[cov_i].percentage %></span></li>
+                            <li>No. Of Claims: <span><%= CCategories[cat_i].coverage[cov_i].claims.length %></span></li>
+
                             <%
                               for(cla_i=0; cla_i<CCategories[cat_i].coverage[cov_i].claims.length; cla_i++)
                               {
                                   %>
-                                  <b>CLAIM DATE: </b> <%= CCategories[cat_i].coverage[cov_i].claims[cla_i].date %><br>
-                                  <b>CLAIM AMOUNT: </b> <%= CCategories[cat_i].coverage[cov_i].claims[cla_i].amount %><br><br>
+                                  <li>CLAIM DATE: <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].date %></span></li>
+                                  <li>CLAIM AMOUNT: <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].amount %></span></li>
+
                                   <%
 
                                   if( CCategories[cat_i].coverage[cov_i].claims[cla_i].amount  > CCategories[cat_i].coverage[cov_i].limit )
@@ -87,6 +90,9 @@
                                     <%
                                   }
                               }
+                              %>
+                              <br>
+                              <%
                         }
                       }
                     }else
@@ -95,9 +101,11 @@
                     <%}
                     %>
                 </p>
-              </div>
 
+              </ul>
             </div>
+
+
 
 
             <ul class="insuranceRightList">

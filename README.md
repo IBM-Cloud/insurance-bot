@@ -6,6 +6,10 @@
 
 **THIS APP IS A WORK IN PROGRESS**
 
+## Note:
+Login is in progress,
+
+
 ## Running the app on Bluemix
 <Either add a Deploy to Bluemix button or include detailed instructions on how to deploy the app(s) to Bluemix after cloning the repo. You should assume the user has little to no Bluemix experience and provide as much detail as possible in the steps.>
 
@@ -16,7 +20,8 @@ Coming Soon!
 <Create sub-sections to break down larger sequences of steps. General rule of thumb is that you should not have more than 9 steps in each task. Include sanity checks, or ways for the developer to confirm what they have done so far is correct, every 20 steps. Also, avoid directly referencing the Bluemix UI components so that ACE changes don't invalidate your README.>
 
 ## Run the app locally
-Coming soon!
+In order to run the app locally you must add your cloudant credentials to the app.js file in lines 86 to 88. 
+
 
 ## API documentation
 The API methods that this component exposes requires the discovery of dependent services, however, the API will gracefully fail when they are not available.

@@ -82,6 +82,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
       username = '';
       password = '';
 
+
       // Initialize the library with CloudCo account.
       var cloudant = Cloudant({
           account: username,
