@@ -51,7 +51,7 @@ module.exports = {
     /*  Takes an id and a name and an outcome if the the id and name were found.
         Possible outcomes   - no account found - so create one, return true.
                             - no account found - so create one, fail, return false.
-                            - account found - return true. 
+                            - account found - return true.
     */
 
     handleAccountOutcome: function (outcome, response, id, name) {

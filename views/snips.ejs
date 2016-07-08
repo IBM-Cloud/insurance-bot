@@ -1,0 +1,536 @@
+/*
+        db.find({
+            selector: {
+                payer_name: (!req.query.payername) ? 'Tom Murphy' : req.query.payername
+            }
+        }, function (er, result) {
+            if (er) {
+                throw er;
+            }
+
+            console.log('Found %d documents', result.docs.length);
+            for (var i = 0; i < result.docs.length; i++) {
+                //console.log('  Doc id: %s', result.docs[i]._id);
+
+                res.render('auto', {
+                    title: 'Auto Policy',
+                    page: 'auto',
+                    memberData: result.docs[i]
+                });
+            }
+        });
+        */
+
+
+
+            <ul class="insuranceLeftList">
+              <!--
+              <li>Car Policy Number: <span><%= memberData.CarI.plan_id %></span></li>
+              <li>Car Policy Start Date: <span><%= memberData.CarI.eligibility[0].eligibility_dates.start %></span></li>
+              <li>Car Policy Renewal Date: <span><%= memberData.CarI.eligibility[0].eligibility_dates.end %></span></li>
+              <li>Policy Duration: <span><%= memberData.CarI.eligibility[0].period_in_months %></span> months</li>
+              <li>Cover Type: <span><%= memberData.CarI.eligibility[0].ptype %></span></li>
+
+              <li>No Claim Bo Discount: <span><%=memberData.CarI.eligibility[0].NoClaimBoDiscount[4] %></span> </li>
+              <li>Fire & Theft Protection: <span><%=memberData.CarI.eligibility[0].FireTheft[1]  %></span> </li>
+              <li>Step back bonus protection: <span><%=memberData.CarI.eligibility[0].CarReplacement[0]  %></span> </li>
+              <li>New Car replacement: <span><%=memberData.CarI.eligibility[0].CarReplacement[1]  %></span> </li>
+              <li>Windscreen Cover <span><%=memberData.CarI.eligibility[0].Windscreen[1]  %></span></li>
+              <li>Replacement locks up to: <span><%=memberData.CarI.eligibility[0].ReplacementLocks[1]  %></span></li>
+              <li>Outstanding Balance: <span><%=memberData.CarI.eligibility[0].OutstandingBalance  %></span> </li>
+            -->
+            <li>Car Policy Number: <span>Coming soon!</span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <div class="homeInsurance">
+
+                                                <div class="insuranceTypeHeading">Home Insurance</div>
+
+                                                <div class="insuranceLeftList">
+                                                    <ul class="ui-insuranceLeftList">
+                                                        <li>Home Policy Number: <span><%= memberData.HomeI.plan_id %></span></li>
+                                                        <li>Home Policy Start Date: <span><%= memberData.HomeI.created_date %></span></li>
+                                                        <li>Home Policy Renewal Date: <span><%= memberData.HomeI.renewal_date %></span></li>
+                                                        <li>Policy Duration: <span><%= memberData.HomeI.period_in_months %> months</span></li>
+                                                    </ul>
+
+                                                    <div class="benefits">
+                                                        <h3><span>Benefits</span></h3>
+                                                        <p>
+                                                            <span class="benefits-heading">
+                                <%=memberData.HomeI.eligibility[0].accidental %>
+                              </span>
+                                                            <br>
+                                                            <%=memberData.HomeI.eligibility[0].accidental_description %>
+                                                        </p>
+
+                                                        <p>
+                                                            <span class="benefits-heading">
+                                <%=memberData.HomeI.eligibility[0].bicycle %>
+                              </span>
+                                                            <br>
+                                                            <%=memberData.HomeI.eligibility[0].bicycle_description %>
+                                                        </p>
+
+                                                        <p>
+                                                            <span class="benefits-heading">
+                                <%=memberData.HomeI.eligibility[0].theft %>
+                              </span>
+                                                            <br>
+                                                            <%=memberData.HomeI.eligibility[0].theft_description %>
+                                                        </p>
+
+                                                        <p>
+                                                            <span class="benefits-heading">
+                                <%=memberData.HomeI.eligibility[0].mortgage %>
+                              </span>
+                                                            <br>
+                                                            <%=memberData.HomeI.eligibility[0].mortgage_description %>
+                                                        </p>
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <ul class="insuranceRightList">
+                                                    <li><a href="#">How to make a claim</a></li>
+                                                    <li><a href="#">Add other benefits</a></li>
+                                                    <li><a href="#">View policy document</a></li>
+                                                </ul>
+
+                                            </div>
+
+
+
+
+
+
+
+
+                                                                                  <b>COVER:</b> <%=memberData.policies[0].categories[0].category %>
+                                                                                  </span><br>
+                                                                                  <%=memberData.policies[0].categories[0].description %><br><br>
+                                                                                  <b>TEST: </b> <%=memberData.policies[0].categories[0].coverage[0].item %><br>
+                                                                                  <b>LIMIT: </b> <%=memberData.policies[0].categories[0].coverage[0].limit %><br>
+                                                                                  <b>COVER BEGIN: </b> <%=memberData.policies[0].categories[0].coverage[0].begin %><br>
+                                                                                  <b>PERCENTAGE: </b> <%=memberData.policies[0].categories[0].coverage[0].percentage %><br>
+                                                                                  <b>No. Of Claims: </b> <%= memberData.policies[0].categories[0].coverage[0].claims.length %><br>
+
+                                                                                  <%
+                                                                                  var CClaims = memberData.policies[0].categories[0].coverage[0].claims;
+                                                                                  var i;
+                                                                                  if(CClaims.length > 0)
+                                                                                  {
+                                                                                    for(i=0; i<CClaims.length; i++)
+                                                                                    {
+                                                                                        %>
+                                                                                        <b>CLAIM DATE: </b> <%= CClaims[i].date %><br>
+                                                                                        <b>CLAIM AMOUNT: </b> <%= CClaims[i].amount %><br><br>
+                                                                                        <%
+                                                                                    }
+                                                                                  }else
+                                                                                  {%>
+                                                                                    <b>NO claims recored found</b>
+                                                                                  <%}
+                                                                                  %>
+
+
+                                                                                  <b>TEST: </b> <%=memberData.policies[0].categories[0].coverage[1].item %><br>
+                                                                                  <b>LIMIT: </b> <%=memberData.policies[0].categories[0].coverage[1].limit %><br>
+                                                                                  <b>COVER BEGIN: </b> <%=memberData.policies[0].categories[0].coverage[1].begin %><br>
+                                                                                  <b>PERCENTAGE: </b> <%=memberData.policies[0].categories[0].coverage[1].percentage %><br>
+                                                                                  <b>NO. OF CLAIMS: </b> <%= memberData.policies[0].categories[0].coverage[1].claims[0] %><br>
+
+
+
+
+
+                                                              <br><br><br><br><br><br>
+
+                                                              <span class="benefits-heading">
+                                                              <b>COVER:</b> <%=memberData.policies[0].categories[1].category %>
+                                                              </span><br>
+                                                              <%=memberData.policies[0].categories[1].description %><br><br>
+                                                              <b>TEST: </b> <%=memberData.policies[0].categories[1].coverage[0].item %><br>
+                                                              <b>LIMIT: </b> <%=memberData.policies[0].categories[1].coverage[0].limit %><br>
+                                                              <b>COVER BEGIN: </b> <%=memberData.policies[0].categories[1].coverage[0].begin %><br>
+                                                              <b>PERCENTAGE: </b> <%=memberData.policies[0].categories[1].coverage[0].percentage %><br>
+                                                              <b>NO. OF CLAIMS: </b> <%= memberData.policies[0].categories[1].coverage[0].claims[0] %><br>
+
+
+
+
+
+                                                              if(CClaims.length > 0)
+                                                              {
+                                                                for(ci=0; ci<CClaims.length; ci++)
+                                                                {
+                                                                    %>
+                                                                    <b>CLAIM DATE: </b> <%= CClaims[ci].date %><br>
+                                                                    <b>CLAIM AMOUNT: </b> <%= CClaims[ci].amount %><br><br>
+                                                                    <%
+                                                                }
+                                                              }else
+                                                              {%>
+                                                                <b>NO claims recored found</b>
+                                                              <%}
+
+
+
+
+
+
+
+
+
+
+                                                              {
+                                                                 "_id":"877491299045719",
+                                                                 "_rev":"5-4aa61898145352441ddf3ea8569728d5",
+                                                                 "name":"Twana Daniel",
+                                                                 "id":"877491299045719",
+                                                                 "birthday":"",
+                                                                 "gender":"",
+                                                                 "address":{
+                                                                    "number":"",
+                                                                    "street":"",
+                                                                    "state":"",
+                                                                    "country":"",
+                                                                    "postcode":""
+                                                                 },
+                                                                 "created_at":"2014-05-12 - 03:15:10",
+                                                                 "policy_renewal_date":"2017-05-11",
+                                                                 "logins":[
+
+                                                                 ],
+                                                                 "policies":[
+                                                                    {
+                                                                       "policy":"health",
+                                                                       "categories":[
+                                                                          {
+                                                                             "category":"Vision",
+                                                                             "description":"Reading Glasses comes under general policy",
+                                                                             "symbol":"",
+                                                                             "coverage":[
+                                                                                {
+                                                                                   "item":"Eye Test",
+                                                                                   "limit":100,
+                                                                                   "available":0,
+                                                                                   "window":2,
+                                                                                   "instances":1,
+                                                                                   "begin":"2016-01-01",
+                                                                                   "percentage":80,
+                                                                                   "claims":[
+                                                                                      {
+                                                                                         "date":"2016-05-17",
+                                                                                         "amount":80
+                                                                                      }
+                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                   "item":"Eye Wear",
+                                                                                   "limit":300,
+                                                                                   "available":30,
+                                                                                   "window":2,
+                                                                                   "instances":"limit",
+                                                                                   "begin":"2016-01-01",
+                                                                                   "percentage":80,
+                                                                                   "claims":[
+                                                                                      {
+                                                                                         "date":"2016-05-17",
+                                                                                         "amount":337.5
+                                                                                      }
+                                                                                   ]
+                                                                                }
+                                                                             ]
+                                                                          },
+                                                                          {
+                                                                             "category":"Dental",
+                                                                             "description":"Members can access orthodontic benefits as well as an enhanced range of dental benefits.",
+                                                                             "symbol":"",
+                                                                             "coverage":[
+                                                                                {
+                                                                                   "item":"Cleaning",
+                                                                                   "limit":"unlimited",
+                                                                                   "window":1,
+                                                                                   "instances":6,
+                                                                                   "begin":"2016-01-01",
+                                                                                   "percentage":90,
+                                                                                   "claims":[
+
+                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                   "item":"Orthodontics",
+                                                                                   "limit":3000,
+                                                                                   "window":"lifetime",
+                                                                                   "instances":"limit",
+                                                                                   "begin":"2016-01-01",
+                                                                                   "percentage":80,
+                                                                                   "claims":[
+
+                                                                                   ]
+                                                                                },
+                                                                                {
+                                                                                   "item":"X-Ray",
+                                                                                   "limit":"unlimited",
+                                                                                   "window":1,
+                                                                                   "instances":1,
+                                                                                   "begin":"2016-01-01",
+                                                                                   "percentage":90,
+                                                                                   "claims":[
+
+                                                                                   ]
+                                                                                }
+                                                                             ]
+                                                                          }
+                                                                       ]
+                                                                    }
+                                                                 ]
+                                                              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                              {
+  "_id": "877491299045719",
+  "_rev": "5-4aa61898145352441ddf3ea8569728d5",
+  "name": "Twana Daniel",
+  "id": "877491299045719",
+  "birthday": "",
+  "gender": "",
+  "address": {
+    "number": "",
+    "street": "",
+    "state": "",
+    "country": "",
+    "postcode": ""
+  },
+  "created_at": "2014-05-12 - 03:15:10",
+  "policy_renewal_date": "2017-05-11",
+  "logins": [],
+  "policies": [
+    {
+      "policy": "health",
+      "categories": [
+        {
+          "category": "Vision",
+          "description": "Reading Glasses comes under general policy",
+          "symbol": "",
+          "coverage": [
+            {
+              "item": "Eye Test",
+              "limit": 100,
+              "available": 0,
+              "window": 2,
+              "instances": 1,
+              "begin": "2016-01-01",
+              "percentage": 80,
+              "claims": [
+                {
+                  "date": "2016-05-17",
+                  "amount": 80
+                }
+              ]
+            },
+            {
+              "item": "Eye Wear",
+              "limit": 300,
+              "available": 30,
+              "window": 2,
+              "instances": "limit",
+              "begin": "2016-01-01",
+              "percentage": 80,
+              "claims": [
+                {
+                  "date": "2016-05-17",
+                  "amount": 337.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "category": "Dental",
+          "description": "Members can access orthodontic benefits as well as an enhanced range of dental benefits.",
+          "symbol": "",
+          "coverage": [
+            {
+              "item": "Cleaning",
+              "limit": "unlimited",
+              "window": 1,
+              "instances": 6,
+              "begin": "2016-01-01",
+              "percentage": 90,
+              "claims": []
+            },
+            {
+              "item": "Orthodontics",
+              "limit": 3000,
+              "window": "lifetime",
+              "instances": "limit",
+              "begin": "2016-01-01",
+              "percentage": 80,
+              "claims": []
+            },
+            {
+              "item": "X-Ray",
+              "limit": "unlimited",
+              "window": 1,
+              "instances": 1,
+              "begin": "2016-01-01",
+              "percentage": 90,
+              "claims": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 14
+if(CCoverage[i].claims.length > 0)
+{
+  for(ci=0; ci<CCoverage[i].claims.length; ci++)
+  {
+      %>
+      <b>CLAIM DATE: </b> <%= CCoverage[i].claims[ci].date %><br>
+      <b>CLAIM AMOUNT: </b> <%= CCoverage[i].claims[ci].amount %><br><br>
+      <%
+  }
+}else
+{%>
+  <b>NO claims recored found</b>
+<%}
+
+
+
+
+
+
+
+
+
+if(CCoverage.length > 0)
+{
+  for(i=0; i<CCoverage.length; i++)
+  {
+      %>
+
+      <span class="benefits-heading"><b>COVER:</b> <%=CCategories.category %></span><br>
+      <%=CCategories.description %><br><br>
+      <b>TEST: </b> <%=CCoverage[i].item %><br>
+      <b>LIMIT: </b> <%=CCoverage[i].limit %><br>
+      <b>COVER BEGIN: </b> <%=CCoverage[i].begin %><br>
+      <b>PERCENTAGE: </b> <%=CCoverage[i].percentage %><br>
+      <b>No. Of Claims: </b> <%= CCoverage[i].claims.length %><br>
+      <%
+
+        if(CCoverage[i].claims.length > 0)
+        {
+          for(ci=0; ci<CCoverage[i].claims.length; ci++)
+          {
+              %>
+              <b>CLAIM DATE: </b> <%= CCoverage[i].claims[ci].date %><br>
+              <b>CLAIM AMOUNT: </b> <%= CCoverage[i].claims[ci].amount %><br><br>
+              <%
+          }
+        }else
+        {%>
+          <b>NO claims recored found</b>
+        <%}
+
+  }
+}else
+{%>
+  <b>NO cover recored found</b>
+<%}
+%>
+
+
+
+
+
+
+
+
+
+<%
+  for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
+  {
+      %>
+      <option name="type" value="<%=CCategories[cat_i].coverage[cov_i].item %>" > <%=CCategories[cat_i].coverage[cov_i].item %> </option>
+      <%
+  }
+}
+%><!-- Closing cover type loop -->
+
+
+
+<script>
+  function selectChanged(newvalue) {
+    if(newvalue == 'vision'){
+      </script>
+
+        <option name="type" value="1" ><%= memberData.policies[0].categories[0].coverage %></option>
+
+      <script>
+    }else if (newvalue == 'dental') {
+
+
+    }
+  }
+</script>

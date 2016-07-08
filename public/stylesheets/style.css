@@ -70,14 +70,13 @@ a {
 .menu {
     font-size: 14px;
     font-weight: 500;
-    margin-right: 20px;
 }
 
 .fb {}
 
 .welcome {
     font-size: 16px;
-    margin: 20px;
+    width: 760px;
     background: #f4faf8;
     padding: 20px;
     border-radius: 4px;
@@ -87,7 +86,7 @@ a {
 
 .welcomeText {
     font-size: 16px;
-    margin: 20px;
+    margin: 20px 0px;
     background: white;
     padding: 20px;
     border-radius: 4px;
@@ -145,10 +144,24 @@ a {
 .insuranceRightList {
     margin: 0px;
     padding: 0px;
-    width: 40%;
+    width: 48%;
     float: right;
     text-transform: uppercase;
 }
+
+
+.insuranceRightListClaims {
+    margin: 0px;
+    padding: 0px;
+    width: 48%;
+    float: right;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background: #547190;
+    height: 920px;
+
+}
+
 
 .insuranceLeftList li {
     list-style: none;
@@ -172,7 +185,7 @@ a {
     height: 72px;
 }
 
-.edit_account_details a {
+.edit_account_details input, .edit_account_details a {
     text-decoration: none;
     font-weight: bold;
     color: #547190;
@@ -202,27 +215,89 @@ a {
     padding-left: 5px;
     padding: 5px 10px;
     border-radius: 2px;
+    background: #ececec;
+    width: 70%;
+    float: right;
+    text-align: left;
+    opacity: 0.7;
+    border: 1px solid #9a9a9a;
+
+
+}
+
+.ui-userInfo li select {
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    border-radius: 0px;
+    background: #ececec;
+    width: 73%;
+    float: right;
+    text-align: left;
+    opacity: 0.7;
+    border-radius: 0px;
+    height: 32px;
+    border: 1px solid #9a9a9a;
+}
+.redC{
+  color: #830808;
+  font-size: 14px;
+  text-decoration: underline;
+  font-weight: bold;  
+}
+
+.ui-userInfo li input[type="text"], .userRadio {
+    color: black;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: white;
+    width: 70%;
+    float: right;
+    text-align: left;
+    border: 1px solid #547190;
+    opacity: 0.7;
+
+
+}
+
+.ui-userInfo li textarea {
+    color: black;
+    border: 1px solid #547190;
+    font-size: 13px;
+    padding-left: 5px;
+    padding: 5px 10px;
+    border-radius: 2px;
     background: white;
     width: 70%;
     float: right;
     text-align: left;
     opacity: 0.7;
+
 }
+
+
 
 .ui-userInfo ul {
     padding: 0px;
 }
 
 .insuranceRightList li {
-    list-style: none;
-    padding: 10px;
-    background: #547EAA;
-    margin: 10px 0px;
-    font-size: 14px;
-    text-align: center;
-    color: black;
-    font-weight: bold;
-    border-radius: 2px;
+  list-style: none;
+  padding: 10px;
+  /* background: #547EAA; */
+  margin: 10px 0px;
+  /* font-size: 14px; */
+  text-align: center;
+  /* color: black; */
+  /* font-weight: bold; */
+  border-radius: 2px;
+  background-color: #2ba6e1;
+  color: white;
+  /* padding: 8px 5px; */
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .insuranceRightList li a {
@@ -361,18 +436,27 @@ a {
 }
 
 .health .welcome {
-    height: 1100px;
+    height: 100%;
     border: 1px dotted #c8e7e0;
+    float: left;
+}
+
+.editUser .welcome {
+    height: 100%;
+    border: 1px dotted #c8e7e0;
+    float: left;
 }
 
 .auto .welcome {
-    height: 1200px;
-    border: 1px dotted #c8e7e0;
+  height: 100%;
+  border: 1px dotted #c8e7e0;
+  float: left;
 }
 
 .home .welcome {
-    height: 1100px;
-    border: 1px dotted #c8e7e0;
+  height: 100%;
+  border: 1px dotted #c8e7e0;
+  float: left;
 }
 
 .insuranceIcons {
@@ -388,7 +472,6 @@ a {
     color: #547190;
 }
 
-footer {}
 
 .glow {
     margin: 20px;
@@ -421,9 +504,10 @@ footer {}
 }
 
 .benefits .benefits-heading {
-    color: #c8e7e0;
-    font-size: 12px;
-    font-weight: bold;
+  color: #2aa9e5;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .benefits p {
@@ -460,3 +544,58 @@ footer {}
     border-bottom: none;
     padding-bottom: 1px;
 }
+
+
+
+/*  dropdown menu styling  */
+.dropbtn {
+  background-color: #2ba6e1;
+  color: white;
+  padding: 8px 5px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin: 0px 5%;
+  border-radius: 2px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 30px;
+    padding-top: 15px;
+    width: 91%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin: 0px 5%;
+
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 14px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+
+
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #4890b3;
+}
+/*  END == dropdown menu styling  */

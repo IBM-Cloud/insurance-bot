@@ -38,10 +38,9 @@
                                             <li>Full Name: <span><%= memberData.name %></span></li>
                                             <li>Date Of Birth: <span><%= memberData.birthday %></span></li>
                                             <li>Gender: <span><%= memberData.gender %></span></li>
-                                            <li class="address">Address: <span>
+                                            <li class="address">Address: <textarea disabled name="address" rows="4" cols="50" > <%= memberData.address %> </textarea></li>
 
-                  </span></li>
-                                            <li class="edit_account_details"><a href="#">Edit User Account</a></li>
+                                            <li class="edit_account_details"><a href="../editUser?name=<%=memberData.name%>&&id=<%=memberData.id%>">Edit User Account</a></li>
 
                                         </ul>
 
@@ -51,18 +50,10 @@
 
 
                             <aside class="insuranceIcons">
-                                <h3>You have three policies under your account, <span>click to view details</span></h3>
+                                <h3>You have <a href="../health?name=<%=memberData.name%>&&id=<%=memberData.id%>">HEALTH</a> policy cover vaild until <%= memberData.policies[0].policyrenewal %> </h3>
 
                                 <div class="tiles">
-                                    <a href="/home">
-                                        <div class="tile">
-                                            <div class="glow">
-                                                <img class="tileImage" src="images/wash/house.svg">
-                                            </div>
-                                            <div class="label ">HOME</div>
-                                        </div>
-                                    </a>
-                                    <a href="/health">
+                                    <a href="../health?name=<%=memberData.name%>&&id=<%=memberData.id%>">
                                         <div class="tile">
                                             <div class="glow">
                                                 <img class="tileImage" src="images/wash/health.svg">
@@ -70,21 +61,9 @@
                                             <div class="label ">HEALTH</div>
                                         </div>
                                     </a>
-                                    <a href="/auto">
-                                        <div class="tile">
-                                            <div class="glow">
-                                                <img class="tileImage " src="images/wash/car.svg">
-                                            </div>
-                                            <div class="label ">AUTO</div>
-                                        </div>
-                                    </a>
                                 </div>
                             </aside>
                             <!-- secondary -->
-
-
-
-
 
 
 

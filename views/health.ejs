@@ -5,103 +5,104 @@
 </head>
 
 <body class="<%= page %>">
-
 <div class="container">
   <div class="outline">
     <% include partials/template/header.ejs %>
-
     <% include partials/template/headEnding.ejs %>
+
 
     <section class="layout">
       <div class="primary">
-
         <div id="fb-root"></div>
+
 
         <div class="welcome">
 
+                    <div class="userInsurance">
 
+                      <div class="ui-userInfo">
+                        <div class="userTypeHeading">USER ACCOUNT</div>
+                        <ul>
+                            <li>Account Reference: <span><%= memberData.id %></span></li>
+                            <li>Full Name: <span><%= memberData.name %></span></li>
+                            <li>Date Of Birth: <span><%= memberData.birthday %></span></li>
+                            <li>Gender: <span><%= memberData.gender %></span></li>
+                            <li class="address">Address: <textarea disabled name="address" rows="4" cols="50" > <%= memberData.address %> </textarea></li>
+                            <li class="edit_account_details"><a href="../editUser?name=<%=memberData.name%>&&id=<%=memberData.id%>">Edit User Account</a></li>
+                        </ul>
 
+                      </div>
+                    </div>
+                    <hr>
 
           <div class="healthInsurance">
             <div class="insuranceTypeHeading">Health Insurance</div>
 
-
             <div class="insuranceLeftList">
               <ul class="ui-insuranceLeftList">
-                <li>Health Policy Number: <span><%= memberData.HealthI.plan_id %></span></li>
-                <li>Health Policy Start Date: <span><%= memberData.HealthI.created_date %></span></li>
-                <li>Health Policy Renewal Date: <span><%= memberData.HealthI.renewal_date %></span></li>
-                <li>Health Policy Duration: <span><%= memberData.HealthI.period_in_months %> years </span> </li>
+                <li>Health Policy Start Date: <span><%= memberData.policies[0].createdat %></span></li>
+                <li>Health Policy Renewal Date: <span><%= memberData.policies[0].policyrenewal %></span></li>
               </ul>
 
               <div class="benefits">
                 <h3><span>Benefits</span></h3>
                 <p>
-                  <span class="benefits-heading">
-                    <%=memberData.HealthI.eligibility[0].glasses %>
-                  </span><br>
-                  <%=memberData.HealthI.eligibility[0].glasses_description %>
-                </p>
 
-                <p>
-                  <span class="benefits-heading">
-                    <%=memberData.HealthI.eligibility[0].drugs %>
-                  </span><br>
-                  <%=memberData.HealthI.eligibility[0].drugs_description %>
-                </p>
+                    <%
+                    var CClaims = memberData.policies[0].categories[0].coverage[0].claims;
+                    var CCoverage = memberData.policies[0].categories[0].coverage;
+                    var CCategories = memberData.policies[0].categories;
+                    var cat_i, cov_i, cla_i;
 
-                <p>
-                  <span class="benefits-heading">
-                    <%=memberData.HealthI.eligibility[0].dental %>
-                  </span><br>
-                  <%=memberData.HealthI.eligibility[0].dental_description %>
-                </p>
+                    if(CCategories.length > 0)
+                    {
+                      for(cat_i=0; cat_i<CCategories.length; cat_i++)
+                      {
+                        %>
+                          <span class="benefits-heading"><b>COVER:</b> <%=CCategories[cat_i].category %></span><br>
+                          <%=CCategories[cat_i].description %><br><br>
+                        <%
 
-                <p>
-                  <span class="benefits-heading">
-                    <%=memberData.HealthI.eligibility[0].screening %>
-                  </span><br>
-                  <%=memberData.HealthI.eligibility[0].screening_description %>
-                </p>
 
+                        for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
+                        {
+                            %>
+                              <b>TYPE: </b> <%=CCategories[cat_i].coverage[cov_i].item %><br>
+                              <b>LIMIT: </b> <%=CCategories[cat_i].coverage[cov_i].limit %><br>
+                              <b>COVER BEGIN: </b> <%=CCategories[cat_i].coverage[cov_i].begin %><br>
+                              <b>PERCENTAGE: </b> <%=CCategories[cat_i].coverage[cov_i].percentage %><br>
+                              <b>No. Of Claims: </b> <%= CCategories[cat_i].coverage[cov_i].claims.length %><br>
+                            <%
+                              for(cla_i=0; cla_i<CCategories[cat_i].coverage[cov_i].claims.length; cla_i++)
+                              {
+                                  %>
+                                  <b>CLAIM DATE: </b> <%= CCategories[cat_i].coverage[cov_i].claims[cla_i].date %><br>
+                                  <b>CLAIM AMOUNT: </b> <%= CCategories[cat_i].coverage[cov_i].claims[cla_i].amount %><br><br>
+                                  <%
+
+                                  if( CCategories[cat_i].coverage[cov_i].claims[cla_i].amount  > CCategories[cat_i].coverage[cov_i].limit )
+                                  {
+                                    %>
+                                      <span class="redC">Amount claimed is above your limit!</span><br><br><br>
+                                    <%
+                                  }
+                              }
+                        }
+                      }
+                    }else
+                    {%>
+                      <b>NO cover recored found</b>
+                    <%}
+                    %>
+                </p>
               </div>
-
 
             </div>
 
 
             <ul class="insuranceRightList">
-              <li><a href="#">How to make a claim</a></li>
-              <li><a href="#">Add other benefits</a></li>
-              <li><a href="#">View policy document</a></li>
+              <li><a href="../healthClaim?name=<%=memberData.name%>&&id=<%=memberData.id%>">Make a claim</a></li>
             </ul>
-          </div>
-
-          <hr>
-
-          <div class="userInsurance">
-
-            <div class="ui-userInfo">
-              <div class="userTypeHeading">USER ACCOUNT</div>
-
-              <ul>
-                <li>Account Reference: <span><%= memberData.payer_id %></span></li>
-                <li>Full Name: <span><%= memberData.payer_name %></span></li>
-                <li>Date Of Birth: <span><%= memberData.dob %></span></li>
-                <li>Gender: <span><%= memberData.gender %></span></li>
-                <li>Email: <span><%= memberData.registered_email %></span></li>
-                <li>Mobile Number: <span><%= memberData.registered_mobile %></span></li>
-                <li class="address">Address: <span>
-                    <%= memberData.address.street_line_1 %><br>
-                    <%= memberData.address.street_line_2 %><br>
-                    <%= memberData.address.zip %>,<br>
-                    <%= memberData.address.country %>
-                  </span></li>
-                <li class="edit_account_details"><a href="#">Edit User Account</a></li>
-
-              </ul>
-
-            </div>
           </div>
 
 

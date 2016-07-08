@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/template/head.ejs %>
+</head>
+
+<body class="<%= page %>">
+
+<div class="container">
+  <div class="outline">
+    <% include partials/template/header.ejs %>
+
+    <% include partials/template/headEnding.ejs %>
+
+
+    <section class="layout">
+      <div class="primary">
+
+        <div id="fb-root"></div>
+
+
+        <div class="welcome">
+
+                    <div class="userInsurance">
+
+                      <div class="ui-userInfo">
+                        <div class="userTypeHeading">USER ACCOUNT</div>
+                        <ul>
+                            <form class="editUserForm" action="./updateuserInfo" method="post">
+                              <li>Account Reference: <span name="userid" ><%= memberData.id %></span></li>
+                              <li style=" display:none " ><input  type="label"  name="userid" value="<%= memberData.id %>"></input></li>
+                              <li>Full Name: <input type="text"  name="fullName" value="<%= memberData.name %>"></input></li>
+                              <li>Date Of Birth: <input type="text" name="dateofbirth" value="<%= memberData.birthday %>" placeholder="DD/MM/YYYY"></input></li>
+                              <li>Gender: <input type="text"  name="gender" value="<%= memberData.gender %>" placeholder="Type Male, Female or Other"></input></li>
+                              <li class="address">Address: <textarea name="address" rows="4" cols="50" > <%= memberData.address %> </textarea></li>
+                              <li class="edit_account_details"><input type="submit" value="Update" /></li>
+                            </form>
+                        </ul>
+
+                      </div>
+                    </div>
+
+        </div>
+
+
+
+
+      </div><!-- primary section -->
+
+      <aside class="secondary">
+
+      </aside><!-- secondary -->
+
+    </section><!-- layout section -->
+
+
+  </div>
+</div>
+
+<% include partials/template/footer.ejs %>
+<% include partials/template/analytics.ejs %>
+
+</body>
+</html>
