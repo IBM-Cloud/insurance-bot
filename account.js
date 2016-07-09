@@ -3,9 +3,10 @@ var logger = log4js.getLogger('application');
 
 var data = require('./data');
 
+
 module.exports = {
 
-    findAccount: function (id, name, response, callback) {
+    findAccount: function (id, name, response, cloudant, callback) {
 
         var outcome = false;
 
@@ -33,7 +34,7 @@ module.exports = {
 
                         if (doc.id === id && doc.name === name) {
                             outcome = true;
-                            callback(true, response, id, name);
+                            callback(true, response, cloudant, id, name);
 
                             logger.info('found a match');
                         }
@@ -41,7 +42,7 @@ module.exports = {
                 })
 
                 if (count === 0 || outcome === false) {
-                    callback(outcome, response, id, name);
+                    callback(outcome, response, cloudant, id, name);
                 }
             }
         })
@@ -54,7 +55,7 @@ module.exports = {
                             - account found - return true.
     */
 
-    handleAccountOutcome: function (outcome, response, id, name) {
+    handleAccountOutcome: function (outcome, response, cloudant, id, name) {
 
         if (outcome === false) {
 

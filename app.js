@@ -26,7 +26,9 @@ var http = require('http');
 //bodyparser for POST requests.
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // parse application/json
 app.use(bodyParser.json());
@@ -48,59 +50,57 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
 
 
-  //----------------------------------------------------------------------------------
-  // Cloudant connections
-  //----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
+    // Cloudant connections
+    //----------------------------------------------------------------------------------
 
-  //Added for Json Readability
-  app.set('json spaces', 6);
+    //Added for Json Readability
+    app.set('json spaces', 6);
 
-  //Cloudant Initialization code
-  //require('dotenv').load();
-  // Load the Cloudant library.
-  var Cloudant = require('cloudant');
-  //using Bluemix VCAP_SERVICES for Cloudant credentials
-  if (process.env.VCAP_SERVICES) {
-      // Running on Bluemix. Parse the port and host that we've been assigned.
-      var env = JSON.parse(process.env.VCAP_SERVICES);
-      var host = process.env.VCAP_APP_HOST;
-      var port = process.env.VCAP_APP_PORT;
-      //        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
-      // Also parse Cloudant settings.
-      var credentials = env['cloudantNoSQLDB'][0]['credentials'];
-      username = credentials.username;
-      password = credentials.password;
+    //Cloudant Initialization code
+    //require('dotenv').load();
+    // Load the Cloudant library.
+    var Cloudant = require('cloudant');
+    //using Bluemix VCAP_SERVICES for Cloudant credentials
+    if (process.env.VCAP_SERVICES) {
+        // Running on Bluemix. Parse the port and host that we've been assigned.
+        var env = JSON.parse(process.env.VCAP_SERVICES);
+        var host = process.env.VCAP_APP_HOST;
+        var port = process.env.VCAP_APP_PORT;
+        //        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
+        // Also parse Cloudant settings.
+        var credentials = env['cloudantNoSQLDB'][0]['credentials'];
+        username = credentials.username;
+        password = credentials.password;
 
-      // Initialize the library with CloudCo account.
-      cloudant = Cloudant({
-          account: username,
-          password: password
-      });
-  }else {
-      console.log('Not using VCAP_SERVICES');
-      // To run the app locally comment out above two lines and add your username and password from your Cloudant
-      username = '';
-      password = '';
+        // Initialize the library with CloudCo account.
+        cloudant = Cloudant({
+            account: username,
+            password: password
+        });
+    } else {
+        console.log('Not using VCAP_SERVICES');
+        // To run the app locally comment out above two lines and add your username and password from your Cloudant
+        username = '';
+        password = '';
 
-
-      // Initialize the library with CloudCo account.
-      var cloudant = Cloudant({
-          account: username,
-          password: password
-      });
-  }
-
+        // Initialize the library with CloudCo account.
+        var cloudant = Cloudant({
+            account: username,
+            password: password
+        });
+    }
 
 
-  var db = cloudant.db.use("insurance");  //use Insurance DB
+    var db = cloudant.db.use("insurance"); //use Insurance DB
 
-  cloudant.db.create("insurance", function (err, res) {
-      if (err) {
-          logger.warn('database already created');
-      } else {
-          logger.info('database created successfully');
-      }
-  });
+    cloudant.db.create("insurance", function (err, res) {
+        if (err) {
+            logger.warn('database already created');
+        } else {
+            logger.info('database created successfully');
+        }
+    });
 
 
     // print a message when the server starts listening
@@ -166,304 +166,282 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         var identifier = components[0];
         var name = components[1];
 
-        manager.findAccount(identifier, name, res, manager.handleAccountOutcome);
+        manager.findAccount(identifier, name, res, cloudant, manager.handleAccountOutcome);
     });
 
     app.get("/person/:id", function (req, res) {});
 
     //home insurance page
-        app.get("/home", function (req, res) {
+    app.get("/home", function (req, res) {
 
-          var name = req.query.name;
-          var id = req.query.id;
-          db.list(function (err, body)
-          {
+        var name = req.query.name;
+        var id = req.query.id;
+        db.list(function (err, body) {
 
-                      if (err) {
-                          logger.error(err);
-                      } else {
+            if (err) {
+                logger.error(err);
+            } else {
 
-                          var rows = body.rows;
-                          var count = rows.length;
+                var rows = body.rows;
+                var count = rows.length;
 
-                          //logger.info("Number of accounts: " + count);
+                //logger.info("Number of accounts: " + count);
 
-                          var item;
+                var item;
 
-                          /* TODO: should be able to use a find method here */
+                /* TODO: should be able to use a find method here */
 
-                          rows.forEach(function (account) {
-                              db.get(account.id, {
-                                  revs_info: true
-                              }, function (err, doc) {
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
 
-                              console.log('The doc is: ' + doc);
-                                  if (doc.name === name && doc.id === id) {
+                        console.log('The doc is: ' + doc);
+                        if (doc.name === name && doc.id === id) {
 
-                                      res.render('home', {
-                                          title: 'Home Policy',
-                                          page: 'home',
-                                          memberData: doc
-                                      });
-                                  }
-                              })
-                          })
-                      }
-          });
-
+                            res.render('home', {
+                                title: 'Home Policy',
+                                page: 'home',
+                                memberData: doc
+                            });
+                        }
+                    })
+                })
+            }
         });
+
+    });
 
     //car insurance page
-        app.get("/auto", function (req, res) {
-          var name = req.query.name;
-          var id = req.query.id;
-          db.list(function (err, body)
-          {
+    app.get("/auto", function (req, res) {
+        var name = req.query.name;
+        var id = req.query.id;
+        db.list(function (err, body) {
 
-                      if (err) {
-                          logger.error(err);
-                      } else {
+            if (err) {
+                logger.error(err);
+            } else {
 
-                          var rows = body.rows;
-                          var count = rows.length;
+                var rows = body.rows;
+                var count = rows.length;
 
-                          //logger.info("Number of accounts: " + count);
+                //logger.info("Number of accounts: " + count);
 
-                          var item;
+                var item;
 
-                          /* TODO: should be able to use a find method here */
+                /* TODO: should be able to use a find method here */
 
-                          rows.forEach(function (account)
-                          {
-                              db.get(account.id, {
-                                  revs_info: true
-                              }, function (err, doc) {
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
 
-                                  if (doc.name === name && doc.id === id) {
+                        if (doc.name === name && doc.id === id) {
 
-                                      res.render('auto', {
-                                          title: 'Auto Policy',
-                                          page: 'auto',
-                                          memberData: doc
-                                      });
-                                  }
-                              })
-                          })
-                      }
-          })
+                            res.render('auto', {
+                                title: 'Auto Policy',
+                                page: 'auto',
+                                memberData: doc
+                            });
+                        }
+                    })
+                })
+            }
+        })
 
+    });
+
+    //health page
+    app.get("/health", function (req, res) {
+        var name = req.query.name;
+        var id = req.query.id;
+        db.list(function (err, body) {
+
+            if (err) {
+                logger.error(err);
+            } else {
+
+                var rows = body.rows;
+                var count = rows.length;
+
+                //logger.info("Number of accounts: " + count);
+
+                var item;
+
+                /* TODO: should be able to use a find method here */
+
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
+
+                        if (doc.name === name && doc.id === id) {
+
+                            res.render('health', {
+                                title: 'health Policy',
+                                page: 'health',
+                                memberData: doc
+                            });
+                        }
+                    })
+                })
+            }
         });
-
-        //health page
-        app.get("/health", function (req, res) {
-          var name = req.query.name;
-          var id = req.query.id;
-          db.list(function (err, body)
-          {
-
-                      if (err) {
-                          logger.error(err);
-                      } else {
-
-                          var rows = body.rows;
-                          var count = rows.length;
-
-                          //logger.info("Number of accounts: " + count);
-
-                          var item;
-
-                          /* TODO: should be able to use a find method here */
-
-                          rows.forEach(function (account) {
-                              db.get(account.id, {
-                                  revs_info: true
-                              }, function (err, doc) {
-
-                                  if (doc.name === name && doc.id === id) {
-
-                                      res.render('health', {
-                                          title: 'health Policy',
-                                          page: 'health',
-                                          memberData: doc
-                                      });
-                                  }
-                              })
-                          })
-                      }
-          });
-        });
+    });
 
     //editUser page
     app.get("/editUser", function (req, res) {
-      var name = req.query.name;
-      var id = req.query.id;
-      db.list(function (err, body)
-      {
+        var name = req.query.name;
+        var id = req.query.id;
+        db.list(function (err, body) {
             if (err) {
-                      logger.error(err);
-                  } else {
+                logger.error(err);
+            } else {
 
-                      var rows = body.rows;
-                      var count = rows.length;
+                var rows = body.rows;
+                var count = rows.length;
 
-                      //logger.info("Number of accounts: " + count);
+                //logger.info("Number of accounts: " + count);
 
-                      var item;
+                var item;
 
-                      /* TODO: should be able to use a find method here */
-                      rows.forEach(function (account) {
-                          db.get(account.id, {
-                              revs_info: true
-                          }, function (err, doc) {
+                /* TODO: should be able to use a find method here */
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
 
-                              if (doc.name === name && doc.id === id) {
-                                  res.render('editUser', {
-                                      title: 'Edit User',
-                                      page: 'editUser',
-                                      memberData: doc
-                                  });
-                              }
-                          })
-                      })
+                        if (doc.name === name && doc.id === id) {
+                            res.render('editUser', {
+                                title: 'Edit User',
+                                page: 'editUser',
+                                memberData: doc
+                            });
+                        }
+                    })
+                })
             }
-      });
+        });
     });
 
     //UPDATE User Info
-    app.post("/updateuserInfo", function(req, res)
-    {
+    app.post("/updateuserInfo", function (req, res) {
         var Userid = req.body.userid;
         var UserPerName = req.body.fullName;
 
-        db.list(function (err, body)
-        {
+        db.list(function (err, body) {
 
-                    if (err) {
-                        logger.error(err);
-                    } else {
+            if (err) {
+                logger.error(err);
+            } else {
 
-                        var rows = body.rows;
-                        var count = rows.length;
+                var rows = body.rows;
+                var count = rows.length;
 
-                        var item;
-                        rows.forEach(function (account) {
-                            db.get(account.id, {
-                                revs_info: true
-                            }, function (err, doc)
-                            {
-                                if (doc.id === Userid)
-                                {
-                                      doc.name = req.body.fullName;
-                                      doc.gender = req.body.gender;
-                                      doc.birthday = req.body.dateofbirth;
-                                      doc.address = req.body.address;
-                                      db.insert(doc, function(err, doc)
-                                      {
-                                         if(err) {
-                                            console.log('Update01 Error inserting data\n'+err);
-                                            return 500;
-                                         }else {
-                                           return 200;
-                                         }
-                                      });
+                var item;
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
+                        if (doc.id === Userid) {
+                            doc.name = req.body.fullName;
+                            doc.gender = req.body.gender;
+                            doc.birthday = req.body.dateofbirth;
+                            doc.address = req.body.address;
+                            db.insert(doc, function (err, doc) {
+                                if (err) {
+                                    console.log('Update01 Error inserting data\n' + err);
+                                    return 500;
+                                } else {
+                                    return 200;
                                 }
-                            })
-                        })
-                    }
+                            });
+                        }
+                    })
+                })
+            }
         });
         res.redirect('/health?name=' + UserPerName + '&&id=' + Userid);
         //res.end();
-      });
+    });
 
 
+    //health page
+    app.get("/healthClaim", function (req, res) {
+        var name = req.query.name;
+        var id = req.query.id;
+        db.list(function (err, body) {
 
+            if (err) {
+                logger.error(err);
+            } else {
 
+                var rows = body.rows;
+                var count = rows.length;
 
-          //health page
-          app.get("/healthClaim", function (req, res) {
-            var name = req.query.name;
-            var id = req.query.id;
-            db.list(function (err, body)
-            {
+                //logger.info("Number of accounts: " + count);
 
-                        if (err) {
-                            logger.error(err);
-                        } else {
+                var item;
 
-                            var rows = body.rows;
-                            var count = rows.length;
+                /* TODO: should be able to use a find method here */
 
-                            //logger.info("Number of accounts: " + count);
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
 
-                            var item;
+                        if (doc.name === name && doc.id === id) {
 
-                            /* TODO: should be able to use a find method here */
-
-                            rows.forEach(function (account) {
-                                db.get(account.id, {
-                                    revs_info: true
-                                }, function (err, doc) {
-
-                                    if (doc.name === name && doc.id === id) {
-
-                                        res.render('healthClaim', {
-                                            title: 'health Policy',
-                                            page: 'health',
-                                            memberData: doc
-                                        });
-                                    }
-                                })
-                            })
+                            res.render('healthClaim', {
+                                title: 'health Policy',
+                                page: 'health',
+                                memberData: doc
+                            });
                         }
-            });
-          });
+                    })
+                })
+            }
+        });
+    });
 
-          //UPDATE User Info
-          app.post("/processClaim", function(req, res)
-          {
-              var Userid = req.body.userid;
-              var UserPerName = req.body.fullName;
+    //UPDATE User Info
+    app.post("/processClaim", function (req, res) {
+        var Userid = req.body.userid;
+        var UserPerName = req.body.fullName;
 
-              db.list(function (err, body)
-              {
+        db.list(function (err, body) {
 
-                          if (err) {
-                              logger.error(err);
-                          } else {
+            if (err) {
+                logger.error(err);
+            } else {
 
-                              var rows = body.rows;
-                              var count = rows.length;
+                var rows = body.rows;
+                var count = rows.length;
 
-                              var item;
-                              rows.forEach(function (account) {
-                                  db.get(account.id, {
-                                      revs_info: true
-                                  }, function (err, doc)
-                                  {
-                                      if (doc.id === Userid)
-                                      {
-                                            doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
-                                            db.insert(doc, function(err, doc)
-                                            {
-                                               if(err) {
-                                                  console.log('Update01 Error inserting data\n'+err);
-                                                  return 500;
-                                               }else {
-                                                 return 200;
-                                               }
-                                            });
-                                      }
-                                  })
-                              })
-                          }
-              });
-              res.redirect('/health?name=' + UserPerName + '&&id=' + Userid);
-              //res.redirect('back');
-              //res.end();
-            });
-
-
-
+                var item;
+                rows.forEach(function (account) {
+                    db.get(account.id, {
+                        revs_info: true
+                    }, function (err, doc) {
+                        if (doc.id === Userid) {
+                            doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
+                            db.insert(doc, function (err, doc) {
+                                if (err) {
+                                    console.log('Update01 Error inserting data\n' + err);
+                                    return 500;
+                                } else {
+                                    return 200;
+                                }
+                            });
+                        }
+                    })
+                })
+            }
+        });
+        res.redirect('/health?name=' + UserPerName + '&&id=' + Userid);
+        //res.redirect('back');
+        //res.end();
+    });
 
 
 
@@ -519,7 +497,7 @@ app.listen(appEnv.port, '0.0.0.0', function () {
         var cloudantResponse = this;
         db.insert(req.body.doc, req.body.docname, function (error, response) {
             if (!error) {
-               logger.info("Response" + response.result);
+                logger.info("Response" + response.result);
                 cloudantResponse.result = JSON.stringify(response.result);
                 return cloudantResponse;
             }
@@ -551,4 +529,4 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     app.delete("/api/deletedoc", deleteDocument);
 
 
-  });
+});
