@@ -1,0 +1,52 @@
+[{
+        "label": "Duration",
+        "type": "Mandatory",
+        "image": "calendar.svg",
+        "min": 0,
+        "max": 4,
+        "values": ["1 week", "2 weeks", "1 month", "2 months", "1 year"],
+        "input": [7, 14, 28, 56, 365]
+    }, {
+        "label": "Travelers",
+        "type": "Mandatory",
+        "image": "person.svg",
+        "min": 0,
+        "max": 9,
+        "values": ["1 person", "2 people", "3 people", "4 people", "5 people", "6 people", "7 people", "8 people", "9 people", "10 people"],
+        "input": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }, {
+        "label": "Reviews",
+        "type": "Optional",
+        "image": "recommendation.svg",
+        "min": 0,
+        "max": 4,
+        "values": ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"],
+        "input": [1, 2, 3, 4, 5]
+    }, {
+        "label": "Policy Cost",
+        "type": "Optional",
+        "image": "cost.svg",
+        "min": 0,
+        "max": 4,
+        "values": ["Up to $50", "Up to $100", "Up to $200", "Up to $500", "Up to $1000"],
+        "input": [50, 100, 200, 500, 1000]
+            },
+    {
+        "label": "Cancelations",
+        "type": "Optional",
+        "image": "cancel.svg",
+        "min": 0,
+        "max": 2,
+        "values": ["no refund", "50% refund", "100% refund"],
+        "input": [0, 50, 100]
+            },
+    {
+        "label": "Trip Value",
+        "type": "Optional",
+        "image": "world.svg",
+        "min": 0,
+        "max": 3,
+        "values": ["Up to $1000", "Up to $5000", "Up to $10000", "Up to $10000"],
+        "input": [1000, 5000, 10000, 10000]
+            }
+]

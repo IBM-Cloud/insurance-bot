@@ -13,7 +13,8 @@
     "body-parser": "~1.13.2",
     "dotenv": "*",
     "log4js": "~0.6.36",
-    "node-datetime": "1.0"
+    "node-datetime": "1.0",
+    "request": "~2.73.0"
   },
   "repository": {},
   "engines": {

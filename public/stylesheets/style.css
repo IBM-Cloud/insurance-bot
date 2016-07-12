@@ -1,616 +1,1149 @@
-body,
-html {
-    background-color: #fff;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    color: #547190;
-    /*    -webkit-font-smoothing: antialiased;*/
-}
-
-.container {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
-.outline {
-    display: flex;
-    align-content: center;
-    align-self: center;
-    flex-direction: column;
-    width: 800px;
-}
-
-.banner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.titleArea {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    flex: 2 0 0;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-}
-
-.logo {}
-
-a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #547190;
-    border-bottom: 1px solid #c8e7e0;
-    padding-bottom: 1px
-}
-
-.logoImage {
-    height: 46px;
-}
-
-.name {
-    font-weight: 700;
-    font-size: 22px;
-    margin-left: 10px;
-}
-
-.loginArea {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-}
-
-.menu {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.fb {}
-
-.welcome {
-    font-size: 16px;
-    width: 760px;
-    background: #f4faf8;
-    padding: 20px;
-    border-radius: 4px;
-    color: #6e97a2;
-    border: 1px dotted #c8e7e0;
-}
-
-.welcomeText {
-    font-size: 16px;
-    margin: 20px 0px;
-    background: white;
-    padding: 20px;
-    border-radius: 4px;
-    color: #547190;
-    font-weight: bold;
-    border: 1px solid #c8e7e0;
-}
-
-.welcomeText span {
-    color: #c8e7e0;
-}
-
-.carInsurance {
-    margin-bottom: 100px;
-    width: 100%;
-    float: left;
-}
-
-.insuranceTypeHeading {
-    font-size: 18px;
-    margin: -21px;
-    background: #c8e7e0;
-    padding: 10px 20px;
-    color: black;
-    margin-bottom: 10px;
-    font-weight: bolder;
-}
-
-.userTypeHeading {
-    font-size: 18px;
-    padding: 10px 10px;
-    color: #547190;
-    margin-bottom: 10px;
-    font-weight: bolder;
-}
-
-.insuranceLeftList {
-    margin: 0px;
-    padding: 0px;
-    width: 48%;
-    margin-right: 4%;
-    float: left;
-    margin-top: 10px;
-    background: #547190;
-}
-
-.ui-userInfo {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    float: left;
-    margin-top: 10px;
-}
-
-.insuranceRightList {
-    margin: 0px;
-    padding: 0px;
-    width: 48%;
-    float: right;
-    text-transform: uppercase;
-}
-
-
-.insuranceRightListClaims {
-    margin: 0px;
-    padding: 0px;
-    width: 48%;
-    float: right;
-    text-transform: uppercase;
-    margin-top: 10px;
-    background: #547190;
-    height: 920px;
-
-}
-
-
-.insuranceLeftList li {
-    list-style: none;
-    padding: 7px;
-    background: #547190;
-    font-size: 12px;
-    color: white;
-    font-weight: normal;
-}
-
-.ui-userInfo li {
-    list-style: none;
-    padding: 10px 15px;
-    /* background: #547190; */
-    font-size: 14px;
-    color: #547190;
-    font-weight: normal;
-}
-
-.address {
-    height: 72px;
-}
-
-.edit_account_details input, .edit_account_details a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #547190;
-    border: 1px solid #9DB8D5;
-    padding: 5px 11px;
-    border-radius: 3px;
-    background: #FFFFFF;
-}
-
-.insuranceLeftList li span {
-    font-weight: bold;
-    color: black;
-    font-size: 13px;
-    padding-left: 5px;
-    padding: 2px 5px;
-    border-radius: 2px;
-    background: white;
-    width: 140px;
-    float: right;
-    text-align: center;
-}
-
-.ui-userInfo li span {
-    font-weight: bold;
-    color: black;
-    font-size: 13px;
-    padding-left: 5px;
-    padding: 5px 10px;
-    border-radius: 2px;
-    background: #ececec;
-    width: 70%;
-    float: right;
-    text-align: left;
-    opacity: 0.7;
-    border: 1px solid #9a9a9a;
-
-
-}
-
-.ui-userInfo li select {
-    color: black;
-    font-size: 13px;
-    padding-left: 5px;
-    border-radius: 0px;
-    background: #ececec;
-    width: 73%;
-    float: right;
-    text-align: left;
-    opacity: 0.7;
-    border-radius: 0px;
-    height: 32px;
-    border: 1px solid #9a9a9a;
-}
-.redC{
-  color: #830808;
-  font-size: 14px;
-  text-decoration: underline;
-  font-weight: bold;
-  padding: 6px;
-}
-
-.ui-userInfo li input[type="text"], .userRadio {
-    color: black;
-    font-size: 13px;
-    padding-left: 5px;
-    padding: 5px 10px;
-    border-radius: 2px;
-    background: white;
-    width: 70%;
-    float: right;
-    text-align: left;
-    border: 1px solid #547190;
-    opacity: 0.7;
-
-
-}
-
-.ui-userInfo li textarea {
-    color: black;
-    border: 1px solid #547190;
-    font-size: 13px;
-    padding-left: 5px;
-    padding: 5px 10px;
-    border-radius: 2px;
-    background: white;
-    width: 70%;
-    float: right;
-    text-align: left;
-    opacity: 0.7;
-
-}
-
-
-
-.ui-userInfo ul {
-    padding: 0px;
-}
-
-.insuranceRightList li {
-  list-style: none;
-  padding: 10px;
-  /* background: #547EAA; */
-  margin: 10px 0px;
-  /* font-size: 14px; */
-  text-align: center;
-  /* color: black; */
-  /* font-weight: bold; */
-  border-radius: 2px;
-  background-color: #2ba6e1;
-  color: white;
-  /* padding: 8px 5px; */
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.insuranceRightList li a {
-    color: #c8e7e0;
-}
-
-.insuranceRightList li a:hover {
-    color: white;
-}
-
-.homeInsurance {
-    margin-bottom: 40px;
-    width: 100%;
-    float: left;
-}
-
-.healthInsurance {
-    margin-bottom: 40px;
-    width: 100%;
-    float: left;
-}
-
-.userInsurance {
-    margin-bottom: 40px;
-    width: 100%;
-    float: left;
-}
-
-.healthInsurance p,
-.homeInsurance p,
-.carInsurance p,
-.userInsurance p {
-    color: #547190;
-}
-
-.github {
-    font-size: 16px;
-    margin: 36px;
-    margin-top: 50px;
-    /* background: #f6fbf9; */
-    padding: 20px;
-    border-radius: 4px;
-    /* border: 1px solid #c8e7e0; */
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-}
-
-.tiles {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.tile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    border-radius: 5px;
-    border: 1px dotted #c8e7e0;
-    margin: 0px;
-    background: white;
-}
-
-.homePage .tile {
-    margin: 30px;
-}
-
-.tiles a {
-    border: none;
-    margin: 30px;
-}
-
-.timeImage {}
-
-.label {
-    text-align: center;
-    margin: 20px;
-    margin-top: 10px;
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.hero {
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: 36px;
-    margin-right: 36px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background: #f4faf8;
-}
-
-.json-respond {
-    border-radius: 5px;
-    border: 1px solid #a2b1c1;
-    margin-top: 20px;
-    margin-left: 36px;
-    margin-right: 36px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-
-.heroText {
-    width: 360px;
-    padding: 20px;
-    padding-left: 80px;
-}
-
-.botImage {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 180px;
-    margin: -10px;
-}
-
-.homePage .member {
-    height: 150px;
-}
-
-.member .welcome {
-    height: 450px;
-    border: 1px dotted #c8e7e0;
-}
-
-.health .welcome {
-    height: 100%;
-    border: 1px dotted #c8e7e0;
-    float: left;
-}
-
-.editUser .welcome {
-    height: 100%;
-    border: 1px dotted #c8e7e0;
-    float: left;
-}
-
-.auto .welcome {
-  height: 100%;
-  border: 1px dotted #c8e7e0;
-  float: left;
-}
-
-.home .welcome {
-  height: 100%;
-  border: 1px dotted #c8e7e0;
-  float: left;
-}
-
-.insuranceIcons {
-    float: left;
-    width: 100%;
-}
-
-.insuranceIcons h3 {
-    text-align: center;
-}
-
-.insuranceIcons h3 span {
-    color: #547190;
-}
-
-
-.glow {
-    margin: 20px;
-    background: #f4faf8;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100px;
-    width: 70px;
-    border-radius: 100px;
-    padding: 20px;
-    align-self: center;
-}
-
-.ui-insuranceLeftList {
-    margin: 0px;
-    padding: 0px;
-}
-
-.benefits {
-    padding: 20px 6px;
-        color: white;
+    body,
+    html {
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        color: #12aaeb;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    h2 {
+        font-weight: normal;
+    }
+    
+    .container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    .outline {
+        display: flex;
+        align-content: center;
+        align-self: center;
+        flex-direction: column;
+        width: 800px;
+    }
+    
+    .banner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: #225282;
+        padding: 30px;
+        padding-bottom: 0px;
+        padding-top: 0;
+        margin-top: 40px;
+        border-radius: 4px;
+    }
+    
+    .titleArea {
+        margin-top: 36px;
+        margin-bottom: 36px;
+        flex: 2 0 0;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+    }
+    
+    .logo {}
+    
+    a {
+        text-decoration: none;
+        color: #12aaeb;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-bottom: 1px solid #c8e7e0;
+        padding-bottom: 1px;
+    }
+    
+    .logoImage {
+        height: 46px;
+    }
+    
+    .name {
+        font-size: 26px;
+        margin-left: 10px;
+    }
+    
+    .loginArea {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+    
+    .menu {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 10px;
+    }
+    
+    .fb {}
+    
+    .welcome {
+        font-size: 14px;
+        margin: 20px;
+        /* background: #f1f5f8; */
+        padding: 30px;
+        border-radius: 4px;
+        color: #597a96;
+        line-height: 24px;
+        text-align: center;
+    }
+    
+    .plan {
+        font-size: 12px;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 4px;
+        color: #597a96;
+        border: 1px dashed #597a96;
+    }
+    
+    .welcomeText {
+        font-size: 16px;
+        margin: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 4px;
+        color: #225282;
+        font-weight: bold;
+        border: 1px solid #c8e7e0;
+    }
+    
+    .welcomeText span {
+        color: #c8e7e0;
+    }
+    
+    .loading {
+        margin: 30px;
+        height: 300px;
+    }
+    
+    .carInsurance {
+        margin-bottom: 100px;
+        width: 100%;
+        float: left;
+    }
+    
+    .insuranceTypeHeading {
         font-size: 18px;
-    font-weight: bold;
-}
-
-.benefits span {
-    width: 100%;
-    border-bottom: 1px dotted white;
-    float: left;
-    margin-bottom: 15px;
-}
-
-.benefits .benefits-heading {
-  color: #2aa9e5;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.benefits p {
-    color: white;
-    font-size: 12px;
-}
-
-.about {
-    display: flex;
-    padding: 30px;
-    font-size: 14px;
-    border: 1px dotted #c8e7e0;
-    border-radius: 4px;
-}
-
-.cloudvideo {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    border: display: flex;
-    padding: 30px;
-    font-size: 14px;
-    border: 1px dotted #c8e7e0;
-    border-radius: 4px;
-}
-
-.home {
-    text-decoration: none;
-    font-weight: bold;
-    color: #547190;
-    border-bottom: none;
-    padding-bottom: 1px;
-}
-
-.benefits .benClass span{
-  font-weight: bold;
-    color: black;
-    font-size: 13px;
-    padding-left: 5px;
-    padding: 2px 5px;
-    border-radius: 2px;
-    background: white;
-    width: 140px;
-    float: right;
-    text-align: center;
-}
-
-
-/*  dropdown menu styling  */
-.dropbtn {
-  background-color: #2ba6e1;
-  color: white;
-  padding: 8px 5px;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin: 0px 5%;
-  border-radius: 2px;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 30px;
-    padding-top: 15px;
-    width: 91%;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    margin: 0px 5%;
-
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 14px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    font-size: 13px;
-
-
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #4890b3;
-}
-/*  END == dropdown menu styling  */
+        margin: -21px;
+        background: #c8e7e0;
+        padding: 10px 20px;
+        color: black;
+        margin-bottom: 10px;
+        font-weight: bolder;
+    }
+    
+    .userTypeHeading {
+        font-size: 18px;
+        padding: 10px 10px;
+        color: #225282;
+        margin-bottom: 10px;
+        font-weight: bolder;
+    }
+    
+    .insuranceLeftList {
+        margin: 0px;
+        padding: 0px;
+        width: 48%;
+        margin-right: 4%;
+        float: left;
+        margin-top: 10px;
+        background: #225282;
+    }
+    
+    .ui-userInfo {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+    }
+    
+    .insuranceRightList {
+        margin: 0px;
+        padding: 0px;
+        width: 40%;
+        float: right;
+        text-transform: uppercase;
+    }
+    
+    .insuranceLeftList li {
+        list-style: none;
+        padding: 15px;
+        background: #225282;
+        font-size: 12px;
+        color: white;
+        font-weight: normal;
+    }
+    
+    .ui-userInfo li {
+        list-style: none;
+        padding: 10px 15px;
+        /* background: #225282; */
+        font-size: 14px;
+        color: #225282;
+        font-weight: normal;
+    }
+    
+    .address {
+        height: 72px;
+    }
+    
+    .edit_account_details a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #225282;
+        border: 1px solid #9DB8D5;
+        padding: 5px 11px;
+        border-radius: 3px;
+        background: #FFFFFF;
+    }
+    
+    .insuranceLeftList li span {
+        font-weight: bold;
+        color: black;
+        font-size: 13px;
+        padding-left: 5px;
+        padding: 2px 5px;
+        border-radius: 2px;
+        background: white;
+        width: 140px;
+        float: right;
+        text-align: center;
+    }
+    
+    .ui-userInfo li span {
+        font-weight: bold;
+        color: black;
+        font-size: 13px;
+        padding-left: 5px;
+        padding: 5px 10px;
+        border-radius: 2px;
+        background: white;
+        width: 70%;
+        float: right;
+        text-align: left;
+        opacity: 0.7;
+    }
+    
+    .ui-userInfo ul {
+        padding: 0px;
+    }
+    
+    .insuranceRightList li {
+        list-style: none;
+        padding: 10px;
+        background: #547EAA;
+        margin: 10px 0px;
+        font-size: 14px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        border-radius: 2px;
+    }
+    
+    .insuranceRightList li a {
+        color: #c8e7e0;
+    }
+    
+    .insuranceRightList li a:hover {
+        color: white;
+    }
+    
+    .homeInsurance {
+        margin-bottom: 40px;
+        width: 100%;
+        float: left;
+    }
+    
+    .healthInsurance {
+        margin-bottom: 40px;
+        width: 100%;
+        float: left;
+    }
+    
+    .userInsurance {
+        margin-bottom: 40px;
+        width: 100%;
+        float: left;
+    }
+    
+    .healthInsurance p,
+    .homeInsurance p,
+    .carInsurance p,
+    .userInsurance p {
+        color: #225282;
+    }
+    
+    .github {
+        font-size: 16px;
+        margin: 36px;
+        margin-top: 50px;
+        /* background: #f6fbf9; */
+        padding: 20px;
+        border-radius: 4px;
+        /* border: 1px solid #c8e7e0; */
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+    }
+    
+    .menuLink {
+        color: white !important;
+        font-weight: bold;
+    }
+    
+    .tiles {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        /*    margin-top: 40px;*/
+        margin-bottom: 40px;
+    }
+    
+    .tileImage {
+        height: 80px;
+    }
+    
+    .tile {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 130px;
+        height: 220px;
+        border-radius: 4px;
+        border: 2px dashed #597a96;
+        margin: 0px;
+        background: white;
+        /*    box-shadow: 0 0.125em 0.5em 0 rgba(4, 49, 64, 0.1);*/
+    }
+    
+    .homePage .tile {
+        margin: 30px;
+        margin-top: 0;
+    }
+    
+    .tiles a {
+        border: none;
+        margin: 30px;
+    }
+    
+    .timeImage {}
+    
+    .label {
+        text-align: center;
+        margin: 10px;
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+    .call {
+        height: 40px;
+        margin: 40px;
+        margin-bottom: 60px;
+        border-radius: 4px;
+        color: #597a96;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        justify-content: space-around;
+        padding-left: 50px;
+        padding-right: 50px;
+        align-items: center;
+        /* border: 1px dotted #12aaeb; */
+        /* color: black; */
+        background: #f5fbfe;
+        font-size: 14px;
+    }
+    
+    .hole {
+        background: #12aaeb;
+        height: 10px;
+        width: 10px;
+        /* margin: 10px; */
+        margin-top: 20px;
+        border-radius: 10px;
+        align-self: center;
+    }
+    
+    .hero {
+        border-radius: 4px;
+        margin-top: 20px;
+        margin-left: 36px;
+        margin-right: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: #fcfefe;
+        padding: 20px;
+        border-radius: 4px;
+        color: white;
+        border: 1px solid #12aaeb;
+        /* padding: 50px; */
+    }
+    
+    .json-respond {
+        border-radius: 4px;
+        border: 1px solid #a2b1c1;
+        margin-top: 20px;
+        margin-left: 36px;
+        margin-right: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+    
+    .heroText {
+        width: 360px;
+        padding: 20px;
+        color: #597a96;
+        font-size: 14px;
+        text-align: center;
+        letter-spacing: 1px;
+        line-height: 24px;
+    }
+    
+    .botImage {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 60px;
+        margin: 20px;
+    }
+    
+    .watchImage {
+        width: 80px;
+    }
+    
+    .homePage .member {
+        height: 150px;
+    }
+    
+    .member .welcome {
+        height: 450px;
+        border: 1px dotted #c8e7e0;
+    }
+    
+    .health .welcome {
+        height: 1100px;
+        border: 1px dotted #c8e7e0;
+    }
+    
+    .auto .welcome {
+        height: 1200px;
+        border: 1px dotted #c8e7e0;
+    }
+    
+    .home .welcome {
+        height: 1100px;
+        border: 1px dotted #c8e7e0;
+    }
+    
+    .insuranceIcons {
+        float: left;
+        width: 100%;
+    }
+    
+    .insuranceIcons h3 {
+        text-align: center;
+    }
+    
+    .insuranceIcons h3 span {
+        color: #225282;
+    }
+    
+    footer {}
+    
+    .glow {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-bottom: 20px;
+        align-self: center;
+    }
+    
+    .ui-insuranceLeftList {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .benefits {
+        padding: 15px;
+        color: white;
+    }
+    
+    .benefits h3 > span {
+        width: 100%;
+        border-bottom: 1px dotted white;
+        float: left;
+        margin-bottom: 15px;
+    }
+    
+    .benefits .benefits-heading {
+        color: #c8e7e0;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+    .benefits p {
+        color: white;
+        font-size: 12px;
+    }
+    
+    .about {
+        display: flex;
+        padding: 30px;
+        font-size: 14px;
+        border: 1px dotted #12aaeb;
+        border-radius: 4px;
+    }
+    
+    .cloudvideo {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        border: display: flex;
+        padding: 30px;
+        font-size: 14px;
+        border: 1px dotted #c8e7e0;
+        border-radius: 4px;
+    }
+    
+    .home {
+        text-decoration: none;
+        color: #FFFFFF;
+        border-bottom: none;
+        padding-bottom: 1px;
+    }
+    
+    .input {
+        margin-top: 30px;
+    }
+    
+    .separator {
+        border-bottom: 1px dotted #8ad3f3;
+    }
+    
+    .split {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .policy {
+        width: 460px;
+        margin-top: 20px;
+    }
+    
+    .interact {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        width: 300px;
+        max-width: 300px;
+        height: 300px;
+        max-height: 300px;
+        margin: 20px;
+        margin-top: 40px;
+        min-width: 300px;
+        border-radius: 4px;
+        color: #597a96;
+        border: 1px dashed #597a96;
+    }
+    
+    .quote {
+        background: #a0dcf7;
+        border: none;
+        color: #225282;
+        border-radius: 4px;
+        width: 140px;
+        font-size: 14px;
+        height: 40px;
+        margin: 20px;
+        outline: none;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 1s linear;
+        font-weight: bold;
+    }
+    
+    .quote:hover {
+        cursor: pointer
+    }
+    
+    .question {
+        font-size: 18px;
+        margin: 20px;
+    }
+    
+    .instructions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 20px;
+        font-size: 12px;
+        color: #225282;
+        font-weight: bold;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: visibility 2s linear;
+    }
+    
+    .disabledInstructions {
+        display: none;
+        opacity: 0;
+        /*    transition: display 0s 3s, opacity 3s linear;*/
+    }
+    
+    .quote:disabled {
+        opacity: 0.4;
+        visibility: hidden;
+        opacity: 0;
+        /*    transition: visibility 0s 1s, opacity 1s linear;*/
+    }
+    
+    .quoteImage {
+        height: 100px;
+    }
+    
+    .learn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .elements {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+        width: 500px;
+    }
+    
+    .criteria {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 170px;
+        height: 170px;
+        border-radius: 4px;
+        border: 2px dashed #597a96;
+        margin: 20px;
+        background: white;
+        align-content: center;
+        align-items: center;
+        color: #597a96;
+    }
+    
+    .criteria:hover {
+        border: 2px solid orange;
+    }
+    
+    .selectedCriteria {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 170px;
+        height: 170px;
+        border-radius: 4px;
+        border: 2px solid #12aaeb;
+        margin: 20px;
+        background: #fcfefe;
+        align-content: center;
+        align-items: center;
+        color: #12aaeb !important;
+    }
+    
+    .criteria-image-text {
+        font-size: 40px;
+        color: #225282;
+        height: 70px;
+        line-height: 70px;
+    }
+    
+    .criteria-image {
+        height: 70px;
+    }
+    
+    .criteria-label {
+        text-align: center;
+        margin: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        min-width: 100px;
+        color: #225282
+    }
+    
+    .layout {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+    
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: height 0.15s ease-out;
+        transition: height 0.15s ease-in;
+    }
+    
+    .evaluation {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+    }
+    
+    .evaluation-image {
+        height: 60px;
+    }
+    
+    .slider-label {
+        margin: 10px;
+        color: #225282;
+        min-width: 90px;
+        text-align: center;
+        font-size: 12px;
+    }
+    
+    .slider-element {
+        display: flex;
+        flex-direction: row;
+        width: 360px;
+    }
+    
+    .criteria-element {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .output {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .results {
+        display: none;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        width: 800px;
+    }
+    
+    .radar {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        font-size: 14px;
+        height: 500px;
+        max-height: 500px;
+        min-width: 500px;
+        margin-top: 10px;
+        border-radius: 4px;
+        color: #597a96;
+        height: 0;
+        /*    border-bottom: 1px solid #8ad3f3;*/
+    }
+    
+    .policies {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        width: 800px;
+        /* margin: 20px; */
+        /* margin-top: 40px; */
+        min-width: 450px;
+        border-radius: 4px;
+        flex-wrap: wrap;
+        color: #225282;
+    }
+    
+    .consideration {
+        min-width: 100px;
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        font-size: 13px;
+        align-items: center;
+        margin-left: 10px;
+        justify-content: center;
+        color: #225282;
+        font-weight: bold;
+        border: 2px solid #12aaeb;
+    }
+    
+    .consideration-mobile {
+        min-width: 100px;
+        height: 36px;
+        flex-direction: row;
+        font-size: 13px;
+        align-items: center;
+        margin-left: 10px;
+        justify-content: center;
+        color: #225282;
+        font-weight: bold;
+        border: 2px solid #12aaeb;
+        display: none;
+    }
+    
+    .policyFeedback {
+        display: flex;
+        flex-direction: column;
+        width: 180px;
+        height: 300px;
+        border: 2px solid #8ad3f3;
+        border-radius: 4px;
+        margin: 30px;
+    }
+    
+    .policyTitle {
+        display: flex;
+        flex-direction: column;
+        width: 180px;
+        color: #225282;
+        min-height: 50px;
+        background: #8ad3f3;
+        max-height: 50px;
+        height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid #8ad3f3;
+    }
+    
+    .policyTitle:hover {
+        cursor: pointer;
+    }
+    
+    .policyDetails {
+        display: flex;
+        flex-direction: column;
+        width: 180px;
+        /*    min-height: 220px;*/
+        height: 200px;
+        border-bottom: 2px solid #8ad3f3;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .policyAction {
+        display: flex;
+        cursor: pointer;
+        flex-direction: column;
+        width: 180px;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .policyData {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        /* margin: 4px; */
+        border: 1px solid #8ad3f3;
+        border-top: none;
+        min-width: 180px;
+        height: 40px;
+    }
+    
+    .policyDescription {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-size: 11px;
+        height: 28px;
+        align-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 5px;
+        width: 100%;
+        border-bottom: 1px solid #8ad3f3;
+    }
+    
+    .policyRating {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 100%;
+    }
+    
+    .policyLabel {
+        margin: 5px;
+        font-size: 14px;
+        min-width: 80px;
+        height: 40px;
+        display: flex;
+        border-right: 1px solid #8ad3f3;
+        flex-direction: row;
+        align-items: center;
+        align-items: center;
+        justify-content: flex-start;
+        font-weight: bold;
+    }
+    
+    .policyContent {
+        font-size: 16px;
+        min-width: 70px;
+        margin-right: 10px;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    
+    .buyPolicy {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        background: #e7f6fd;
+    }
+    
+    .starImage {
+        height: 24px;
+    }
+    
+    .guidance {
+        height: 40px;
+        margin: 40px;
+        width: 720px;
+        margin-bottom: 0;
+        border-radius: 4px;
+        color: #597a96;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        justify-content: space-around;
+        align-items: center;
+        background: #e7f6fd;
+        font-size: 14px;
+    }
+    
+    .resultsBar {
+        height: 40px;
+        margin: 40px;
+        margin-bottom: 0;
+        border-radius: 4px;
+        color: #597a96;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        justify-content: space-between;
+        align-items: center;
+        background: #e7f6fd;
+        font-size: 14px;
+    }
+    
+    .watson {
+        cursor: pointer;
+        display: none;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        border: 1px solid #12aaeb;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-right: 20px;
+        color: #225282;
+        font-weight: bold;
+        min-width: 210px;
+    }
+    
+    .glasses {
+        height: 11px;
+        min-width: 30px;
+        margin-right: 10px;
+    }
+    
+    .radarContainer {
+        margin-left: 40px;
+        margin-right: 40px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 2px solid #e7f6fd;
+    }
+    
+    @media only screen and (max-width: 800px) {
+        .outline {
+            display: flex;
+            align-content: center;
+            align-self: center;
+            flex-direction: column;
+            width: 100%;
+        }
+        .banner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #225282;
+            padding: 30px;
+            padding-bottom: 0px;
+            padding-top: 0;
+            margin-top: 0;
+            border-radius: 0;
+            height: 140px;
+        }
+        .menu {
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 10px;
+            padding: 20px;
+        }
+        .tiles {
+            isplay: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 320px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .call {
+            display: none;
+        }
+        .hero {
+            display: none;
+        }
+        .homePage .tile {
+            margin: 10px;
+            margin-bottom: 18px;
+            margin-top: 0;
+        }
+        .name {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .welcome {
+            font-size: 14px;
+            border-radius: 4px;
+            color: #597a96;
+            line-height: 24px;
+            text-align: center;
+            margin: 0;
+        }
+        .split {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+        }
+        .interact {
+            order: 1;
+        }
+        .policy {
+            order: 2;
+            width: 302px;
+            margin: 0;
+        }
+        .plan {
+            font-size: 14px;
+            margin: 0;
+            padding: 20px;
+            border-radius: 4px;
+            color: #597a96;
+            width: 260px;
+            border: 1px dashed #597a96;
+        }
+        .consideration-mobile {
+            display: flex;
+        }
+        .consideration {
+            display: none;
+        }
+        .evaluation {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e7f6fd;
+        }
+        .resultsBar {
+            flex-direction: column;
+            height: 80px;
+            margin: 0;
+            padding-bottom: 20px;
+        }
+        .watson {
+            margin-right: 0;
+        }
+        .output {
+            width: 400px;
+            align-items: center;
+        }
+        .results {
+            width: 400px;
+        }
+        .policies {
+            width: 320px;
+            min-width: 320px;
+        }
+    }

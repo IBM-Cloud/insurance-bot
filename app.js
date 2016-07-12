@@ -22,6 +22,7 @@ var logger = log4js.getLogger('application');
 // create a new express server
 var app = express();
 var http = require('http');
+var request = require('request');
 
 
 var datetime = require('node-datetime');
@@ -111,13 +112,6 @@ app.listen(appEnv.port, '0.0.0.0', function () {
 
     // print a message when the server starts listening
     logger.info("server starting on " + appEnv.url);
-    //Home page
-    app.get("/", function (req, res) {
-        res.render('index', {
-            title: 'Cloud Insurance Co - the one with the AI Bot',
-            page: 'homePage',
-        });
-    });
 
     //About page
     app.get("/about", function (req, res) {
@@ -446,19 +440,17 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                         if (doc.id === Userid) {
                             var CCategories = doc.policies[0].categories;
                             var cat_i, cov_i, outPRespond;
-                            for(cat_i=0; cat_i<CCategories.length; cat_i++)
-                            {
-                              for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
-                              {
-                                if(CCategories[cat_i].coverage[cov_i].item == req.body.SlectType){
-                                  if(CCategories[cat_i].coverage[cov_i].claims[0]){
-                                    CCategories[cat_i].coverage[cov_i].claims[0].amount = req.body.claimamount;
-                                    CCategories[cat_i].coverage[cov_i].claims[0].date = fomratted;
-                                  }else {
-                                    console.log('No data there for this cover type!');
-                                  }
+                            for (cat_i = 0; cat_i < CCategories.length; cat_i++) {
+                                for (cov_i = 0; cov_i < CCategories[cat_i].coverage.length; cov_i++) {
+                                    if (CCategories[cat_i].coverage[cov_i].item == req.body.SlectType) {
+                                        if (CCategories[cat_i].coverage[cov_i].claims[0]) {
+                                            CCategories[cat_i].coverage[cov_i].claims[0].amount = req.body.claimamount;
+                                            CCategories[cat_i].coverage[cov_i].claims[0].date = fomratted;
+                                        } else {
+                                            console.log('No data there for this cover type!');
+                                        }
+                                    }
                                 }
-                              }
                             }
 
                             //doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
@@ -565,5 +557,49 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     //DELETE call to delete a document.
     app.delete("/api/deletedoc", deleteDocument);
 
+
+
+
+    /**
+     * Makes an HTTP POST request given options and the initial response object
+     */
+
+    function makePostRequest(payload, url, res) {
+        var options = {
+            body: payload,
+            json: true,
+            url: url
+        };
+
+        request.post(options, function (err, response) {
+            if (err)
+                return res.json(err);
+            else
+                return res.json(response.body);
+        });
+    }
+
+    /**
+     * Constructs a URL for an insurance microservice
+     */
+    function constructApiRoute(prefix, suffix) {
+        return "https://" + prefix + suffix + ".mybluemix.net";
+    }
+
+    var catalog_url = 'http://insurance-store-front.mybluemix.net/api';
+
+    http: //insurance-store-front.mybluemix.net/api/tradeoff
+
+        // Allow clients to make policy tradeoff calculations
+        app.post('/api/tradeoff', function (req, res, next) {
+
+            console.log(catalog_url + '/tradeoff');
+            return makePostRequest(req.body, catalog_url + '/tradeoff', res);
+        });
+
+    // Allow clients to create new policy orders
+    app.post('/api/orders', function (req, res, next) {
+        return makePostRequest(req.body, orders_url + '/orders', res);
+    });
 
 });
