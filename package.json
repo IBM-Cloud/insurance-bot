@@ -12,7 +12,8 @@
     "ejs": "~2.3.3",
     "body-parser": "~1.13.2",
     "dotenv": "*",
-    "log4js": "~0.6.36"
+    "log4js": "~0.6.36",
+    "node-datetime": "1.0"
   },
   "repository": {},
   "engines": {

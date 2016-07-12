@@ -21,7 +21,17 @@
                             <div class="welcomeText">
 
                                 Hi
-                                <%= memberData.name %>, <span id="MemberName"></span>Welcome to CloudCo Insurance
+                                <%
+                                if(memberData.loginLast === 'DD/MM/YYYY'){
+                                  %>
+                                    <%= memberData.name %>, <span id="MemberName"></span>Welcome to CloudCo, please update your account details %>
+                                  <%
+                                }else{
+                                  %>
+                                    <%= memberData.name %>, <span id="MemberName"></span>Welcome back, you last logged into CloudCo on: <%= memberData.loginLast %>
+                                  <%
+                                }
+                                %>
 
                             </div>
 

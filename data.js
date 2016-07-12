@@ -5,12 +5,12 @@ module.exports = {
         data = {
             name: name,
             id: identifier,
-            birthday: '',
+            birthday: 'N/A',
             gender: 'N/A',
-            address: '',
+            address: 'N/A',
             created_at: '2014-05-12 - 03:15:10',
             policy_renewal_date: '2017-05-11',
-            logins: [],
+            loginLast: 'DD/MM/YYYY',
             policies: [
 
             {

@@ -48,8 +48,6 @@
 
               <ul class="ui-insuranceLeftList">
                     <%
-                    var CClaims = memberData.policies[0].categories[0].coverage[0].claims;
-                    var CCoverage = memberData.policies[0].categories[0].coverage;
                     var CCategories = memberData.policies[0].categories;
                     var cat_i, cov_i, cla_i;
 
@@ -61,25 +59,38 @@
                         <div class="benefits">
                           <span><%=CCategories[cat_i].category %></span>
                         </div>
-                          <%=CCategories[cat_i].description %>
+
                         <%
 
 
                         for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
                         {
                             %>
-                            <li>TYPE: <span><%=CCategories[cat_i].coverage[cov_i].item %></span></li>
-                            <li>LIMIT: <span><%=CCategories[cat_i].coverage[cov_i].limit %></span></li>
+                            <li>COVER TYPE: <span><%=CCategories[cat_i].coverage[cov_i].item %></span></li>
                             <li>COVER BEGIN: <span><%=CCategories[cat_i].coverage[cov_i].begin %></span></li>
                             <li>PERCENTAGE: <span><%=CCategories[cat_i].coverage[cov_i].percentage %></span></li>
-                            <li>No. Of Claims: <span><%= CCategories[cat_i].coverage[cov_i].claims.length %></span></li>
+
+                            <li>No. Of Claims:
+                              <%
+                              if(CCategories[cat_i].coverage[cov_i].claims.amount === '0'){
+                                %>
+                                <span>0</span></li>
+                                <%
+                              }else{
+                                %>
+                                <span><%= CCategories[cat_i].coverage[cov_i].claims.length %></span></li>
+                                <%
+                              }
+                              %>
+
 
                             <%
                               for(cla_i=0; cla_i<CCategories[cat_i].coverage[cov_i].claims.length; cla_i++)
                               {
                                   %>
-                                  <li>CLAIM DATE: <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].date %></span></li>
-                                  <li>CLAIM AMOUNT: <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].amount %></span></li>
+                                  <li>CLAIM LIMIT (€): <span><%=CCategories[cat_i].coverage[cov_i].limit %></span></li>
+                                  <li>TOTAL AMOUNT CLAIMED (€): <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].amount %></span></li>
+                                  <li>CLAIM MADE ON: <span><%= CCategories[cat_i].coverage[cov_i].claims[cla_i].date %></span></li>
 
                                   <%
 
@@ -91,6 +102,7 @@
                                   }
                               }
                               %>
+
                               <br>
                               <%
                         }

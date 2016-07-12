@@ -23,6 +23,12 @@ var logger = log4js.getLogger('application');
 var app = express();
 var http = require('http');
 
+
+var datetime = require('node-datetime');
+var dt = datetime.create();
+var fomratted = dt.format('d/m/Y H:M:S');
+
+
 //bodyparser for POST requests.
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -150,6 +156,20 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                                 page: 'member',
                                 memberData: doc
                             });
+                            var dt01 = datetime.create();
+                            var fomratted01 = dt01.format('d/m/Y H:M:S');
+                            doc.loginLast = fomratted01;
+
+                            db.insert(doc, function (err, doc) {
+                                if (err) {
+                                    console.log('Error inserting data\n' + err);
+                                    return 500;
+                                } else {
+                                    return 200;
+                                }
+                            });
+
+
                         }
                     })
                 })
@@ -424,10 +444,27 @@ app.listen(appEnv.port, '0.0.0.0', function () {
                         revs_info: true
                     }, function (err, doc) {
                         if (doc.id === Userid) {
-                            doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
+                            var CCategories = doc.policies[0].categories;
+                            var cat_i, cov_i, outPRespond;
+                            for(cat_i=0; cat_i<CCategories.length; cat_i++)
+                            {
+                              for(cov_i=0; cov_i<CCategories[cat_i].coverage.length; cov_i++)
+                              {
+                                if(CCategories[cat_i].coverage[cov_i].item == req.body.SlectType){
+                                  if(CCategories[cat_i].coverage[cov_i].claims[0]){
+                                    CCategories[cat_i].coverage[cov_i].claims[0].amount = req.body.claimamount;
+                                    CCategories[cat_i].coverage[cov_i].claims[0].date = fomratted;
+                                  }else {
+                                    console.log('No data there for this cover type!');
+                                  }
+                                }
+                              }
+                            }
+
+                            //doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
                             db.insert(doc, function (err, doc) {
                                 if (err) {
-                                    console.log('Update01 Error inserting data\n' + err);
+                                    console.log('Error inserting data\n' + err);
                                     return 500;
                                 } else {
                                     return 200;
