@@ -473,6 +473,37 @@ app.listen(appEnv.port, '0.0.0.0', function () {
     });
 
 
+    //feedback page
+    app.get("/feedback", function (req, res) {
+        res.render('feedback', {
+            title: 'Feedback',
+            page: 'homePage',
+        });
+    })
+
+
+
+    app.post("/feedback", function(req, res) {
+      var data = {
+          'title': req.body['title'],
+          'body': req.body['body']
+        }
+      var body = JSON.stringify(data);
+
+      var postReq = request.post({
+          url:'https://cloudcofeedback.mybluemix.net/api/feedback',
+          body: body,
+          headers: {'Content-Type': 'application/json'}
+        }, function optionalCallback(err, httpResponse, responseBody) {
+        if (err) {
+          res.status(500).send(responseBody);
+        } else {
+          res.status(200).send(responseBody);
+        }
+        console.log('Post successful!  Server responded with:', responseBody);
+      })
+    });
+
 
     //-------------------------------------------------------------------
     // CRUD operations

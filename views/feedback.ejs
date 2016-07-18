@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include partials/template/head.ejs %>
+</head>
+
+<body class="<%= page %>">
+
+    <div class="container">
+        <div class="outline">
+            <% include partials/template/header.ejs %>
+                <% include partials/template/loginLinks.ejs %>
+                    <% include partials/template/headEnding.ejs %>
+                        <section class="layout">
+
+
+
+                            <section id="feedback" class="services pad-section">
+                              <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h2><i class="glyphicon glyphicon-envelope"> </i>&nbsp;&nbsp; Feedback/Report a Bug</h2><hr />
+                                        <p>Report an issue, tell us what you love, tell us what you hate, tell us what you think we should build next into the CloudCo app.
+                                          All feedback is submitted on <a href="https://github.com/IBM-Bluemix/insurance-bot/issues">GitHub</a> so we can easily track it.
+                                        </p>
+                                          &nbsp;<br/>
+                                          <label class="control-label" id="formFeedback"></label>
+                                        </p>
+                                        <p>
+                                          <form id="feedbackForm">
+                                            <div class="form-group" id="titleGroup">
+                                              <label for="title" class="control-label">Feedback Title</label>
+                                              <input id="title" placeholder="Feedback Title" class="form-control"></input>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="name" class="control-label">Your Name</label>
+                                              <input id="name" placeholder="(optional)" class="form-control" ></input>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="email" class="control-label">Email</label>
+                                              <input id="email" placeholder="(optional)" class="form-control" ></input>
+                                            </div>
+                                            <div class="form-group" id="messageGroup">
+                                              <label for="message" class="control-label">Message</label>
+                                              <textarea id="message" placeholder="Please give us your feedback!" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                              <button type="submit" id="submitButton" class="btn btn-default btn-primary">Submit</button>
+                                              <button id="resetFormButton" class="btn btn-default">Reset</button>
+                                            </div>
+                                          </form>
+                                        </p>
+                                    </div>
+                                </div>
+                              </div>
+                            </section>
+
+
+
+
+
+                        </section>
+                        <!-- layout section -->
+        </div>
+    </div>
+
+    <% include partials/template/footer.ejs %>
+        <% include partials/template/analytics.ejs %>
+</body>
+
+</html>

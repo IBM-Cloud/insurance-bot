@@ -1,0 +1,9 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  name: cloudcofeedback
+  host: cloudcofeedback
+  disk_quota: 1024M
+  command: cloudcofeedback
+  buildpack: https://github.com/cloudfoundry/go-buildpack.git
