@@ -293,7 +293,6 @@
     .logout {
         color: white !important;
         font-weight: bold;
-        display: none;
     }
     
     .login {
@@ -1119,6 +1118,19 @@
         font-size: 14px;
         font-weight: 500;
         margin-left: 10px;
+    }
+    
+    .loginmenu {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 10px;
+    }
+    
+    .logoutmenu {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 10px;
+        display: none;
     }
     
     .signuplink {}
