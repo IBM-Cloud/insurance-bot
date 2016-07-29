@@ -13,6 +13,8 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var request = require('request');
+
 
 var configDB = require('./config/database.js');
 
@@ -154,7 +156,46 @@ app.get('/', function (req, res) {
 });
 
 
-/* update this file */
+function makePostRequest(payload, url, res) {
+    var options = {
+        body: payload,
+        json: true,
+        url: url
+    };
+
+    request.post(options, function (err, response) {
+        if (err)
+            return res.json(err);
+        else
+            return res.json(response.body);
+    });
+}
+
+/**
+ * Constructs a URL for an insurance microservice
+ */
+function constructApiRoute(prefix, suffix) {
+    return "https://" + prefix + suffix + ".mybluemix.net";
+}
+
+var catalog_url = 'http://insurance-store-front.mybluemix.net/api';
+
+http: //insurance-store-front.mybluemix.net/api/tradeoff
+
+    // Allow clients to make policy tradeoff calculations
+    app.post('/api/tradeoff', function (req, res, next) {
+
+        console.log(catalog_url + '/tradeoff');
+        return makePostRequest(req.body, catalog_url + '/tradeoff', res);
+    });
+
+// Allow clients to create new policy orders
+app.post('/api/orders', function (req, res, next) {
+    return makePostRequest(req.body, orders_url + '/orders', res);
+});
+
+
+
 
 
 // launch ======================================================================
