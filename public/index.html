@@ -7,22 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-
-
-    <!-- Stylesheets needed for lightbox-->
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/bootstrap-extend.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-
-    <!-- Core  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="/src/feedback.js"></script>
-
-
 </head>
 
-<body class="homePage">
+<body class="homePage" onload="checkStatus()">
 
     <div class="container">
         <div class="outline">
@@ -35,20 +22,18 @@
 
                     </div>
                     <div class="loginArea">
-                        <div class="menu"><a class="menulink" href="./feedback">FEEDBACK</a></div>
+                        <!-- div class="menu"><a class="menulink" href="./feedback">FEEDBACK</a></div -->
                         <div class="menu"><a class="menulink" href="./about">ABOUT</a></div>
-                        <div class="menu"><a class="menulink" href="#">LOGIN</a></div>
-                        <div class="fb">
-                            <div id="fbbutton" class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-                        </div>
-                        <div id="status"></div>
+                        <div class="menu"><a id="login" class="login" href="./login">LOGIN</a></div>
+                        <div class="menu"><a id="logout" class="logout" href="./login">LOGOUT</a></div>
+                        <div id="status "></div>
                     </div>
                 </div>
             </header>
-            <section class="layout">
-                <div class="primary">
+            <section class="layout ">
+                <div class="primary ">
 
-                    <div class="welcome"><strong>Cloud Insurance Co.</strong> is a conceptual insurance site built using <a href="http://bluemix.net">IBM Bluemix</a> and <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">IBM Watson</a>.
+                    <div class="welcome "><strong>Cloud Insurance Co.</strong> is a conceptual insurance site built using <a href="http://bluemix.net ">IBM Bluemix</a> and <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/ ">IBM Watson</a>.
                         <p>None of the policies are real ... the site exists to experiment and showcase cognitive and cloud computing ideas in the context of insurance.</p>
 
                     </div>
@@ -56,66 +41,66 @@
                 </div>
                 <!-- primary section -->
 
-                <aside class="secondary">
-                    <div class="tiles">
-                        <div class="tile">
-                            <!--                            <div class="hole"></div>-->
-                            <div class="glow">
-                                <img class="tileImage" src="images/wash/house.svg">
+                <aside class="secondary ">
+                    <div class="tiles ">
+                        <div class="tile ">
+                            <!--                            <div class="hole "></div>-->
+                            <div class="glow ">
+                                <img class="tileImage " src="images/wash/house.svg ">
                             </div>
                             <div class="label ">HOME</div>
                         </div>
-                        <div class="tile">
-                            <div class="glow">
-                                <img class="tileImage" src="images/wash/health.svg">
+                        <div class="tile ">
+                            <div class="glow ">
+                                <img class="tileImage " src="images/wash/health.svg ">
                             </div>
                             <div class="label ">HEALTH</div>
                         </div>
-                        <div class="tile">
-                            <div class="glow">
-                                <img class="tileImage" src="images/wash/car.svg">
+                        <div class="tile ">
+                            <div class="glow ">
+                                <img class="tileImage " src="images/wash/car.svg ">
                             </div>
                             <div class="label ">AUTO</div>
                         </div>
-                        <div class="tile" onclick="openTravel()">
-                            <div class="glow">
-                                <img class="tileImage" src="images/wash/travel.svg">
+                        <div class="tile " onclick="openTravel() ">
+                            <div class="glow ">
+                                <img class="tileImage " src="images/wash/travel.svg ">
                             </div>
-                            <div class="label">TRAVEL</div>
+                            <div class="label ">TRAVEL</div>
                         </div>
                     </div>
-                    <div class="call"><span><strong>Co</strong>nvenient</span><span> <strong>Co</strong>gnitive</span><span><strong>Co</strong>verage</span></div>
-                    <div class="hero">
-                        <img class="tileImage watchImage" src="images/wash/watch.svg ">
-                        <div class="learn">
-                            <div class="heroText">We value your time, with our instant and intelligent policy bot service</div>
-                            <button class="quote" onclick="openWatson()">Learn more ...</button>s</div>
-                        <img class="botImage" src="images/wash/bot.svg ">
+                    <div class="call "><span><strong>Co</strong>nvenient</span><span> <strong>Co</strong>gnitive</span><span><strong>Co</strong>verage</span></div>
+                    <div class="hero ">
+                        <img class="tileImage watchImage " src="images/wash/watch.svg ">
+                        <div class="learn ">
+                            <div class="heroText ">We value your time, with our instant and intelligent policy bot service</div>
+                            <button class="quote " onclick="openWatson() ">Learn more ...</button>s</div>
+                        <img class="botImage " src="images/wash/bot.svg ">
                     </div>
 
 
                 </aside>
                 <!-- secondary -->
 
-                <!-- div class="json-respond">
+                <!-- div class="json-respond ">
 
 
 
                             </div -->
-                <div style="margin-top:100px;" class="separator"></div>
+                <div style="margin-top:100px; " class="separator "></div>
             </section>
             <!-- layout section -->
         </div>
     </div>
 
     <footer>
-        <section class="layout">
+        <section class="layout ">
             <p>
             </p>
-            <div class="github">
-                <span class="octicon octicon-octoface" style="font-size:22px;padding-right:10px;">
+            <div class="github ">
+                <span class="octicon octicon-octoface " style="font-size:22px;padding-right:10px; ">
     </span>
-                <!--                <a href="https://github.com/IBM-Bluemix/insurance-bot"> Learn how this site was built </a>-->
+                <!--                <a href="https://github.com/IBM-Bluemix/insurance-bot "> Learn how this site was built </a>-->
             </div>
             <p></p>
         </section>
@@ -125,6 +110,6 @@
 
 </body>
 
-<script src="src/cloudco.js"></script>
+<script src="src/cloudco.js "></script>
 
 </html>

@@ -1,636 +1,163 @@
-/*eslint-env node*/
+// server.js
 
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
-
-var path = require('path');
-//var routes = require('./routes/index');
-
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
+// set up ======================================================================
+// get all the tools we need
 var express = require('express');
-
-// cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
-var cfenv = require('cfenv');
-
-var log4js = require('log4js');
-
-var logger = log4js.getLogger('application');
-
-// create a new express server
 var app = express();
-var http = require('http');
-var request = require('request');
+var port = process.env.PORT || 5014;
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
 
-
-var datetime = require('node-datetime');
-var dt = datetime.create();
-var fomratted = dt.format('d/m/Y H:M:S');
-
-
-//bodyparser for POST requests.
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-    extended: false
+var session = require('express-session');
+
+var configDB = require('./config/database.js');
+
+var User = require('./models/user');
+
+
+// configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
+
+require('./config/passport')(passport); // pass passport for configuration
+
+app.use(express.static(__dirname + '/public'));
+
+// set up our express application
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+
+app.set('view engine', 'html');
+
+// required for passport
+app.use(session({
+    secret: 'ana-insurance-bot'
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+var bcrypt = require('bcrypt-nodejs');
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+
+app.get('/login', function (req, res) {
+    res.sendfile('./public/login.html');
+});
+
+// process the login form
+app.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/loginSuccess', // redirect to the secure profile section
+    failureRedirect: '/loginFailure', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
 }));
 
-// parse application/json
-app.use(bodyParser.json());
+app.get('/loginSuccess', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+        username: req.user.local.email,
+        outcome: 'success'
+    }, null, 3));
+})
 
-var manager = require('./account');
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// serve the files out of ./public as our main files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
-
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function () {
+app.get('/loginFailure', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+        outcome: 'failure'
+    }, null, 3));
+})
 
 
+app.get('/signupSuccess', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+        username: req.user.local.email,
+        outcome: 'success'
+    }, null, 3));
+})
 
-    //----------------------------------------------------------------------------------
-    // Cloudant connections
-    //----------------------------------------------------------------------------------
+app.get('/signupFailure', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+        outcome: 'failure'
+    }, null, 3));
+})
 
-    //Added for Json Readability
-    app.set('json spaces', 6);
+app.get('/isLoggedIn', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var result = {
+        outcome: 'failure'
+    };
 
-    //Cloudant Initialization code
-    //require('dotenv').load();
-    // Load the Cloudant library.
-    var Cloudant = require('cloudant');
-    //using Bluemix VCAP_SERVICES for Cloudant credentials
-    if (process.env.VCAP_SERVICES) {
-        // Running on Bluemix. Parse the port and host that we've been assigned.
-        var env = JSON.parse(process.env.VCAP_SERVICES);
-        var host = process.env.VCAP_APP_HOST;
-        var port = process.env.VCAP_APP_PORT;
-        //        console.log('VCAP_SERVICES: %s', process.env.VCAP_SERVICES);
-        // Also parse Cloudant settings.
-        var credentials = env['cloudantNoSQLDB'][0]['credentials'];
-        username = credentials.username;
-        password = credentials.password;
-
-        // Initialize the library with CloudCo account.
-        cloudant = Cloudant({
-            account: username,
-            password: password
-        });
-    } else {
-        console.log('Not using VCAP_SERVICES');
-        // To run the app locally comment out above two lines and add your username and password from your Cloudant
-        username = '';
-        password = '';
-
-        // Initialize the library with CloudCo account.
-        var cloudant = Cloudant({
-            account: username,
-            password: password
-        });
+    if (req.isAuthenticated()) {
+        result.outcome = 'success';
+        result.username = req.user.local.email;
     }
 
-
-    var db = cloudant.db.use("insurance"); //use Insurance DB
-
-    cloudant.db.create("insurance", function (err, res) {
-        if (err) {
-            logger.warn('database already created');
-        } else {
-            logger.info('database created successfully');
-        }
-    });
-
-
-    // print a message when the server starts listening
-    logger.info("server starting on " + appEnv.url);
-
-    //About page
-    app.get("/about", function (req, res) {
-        res.render('about', {
-            title: 'Cloud Insurance Co - About',
-            page: 'homePage',
-        });
-    })
-
-    //member page
-    app.get("/member", function (req, res) {
-
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-                var item;
-
-                /* TODO: should be able to use a find method here */
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        if (doc.name === name && doc.id === id) {
-
-                            res.render('member', {
-                                title: 'Policy Member',
-                                page: 'member',
-                                memberData: doc
-                            });
-                            var dt01 = datetime.create();
-                            var fomratted01 = dt01.format('d/m/Y H:M:S');
-                            doc.loginLast = fomratted01;
-
-                            db.insert(doc, function (err, doc) {
-                                if (err) {
-                                    console.log('Error inserting data\n' + err);
-                                    return 500;
-                                } else {
-                                    return 200;
-                                }
-                            });
-
-
-                        }
-                    })
-                })
-            }
-        });
-    });
-
-    app.param('id', function (req, res, next, id) {
-
-        /* Facebook creds come in like this: id~name */
-
-        var components = id.split('~')
-
-        var identifier = components[0];
-        var name = components[1];
-
-        manager.findAccount(identifier, name, res, cloudant, manager.handleAccountOutcome);
-    });
-
-    app.get("/person/:id", function (req, res) {});
-
-    //home insurance page
-    app.get("/home", function (req, res) {
-
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                //logger.info("Number of accounts: " + count);
-
-                var item;
-
-                /* TODO: should be able to use a find method here */
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        console.log('The doc is: ' + doc);
-                        if (doc.name === name && doc.id === id) {
-
-                            res.render('home', {
-                                title: 'Home Policy',
-                                page: 'home',
-                                memberData: doc
-                            });
-                        }
-                    })
-                })
-            }
-        });
-
-    });
-
-    //car insurance page
-    app.get("/auto", function (req, res) {
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                //logger.info("Number of accounts: " + count);
-
-                var item;
-
-                /* TODO: should be able to use a find method here */
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        if (doc.name === name && doc.id === id) {
-
-                            res.render('auto', {
-                                title: 'Auto Policy',
-                                page: 'auto',
-                                memberData: doc
-                            });
-                        }
-                    })
-                })
-            }
-        })
-
-    });
-
-    //health page
-    app.get("/health", function (req, res) {
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                //logger.info("Number of accounts: " + count);
-
-                var item;
-
-                /* TODO: should be able to use a find method here */
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        if (doc.name === name && doc.id === id) {
-
-                            res.render('health', {
-                                title: 'health Policy',
-                                page: 'health',
-                                memberData: doc
-                            });
-                        }
-                    })
-                })
-            }
-        });
-    });
-
-    //editUser page
-    app.get("/editUser", function (req, res) {
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                //logger.info("Number of accounts: " + count);
-
-                var item;
-
-                /* TODO: should be able to use a find method here */
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        if (doc.name === name && doc.id === id) {
-                            res.render('editUser', {
-                                title: 'Edit User',
-                                page: 'editUser',
-                                memberData: doc
-                            });
-                        }
-                    })
-                })
-            }
-        });
-    });
-
-    //UPDATE User Info
-    app.post("/updateuserInfo", function (req, res) {
-        var Userid = req.body.userid;
-        var UserPerName = req.body.fullName;
-
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                var item;
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-                        if (doc.id === Userid) {
-                            doc.name = req.body.fullName;
-                            doc.gender = req.body.gender;
-                            doc.birthday = req.body.dateofbirth;
-                            doc.address = req.body.address;
-                            db.insert(doc, function (err, doc) {
-                                if (err) {
-                                    console.log('Update01 Error inserting data\n' + err);
-                                    return 500;
-                                } else {
-                                    return 200;
-                                }
-                            });
-                        }
-                    })
-                })
-            }
-        });
-        res.redirect('/health?name=' + UserPerName + '&&id=' + Userid);
-        //res.end();
-    });
-
-
-    //health page
-    app.get("/healthClaim", function (req, res) {
-        var name = req.query.name;
-        var id = req.query.id;
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                //logger.info("Number of accounts: " + count);
-
-                var item;
-
-                /* TODO: should be able to use a find method here */
-
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-
-                        if (doc.name === name && doc.id === id) {
-
-                            res.render('healthClaim', {
-                                title: 'health Policy',
-                                page: 'health',
-                                memberData: doc
-                            });
-                        }
-                    })
-                })
-            }
-        });
-    });
-
-    //UPDATE User Info
-    app.post("/processClaim", function (req, res) {
-        var Userid = req.body.userid;
-        var UserPerName = req.body.fullName;
-
-        db.list(function (err, body) {
-
-            if (err) {
-                logger.error(err);
-            } else {
-
-                var rows = body.rows;
-                var count = rows.length;
-
-                var item;
-                rows.forEach(function (account) {
-                    db.get(account.id, {
-                        revs_info: true
-                    }, function (err, doc) {
-                        if (doc.id === Userid) {
-                            var CCategories = doc.policies[0].categories;
-                            var cat_i, cov_i, outPRespond;
-                            for (cat_i = 0; cat_i < CCategories.length; cat_i++) {
-                                for (cov_i = 0; cov_i < CCategories[cat_i].coverage.length; cov_i++) {
-                                    if (CCategories[cat_i].coverage[cov_i].item == req.body.SlectType) {
-                                        if (CCategories[cat_i].coverage[cov_i].claims[0]) {
-                                            CCategories[cat_i].coverage[cov_i].claims[0].amount = req.body.claimamount;
-                                            CCategories[cat_i].coverage[cov_i].claims[0].date = fomratted;
-                                        } else {
-                                            console.log('No data there for this cover type!');
-                                        }
-                                    }
-                                }
-                            }
-
-                            //doc.policies[0].categories[0].coverage[0].claims[0].amount = req.body.claimamount;
-                            db.insert(doc, function (err, doc) {
-                                if (err) {
-                                    console.log('Error inserting data\n' + err);
-                                    return 500;
-                                } else {
-                                    return 200;
-                                }
-                            });
-                        }
-                    })
-                })
-            }
-        });
-        res.redirect('/health?name=' + UserPerName + '&&id=' + Userid);
-        //res.redirect('back');
-        //res.end();
-    });
-
-
-    //feedback page
-    app.get("/feedback", function (req, res) {
-        res.render('feedback', {
-            title: 'Feedback',
-            page: 'homePage',
-        });
-    })
-
-
-
-    app.post("/feedback", function(req, res) {
-      var data = {
-          'title': req.body['title'],
-          'body': req.body['body']
-        }
-      var body = JSON.stringify(data);
-
-      var postReq = request.post({
-          url:'https://cloudcofeedback.mybluemix.net/api/feedback',
-          body: body,
-          headers: {'Content-Type': 'application/json'}
-        }, function optionalCallback(err, httpResponse, responseBody) {
-        if (err) {
-          res.status(500).send(responseBody);
-        } else {
-          res.status(200).send(responseBody);
-        }
-        console.log('Post successful!  Server responded with:', responseBody);
-      })
-    });
-
-
-    //-------------------------------------------------------------------
-    // CRUD operations
-    //-------------------------------------------------------------------
-
-    //Create a doc
-    function createDocument(req, res) {
-        var db = cloudant.db.use(req.body.db);
-        var cloudantResponse = this;
-        db.insert(req.body.doc, req.body.docname, function (error, response) {
-            if (!error) {
-                logger.info("Response" + response.result);
-                cloudantResponse.result = JSON.stringify(response);
-                return cloudantResponse;
-            }
-
-        });
-
-        res.send(cloudantResponse.result);
-        res.end();
-    }
-
-    //POST call to create a document.
-    app.post("/api/createdoc", createDocument);
-
-    //Read a doc
-    function readDocument(req, res) {
-        var db = cloudant.db.use(req.query.db);
-        var cloudantResponse = this;
-        db.get(req.query.docname, {
-            revs_info: true
-        }, function (error, response) {
-            if (!error) {
-                logger.info("Response" + response.result);
-                cloudantResponse.result = JSON.stringify(response);
-                return cloudantResponse;
-                //res.send(response.result);
-            }
-
-        });
-        res.send(cloudantResponse.result);
-        res.end();
-    }
-
-    //GET call to read a document.
-    app.get("/api/readdoc", readDocument);
-
-    //update a doc
-    function updateDocument(req, res) {
-        var db = cloudant.db.use(req.body.db);
-        var cloudantResponse = this;
-        db.insert(req.body.doc, req.body.docname, function (error, response) {
-            if (!error) {
-                logger.info("Response" + response.result);
-                cloudantResponse.result = JSON.stringify(response.result);
-                return cloudantResponse;
-            }
-
-        });
-        res.send(cloudantResponse.result);
-        res.end();
-    }
-
-    //PUT call to update a document.
-    app.put("/api/updatedoc", updateDocument);
-
-    //Delete a doc
-    function deleteDocument(req, res) {
-        var db = cloudant.db.use(req.query.db);
-        var cloudantResponse = this;
-        db.destroy(req.query.docname, req.query.rev, function (error, response) {
-            if (!error) {
-                logger.info("Response" + response.result);
-                cloudantResponse.result = JSON.stringify(response.result);
-                return cloudantResponse;
-            }
-
-        });
-        res.send(cloudantResponse.result);
-        res.end();
-    }
-    //DELETE call to delete a document.
-    app.delete("/api/deletedoc", deleteDocument);
-
-
-
-
-    /**
-     * Makes an HTTP POST request given options and the initial response object
-     */
-
-    function makePostRequest(payload, url, res) {
-        var options = {
-            body: payload,
-            json: true,
-            url: url
-        };
-
-        request.post(options, function (err, response) {
-            if (err)
-                return res.json(err);
-            else
-                return res.json(response.body);
-        });
-    }
-
-    /**
-     * Constructs a URL for an insurance microservice
-     */
-    function constructApiRoute(prefix, suffix) {
-        return "https://" + prefix + suffix + ".mybluemix.net";
-    }
-
-    var catalog_url = 'http://insurance-store-front.mybluemix.net/api';
-
-    http: //insurance-store-front.mybluemix.net/api/tradeoff
-
-        // Allow clients to make policy tradeoff calculations
-        app.post('/api/tradeoff', function (req, res, next) {
-
-            console.log(catalog_url + '/tradeoff');
-            return makePostRequest(req.body, catalog_url + '/tradeoff', res);
-        });
-
-    // Allow clients to create new policy orders
-    app.post('/api/orders', function (req, res, next) {
-        return makePostRequest(req.body, orders_url + '/orders', res);
-    });
-
+    res.send(JSON.stringify(result, null, 3));
+})
+
+
+// =====================================
+// SIGNUP ==============================
+// =====================================
+// show the signup form
+app.get('/signup', function (req, res) {
+    console.log('signup');
+    res.sendfile('./public/signup.html');
 });
+
+// process the signup form
+app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/signupSuccess', // redirect to the secure profile section
+    failureRedirect: '/signupFailure', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
+}));
+
+// =====================================
+// PROFILE SECTION =====================
+// =====================================
+// we will want this protected so you have to be logged in to visit
+// we will use route middleware to verify this (the isLoggedIn function)
+app.get('/profile', isLoggedIn, function (req, res) {
+    console.log('profile page');
+    console.log(req.user.local);
+    console.log(req.user.local.email);
+    res.sendfile('./public/index.html');
+});
+
+// =====================================
+// LOGOUT ==============================
+// =====================================
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+app.get('/', function (req, res) {
+    console.log('user: ' + req.user);
+    res.render('index.html');
+});
+
+
+/* update this file */
+
+
+// launch ======================================================================
+app.listen(port);
+
+console.log('running on port ' + port);
