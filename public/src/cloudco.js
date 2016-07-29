@@ -154,6 +154,9 @@ function login() {
 
     var uri = 'login';
 
+    var messagearea = document.getElementById('messagearea');
+    messagearea.innerHTML = '';
+
     xhr.open('POST', encodeURI(uri));
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function (response) {
@@ -168,6 +171,8 @@ function login() {
 
             if (reply.outcome === 'success') {
                 window.location = './profile'
+            } else {
+                messagearea.innerHTML = 'Something went wrong - try again';
             }
 
 
