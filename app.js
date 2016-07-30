@@ -8,23 +8,21 @@ var port = process.env.PORT || 5014;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
-
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
 
-
 var configDB = require('./config/database.js');
+require('./config/passport')(passport);
 
-var User = require('./models/account');
-
+var Account = require('./models/account');
+var Benefits = require('./models/benefit');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
 
-require('./config/passport')(passport); // pass passport for configuration
+mongoose.connect(configDB.url); // connect to our database
 
 app.use(express.static(__dirname + '/public'));
 
@@ -56,7 +54,6 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-
 app.get('/login', function (req, res) {
     res.sendfile('./public/login.html');
 });
@@ -82,7 +79,6 @@ app.get('/loginFailure', function (req, res) {
         outcome: 'failure'
     }, null, 3));
 })
-
 
 app.get('/signupSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -113,11 +109,11 @@ app.get('/isLoggedIn', function (req, res) {
     res.send(JSON.stringify(result, null, 3));
 })
 
-
 // =====================================
 // SIGNUP ==============================
 // =====================================
 // show the signup form
+
 app.get('/signup', function (req, res) {
     console.log('signup');
     res.sendfile('./public/signup.html');
@@ -135,6 +131,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 // =====================================
 // we will want this protected so you have to be logged in to visit
 // we will use route middleware to verify this (the isLoggedIn function)
+
 app.get('/profile', isLoggedIn, function (req, res) {
     console.log('profile page');
     console.log(req.user.local);
@@ -142,9 +139,17 @@ app.get('/profile', isLoggedIn, function (req, res) {
     res.sendfile('./public/index.html');
 });
 
+app.get('/health', isLoggedIn, function (req, res) {
+    console.log('profile page');
+    console.log(req.user.local);
+    console.log(req.user.local.email);
+    res.sendfile('./public/health.html');
+});
+
 // =====================================
 // LOGOUT ==============================
 // =====================================
+
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
@@ -155,6 +160,10 @@ app.get('/', function (req, res) {
     res.render('index.html');
 });
 
+
+// =====================================
+// WATSON TRADEOFF TRAVEL ==============
+// =====================================
 
 function makePostRequest(payload, url, res) {
     var options = {
@@ -174,6 +183,7 @@ function makePostRequest(payload, url, res) {
 /**
  * Constructs a URL for an insurance microservice
  */
+
 function constructApiRoute(prefix, suffix) {
     return "https://" + prefix + suffix + ".mybluemix.net";
 }
@@ -194,11 +204,7 @@ app.post('/api/orders', function (req, res, next) {
     return makePostRequest(req.body, orders_url + '/orders', res);
 });
 
-
-
-
-
 // launch ======================================================================
-app.listen(port);
 
+app.listen(port);
 console.log('running on port ' + port);
