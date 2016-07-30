@@ -18,7 +18,7 @@ var request = require('request');
 
 var configDB = require('./config/database.js');
 
-var User = require('./models/user');
+var User = require('./models/account');
 
 
 // configuration ===============================================================

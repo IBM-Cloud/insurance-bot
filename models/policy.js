@@ -9,8 +9,11 @@ var PolicySchema = mongoose.Schema({
     claimLimit: Number,
     startDate: Date,
     endDate: Date,
+    entitlements: Number,
+    scope: String,
     amountClaimed: Number,
     percentCovered: Number,
+    code: Number,
     claims: [Claim.schema]
 })
 

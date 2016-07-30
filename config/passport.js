@@ -4,7 +4,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
-var User = require('../models/user');
+var User = require('../models/account');
 var Health = require('../models/benefit');
 var Policy = require('../models/policy');
 var Claim = require('../models/claim');
@@ -14,26 +14,72 @@ function createPolicies(account) {
 
     var healthBenefits = new Health();
 
-    var eyewear = new Policy();
-    eyewear.type = 'vision';
-    eyewear.description = 'Glasses, contact lens, laser treatment, etc';
-    eyewear.claimLimit = 300;
-    eyewear.startDate = new Date(2016, 1, 1);
-    eyewear.endDate = new Date(2016, 1, 1);
+    var eyeWear = new Policy();
+    eyeWear.type = 'vision';
+    eyeWear.description = 'Glasses, contact lens, laser treatment, etc';
+    eyeWear.claimLimit = 300;
+    eyeWear.scope = 'bi-annual';
+    eyeWear.startDate = new Date(2016, 1, 1);
+    eyeWear.endDate = new Date(2016, 1, 1);
+    eyeWear.code = 100;
 
     var eyeExam = new Policy();
     eyeExam.type = 'vision';
     eyeExam.description = 'Eye examinations';
     eyeExam.claimLimit = 100;
+    eyeExam.entitlements = 1;
+    eyeExam.scope = 'bi-annual';
     eyeExam.startDate = new Date(2016, 1, 1);
     eyeExam.endDate = new Date(2016, 1, 1);
+    eyeExam.code = 200;
 
+    var teethCleaning = new Policy();
+    teethCleaning.type = 'dental';
+    teethCleaning.description = 'Teeth Cleaning';
+    teethCleaning.claimLimit = 500;
+    teethCleaning.entitlements = 2;
+    teethCleaning.scope = 'annual';
+    teethCleaning.startDate = new Date(2016, 1, 1);
+    teethCleaning.endDate = new Date(2016, 1, 1);
+    teethCleaning.code = 300;
 
-    var policies = [];
+    var orthodontics = new Policy();
+    orthodontics.type = 'dental';
+    orthodontics.description = 'Orthodontics';
+    orthodontics.claimLimit = 2000;
+    orthodontics.entitlements = 100;
+    orthodontics.scope = 'lifetime';
+    orthodontics.startDate = new Date(2016, 1, 1);
+    orthodontics.endDate = new Date(2016, 1, 1);
+    orthodontics.code = 400;
+
+    var teethRepair = new Policy();
+    teethRepair.type = 'dental';
+    teethRepair.description = 'Teeth repair - fillings, chipped teeth';
+    teethRepair.claimLimit = 2000;
+    teethRepair.entitlements = 100;
+    teethRepair.scope = 'annual';
+    teethRepair.startDate = new Date(2016, 1, 1);
+    teethRepair.endDate = new Date(2016, 1, 1);
+    teethRepair.code = 500;
+
+    var mentalHealth = new Policy();
+    mentalHealth.type = 'psychology';
+    mentalHealth.description = 'Psychologist Services';
+    mentalHealth.claimLimit = 1400;
+    mentalHealth.entitlements = 100;
+    mentalHealth.scope = 'annual';
+    mentalHealth.startDate = new Date(2016, 1, 1);
+    mentalHealth.endDate = new Date(2016, 1, 1);
+    mentalHealth.code = 600;
 
     healthBenefits.owner = account;
-    healthBenefits.policies.push(eyewear);
+    healthBenefits.policies.push(eyeWear);
     healthBenefits.policies.push(eyeExam);
+    healthBenefits.policies.push(teethCleaning);
+    healthBenefits.policies.push(orthodontics);
+    healthBenefits.policies.push(teethRepair);
+    healthBenefits.policies.push(mentalHealth);
 
     healthBenefits.save(function (err) {
         if (err) {
@@ -41,7 +87,6 @@ function createPolicies(account) {
         }
     });
 }
-
 
 
 // expose this function to our app using module.exports
