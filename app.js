@@ -146,6 +146,17 @@ app.get('/health', isLoggedIn, function (req, res) {
     res.sendfile('./public/health.html');
 });
 
+app.get('/healthBenefits', isLoggedIn, function (req, res) {
+
+    res.setHeader('Content-Type', 'application/json');
+
+    Benefits.findOne({
+        owner: req.user.local.email
+    }, function (err, doc) {
+        res.send(JSON.stringify(doc, null, 3));
+    });
+});
+
 // =====================================
 // LOGOUT ==============================
 // =====================================

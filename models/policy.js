@@ -5,6 +5,7 @@ var Claim = require('../models/claim');
 
 var PolicySchema = mongoose.Schema({
     type: String,
+    title: String,
     description: String,
     claimLimit: Number,
     startDate: Date,

@@ -12,10 +12,9 @@ var Claim = require('../models/claim');
 
 function createPolicies(account) {
 
-    var healthBenefits = new Health();
-
     var eyeWear = new Policy();
     eyeWear.type = 'vision';
+    eyeWear.title = 'eye wear';
     eyeWear.description = 'Glasses, contact lens, laser treatment, etc';
     eyeWear.claimLimit = 300;
     eyeWear.scope = 'bi-annual';
@@ -25,6 +24,7 @@ function createPolicies(account) {
 
     var eyeExam = new Policy();
     eyeExam.type = 'vision';
+    eyeExam.title = 'eye exams';
     eyeExam.description = 'Eye examinations';
     eyeExam.claimLimit = 100;
     eyeExam.entitlements = 1;
@@ -35,6 +35,7 @@ function createPolicies(account) {
 
     var teethCleaning = new Policy();
     teethCleaning.type = 'dental';
+    teethCleaning.title = 'teeth cleaning';
     teethCleaning.description = 'Teeth Cleaning';
     teethCleaning.claimLimit = 500;
     teethCleaning.entitlements = 2;
@@ -45,6 +46,7 @@ function createPolicies(account) {
 
     var orthodontics = new Policy();
     orthodontics.type = 'dental';
+    orthodontics.title = 'orthodontics';
     orthodontics.description = 'Orthodontics';
     orthodontics.claimLimit = 2000;
     orthodontics.entitlements = 100;
@@ -55,6 +57,7 @@ function createPolicies(account) {
 
     var teethRepair = new Policy();
     teethRepair.type = 'dental';
+    teethRepair.title = 'tooth repair';
     teethRepair.description = 'Teeth repair - fillings, chipped teeth';
     teethRepair.claimLimit = 2000;
     teethRepair.entitlements = 100;
@@ -65,6 +68,7 @@ function createPolicies(account) {
 
     var mentalHealth = new Policy();
     mentalHealth.type = 'psychology';
+    mentalHealth.title = 'mental health';
     mentalHealth.description = 'Psychologist Services';
     mentalHealth.claimLimit = 1400;
     mentalHealth.entitlements = 100;
@@ -73,6 +77,7 @@ function createPolicies(account) {
     mentalHealth.endDate = new Date(2016, 1, 1);
     mentalHealth.code = 600;
 
+    var healthBenefits = new Health();
     healthBenefits.owner = account;
     healthBenefits.policies.push(eyeWear);
     healthBenefits.policies.push(eyeExam);

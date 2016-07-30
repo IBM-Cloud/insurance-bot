@@ -97,6 +97,13 @@ function get(path, callback) {
     xmlhttp.send();
 }
 
+
+function getBenefits() {
+    get('./healthBenefits', function (reply) {
+        console.log(reply);
+    })
+}
+
 function checkStatus() {
 
     get('./isLoggedIn', function (reply) {
