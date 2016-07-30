@@ -5,6 +5,44 @@ var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
 var User = require('../models/user');
+var Health = require('../models/benefit');
+var Policy = require('../models/policy');
+var Claim = require('../models/claim');
+
+
+function createPolicies(account) {
+
+    var healthBenefits = new Health();
+
+    var eyewear = new Policy();
+    eyewear.type = 'vision';
+    eyewear.description = 'Glasses, contact lens, laser treatment, etc';
+    eyewear.claimLimit = 300;
+    eyewear.startDate = new Date(2016, 1, 1);
+    eyewear.endDate = new Date(2016, 1, 1);
+
+    var eyeExam = new Policy();
+    eyeExam.type = 'vision';
+    eyeExam.description = 'Eye examinations';
+    eyeExam.claimLimit = 100;
+    eyeExam.startDate = new Date(2016, 1, 1);
+    eyeExam.endDate = new Date(2016, 1, 1);
+
+
+    var policies = [];
+
+    healthBenefits.owner = account;
+    healthBenefits.policies.push(eyewear);
+    healthBenefits.policies.push(eyeExam);
+
+    healthBenefits.save(function (err) {
+        if (err) {
+            throw err;
+        }
+    });
+}
+
+
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -72,6 +110,7 @@ module.exports = function (passport) {
                         // create the user
                         var newUser = new User();
 
+
                         // set the user's local credentials
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
@@ -81,6 +120,9 @@ module.exports = function (passport) {
                             if (err) {
                                 throw err;
                             }
+
+                            createPolicies(email);
+
                             return done(null, newUser);
                         });
 
@@ -107,20 +149,18 @@ module.exports = function (passport) {
                 'local.email': email
             }, function (err, user) {
                 // if there are any errors, return the error before anything else
-                if (err)
+                if (err) {
                     return done(err);
+                }
 
                 // if no user is found, return the message
                 if (!user) {
                     console.log('user not found');
-
                     return done(null, false, req.flash('loginMessage', 'No user found.'));
                 } // req.flash is the way to set flashdata using connect-flash
 
                 // if the user is found but the password is wrong
                 if (!user.validPassword(password)) {
-
-                    console.log('wrong password');
 
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                 } // create the loginMessage and save it to session as flashdata
