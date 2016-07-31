@@ -43,7 +43,7 @@
 }
 
 .benefitset {
-    margin-left: -30px;
+    margin-left: -40px;
 }
 
 .benefit {
@@ -68,7 +68,7 @@
     transform: rotate(-90deg);
     /* text-align: center; */
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 13px;
     color: #225282;
     color: #12aaeb;
     font-weight: bold;
