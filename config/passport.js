@@ -67,7 +67,7 @@ function createPolicies(account) {
     teethRepair.code = 500;
 
     var mentalHealth = new Policy();
-    mentalHealth.type = 'psychology';
+    mentalHealth.type = 'mental';
     mentalHealth.title = 'mental health';
     mentalHealth.description = 'Psychologist Services';
     mentalHealth.claimLimit = 1400;

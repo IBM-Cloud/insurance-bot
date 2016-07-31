@@ -98,9 +98,80 @@ function get(path, callback) {
 }
 
 
+function createBenefitRow(policy) {
+    var row = document.createElement('div');
+    row.className = 'benefitrow';
+    row.innerHTML = '<div class="benefiticon">' +
+        '<img class="benefitimage" src="images/wash/glasses.svg">' +
+        '</div>' +
+        '<div class="benefitchannel">' +
+        '<div class="benefitmarker"></div>' +
+        '</div>' +
+        '<div class="benefitTitle">' + policy.title + '</div>';
+    return row;
+}
+
+function createBenefitEntity(type) {
+
+    var benefit = document.createElement('div');
+    benefit.className = 'benefit';
+
+    benefit.innerHTML = '<div class="sideline">' + type + '</div>' +
+        '<div class="benefitblock">' +
+        '<div class="benefitcap">' +
+        '<div class="benefiticon"></div>' +
+        '<div class="benefitchanneltop"></div>' +
+        '<div class="benefitTitle"></div>' +
+        '</div>' +
+        '<div id="' + type + '" class="benefitrows">' +
+        '</div>' +
+
+        '<div class="benefitcap">' +
+        '<div class="benefiticon"></div>' +
+        '<div class="benefitchannelbottom"></div>' +
+        '<div class="benefitTitle"></div>' +
+        '</div>' +
+        '</div>';
+
+    return benefit;
+}
+
+
 function getBenefits() {
+
+    checkStatus();
+
     get('./healthBenefits', function (reply) {
         console.log(reply);
+
+        var header = document.getElementById('owner');
+        owner.innerHTML = reply.owner;
+
+        var policies = reply.policies;
+        var policyAreas = [];
+        var policyKeys = [];
+
+        var benefitset = document.getElementById('benefitset');
+
+        policies.forEach(function (policy) {
+
+            if (policyAreas[policy.type]) {
+                policyAreas[policy.type].push(policy);
+            } else {
+                policyAreas[policy.type] = [];
+                policyAreas[policy.type].push(policy);
+                policyKeys.push(policy.type);
+
+                var benefitEntity = createBenefitEntity(policy.type);
+                benefitset.appendChild(benefitEntity);
+            }
+
+            var benefitRow = createBenefitRow(policy);
+            var anchor = document.getElementById(policy.type);
+            anchor.appendChild(benefitRow);
+        })
+
+        console.log(policyAreas);
     })
 }
 

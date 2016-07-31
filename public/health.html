@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/benefit.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 </head>
 
@@ -22,9 +23,8 @@
                     <div class="loginArea">
                         <!-- div class="menu"><a class="menulink" href="./feedback">FEEDBACK</a></div -->
                         <div class="menu"><a class="menulink" href="./about">ABOUT</a></div>
-                        <div class="menu">
-                            <div class="menulink" onclick="showMenu()">LOGIN</div>
-                        </div>
+                        <div id="login" class="loginmenu"><a class="login" href="./login">LOGIN</a></div>
+                        <div id="logout" class="logoutmenu"><a class="logout" href="./logout">LOGOUT</a></div>
                         <div id="status "></div>
                     </div>
                 </div>
@@ -32,7 +32,16 @@
             <section class="layout ">
 
                 <div style="margin:40px;">
-                    HEALTH POLICY PAGE COMING SOON
+
+                    <div class="benefitkit">
+                        <div class="benefitdata">
+                            <div id="header" class="header">Health Benefits</div>
+                            <div id="owner" class="owner"></div>
+                            <div class="benefitset" id="benefitset">
+                            </div>
+                        </div>
+                        <div class="interactions"></div>
+                    </div>
                 </div>
 
             </section>
