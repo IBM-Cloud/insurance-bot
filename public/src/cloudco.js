@@ -102,7 +102,7 @@ function createBenefitRow(policy) {
     var row = document.createElement('div');
     row.className = 'benefitrow';
     row.innerHTML = '<div class="benefiticon">' +
-        '<img class="benefitimage" src="images/wash/glasses.svg">' +
+        '<img class="benefitimage" src="images/health/' + policy.icon + '.svg">' +
         '</div>' +
         '<div class="benefitchannel">' +
         '<div class="benefitmarker"></div>' +

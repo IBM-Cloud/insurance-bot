@@ -14,6 +14,7 @@ function createPolicies(account) {
 
     var eyeWear = new Policy();
     eyeWear.type = 'vision';
+    eyeWear.icon = 'eyewear';
     eyeWear.title = 'eye wear';
     eyeWear.description = 'Glasses, contact lens, laser treatment, etc';
     eyeWear.claimLimit = 300;
@@ -24,6 +25,7 @@ function createPolicies(account) {
 
     var eyeExam = new Policy();
     eyeExam.type = 'vision';
+    eyeExam.icon = 'eyeexam';
     eyeExam.title = 'eye exams';
     eyeExam.description = 'Eye examinations';
     eyeExam.claimLimit = 100;
@@ -35,6 +37,7 @@ function createPolicies(account) {
 
     var teethCleaning = new Policy();
     teethCleaning.type = 'dental';
+    teethCleaning.icon = 'toothbrush';
     teethCleaning.title = 'teeth cleaning';
     teethCleaning.description = 'Teeth Cleaning';
     teethCleaning.claimLimit = 500;
@@ -46,6 +49,7 @@ function createPolicies(account) {
 
     var orthodontics = new Policy();
     orthodontics.type = 'dental';
+    orthodontics.icon = 'braces';
     orthodontics.title = 'orthodontics';
     orthodontics.description = 'Orthodontics';
     orthodontics.claimLimit = 2000;
@@ -57,6 +61,7 @@ function createPolicies(account) {
 
     var teethRepair = new Policy();
     teethRepair.type = 'dental';
+    teethRepair.icon = 'tooth';
     teethRepair.title = 'tooth repair';
     teethRepair.description = 'Teeth repair - fillings, chipped teeth';
     teethRepair.claimLimit = 2000;
@@ -68,7 +73,8 @@ function createPolicies(account) {
 
     var mentalHealth = new Policy();
     mentalHealth.type = 'mental';
-    mentalHealth.title = 'mental health';
+    mentalHealth.icon = 'talk';
+    mentalHealth.title = 'Psychologist Services';
     mentalHealth.description = 'Psychologist Services';
     mentalHealth.claimLimit = 1400;
     mentalHealth.entitlements = 100;
