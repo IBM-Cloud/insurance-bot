@@ -18,6 +18,46 @@ align-items: center;
     min-height: 200px;
 }
 
+.benefitfact {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.padding {
+    height: 36px;
+    min-width: 30px;
+    margin-right: 10px;
+}
+
+.benefitfacts {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    width: 200px;
+    font-size: 11px;
+    margin-left: 30px;
+    color: #225282;
+    text-transform: uppercase;
+}
+
+.factlabel {
+    max-width: 70px;
+    min-width: 70px;
+    font-weight: bold;
+    color: #12aaeb;
+    /* text-align: right; */
+    margin-right: 10px;
+}
+
+.benefitdetail {
+    display: none;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .interactions {
     min-width: 340px;
     /*    border: 1px solid #aaa;*/
@@ -163,6 +203,17 @@ align-items: center;
     align-items: center;
 }
 
+.benefitdetailchannel {
+    width: 24px;
+    height: 180px;
+    background: #e7f6fd;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .benefitmarker {
     height: 8px;
     width: 8px;
@@ -188,6 +239,7 @@ align-items: center;
     align-items: center;
     height: 50px;
     min-width: 280px;
+    cursor: pointer;
 }
 
 .benefitchanneltop {

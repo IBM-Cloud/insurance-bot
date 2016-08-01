@@ -108,6 +108,10 @@ function createBenefitRow(policy) {
         '<div class="benefitmarker"></div>' +
         '</div>' +
         '<div class="benefitTitle">' + policy.title + '</div>';
+    row.onclick = function () {
+        toggleDetails(policy.title);
+    }
+
     return row;
 }
 
@@ -136,6 +140,57 @@ function createBenefitEntity(type) {
     return benefit;
 }
 
+function createBenefitDetail(policy) {
+
+    var detail = document.createElement('div');
+    detail.className = 'benefitdetail';
+    detail.id = policy.title;
+
+    detail.innerHTML = ' <div class="benefiticon">' +
+        '<div class="padding"></div>' +
+        '</div>' +
+        '<div class="benefitdetailchannel">' + '</div>' +
+        '<div class="benefitfacts">' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">coverage</div>' +
+        '<div class="factcheck">' + policy.description + '</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">limit</div>' +
+        '<div class="factcheck">$' + policy.claimLimit + '</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">term</div>' +
+        '<div class="factcheck">' + policy.scope + '</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">start</div>' +
+        '<div class="factcheck">Jan 1 2016</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">end</div>' +
+        '<div class="factcheck">Dec 31 2017</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">code</div>' +
+        '<div class="factcheck">' + policy.code + '</div>' +
+        '</div>' +
+        '</div>'
+
+    return detail;
+}
+
+
+function toggleDetails(id) {
+    var details = document.getElementById(id);
+
+    if (details.style.display !== 'flex') {
+        details.style.display = 'flex';
+    } else {
+        details.style.display = 'none'
+    }
+
+}
 
 function getBenefits() {
 
@@ -166,9 +221,13 @@ function getBenefits() {
                 benefitset.appendChild(benefitEntity);
             }
 
-            var benefitRow = createBenefitRow(policy);
             var anchor = document.getElementById(policy.type);
+
+            var benefitRow = createBenefitRow(policy);
+            var benefitDetail = createBenefitDetail(policy);
+
             anchor.appendChild(benefitRow);
+            anchor.appendChild(benefitDetail);
         })
 
         console.log(policyAreas);
