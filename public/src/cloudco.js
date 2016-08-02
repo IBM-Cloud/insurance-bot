@@ -255,6 +255,10 @@ function getBenefits() {
     })
 }
 
+function submitClaim() {
+    console.log('submit claim');
+}
+
 function checkStatus() {
 
     get('./isLoggedIn', function (reply) {

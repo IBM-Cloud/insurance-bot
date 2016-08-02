@@ -104,7 +104,7 @@ align-items: center;
     min-width: 240px;
     border-radius: 4px;
     color: #597a96;
-    border: 1px dashed #597a96;
+    border: 1px dashed #12aaeb;
 }
 
 .dialoginput {
@@ -273,7 +273,7 @@ align-items: center;
 .claimbox {
     display: flex;
     flex-direction: column;
-    border: 1px solid #12aaeb;
+    border: 1px dashed #12aaeb;
     border-radius: 4px;
     width: 220px;
     padding: 10px;
@@ -290,8 +290,13 @@ align-items: center;
 }
 
 .claiminput {
-    width: 200px;
+    width: 220px;
     height: 30px;
+    padding: 5px;
+    font-family: sans-serif;
+    border-radius: 4px;
+    border: 1px solid #12aaeb;
+    background-color: white;
 }
 
 .claimrow {
@@ -317,4 +322,10 @@ align-items: center;
     opacity: 1;
     transition: opacity 1s linear;
     font-weight: bold;
+}
+
+.claimcontrols {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
