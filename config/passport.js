@@ -20,7 +20,7 @@ function createPolicies(account) {
     eyeWear.claimLimit = 300;
     eyeWear.scope = 'bi-annual';
     eyeWear.startDate = new Date(2016, 1, 1);
-    eyeWear.endDate = new Date(2016, 1, 1);
+    eyeWear.endDate = new Date(2017, 12, 31);
     eyeWear.code = 100;
 
     var eyeExam = new Policy();
@@ -32,7 +32,7 @@ function createPolicies(account) {
     eyeExam.entitlements = 1;
     eyeExam.scope = 'bi-annual';
     eyeExam.startDate = new Date(2016, 1, 1);
-    eyeExam.endDate = new Date(2016, 1, 1);
+    eyeExam.endDate = new Date(2017, 12, 31);
     eyeExam.code = 200;
 
     var teethCleaning = new Policy();
@@ -44,7 +44,7 @@ function createPolicies(account) {
     teethCleaning.entitlements = 2;
     teethCleaning.scope = 'annual';
     teethCleaning.startDate = new Date(2016, 1, 1);
-    teethCleaning.endDate = new Date(2016, 1, 1);
+    teethCleaning.endDate = new Date(2016, 12, 31);
     teethCleaning.code = 300;
 
     var orthodontics = new Policy();
@@ -56,7 +56,7 @@ function createPolicies(account) {
     orthodontics.entitlements = 100;
     orthodontics.scope = 'lifetime';
     orthodontics.startDate = new Date(2016, 1, 1);
-    orthodontics.endDate = new Date(2016, 1, 1);
+    orthodontics.endDate = new Date(2036, 1, 1);
     orthodontics.code = 400;
 
     var teethRepair = new Policy();
@@ -68,7 +68,7 @@ function createPolicies(account) {
     teethRepair.entitlements = 100;
     teethRepair.scope = 'annual';
     teethRepair.startDate = new Date(2016, 1, 1);
-    teethRepair.endDate = new Date(2016, 1, 1);
+    teethRepair.endDate = new Date(2016, 12, 31);
     teethRepair.code = 500;
 
     var mentalHealth = new Policy();
@@ -80,8 +80,32 @@ function createPolicies(account) {
     mentalHealth.entitlements = 100;
     mentalHealth.scope = 'annual';
     mentalHealth.startDate = new Date(2016, 1, 1);
-    mentalHealth.endDate = new Date(2016, 1, 1);
+    mentalHealth.endDate = new Date(2016, 12, 31);
     mentalHealth.code = 600;
+
+    var physio = new Policy();
+    physio.type = 'physical';
+    physio.icon = 'body';
+    physio.title = 'Physiotherapy';
+    physio.description = 'Physiotherapy';
+    physio.claimLimit = 800;
+    physio.entitlements = 100;
+    physio.scope = 'annual';
+    physio.startDate = new Date(2016, 1, 1);
+    physio.endDate = new Date(2016, 12, 31);
+    physio.code = 800;
+
+    var chiropractor = new Policy();
+    chiropractor.type = 'physical';
+    chiropractor.icon = 'spine';
+    chiropractor.title = 'Chiropractor';
+    chiropractor.description = 'Chiropractic Services';
+    chiropractor.claimLimit = 400;
+    chiropractor.entitlements = 100;
+    chiropractor.scope = 'annual';
+    chiropractor.startDate = new Date(2016, 1, 1);
+    chiropractor.endDate = new Date(2016, 12, 31);
+    chiropractor.code = 700;
 
     var healthBenefits = new Health();
     healthBenefits.owner = account;
@@ -91,6 +115,8 @@ function createPolicies(account) {
     healthBenefits.policies.push(orthodontics);
     healthBenefits.policies.push(teethRepair);
     healthBenefits.policies.push(mentalHealth);
+    healthBenefits.policies.push(chiropractor);
+    healthBenefits.policies.push(physio);
 
     healthBenefits.save(function (err) {
         if (err) {
