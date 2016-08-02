@@ -152,12 +152,16 @@ function createBenefitDetail(policy) {
         '<div class="benefitdetailchannel">' + '</div>' +
         '<div class="benefitfacts">' +
         '<div class="benefitfact">' +
-        '<div class="factlabel">coverage</div>' +
+        '<div class="factlabel">benefit</div>' +
         '<div class="factcheck">' + policy.description + '</div>' +
         '</div>' +
         '<div class="benefitfact">' +
         '<div class="factlabel">limit</div>' +
         '<div class="factcheck">$' + policy.claimLimit + '</div>' +
+        '</div>' +
+        '<div class="benefitfact">' +
+        '<div class="factlabel">coverage</div>' +
+        '<div class="factcheck">' + policy.percentCovered + '%</div>' +
         '</div>' +
         '<div class="benefitfact">' +
         '<div class="factlabel">term</div>' +

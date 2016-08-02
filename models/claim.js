@@ -5,6 +5,8 @@ var ClaimSchema = mongoose.Schema({
     date: Date,
     amount: Number,
     provider: String,
+    payment: Number,
+    outcome: String,
     code: Number
 })
 
