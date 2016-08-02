@@ -9,7 +9,6 @@ var Health = require('../models/benefit');
 var Policy = require('../models/policy');
 var Claim = require('../models/claim');
 
-
 function createPolicies(account) {
 
     var eyeWear = new Policy();
@@ -74,8 +73,8 @@ function createPolicies(account) {
     var mentalHealth = new Policy();
     mentalHealth.type = 'mental';
     mentalHealth.icon = 'talk';
-    mentalHealth.title = 'Psychologist Services';
-    mentalHealth.description = 'Psychologist Services';
+    mentalHealth.title = 'Psychologist';
+    mentalHealth.description = 'Psychologist';
     mentalHealth.claimLimit = 1400;
     mentalHealth.entitlements = 100;
     mentalHealth.scope = 'annual';

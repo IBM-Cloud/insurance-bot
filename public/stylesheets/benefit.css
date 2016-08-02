@@ -96,19 +96,19 @@ align-items: center;
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    width: 220px;
+    width: 240px;
     max-width: 300px;
     height: 300px;
     max-height: 300px;
     margin: 0;
-    min-width: 220px;
+    min-width: 240px;
     border-radius: 4px;
     color: #597a96;
     border: 1px dashed #597a96;
 }
 
 .dialoginput {
-    width: 220px;
+    width: 240px;
     margin-top: 15px;
     border: 1px solid #12aaeb;
     height: 30px;
@@ -268,4 +268,53 @@ align-items: center;
     font-size: 11px;
     font-weight: bold;
     margin-left: 30px;
+}
+
+.claimbox {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #12aaeb;
+    border-radius: 4px;
+    width: 220px;
+    padding: 10px;
+}
+
+.claimlabel {
+    color: #225282;
+    margin-right: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: right;
+    width: 120px;
+}
+
+.claiminput {
+    width: 200px;
+    height: 30px;
+}
+
+.claimrow {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.claimbutton {
+    background: #a0dcf7;
+    border: none;
+    color: #225282;
+    border-radius: 4px;
+    width: 140px;
+    font-size: 14px;
+    height: 40px;
+    margin: 20px;
+    margin-right: 0;
+    outline: none;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s linear;
+    font-weight: bold;
 }

@@ -41,23 +41,44 @@
 
                             </div>
                         </div>
-                        <div class="interactions ">
+                        <div class="interactions">
                             <div class="interactionheader ">INTERACT</div>
                             <div id=" " class="interactionsub ">ask Ana ...</div>
 
-                            <div class="chatbot ">
-                                <div class="dialogcontainer ">
-                                    <img class="askana " src="images/ana.svg ">
+                            <div class="chatbot">
+                                <div class="dialogcontainer">
+                                    <img class="askana" src="images/ana.svg ">
                                 </div>
-                                <input class="dialoginput " placeholder="chat about your policies ... ">
+                                <input class="dialoginput" placeholder="chat about your policies ... ">
                             </div>
 
-                            <div id=" " class="interactionsub ">submit a claim ...</div>
+                            <div id=" " class="interactionsub">or submit a claim ...</div>
 
-
-                            <!--                            <div class="policybot "><img class="askana " src="images/ana.svg "></div>-->
+                            <div class="claimbox">
+                                <div class="claimrow">
+                                    <label class="claimlabel">Date</label>
+                                    <input type="date" class="claiminput">
+                                </div>
+                                <div class="claimrow">
+                                    <label class="claimlabel">Benefit</label>
+                                    <select id="benefittypes" class="claiminput">
+                                    </select>
+                                </div>
+                                <div class="claimrow">
+                                    <label class="claimlabel">Provider</label>
+                                    <input class="claiminput">
+                                </div>
+                                <div class="claimrow">
+                                    <label class="claimlabel">Amount ($)</label>
+                                    <input type=number class="claiminput">
+                                </div>
+                            </div>
+                            <button class="claimbutton" onclick="openTravelPolicies()">Claim</button>
                         </div>
                     </div>
+
+
+                    <!--                            <div class="policybot "><img class="askana " src="images/ana.svg "></div>-->
                 </div>
 
             </section>

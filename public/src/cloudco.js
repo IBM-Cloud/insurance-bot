@@ -192,6 +192,10 @@ function toggleDetails(id) {
 
 }
 
+function unique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
 function getBenefits() {
 
     checkStatus();
@@ -205,6 +209,7 @@ function getBenefits() {
         var policies = reply.policies;
         var policyAreas = [];
         var policyKeys = [];
+        var policyTitles = [];
 
         var benefitset = document.getElementById('benefitset');
 
@@ -221,6 +226,8 @@ function getBenefits() {
                 benefitset.appendChild(benefitEntity);
             }
 
+            policyTitles.push(policy.title);
+
             var anchor = document.getElementById(policy.type);
 
             var benefitRow = createBenefitRow(policy);
@@ -228,6 +235,20 @@ function getBenefits() {
 
             anchor.appendChild(benefitRow);
             anchor.appendChild(benefitDetail);
+        })
+
+
+
+        var uniquebenefits = policyTitles.filter(unique); // returns ['a', 1, 2, '1']
+
+        var select = document.getElementById('benefittypes');
+
+        uniquebenefits.forEach(function (benefit) {
+            var option = document.createElement('option');
+            option.value = benefit;
+            option.innerHTML = benefit;
+
+            select.appendChild(option);
         })
 
         console.log(policyAreas);
