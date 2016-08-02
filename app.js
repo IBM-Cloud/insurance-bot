@@ -115,7 +115,6 @@ app.get('/isLoggedIn', function (req, res) {
 // show the signup form
 
 app.get('/signup', function (req, res) {
-    console.log('signup');
     res.sendfile('./public/signup.html');
 });
 
@@ -133,18 +132,20 @@ app.post('/signup', passport.authenticate('local-signup', {
 // we will use route middleware to verify this (the isLoggedIn function)
 
 app.get('/profile', isLoggedIn, function (req, res) {
-    console.log('profile page');
-    console.log(req.user.local);
-    console.log(req.user.local.email);
     res.sendfile('./public/index.html');
 });
 
-app.get('/health', isLoggedIn, function (req, res) {
-    console.log('profile page');
-    console.log(req.user.local);
-    console.log(req.user.local.email);
-    res.sendfile('./public/health.html');
+app.get('/health', function (req, res) {
+    if (req.isAuthenticated()) {
+        res.sendfile('./public/health.html');
+    } else {
+        res.sendfile('./public/login.html');
+    }
 });
+
+app.get('/soon', function (req, res) {
+    res.sendfile('./public/soon.html');
+})
 
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
@@ -167,7 +168,6 @@ app.get('/logout', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    console.log('user: ' + req.user);
     res.render('index.html');
 });
 
