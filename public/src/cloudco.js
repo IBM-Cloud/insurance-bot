@@ -200,6 +200,10 @@ function unique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
+function setUpClaimBox(types) {
+
+}
+
 function getBenefits() {
 
     checkStatus();
@@ -255,11 +259,50 @@ function getBenefits() {
             select.appendChild(option);
         })
 
-        console.log(policyAreas);
+        var datepicker = document.getElementById('claimdate');
+
+        var today = moment().format('YYYY-MM-DD');
+        datepicker.value = today;
     })
 }
 
 function submitClaim() {
+
+    var dateElement = document.getElementById('claimdate');
+    var benefitElement = document.getElementById('benefittypes');
+    var providerElement = document.getElementById('provider');
+    var amountElement = document.getElementById('claimamount');
+
+    var date = dateElement.value;
+    var benefit = benefitElement.value;
+    var provider = providerElement.value;
+    var amount = amountElement.value;
+
+    var xhr = new XMLHttpRequest();
+
+    var uri = 'claims';
+
+    var claimmessages = document.getElementById('claimmessages');
+
+    xhr.open('POST', encodeURI(uri));
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function (response) {
+
+        var reply = JSON.parse(xhr.responseText);
+        if (xhr.status === 200) {
+            if (reply.outcome === 'success') {
+                claimmessages.innerHTML = 'Your claim was filed.';
+            } else {
+                email = '';
+                password = '';
+                claimmessages.innerHTML = 'Something went wrong - try again';
+            }
+        } else if (xhr.status !== 200) {
+            alert('Request failed.  Returned status of ' + xhr.status);
+        }
+    };
+    xhr.send(encodeURI('date=' + date + '&benefit=' + benefit + '&provider=' + provider + '&amount=' + amount));
+
     console.log('submit claim');
 }
 

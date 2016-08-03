@@ -111,9 +111,11 @@ align-items: center;
     width: 240px;
     margin-top: 15px;
     border: 1px solid #12aaeb;
-    height: 30px;
+    height: 60px;
     border-radius: 4px;
     padding: 10px;
+    color: #225282;
+    max-width: 240px;
 }
 
 .askana {
@@ -205,7 +207,7 @@ align-items: center;
 
 .benefitdetailchannel {
     width: 24px;
-    height: 200px;
+    height: 220px;
     background: #e7f6fd;
     display: flex;
     flex-direction: column;
@@ -293,6 +295,8 @@ align-items: center;
     width: 220px;
     height: 30px;
     padding: 5px;
+    color: #225282;
+    font-weight: bold;
     font-family: sans-serif;
     border-radius: 4px;
     border: 1px solid #12aaeb;

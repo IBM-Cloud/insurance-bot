@@ -126,6 +126,85 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 // =====================================
+// CLAIMS ==============================
+// =====================================
+// show the signup form
+
+app.get('/claims', isLoggedIn, function (req, res) {
+
+    console.log(req);
+
+    res.sendfile('./public/claims.html');
+});
+
+
+// process the signup form
+app.post('/claims', function (req, res) {
+
+
+
+    var claim = req.body;
+
+    if (req.isAuthenticated()) {
+        Benefits.findOne({
+            owner: req.user.local.email
+        }, function (err, doc) {
+
+            doc.policies.forEach(function (policy) {
+
+                if (policy.title === claim.benefit) {
+
+                    /* default */
+
+                    claim.outcome = 'DENIED';
+                    claim.payment = 0;
+
+                    var possibleEligibility = claim.amount * policy.percentCovered / 100;
+
+                    var amountAvailable = policy.claimLimit - policy.amountClaimed;
+
+                    console.log('eligibility: ' + possibleEligibility);
+                    console.log('available: ' + amountAvailable);
+
+                    if (policy.amountClaimed > amountAvailable && amountAvailable > 0) {
+                        claim.outcome = 'PARTIAL';
+                        claim.payment = policy.Limit - policy.amountClaimed;
+                        policy.amountClaimed = policy.Limit;
+                    }
+
+                    if (possibleEligibility < amountAvailable) {
+                        claim.outcome = 'FULL';
+                        claim.payment = possibleEligibility;
+                        policy.amountClaimed = policy.amountClaimed + possibleEligibility;
+                    }
+
+                    policy.claims.push(claim);
+
+                    doc.save(function (err) {
+
+                        res.setHeader('Content-Type', 'application/json');
+
+                        var result = {
+                            outcome: 'failure'
+                        };
+
+                        if (err) {
+                            throw err;
+                        } else {
+                            result.outcome = 'success';
+                        }
+
+                        res.send(JSON.stringify(result, null, 3));
+
+                    });
+                }
+            });
+        })
+    };
+})
+
+
+// =====================================
 // PROFILE SECTION =====================
 // =====================================
 // we will want this protected so you have to be logged in to visit

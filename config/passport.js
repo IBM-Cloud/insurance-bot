@@ -18,6 +18,7 @@ function createPolicies(account) {
     eyeWear.description = 'Glasses, contact lens, laser treatment, etc';
     eyeWear.claimLimit = 300;
     eyeWear.percentCovered = 80;
+    eyeWear.amountClaimed = 0;
     eyeWear.scope = 'bi-annual';
     eyeWear.startDate = new Date(2016, 1, 1);
     eyeWear.endDate = new Date(2017, 12, 31);
@@ -30,6 +31,7 @@ function createPolicies(account) {
     eyeExam.description = 'Eye examinations';
     eyeExam.claimLimit = 100;
     eyeExam.percentCovered = 100;
+    eyeExam.amountClaimed = 0;
     eyeExam.entitlements = 1;
     eyeExam.scope = 'bi-annual';
     eyeExam.startDate = new Date(2016, 1, 1);
@@ -43,6 +45,7 @@ function createPolicies(account) {
     teethCleaning.description = 'Teeth Cleaning';
     teethCleaning.claimLimit = 500;
     teethCleaning.percentCovered = 75;
+    teethCleaning.amountClaimed = 0;
     teethCleaning.entitlements = 2;
     teethCleaning.scope = 'annual';
     teethCleaning.startDate = new Date(2016, 1, 1);
@@ -56,6 +59,7 @@ function createPolicies(account) {
     orthodontics.description = 'Orthodontics';
     orthodontics.claimLimit = 2000;
     orthodontics.percentCovered = 80;
+    orthodontics.amountClaimed = 0;
     orthodontics.entitlements = 100;
     orthodontics.scope = 'lifetime';
     orthodontics.startDate = new Date(2016, 1, 1);
@@ -69,6 +73,7 @@ function createPolicies(account) {
     teethRepair.description = 'Teeth repair - fillings, chipped teeth';
     teethRepair.claimLimit = 2000;
     teethRepair.percentCovered = 80;
+    teethRepair.amountClaimed = 0;
     teethRepair.entitlements = 100;
     teethRepair.scope = 'annual';
     teethRepair.startDate = new Date(2016, 1, 1);
@@ -82,6 +87,7 @@ function createPolicies(account) {
     mentalHealth.description = 'Psychologist';
     mentalHealth.claimLimit = 1400;
     mentalHealth.percentCovered = 70;
+    mentalHealth.amountClaimed = 0;
     mentalHealth.entitlements = 100;
     mentalHealth.scope = 'annual';
     mentalHealth.startDate = new Date(2016, 1, 1);
@@ -95,6 +101,7 @@ function createPolicies(account) {
     physio.description = 'Physiotherapy';
     physio.claimLimit = 800;
     physio.percentCovered = 60;
+    physio.amountClaimed = 0;
     physio.entitlements = 100;
     physio.scope = 'annual';
     physio.startDate = new Date(2016, 1, 1);
@@ -108,6 +115,7 @@ function createPolicies(account) {
     chiropractor.description = 'Chiropractic Services';
     chiropractor.claimLimit = 400;
     chiropractor.percentCovered = 50;
+    chiropractor.amountClaimed = 0;
     chiropractor.entitlements = 100;
     chiropractor.scope = 'annual';
     chiropractor.startDate = new Date(2016, 1, 1);

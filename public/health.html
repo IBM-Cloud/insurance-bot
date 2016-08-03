@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </header>
-            <section class="layout ">
+            <section class="layout">
 
                 <div style="margin:40px;">
 
@@ -49,7 +49,9 @@
                                 <div class="dialogcontainer">
                                     <img class="askana" src="images/ana.svg ">
                                 </div>
-                                <input class="dialoginput" placeholder="chat about your policies ... ">
+                                <textarea rows="4" class="dialoginput" placeholder="chat about your policies ... "></textarea>
+
+
                             </div>
 
                             <div id=" " class="interactionsub">or submit a claim ...</div>
@@ -57,7 +59,7 @@
                             <div class="claimbox">
                                 <div class="claimrow">
                                     <label class="claimlabel">Date</label>
-                                    <input type="date" class="claiminput">
+                                    <input id="claimdate" type="date" class="claiminput">
                                 </div>
                                 <div class="claimrow">
                                     <label class="claimlabel">Benefit</label>
@@ -66,17 +68,19 @@
                                 </div>
                                 <div class="claimrow">
                                     <label class="claimlabel">Provider</label>
-                                    <input class="claiminput">
+                                    <input id="provider" class="claiminput">
                                 </div>
                                 <div class="claimrow">
                                     <label class="claimlabel">Amount ($)</label>
-                                    <input type=number class="claiminput">
+                                    <input id="claimamount" type=number class="claiminput">
                                 </div>
                             </div>
                             <div class="claimcontrols">
-                                <a href="">history</a>
+                                <a href="./claims.html">history</a>
                                 <button class="claimbutton" onclick="submitClaim()">Claim</button>
                             </div>
+
+                            <div class="claimmessages" id="claimmessages"></div>
                         </div>
                     </div>
 
@@ -89,13 +93,13 @@
     </div>
 
     <footer>
-        <section class="layout ">
+        <section class="layout">
             <p>
             </p>
-            <div class="github ">
+            <div class="github">
                 <span class="octicon octicon-octoface " style="font-size:22px;padding-right:10px; ">
     </span>
-                <!--                <a href="https://github.com/IBM-Bluemix/insurance-bot "> Learn how this site was built </a>-->
+
             </div>
             <p></p>
         </section>
@@ -104,6 +108,7 @@
     <!-- footer section -->
 
 </body>
-<script src="src/cloudco.js "></script>
+<script src="src/cloudco.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 
 </html>
