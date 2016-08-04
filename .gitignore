@@ -1,3 +1,7 @@
 node_modules
 /.idea
 /.env
+database.js
+config/database.js
+
+config/database.js

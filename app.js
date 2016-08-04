@@ -131,10 +131,37 @@ app.post('/signup', passport.authenticate('local-signup', {
 // show the signup form
 
 app.get('/claims', isLoggedIn, function (req, res) {
-
-    console.log(req);
-
     res.sendfile('./public/claims.html');
+});
+
+app.get('/history', isLoggedIn, function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    Benefits.findOne({
+        owner: req.user.local.email
+    }, function (err, doc) {
+
+        var allclaims = [];
+
+        doc.policies.forEach(function (policy) {
+
+            if (policy.claims.length > 0) {
+                policy.claims.forEach(function (claim) {
+                    var detailedclaim = new Object();
+                    detailedclaim.date = claim.date;
+                    detailedclaim.amount = claim.amount;
+                    detailedclaim.provider = claim.provider;
+                    detailedclaim.payment = claim.payment;
+                    detailedclaim.outcome = claim.outcome;
+                    detailedclaim.policy = policy.title;
+                    detailedclaim.icon = policy.icon;
+                    allclaims.push(detailedclaim);
+                })
+            }
+        })
+
+        res.send(JSON.stringify(allclaims, null, 3));
+    })
 });
 
 

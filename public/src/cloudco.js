@@ -97,6 +97,16 @@ function get(path, callback) {
     xmlhttp.send();
 }
 
+function getClaims() {
+
+    checkStatus();
+
+    get('./history', function (response) {
+        console.log(response)
+    })
+
+}
+
 
 function createBenefitRow(policy) {
     var row = document.createElement('div');
@@ -244,8 +254,6 @@ function getBenefits() {
             anchor.appendChild(benefitRow);
             anchor.appendChild(benefitDetail);
         })
-
-
 
         var uniquebenefits = policyTitles.filter(unique); // returns ['a', 1, 2, '1']
 
