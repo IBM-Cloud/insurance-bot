@@ -1,0 +1,33 @@
+.benefitkit {
+    display: flex;
+    flex-direction: row;
+    width: 760px;
+}
+
+.claimdata {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    min-height: 200px;
+}
+
+.header {
+    text-align: justify;
+    color: #12aaeb;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.owner {
+    text-align: justify;
+    color: #225282;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.claimlist {}

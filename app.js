@@ -160,7 +160,12 @@ app.get('/history', isLoggedIn, function (req, res) {
             }
         })
 
-        res.send(JSON.stringify(allclaims, null, 3));
+        var output = {
+            owner: req.user.local.email,
+            claims: allclaims
+        };
+
+        res.send(JSON.stringify(output, null, 3));
     })
 });
 

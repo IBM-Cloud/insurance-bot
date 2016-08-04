@@ -101,10 +101,18 @@ function getClaims() {
 
     checkStatus();
 
-    get('./history', function (response) {
-        console.log(response)
-    })
+    get('./history', function (reply) {
+        console.log(reply);
 
+        var header = document.getElementById('owner');
+        owner.innerHTML = reply.owner;
+
+        var claimlist = document.getElementById('claimlist');
+
+        reply.claims.forEach(function (claim) {
+
+        });
+    })
 }
 
 
@@ -210,9 +218,6 @@ function unique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-function setUpClaimBox(types) {
-
-}
 
 function getBenefits() {
 
