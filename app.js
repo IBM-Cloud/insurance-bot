@@ -165,15 +165,17 @@ app.get('/history', isLoggedIn, function (req, res) {
             claims: allclaims
         };
 
-        res.send(JSON.stringify(output, null, 3));
+        var responseString = JSON.stringify(output, null, 3);
+
+        console.log(responseString);
+
+        res.send(responseString);
     })
 });
 
 
 // process the signup form
 app.post('/claims', function (req, res) {
-
-
 
     var claim = req.body;
 
@@ -226,8 +228,8 @@ app.post('/claims', function (req, res) {
                             result.outcome = 'success';
                         }
 
-                        res.send(JSON.stringify(result, null, 3));
-
+                        var responseString = JSON.stringify(result, null, 3);
+                        res.send(responseString);
                     });
                 }
             });

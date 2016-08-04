@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/benefit.css">
+    <link rel="stylesheet" href="/stylesheets/claims.css">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 
@@ -43,22 +43,27 @@
                 </div>
             </header>
             <section class="layout">
-
                 <div style="margin:40px;">
-
                     <div class="benefitkit">
-                        <div class="claimdata">
+                        <div class="claimhistory">
                             <div id="header" class="header">Claim history</div>
                             <div id="owner" class="owner"></div>
+                            <div class="claimheader">
+                                <div class="marker">
+                                    <!--                                    <div class="bullet"></div>-->
+                                </div>
+                                <div class="category">BENEFIT</div>
+                                <div class="category">PROVIDER</div>
+                                <div class="centereddata">DATE</div>
+                                <div class="centereddata">OUTCOME</div>
+                                <div class="financeclaimdata">CLAIM</div>
+                                <div class="financeclaimdata">PAYMENT</div>
+                            </div>
                             <div class="claimlist" id="claimlist">
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </section>
         </div>
     </div>
@@ -81,5 +86,7 @@
 </body>
 
 <script src="src/cloudco.js "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
 
 </html>

@@ -97,6 +97,26 @@ function get(path, callback) {
     xmlhttp.send();
 }
 
+
+function makeHistoryRow(claim) {
+
+    var date = moment(claim.date).format('YYYY-MM-DD');
+
+    var row = document.createElement('div');
+    row.className = 'claimrow';
+    row.innerHTML = '<div class="marker">' +
+        '<img class="claimimage" src="images/health/' + claim.icon + '.svg">' +
+        '</div>' +
+        '<div class="claimdata">' + claim.policy + '</div>' +
+        '<div class="claimdata">' + claim.provider + '</div>' +
+        '<div class="centereddata">' + date + '</div>' +
+        '<div class="centereddata">' + claim.outcome + '</div>' +
+        '<div class="financeclaimdata">$' + claim.amount + '</div>' +
+        '<div class="financeclaimdata">$' + claim.payment + '</div>';
+
+    return row;
+}
+
 function getClaims() {
 
     checkStatus();
@@ -110,7 +130,8 @@ function getClaims() {
         var claimlist = document.getElementById('claimlist');
 
         reply.claims.forEach(function (claim) {
-
+            var row = makeHistoryRow(claim);
+            claimlist.appendChild(row);
         });
     })
 }
