@@ -195,7 +195,7 @@ align-items: center;
 }
 
 .benefitchannel {
-    width: 20px;
+    width: 18px;
     height: 50px;
     background: #e7f6fd;
     display: flex;
@@ -206,7 +206,7 @@ align-items: center;
 }
 
 .benefitdetailchannel {
-    width: 20px;
+    width: 18px;
     height: 220px;
     background: #e7f6fd;
     display: flex;
@@ -217,9 +217,9 @@ align-items: center;
 }
 
 .benefitmarker {
-    height: 8px;
-    width: 8px;
-    border-radius: 14px;
+    height: 6px;
+    width: 6px;
+    border-radius: 6px;
     background: #225282;
 }
 
@@ -246,16 +246,16 @@ align-items: center;
 
 .benefitchanneltop {
     background: #e7f6fd;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
 
 .benefitchannelbottom {
     background: #e7f6fd;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }

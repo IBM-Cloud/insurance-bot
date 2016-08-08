@@ -4,7 +4,8 @@
 
 [![Policy Bot](./design/video-cap.png)](https://vimeo.com/165460548 "Policy Bot Concept - Click to Watch!")
 
-**THIS APP IS A WORK IN PROGRESS**
+Insurance Policy Bot is a collection of experimental Watson & Bluemix concepts applied to the insurance domain.
+
 
 ## Note:
 Login is in progress,
