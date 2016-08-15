@@ -30,6 +30,25 @@ align-items: center;
     margin-right: 10px;
 }
 
+.owner {
+    text-align: justify;
+    color: #225282;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.header {
+    text-align: justify;
+    color: #12aaeb;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 .benefitfacts {
     display: flex;
     flex-direction: column;
@@ -56,93 +75,6 @@ align-items: center;
     align-content: center;
     justify-content: center;
     align-items: center;
-}
-
-.interactions {
-    min-width: 340px;
-    /*    border: 1px solid #aaa;*/
-    margin: 10px;
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.header {
-    text-align: justify;
-    color: #12aaeb;
-    margin: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.interactionheader {
-    text-align: right;
-    color: #12aaeb;
-    margin: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-right: 0;
-}
-
-.dialogcontainer {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    width: 240px;
-    max-width: 300px;
-    height: 300px;
-    max-height: 300px;
-    margin: 0;
-    min-width: 240px;
-    border-radius: 4px;
-    color: #597a96;
-    border: 1px dashed #12aaeb;
-}
-
-.dialoginput {
-    width: 240px;
-    margin-top: 15px;
-    border: 1px solid #12aaeb;
-    height: 60px;
-    border-radius: 4px;
-    padding: 10px;
-    color: #225282;
-    max-width: 240px;
-}
-
-.askana {
-    height: 100px;
-    opacity: 0.1;
-}
-
-.chatbot {
-    margin-bottom: 30px;
-}
-
-.owner {
-    text-align: justify;
-    color: #225282;
-    margin-left: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.interactionsub {
-    text-align: right;
-    color: #225282;
-    margin-left: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 30px;
 }
 
 .benefitset {
@@ -270,6 +202,35 @@ align-items: center;
     font-size: 11px;
     font-weight: bold;
     margin-left: 30px;
+}
+
+.interactions {
+    min-width: 340px;
+    margin: 10px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.interactionheader {
+    text-align: right;
+    color: #12aaeb;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 0;
+}
+
+.interactionsub {
+    text-align: right;
+    color: #225282;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
 .claimbox {

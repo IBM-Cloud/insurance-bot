@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/benefit.css">
+    <link rel="stylesheet" href="/stylesheets/ana.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 </head>
 
-<body class="homePage" onload="getBenefits()">
+<body class="homePage" onload="getBenefits();initChat();">
 
     <div class="container">
         <div class="outline">
@@ -46,15 +47,13 @@
                             <div id=" " class="interactionsub ">ask Ana ...</div>
 
                             <div class="chatbot">
-                                <div class="dialogcontainer">
-                                    <img class="askana" src="images/ana.svg ">
-                                </div>
-                                <textarea rows="4" class="dialoginput" placeholder="chat about your policies ... "></textarea>
+                                <div id="chatBox" class="dialogcontainer"></div>
+                                <textarea rows="4" id="chatMessage" class="dialoginput" placeholder="chat about your policies ... " onkeypress="return newEvent(event)"></textarea>
 
 
                             </div>
 
-                            <div id=" " class="interactionsub">or submit a claim ...</div>
+                            <div id="chatSubmit" class="interactionsub">or submit a claim ...</div>
 
                             <div class="claimbox">
                                 <div class="claimrow">
@@ -109,6 +108,7 @@
 
 </body>
 <script src="src/cloudco.js"></script>
+<script src="src/ana.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 
 </html>

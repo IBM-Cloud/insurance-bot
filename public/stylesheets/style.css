@@ -1057,7 +1057,7 @@
     }
     
     .loginbox {
-        width: 200px;
+		height: auto;
         width: 300px;
         display: flex;
         flex-direction: column;

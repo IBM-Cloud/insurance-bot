@@ -13,6 +13,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
+var watson = require( 'watson-developer-cloud' ); 
 
 var configDB = require('./config/database.js');
 require('./config/passport')(passport);
@@ -69,6 +70,8 @@ app.get('/loginSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
+		firstName: req.user.local.first_name,
+		lastName: req.user.local.last_name,
         outcome: 'success'
     }, null, 3));
 })
@@ -84,6 +87,8 @@ app.get('/signupSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
+		firstName: req.user.local.first_name,
+		lastName: req.user.local.last_name,
         outcome: 'success'
     }, null, 3));
 })
@@ -104,6 +109,8 @@ app.get('/isLoggedIn', function (req, res) {
     if (req.isAuthenticated()) {
         result.outcome = 'success';
         result.username = req.user.local.email;
+		result.firstName = req.user.local.firstName;
+		result.lastName = req.user.local.lastName;
     }
 
     res.send(JSON.stringify(result, null, 3));
@@ -162,6 +169,8 @@ app.get('/history', isLoggedIn, function (req, res) {
 
         var output = {
             owner: req.user.local.email,
+			firstName: req.user.local.first_name,
+			lastName: req.user.local.last_name,
             claims: allclaims
         };
 
@@ -233,9 +242,9 @@ app.post('/claims', function (req, res) {
                     });
                 }
             });
-        })
-    };
-})
+        });
+    }
+});
 
 
 // =====================================
@@ -263,10 +272,13 @@ app.get('/soon', function (req, res) {
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
     res.setHeader('Content-Type', 'application/json');
-
+	
     Benefits.findOne({
         owner: req.user.local.email
     }, function (err, doc) {
+		doc.firstName = req.user.local.first_name;
+		doc.lastName = req.user.local.last_name;
+		
         res.send(JSON.stringify(doc, null, 3));
     });
 });
@@ -326,6 +338,58 @@ http: //insurance-store-front.mybluemix.net/api/tradeoff
 // Allow clients to create new policy orders
 app.post('/api/orders', function (req, res, next) {
     return makePostRequest(req.body, orders_url + '/orders', res);
+});
+
+// =====================================
+// WATSON CONVERSATION FOR ANA =========
+// =====================================
+
+// Create the service wrapper
+var conversation = watson.conversation( {
+  url: 'https://gateway.watsonplatform.net/conversation/api',
+  username: process.env.CONVERSATION_USERNAME || '7f321c87-53d8-4673-9b17-87bac78f6150',
+  password: process.env.CONVERSATION_PASSWORD || 'xtm2tHfXLBw3',
+  version_date: '2016-07-11',
+  version: 'v1'
+} );
+
+// Allow clients to interact with Ana
+app.post('/api/ana', function(req,res){
+	
+	// TODO placeholder for environment variable for conversation
+	var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
+	
+	if (!workspace) {
+		console.log("No workspace detected. Cannot run the Watson Conversation service.");
+		}
+		
+	var params = {
+		workspace_id: workspace,
+		context: {},                   // Null context indicates new conversation
+		input: {}                      // Holder for message
+	};
+	
+	// Update options to send to conversation service with the user input and a context if one eixsts
+	if(req.body){
+		if(req.body.input){
+			params.input = req.body.input;
+		}
+		
+		if(req.body.context){
+			params.context = req.body.context;
+		}
+	}
+	
+	// Send message to the conversation service with the current context
+	conversation.message( params, function(err, data) {
+		if ( err ) {
+			console.log("Error in sending message: ",err);
+			return res.status( err.code || 500 ).json( err );
+		}
+		
+		return res.json(params,data);
+	} );
+	
 });
 
 // launch ======================================================================

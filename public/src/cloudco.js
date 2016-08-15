@@ -1,4 +1,11 @@
 /*eslint-env browser */
+
+// Global variables to be called by Ana
+var userPolicy;
+var policyTypes;
+var policyProcedures;
+var policyDetails = ["limit","coverage","term","start","end","code"];
+
 function openTravel() {
     window.location = "travel.html";
 }
@@ -245,7 +252,7 @@ function getBenefits() {
     checkStatus();
 
     get('./healthBenefits', function (reply) {
-        console.log(reply);
+		userPolicy = reply;
 
         var header = document.getElementById('owner');
         owner.innerHTML = reply.owner;
@@ -254,6 +261,8 @@ function getBenefits() {
         var policyAreas = [];
         var policyKeys = [];
         var policyTitles = [];
+		policyProcedures = [];
+		var proc = [];
 
         var benefitset = document.getElementById('benefitset');
 
@@ -261,6 +270,7 @@ function getBenefits() {
 
             if (policyAreas[policy.type]) {
                 policyAreas[policy.type].push(policy);
+				proc.push(policy.title);
             } else {
                 policyAreas[policy.type] = [];
                 policyAreas[policy.type].push(policy);
@@ -268,6 +278,14 @@ function getBenefits() {
 
                 var benefitEntity = createBenefitEntity(policy.type);
                 benefitset.appendChild(benefitEntity);
+				
+				if(proc.length>0){
+					policyProcedures.push(proc);
+
+					proc = [];
+				}
+				
+				proc.push(policy.title);
             }
 
             policyTitles.push(policy.title);
@@ -279,8 +297,13 @@ function getBenefits() {
 
             anchor.appendChild(benefitRow);
             anchor.appendChild(benefitDetail);
-        })
-
+			
+			policyTypes = policyKeys;
+        });
+		
+		// Push the last array into the procedures array
+		policyProcedures.push(proc);
+		
         var uniquebenefits = policyTitles.filter(unique); // returns ['a', 1, 2, '1']
 
         var select = document.getElementById('benefittypes');
