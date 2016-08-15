@@ -5,21 +5,42 @@ var watson = 'Ana';
 var user = '';
 var context = {};
 
+// Null out stored variables for user selected options in chat
+var procedures;
+var service = '';
+var procedure = '';
+var procedure_details;
+
 var params = {
 	input: '',
 	context: '',
 };
 
+console.log(services);
+
 function initChat(){
-	console.log("Initializing the chat.");
 	
+	console.log("Initializing the chat.");
 	userMessage('');
 }
 
 function userMessage(message){
+	message = message.toLowerCase();
 	
-	params.input = { text:message };
-	params.context = context;
+	// Set paramters for payload to Watson Conversation
+	params.input = { text:message }; // User defined text
+	params.context = context; // Previously defined context object 
+	
+	// Add variables to the context as more options are chosen
+	if(message){
+		params.context.services = policyTypes.join(", "); 
+	}
+	if(procedures) {
+		params.context.procedures = procedures;
+	}
+	if(procedure) {
+		params.context.details = policyDetails.join(", ");
+	}
 	
 	var xhr = new XMLHttpRequest();
 	var uri = '/api/ana';
@@ -30,12 +51,55 @@ function userMessage(message){
       if (xhr.status === 200 && xhr.responseText) {
 		  
         var response = JSON.parse(xhr.responseText);
-		var text = response.output.text[0];
-        context = response.context;
+		var text = response.output.text[0];  // Only displaying the first response in conversation loops
+        context = response.context;          // Store the context for next round of questions
 		
-		console.log("Got response from Ana: ",response.output.text[0]);
+		// Store the user selected service to query and create array of procedures from policyProcedures
+		if(context.chosen_service) {
+			service = context.chosen_service;
+			
+			console.log("Service: ",service);
+			
+			var i = policyTypes.indexOf(service);
+			procedures = policyProcedures[i].join(", ");
+			
+		}
+		
+		// Store the user selected procedure to query and create array of details from userPolicy
+		if(context.procedure) {
+			procedure = context.procedure;
+			console.log("Procedure:",procedure);
+			
+			var policies = userPolicy.policies;
+			
+			for(var n = 0; n < policies.length; n++){
+				
+				if(policies[n].title === procedure)
+				{
+					procedure_details = {
+						"limit": "$"+policies[n].claimLimit,
+						"claimed": "$"+policies[n].amountClaimed,
+						"coverage": policies[n].percentCovered+"%",
+						"term": policies[n].scope,
+						"start": policies[n].startDate,
+						"end": policies[n].endDate,
+						"code": policies[n].code
+					};
+				}
+					
+			}
+		}
+		
+		console.log("Got response from Ana: ",JSON.stringify(response));
 	
 		displayMessage(text,watson);
+		
+		if(context.chosen_detail){
+			var detail = context.chosen_detail;
+			var text = "Your "+detail+" is "+procedure_details[detail];
+			
+			displayMessage(text,watson);	
+		}
 		
       } else {
         console.error('Server error for Conversation');
@@ -53,10 +117,8 @@ function userMessage(message){
 
 // Display message to the user with formatting depending on if the message is user or Ana
 function displayMessage(text,user){
+	
 	var chat = document.getElementById('chatBox');
-	
-	var dom;
-	
 	var bubble = document.createElement('div');
 	bubble.className = 'message';
 	
@@ -78,7 +140,6 @@ function displayMessage(text,user){
 // Enter is pressed
 function newEvent(e) {
 	if (e.which === 13 || e.keyCode === 13){
-		console.log("Got user message.");
 		
 		var userInput = document.getElementById('chatMessage');
 		var text = userInput.value;
