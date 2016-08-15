@@ -49,7 +49,7 @@
 .ana {
 	padding: 0.5em;
 	border-radius: 5px;
-	background-color: #597a96;
+	background-color: rgba(89,122,150,0.9);
 	margin-left: 0.5em;
 	margin-right: 30%;
 	-webkit-align-self: flex-start;
@@ -59,7 +59,7 @@
 .user {
 	padding: 0.5em;
 	border-radius: 5px;
-	background-color: #225282;
+	background-color: rgba(34,82,130,0.9);
 	margin-right: 0.5em;
 	margin-left: 30%;
 	-webkit-align-self: flex-end;
