@@ -13,6 +13,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
+var watson = require( 'watson-developer-cloud' ); 
 
 var configDB = require('./config/database.js');
 require('./config/passport')(passport);
@@ -326,6 +327,58 @@ http: //insurance-store-front.mybluemix.net/api/tradeoff
 // Allow clients to create new policy orders
 app.post('/api/orders', function (req, res, next) {
     return makePostRequest(req.body, orders_url + '/orders', res);
+});
+
+// =====================================
+// WATSON CONVERSATION FOR ANA =========
+// =====================================
+
+// Create the service wrapper
+var conversation = watson.conversation( {
+  url: 'https://gateway.watsonplatform.net/conversation/api',
+  username: process.env.CONVERSATION_USERNAME || '7f321c87-53d8-4673-9b17-87bac78f6150',
+  password: process.env.CONVERSATION_PASSWORD || 'xtm2tHfXLBw3',
+  version_date: '2016-07-11',
+  version: 'v1'
+} );
+
+// Allow clients to interact with Ana
+app.post('/api/ana', function(req,res){
+	
+	// TODO placeholder for environment variable for conversation
+	var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
+	
+	if (!workspace) {
+		console.log("No workspace detected. Cannot run the Watson Conversation service.");
+		}
+		
+	var params = {
+		workspace_id: workspace,
+		context: {},                   // Null context indicates new conversation
+		input: {}                      // Holder for message
+	};
+	
+	// Update options to send to conversation service with the user input and a context if one eixsts
+	if(req.body){
+		if(req.body.input){
+			params.input = req.body.input;
+		}
+		
+		if(req.body.context){
+			params.context = req.body.context;
+		}
+	}
+	
+	// Send message to the conversation service with the current context
+	conversation.message( params, function(err, data) {
+		if ( err ) {
+			console.log("Error in sending message: ",err);
+			return res.status( err.code || 500 ).json( err );
+		}
+		
+		return res.json(params,data);
+	} );
+	
 });
 
 // launch ======================================================================

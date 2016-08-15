@@ -1,0 +1,67 @@
+/* Styling for the chat bot */
+
+.chatbot {
+    margin-bottom: 30px;
+}
+
+.dialogcontainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    width: 240px;
+    max-width: 300px;
+    height: 300px;
+    max-height: 300px;
+    margin: 0;
+    min-width: 240px;
+    border-radius: 4px;
+	background-image: -moz-linear-gradient(bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("../images/ana.svg");
+	background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("../images/ana.svg");
+	background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("../images/ana.svg");
+	background-image: linear-gradient(bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("../images/ana.svg");
+	background-attachment: inherit;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100px;
+	overflow-y: auto;
+    overflow-x: hidden;
+    color: #597a96;
+    border: 1px dashed #12aaeb;
+}
+
+.dialoginput {
+    width: 240px;
+    margin-top: 15px;
+    border: 1px solid #12aaeb;
+    height: 60px;
+    border-radius: 4px;
+    padding: 10px;
+    color: #225282;
+    max-width: 240px;
+}
+
+.message {
+	margin-top: 0.5em;
+	font-size: 0.8em;
+	color: #fff;
+}
+
+.ana {
+	padding: 0.5em;
+	border-radius: 5px;
+	background-color: #597a96;
+	margin-left: 0.5em;
+	margin-right: 30%;
+	-webkit-align-self: flex-start;
+	align-self: flex-start;
+}
+
+.user {
+	padding: 0.5em;
+	border-radius: 5px;
+	background-color: #225282;
+	margin-right: 0.5em;
+	margin-left: 30%;
+	-webkit-align-self: flex-end;
+	align-self: flex-end;
+}
