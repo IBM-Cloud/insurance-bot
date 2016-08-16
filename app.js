@@ -36,8 +36,10 @@ app.set('view engine', 'html');
 
 // required for passport
 app.use(session({
-    secret: 'ana-insurance-bot'
-})); // session secret
+	secret: 'ana-insurance-bot',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -345,6 +347,15 @@ app.post('/api/orders', function (req, res, next) {
 // =====================================
 
 // Create the service wrapper
+/*
+var conversation = watson.conversation( {
+  url: 'https://gateway.watsonplatform.net/conversation/api',
+  username: process.env.CONVERSATION_USERNAME || '7f321c87-53d8-4673-9b17-87bac78f6150',
+  password: process.env.CONVERSATION_PASSWORD || 'xtm2tHfXLBw3',
+  version_date: '2016-07-11',
+  version: 'v1'
+} );
+*/
 var conversation = watson.conversation( {
   url: 'https://gateway.watsonplatform.net/conversation/api',
   username: '7f321c87-53d8-4673-9b17-87bac78f6150',
@@ -357,6 +368,7 @@ var conversation = watson.conversation( {
 app.post('/api/ana', function(req,res){
 	
 	// TODO placeholder for environment variable for conversation
+	// var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
 	var workspace = 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
 	
 	if (!workspace) {
@@ -369,7 +381,7 @@ app.post('/api/ana', function(req,res){
 		input: {}                      // Holder for message
 	};
 	
-	// Update options to send to conversation service with the user input and a context if one eixsts
+	// Update options to send to conversation service with the user input and a context if one exists
 	if(req.body){
 		if(req.body.input){
 			params.input = req.body.input;
@@ -387,7 +399,7 @@ app.post('/api/ana', function(req,res){
 			return res.status( err.code || 500 ).json( err );
 		}
 		
-		return res.json(params,data);
+		return res.json(data);
 	} );
 	
 });
