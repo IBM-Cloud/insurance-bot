@@ -347,8 +347,8 @@ app.post('/api/orders', function (req, res, next) {
 // Create the service wrapper
 var conversation = watson.conversation( {
   url: 'https://gateway.watsonplatform.net/conversation/api',
-  username: process.env.CONVERSATION_USERNAME || '7f321c87-53d8-4673-9b17-87bac78f6150',
-  password: process.env.CONVERSATION_PASSWORD || 'xtm2tHfXLBw3',
+  username: '7f321c87-53d8-4673-9b17-87bac78f6150',
+  password: 'xtm2tHfXLBw3',
   version_date: '2016-07-11',
   version: 'v1'
 } );
@@ -357,7 +357,7 @@ var conversation = watson.conversation( {
 app.post('/api/ana', function(req,res){
 	
 	// TODO placeholder for environment variable for conversation
-	var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
+	var workspace = 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
 	
 	if (!workspace) {
 		console.log("No workspace detected. Cannot run the Watson Conversation service.");
