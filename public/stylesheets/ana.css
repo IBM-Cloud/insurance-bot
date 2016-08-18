@@ -8,13 +8,14 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    width: 236px;
+    width: 226px;
     max-width: 300px;
     height: 300px;
     max-height: 300px;
     margin: 0;
-    min-width: 236px;
+    min-width: 226px;
     border-radius: 4px;
+    padding: 5px;
     background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
     background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
     background-image: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
@@ -26,7 +27,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     color: #597a96;
-    border: 1px dashed #12aaeb;
+    border: 1px solid #12aaeb;
 }
 
 .dialoginput {
@@ -34,7 +35,9 @@
     margin-top: 15px;
     border: 1px solid #12aaeb;
     height: 60px;
+    font-weight: bold;
     border-radius: 4px;
+    font-size: 13px;
     padding: 10px;
     color: #225282;
     max-width: 240px;
