@@ -1,3 +1,5 @@
+"use strict";
+
 // Handling for interactions in chat dialog and messages to Watson Conversation
 // Define selectors for chat display
 var watson = 'Ana';
@@ -10,8 +12,10 @@ var logs = {
     owner: '',
     date: null,
     conversation: '',
+    lastContext: {},
     logs: []
 };
+var responses = [];
 
 // Null out stored variables for user selected options in chat
 var procedures;
@@ -104,13 +108,11 @@ function userMessage(message) {
             }
 
             console.log("Got response from Ana: ", JSON.stringify(response));
-			
-			// Start a log file for the conversation and update with each new user input
-			if(chat.length===1){
-				startLogs();
-			} else if(chat.length>1){
-				updateLogs();
-			}
+
+            // Start a log file for the conversation and update with each new user input
+            if (response.input.text) {
+                formatLog(response);
+            }
 
             // Do manual conversation for things that don't need to route back to the service
             if (context.chosen_detail) {
@@ -165,14 +167,40 @@ function displayMessage(text, user) {
     return null;
 }
 
+function formatLog(response) {
+
+    var logFile = {
+        inputText: '',
+        responseText: '',
+        entities: {},
+        intents: {},
+    };
+
+    logFile.inputText = response.input.text;
+    logFile.responseText = response.output.text;
+    logFile.entities = response.entities;
+    logFile.intents = response.intents;
+    logFile.date = new Date();
+
+    responses.push(logFile);
+
+    logs.lastContext = context;
+    logs.logs = responses;
+
+    if (chat.length === 1) {
+        startLogs();
+    } else if (chat.length > 1) {
+        updateLogs();
+    }
+}
+
 function startLogs() {
-	
-	// Set attributes for new log file with user details
-	logs.owner = userPolicy.owner;
-	logs.date = new Date();
-	logs.conversation = context.conversation_id;
-	logs.logs = chat;
-	
+
+    // Set attributes for new log file with user details
+    logs.owner = userPolicy.owner;
+    logs.date = new Date();
+    logs.conversation = context.conversation_id;
+
     var xhr = new XMLHttpRequest();
     var uri = '/api/chatlogs';
 
@@ -180,43 +208,39 @@ function startLogs() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
         if (xhr.status === 200) {
-			
-			console.log("Log created");
+
+            console.log("Log created");
 
         } else if (xhr.status !== 200) {
             console.error("Failed to create a new log file in MongoDB. Check server.");
         }
     };
 	
-	console.log(logs);
-	
     xhr.send(JSON.stringify(logs));
-	
-	return;
+
+    return;
 }
 
-function updateLogs(text, owner) {
-	
-	logs.logs = chat;
-	
-	var xhr = new XMLHttpRequest();
+function updateLogs() {
+
+    var xhr = new XMLHttpRequest();
     var uri = '/api/chatlogs';
 
     xhr.open('POST', uri, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
         if (xhr.status === 200) {
-			
-			console.log("Log file updated");
+
+            console.log("Log file updated");
 
         } else if (xhr.status !== 200) {
             console.error("Failed to update log file in MongoDB. Check server.");
         }
     };
-	
-    xhr.send(JSON.stringify(logs));	
-	
-	return;
+
+    xhr.send(JSON.stringify(logs));
+
+    return;
 }
 
 // Enter is pressed

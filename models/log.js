@@ -5,6 +5,7 @@ var LogSchema = mongoose.Schema({
 	owner: String,
     date: Date,
     conversation: String,
+	lastContext: {},
     logs: []
 });
 

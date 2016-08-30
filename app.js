@@ -347,28 +347,18 @@ app.post('/api/orders', function (req, res, next) {
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
 // Create the service wrapper
-/*
+
 var conversation = watson.conversation( {
   url: 'https://gateway.watsonplatform.net/conversation/api',
-  username: process.env.CONVERSATION_USERNAME || '7f321c87-53d8-4673-9b17-87bac78f6150',
-  password: process.env.CONVERSATION_PASSWORD || 'xtm2tHfXLBw3',
+  username: process.env.CONVERSATION_USERNAME || 'bb6fdcd0-3701-4e0c-9950-32481a94c0bf',
+  password: process.env.CONVERSATION_PASSWORD || 'KOW2LFwhC3sb',
   version_date: '2016-07-11',
   version: 'v1'
 } );
-*/
-var conversation = watson.conversation({
-    url: 'https://gateway.watsonplatform.net/conversation/api',
-    username: 'bb6fdcd0-3701-4e0c-9950-32481a94c0bf',
-    password: 'KOW2LFwhC3sb',
-    version_date: '2016-07-11',
-    version: 'v1'
-});
 
 // Allow clients to interact with Ana
 app.post('/api/ana', function(req, res) {
 
-    // TODO placeholder for environment variable for conversation
-    // var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
     var workspace = '6930454e-66db-4252-875c-8a8deaae7488';
 
     if (!workspace) {
@@ -404,6 +394,9 @@ app.post('/api/ana', function(req, res) {
 
 }); // End app.post 'api/ana'
 
+// ===============================================
+// LOG MANAGEMENT FOR USER INPUT FOR ANA =========
+// ===============================================
 app.post('/api/chatlogs', function(req, res) {
 
     var owner = req.body.owner;
@@ -449,6 +442,29 @@ app.post('/api/chatlogs', function(req, res) {
     });
 
 }); // End app.post 'api/ana/logs'
+
+// =================================
+// SPEECH SERVICES FOR ANA =========
+// =================================
+var speech = watson.text_to_speech({
+  version: 'v1',
+  username: '524d13ab-626e-4f1c-9d63-e65d51a163e9',
+  password: 'VwJ8gpi0Wo5q'
+});
+
+app.get('/api/vocalize', function(req, res, next) {
+  var transcript = speech.synthesize(req.body.text);
+  
+  transcript.on('response', function(response) {
+
+  });
+  
+  transcript.on('error', function(error) {
+    next(error);
+  });
+  
+  transcript.pipe(res);
+});
 
 // launch ======================================================================
 
