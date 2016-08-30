@@ -4,10 +4,20 @@ var watson = 'Ana';
 var user = '';
 var context;
 
+// Variables for the logs
+var chat = [];
+var logs = {
+    owner: '',
+    date: null,
+    conversation: '',
+    logs: []
+};
+
 // Null out stored variables for user selected options in chat
 var procedures;
 var service = '';
 var procedure = '';
+var detail = '';
 var procedure_details;
 
 var params = {
@@ -15,34 +25,52 @@ var params = {
     context: '',
 };
 
-console.log(services);
-
 function initChat() {
 
     console.log("Initializing the chat.");
     userMessage('');
 }
 
+function formatPolicy(procedure) {
+    var policies = userPolicy.policies;
+
+    for (var i = 0; i < policies.length; i++) {
+        if (policies[i].title === procedure) {
+            procedure_details = {
+                "limit": "$" + policies[i].claimLimit,
+                "claimed": "$" + policies[i].amountClaimed,
+                "coverage": policies[i].percentCovered + "%",
+                "term": policies[i].scope,
+                "start": policies[i].startDate,
+                "end": policies[i].endDate,
+                "code": policies[i].code,
+                "claims": policies[i].claims
+            };
+        }
+    }
+}
+
 function userMessage(message) {
+
     message = message.toLowerCase();
 
-    // Set paramters for payload to Watson Conversation
+    // Set parameters for payload to Watson Conversation
     params.input = {
         text: message
     }; // User defined text
 
     // Add variables to the context as more options are chosen
-	if(context){
-		params.context = context; // Previously defined context object 
-	}
+    if (context) {
+        params.context = context; // Previously defined context object 
+    }
     if (message) {
-        params.context.services = policyTypes.join(", ");
+        params.context.services = "vision, dental, mental, and physical";
     }
     if (procedures) {
         params.context.procedures = procedures;
     }
     if (procedure) {
-        params.context.details = policyDetails.join(", ");
+        params.context.details = "limit, claimed, coverage, term, start, end, and code";
     }
 
     var xhr = new XMLHttpRequest();
@@ -54,10 +82,10 @@ function userMessage(message) {
         if (xhr.status === 200 && xhr.responseText) {
 
             var response = JSON.parse(xhr.responseText);
-            var text = response.output.text[0]; // Only display the first response in conversation loops
+            var text = response.output.text[0]; // Only display the first response
             context = response.context; // Store the context for next round of questions
 
-            // Store the user selected service to query and create array of procedures from policyProcedures
+            // Store the user selected detail to narrow down the info
             if (context.chosen_service) {
                 service = context.chosen_service;
 
@@ -65,46 +93,45 @@ function userMessage(message) {
 
                 var i = policyTypes.indexOf(service);
                 procedures = policyProcedures[i].join(", ");
-
             }
 
-            // Store the user selected procedure to query and create array of details from userPolicy
-            if (context.procedure) {
-                procedure = context.procedure;
+            // Store the user selected procedure to query and create array of details
+            if (context.chosen_procedure) {
+                procedure = context.chosen_procedure;
                 console.log("Procedure:", procedure);
 
-                var policies = userPolicy.policies;
-
-                for (var n = 0; n < policies.length; n++) {
-
-                    if (policies[n].title === procedure) {
-                        procedure_details = {
-                            "limit": "$" + policies[n].claimLimit,
-                            "claimed": "$" + policies[n].amountClaimed,
-                            "coverage": policies[n].percentCovered + "%",
-                            "term": policies[n].scope,
-                            "start": policies[n].startDate,
-                            "end": policies[n].endDate,
-                            "code": policies[n].code
-                        };
-                    }
-
-                }
+                formatPolicy(procedure);
             }
 
             console.log("Got response from Ana: ", JSON.stringify(response));
+			
+			// Start a log file for the conversation and update with each new user input
+			if(chat.length===1){
+				startLogs();
+			} else if(chat.length>1){
+				updateLogs();
+			}
 
-            displayMessage(text, watson);
-
+            // Do manual conversation for things that don't need to route back to the service
             if (context.chosen_detail) {
-                var detail = context.chosen_detail;
-                var text = "Your " + detail + " is " + procedure_details[detail];
+                detail = context.chosen_detail;
+                text = "Your " + detail + " for " + procedure + " is " + procedure_details[detail];
 
+                if (detail === "coverage") {
+                    text = text + " and you have claimed " + procedure_details.claimed + " of " + procedure_details.limit;
+                }
+
+                // Null out the context to reset the conversation options
+                context = '';
+                procedure = '';
+
+                displayMessage(text, watson);
+            } else {
                 displayMessage(text, watson);
             }
 
         } else {
-            console.error('Server error for Conversation. Return status of: ',xhr.statusText);
+            console.error('Server error for Conversation. Return status of: ', xhr.statusText);
         }
     };
 
@@ -136,7 +163,60 @@ function displayMessage(text, user) {
     document.getElementById('chatMessage').focus();
 
     return null;
+}
 
+function startLogs() {
+	
+	// Set attributes for new log file with user details
+	logs.owner = userPolicy.owner;
+	logs.date = new Date();
+	logs.conversation = context.conversation_id;
+	logs.logs = chat;
+	
+    var xhr = new XMLHttpRequest();
+    var uri = '/api/chatlogs';
+
+    xhr.open('POST', uri, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+			
+			console.log("Log created");
+
+        } else if (xhr.status !== 200) {
+            console.error("Failed to create a new log file in MongoDB. Check server.");
+        }
+    };
+	
+	console.log(logs);
+	
+    xhr.send(JSON.stringify(logs));
+	
+	return;
+}
+
+function updateLogs(text, owner) {
+	
+	logs.logs = chat;
+	
+	var xhr = new XMLHttpRequest();
+    var uri = '/api/chatlogs';
+
+    xhr.open('POST', uri, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+			
+			console.log("Log file updated");
+
+        } else if (xhr.status !== 200) {
+            console.error("Failed to update log file in MongoDB. Check server.");
+        }
+    };
+	
+    xhr.send(JSON.stringify(logs));	
+	
+	return;
 }
 
 // Enter is pressed
@@ -151,6 +231,8 @@ function newEvent(e) {
 
             displayMessage(text, user);
             userInput.value = '';
+            chat.push(text);
+
             userMessage(text);
 
         } else {

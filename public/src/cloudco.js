@@ -4,7 +4,6 @@
 var userPolicy;
 var policyTypes;
 var policyProcedures;
-var policyDetails = ["limit","coverage","term","start","end","code"];
 
 function openTravel() {
     window.location = "travel.html";
@@ -387,6 +386,16 @@ function checkStatus() {
             }
         }
     });
+}
+
+// Enter is pressed
+function newEvent(e,target) {
+    if (e.which === 13 || e.keyCode === 13) {
+		
+		if(target==="login"){
+			login();
+		}
+	}
 }
 
 checkStatus();

@@ -20,6 +20,7 @@ require('./config/passport')(passport);
 
 var Account = require('./models/account');
 var Benefits = require('./models/benefit');
+var Log = require('./models/log');
 
 // configuration ===============================================================
 
@@ -345,7 +346,6 @@ app.post('/api/orders', function (req, res, next) {
 // =====================================
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
-
 // Create the service wrapper
 /*
 var conversation = watson.conversation( {
@@ -356,53 +356,99 @@ var conversation = watson.conversation( {
   version: 'v1'
 } );
 */
-var conversation = watson.conversation( {
-  url: 'https://gateway.watsonplatform.net/conversation/api',
-  username: '7f321c87-53d8-4673-9b17-87bac78f6150',
-  password: 'xtm2tHfXLBw3',
-  version_date: '2016-07-11',
-  version: 'v1'
-} );
+var conversation = watson.conversation({
+    url: 'https://gateway.watsonplatform.net/conversation/api',
+    username: 'bb6fdcd0-3701-4e0c-9950-32481a94c0bf',
+    password: 'KOW2LFwhC3sb',
+    version_date: '2016-07-11',
+    version: 'v1'
+});
 
 // Allow clients to interact with Ana
-app.post('/api/ana', function(req,res){
-	
-	// TODO placeholder for environment variable for conversation
-	// var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
-	var workspace = 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
-	
-	if (!workspace) {
-		console.log("No workspace detected. Cannot run the Watson Conversation service.");
-		}
-		
-	var params = {
-		workspace_id: workspace,
-		context: {},                   // Null context indicates new conversation
-		input: {}                      // Holder for message
-	};
-	
-	// Update options to send to conversation service with the user input and a context if one exists
-	if(req.body){
-		if(req.body.input){
-			params.input = req.body.input;
-		}
-		
-		if(req.body.context){
-			params.context = req.body.context;
-		}
-	}
-	
-	// Send message to the conversation service with the current context
-	conversation.message( params, function(err, data) {
-		if ( err ) {
-			console.log("Error in sending message: ",err);
-			return res.status( err.code || 500 ).json( err );
-		}
-		
-		return res.json(data);
-	} );
-	
-});
+app.post('/api/ana', function(req, res) {
+
+    // TODO placeholder for environment variable for conversation
+    // var workspace = process.env.WORKSPACE_ID || 'cf3bcaa5-7f69-4f0a-8065-e5c13401895d';
+    var workspace = '6930454e-66db-4252-875c-8a8deaae7488';
+
+    if (!workspace) {
+        console.log("No workspace detected. Cannot run the Watson Conversation service.");
+    }
+
+    var params = {
+        workspace_id: workspace,
+        context: {}, // Null context indicates new conversation
+        input: {} // Holder for message
+    };
+
+    // Update options to send to conversation service with the user input and a context if one exists
+    if (req.body) {
+        if (req.body.input) {
+            params.input = req.body.input;
+        }
+
+        if (req.body.context) {
+            params.context = req.body.context;
+        }
+    }
+
+    // Send message to the conversation service with the current context
+    conversation.message(params, function(err, data) {
+        if (err) {
+            console.log("Error in sending message: ", err);
+            return res.status(err.code || 500).json(err);
+        }
+
+        return res.json(data);
+    });
+
+}); // End app.post 'api/ana'
+
+app.post('/api/chatlogs', function(req, res) {
+
+    var owner = req.body.owner;
+    var conversation = req.body.conversation;
+    var logs = req.body.logs;
+    var file = {};
+
+    Log.findOne({
+        'conversation': conversation
+    }, function(err, doc) {
+
+        //If there is a log then update
+        if (doc) {
+            console.log("Updating doc:", doc);
+            file = doc;
+            file.logs = logs;
+
+            Log.update(file, function(err, data) {
+                if (err) {
+                    console.log("Error updating log: ", err);
+                    return res.status(err.code || 500).json(err);
+                }
+
+                return res.json(data);
+            });
+
+
+        } else { // Otherwise create a new log file
+
+            file = req.body;
+
+            console.log("Creating a log doc for: ", conversation);
+
+            Log.create(file, function(err, data) {
+                if (err) {
+                    console.log("Error in creating log: ", err);
+                    return res.status(err.code || 500).json(err);
+                }
+
+                return res.json(data);
+            });
+        }
+    });
+
+}); // End app.post 'api/ana/logs'
 
 // launch ======================================================================
 

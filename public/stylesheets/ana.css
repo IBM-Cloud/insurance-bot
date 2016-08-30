@@ -45,7 +45,8 @@
 
 .message {
     margin-top: 0.5em;
-    font-size: 0.8em;
+    font-size: 13px;
+    font-weight: bold;
     color: #fff;
 }
 
@@ -53,22 +54,51 @@
     padding: 0.5em;
     border-radius: 5px;
     background-color: #12aaeb;
-    font-size: 13px;
-    font-weight: bold;
     margin-left: 0.5em;
     margin-right: 30%;
     -webkit-align-self: flex-start;
     align-self: flex-start;
+	-webkit-animation: fadein 2s; 
+       -moz-animation: fadein 2s; 
+        -ms-animation: fadein 2s; 
+         -o-animation: fadein 2s; 
+            animation: fadein 2s;
 }
 
 .user {
     padding: 0.5em;
     border-radius: 5px;
     background-color: rgba(34, 82, 130, 0.9);
-    font-size: 13px;
-    font-weight: bold;
     margin-right: 0.5em;
     margin-left: 30%;
     -webkit-align-self: flex-end;
     align-self: flex-end;
+	-webkit-animation: fadein 1s; 
+       -moz-animation: fadein 1s;
+        -ms-animation: fadein 1s; 
+         -o-animation: fadein 1s; 
+            animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
