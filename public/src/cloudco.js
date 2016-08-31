@@ -322,44 +322,76 @@ function getBenefits() {
     })
 }
 
-function submitClaim() {
+function submitClaim(source) {
+	var bot = false;
+	console.log("Source is: ",source);
+	
+	if(source === watson) {
+		bot = true;
+	}
+	
+	var claimFile = {
+		date: null,
+		benefit: null,
+		provider: null,
+		amount: null
+		};
+	
+	if(source===watson){
+		claimFile.date = context.claim_date;
+		claimFile.benefit = context.claim_procedure;
+		claimFile.provider = context.claim_provider;
+		claimFile.amount = context.claim_amount;
+	} else {
+		var dateElement = document.getElementById('claimdate');
+        var benefitElement = document.getElementById('benefittypes');
+        var providerElement = document.getElementById('provider');
+        var amountElement = document.getElementById('claimamount');
 
-    var dateElement = document.getElementById('claimdate');
-    var benefitElement = document.getElementById('benefittypes');
-    var providerElement = document.getElementById('provider');
-    var amountElement = document.getElementById('claimamount');
-
-    var date = dateElement.value;
-    var benefit = benefitElement.value;
-    var provider = providerElement.value;
-    var amount = amountElement.value;
+        claimFile.date = dateElement.value;
+        claimFile.benefit = benefitElement.value;
+        claimFile.provider = providerElement.value;
+        claimFile.amount = amountElement.value;
+	}
 
     var xhr = new XMLHttpRequest();
 
-    var uri = 'claims';
+    var uri = '/submitClaim';
 
     var claimmessages = document.getElementById('claimmessages');
 
-    xhr.open('POST', encodeURI(uri));
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.open('POST', uri, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function (response) {
-
-        var reply = JSON.parse(xhr.responseText);
-        if (xhr.status === 200) {
+        if (xhr.status === 200 && xhr.responseText) {
+			var reply = JSON.parse(xhr.responseText);
+			console.log(bot);
+			
             if (reply.outcome === 'success') {
-                claimmessages.innerHTML = 'Your claim was filed.';
+				if(bot === true ) {
+					console.log('success');
+					displayMessage("Your claim was successfully filed!",watson);
+					context = '';
+				} else {
+					claimmessages.innerHTML = 'Your claim was filed.';
+				}
             } else {
                 email = '';
                 password = '';
-                claimmessages.innerHTML = 'Something went wrong - try again';
+				if(bot === true) {
+					displayMessage("Oh no! Something went wrong. Please try again.",watson);
+					context = '';
+				} else {
+					claimmessages.innerHTML = 'Something went wrong - try again';
+				}
             }
-        } else if (xhr.status !== 200) {
+        } else {
             alert('Request failed.  Returned status of ' + xhr.status);
         }
     };
-    xhr.send(encodeURI('date=' + date + '&benefit=' + benefit + '&provider=' + provider + '&amount=' + amount));
-
-    console.log('submit claim');
+	
+	console.log("Submitting claim: ",JSON.stringify(claimFile));
+    xhr.send(JSON.stringify(claimFile));
 }
 
 function checkStatus() {

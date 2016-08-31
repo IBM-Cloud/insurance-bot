@@ -187,7 +187,7 @@ app.get('/history', isLoggedIn, function (req, res) {
 
 
 // process the signup form
-app.post('/claims', function (req, res) {
+app.post('/submitClaim', function (req, res) {
 
     var claim = req.body;
 
@@ -403,6 +403,10 @@ app.post('/api/chatlogs', function(req, res) {
     var conversation = req.body.conversation;
     var logs = req.body.logs;
     var file = {};
+	
+	if(owner==="celesiroth@gmail.com"){
+		return res.status(200);
+	} else {
 
     Log.findOne({
         'conversation': conversation
@@ -440,6 +444,7 @@ app.post('/api/chatlogs', function(req, res) {
             });
         }
     });
+	}
 
 }); // End app.post 'api/ana/logs'
 
