@@ -129,7 +129,7 @@ PolicyBuilder.prototype.makeEvaluation = function (criteria) {
         '<div class="criteria-element">' +
         '<img src = "images/wash/' + criteria.image + '" class = "evaluation-image">' +
         '<label class = "criteria-label">' + criteria.label + '</label>' +
-        '<div class="consideration-mobile" id="' + criteria.label + 'Consideration' + '">' + criteria.values[0] + '</div>' +
+        '<div class="consideration-mobile" id="' + criteria.label + 'MobileConsideration' + '">' + criteria.values[0] + '</div>' +
         '</div>' +
         '<div class="slider-element">' +
         '<label class = "slider-label">' + criteria.values[0] + '</label >' +
@@ -255,6 +255,8 @@ PolicyBuilder.prototype.sliderChange = function (element) {
             var slider = document.getElementById(data.label + 'Slider');
             var consideration = document.getElementById(data.label + 'Consideration');
             consideration.innerHTML = data.values[slider.value];
+            var mobileconsideration = document.getElementById(data.label + 'MobileConsideration');
+            mobileconsideration.innerHTML = data.values[slider.value];
         }
     });
 
