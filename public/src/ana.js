@@ -203,7 +203,7 @@ function userMessage(message) {
                 }
 
                 // Null out the context to reset the conversation options
-                context = '';
+				context = '';
                 procedure = '';
 
                 displayMessage(text, watson);
@@ -224,7 +224,8 @@ function userMessage(message) {
     xhr.onerror = function() {
         console.error('Network error trying to send message!');
     };
-
+	
+	console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
 }
 
@@ -379,7 +380,7 @@ function validateDate(date) {
             displayMessage(text, watson);
         } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
             var month = '' + (userDate.getMonth() + 1),
-			    day = '' + (userDate.getDate() + 1),
+			    day = '' + (userDate.getDate()),
                 year = userDate.getFullYear();
   
             if (month.length < 2){

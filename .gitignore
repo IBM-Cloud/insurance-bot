@@ -5,3 +5,7 @@ database.js
 config/database.js
 
 config/database.js
+
+.DS_Store
+
+config/database.js

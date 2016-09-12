@@ -359,7 +359,7 @@ var conversation = watson.conversation( {
 // Allow clients to interact with Ana
 app.post('/api/ana', function(req, res) {
 
-    var workspace = '6930454e-66db-4252-875c-8a8deaae7488';
+    var workspace = '1f10726e-3490-40d5-ba82-c91fa57c6f78';
 
     if (!workspace) {
         console.log("No workspace detected. Cannot run the Watson Conversation service.");
@@ -404,10 +404,6 @@ app.post('/api/chatlogs', function(req, res) {
     var logs = req.body.logs;
     var file = {};
 	
-	if(owner==="celesiroth@gmail.com"){
-		return res.status(200);
-	} else {
-
     Log.findOne({
         'conversation': conversation
     }, function(err, doc) {
@@ -444,32 +440,10 @@ app.post('/api/chatlogs', function(req, res) {
             });
         }
     });
-	}
+	
 
 }); // End app.post 'api/ana/logs'
 
-// =================================
-// SPEECH SERVICES FOR ANA =========
-// =================================
-var speech = watson.text_to_speech({
-  version: 'v1',
-  username: '524d13ab-626e-4f1c-9d63-e65d51a163e9',
-  password: 'VwJ8gpi0Wo5q'
-});
-
-app.get('/api/vocalize', function(req, res, next) {
-  var transcript = speech.synthesize(req.body.text);
-  
-  transcript.on('response', function(response) {
-
-  });
-  
-  transcript.on('error', function(error) {
-    next(error);
-  });
-  
-  transcript.pipe(res);
-});
 
 // launch ======================================================================
 
