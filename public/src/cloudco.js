@@ -371,7 +371,7 @@ function submitClaim(source) {
 				if(bot === true ) {
 					console.log('success');
 					displayMessage("Your claim was successfully filed!",watson);
-					context = '';
+					context.claim_step='';
 				} else {
 					claimmessages.innerHTML = 'Your claim was filed.';
 				}
