@@ -5,7 +5,6 @@
 var express = require('express');
 var app = express();
 var cfenv = require('cfenv');
-var port = process.env.PORT || 5014;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -459,9 +458,12 @@ app.post('/api/chatlogs', function(req, res) {
         if (err) {
             console.log("Error with log: ",err);
             return res.status(err.code || 500).json(err);
-        } else {
+        } 
+        
+        if(doc) {
             console.log("Log update success for conversation id of ",conversation);
-            io.sockets.emit('logDoc',doc);
+            io.sockets.emit('logDoc',req.body);
+            console.log("request body: ",req.body);
             return res.json(doc);
         }
     });
@@ -473,7 +475,7 @@ app.post('/api/chatlogs', function(req, res) {
 // launch ======================================================================
 
 var host = process.env.VCAP_APP_HOST || 'localhost';
-var port = process.env.VCAP_APP_PORT || 8080;
+var port = process.env.VCAP_APP_PORT || 5014;
 
 io.on('connection', function(socket){
 	console.log("Sockets connected.");
@@ -485,4 +487,4 @@ io.on('connection', function(socket){
 	});
 });
 io.listen(app.listen(port, host));
-console.log("server starting on " + appEnv.url);
+console.log("server starting on port ",port);
