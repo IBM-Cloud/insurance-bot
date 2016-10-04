@@ -14,6 +14,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
+var io = require('socket.io')();
 var watson = require( 'watson-developer-cloud' );
 
 require('./config/passport')(passport);
@@ -460,18 +461,28 @@ app.post('/api/chatlogs', function(req, res) {
             return res.status(err.code || 500).json(err);
         } else {
             console.log("Log update success for conversation id of ",conversation);
+            io.sockets.emit('logDoc',doc);
             return res.json(doc);
         }
     });
 	
 
-}); // End app.post 'api/ana/logs'
+}); // End app.post 'api/chatlogs'
 
 
 // launch ======================================================================
 
-// start server on the specified port and binding host
-app.listen(appEnv.port, "0.0.0.0", function () {
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
+var host = process.env.VCAP_APP_HOST || 'localhost';
+var port = process.env.VCAP_APP_PORT || 8080;
+
+io.on('connection', function(socket){
+	console.log("Sockets connected.");
+	
+	// Whenever a new client connects send them the latest data
+	
+	socket.on('disconnect', function(){
+		console.log("Socket disconnected.");
+	});
 });
+io.listen(app.listen(port, host));
+console.log("server starting on " + appEnv.url);
