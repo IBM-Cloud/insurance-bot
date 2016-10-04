@@ -24,9 +24,17 @@ Coming Soon!
 
 1. Create a Compose for MongoDB service in Bluemix
 
+  ```
+  cf create-service compose-for-mongodb Standard insurance-bot-db
+  ```
+
 1. Create a Conversation service in Bluemix
 
-1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the MongoDB and Conversation services.
+  ```
+  cf create-service conversation standard insurance-bot-conversation
+  ```
+
+1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the MongoDB and Conversation services. You can retrieve the service credentials from the Bluemix console.
 
   ```
   cp vcap-local.template.json vcap-local.json
