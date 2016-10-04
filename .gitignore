@@ -9,5 +9,3 @@ config/database.js
 .DS_Store
 
 config/database.js
-
-vcap-local.json
