@@ -442,45 +442,28 @@ app.post('/api/chatlogs', function(req, res) {
     var owner = req.body.owner;
     var conversation = req.body.conversation;
     var logs = req.body.logs;
-    var file = {};
-
-    Log.findOne({
-        'conversation_id': conversation
-    }, function(err, doc) {
-
-        //If there is a log then update
-        if (doc) {
-            console.log("Updating doc:", doc);
-            file = doc;
-            file.logs = logs;
-
-            Log.update(file, function(err, data) {
-                if (err) {
-                    console.log("Error updating log: ", err);
-                    return res.status(err.code || 500).json(err);
-                }
-
-                return res.json(data);
-            });
-
-
-        } else { // Otherwise create a new log file
-
-            file = req.body;
-
-            console.log("Creating a log doc for: ", conversation);
-
-            Log.create(file, function(err, data) {
-                if (err) {
-                    console.log("Error in creating log: ", err);
-                    return res.status(err.code || 500).json(err);
-                }
-
-                return res.json(data);
-            });
+    
+    // If a document already exists just update the logs. If new then add logs and other fields.
+    // findOneAndUpdate does both $set and $setOnInsert at the same time
+    var update = {$set:{logs:logs}, $setOnInsert:{
+        owner:req.body.owner,
+        date: req.body.date,
+        conversation: req.body.conversation,
+        lastContext: req.body.lastContext
+        }};
+    var options = { upsert: true, returnNewDocument: true };
+    var query = {'conversation': conversation};
+	
+    Log.findOneAndUpdate(query, update, options, function(err, doc){
+        if (err) {
+            console.log("Error with log: ",err);
+            return res.status(err.code || 500).json(err);
+        } else {
+            console.log("Log update success for conversation id of ",conversation);
+            return res.json(doc);
         }
     });
-
+	
 
 }); // End app.post 'api/ana/logs'
 
