@@ -445,7 +445,7 @@ app.post('/api/chatlogs', function(req, res) {
     var file = {};
 
     Log.findOne({
-        'conversation': conversation
+        'conversation_id': conversation
     }, function(err, doc) {
 
         //If there is a log then update
