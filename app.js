@@ -4,6 +4,7 @@
 // get all the tools we need
 var express = require('express');
 var app = express();
+var cfenv = require('cfenv');
 var port = process.env.PORT || 5014;
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -13,9 +14,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
-var watson = require( 'watson-developer-cloud' ); 
+var watson = require( 'watson-developer-cloud' );
 
-var configDB = require('./config/database.js');
 require('./config/passport')(passport);
 
 var Account = require('./models/account');
@@ -23,8 +23,51 @@ var Benefits = require('./models/benefit');
 var Log = require('./models/log');
 
 // configuration ===============================================================
+// load local VCAP configuration
+var vcapLocal = null
+try {
+  vcapLocal = require("./vcap-local.json");
+  console.log("Loaded local VCAP", vcapLocal);
+} catch (e) {
+  console.error(e);
+}
 
-mongoose.connect(configDB.url); // connect to our database
+// get the app environment from Cloud Foundry, defaulting to local VCAP
+var appEnvOpts = vcapLocal ? {
+  vcap: vcapLocal
+} : {}
+var appEnv = cfenv.getAppEnv(appEnvOpts);
+
+var appName;
+if (appEnv.isLocal) {
+    require('dotenv').load();
+}
+var catalog_url = process.env.CATALOG_URL;
+var orders_url = process.env.ORDERS_URL;
+console.log("Catalog URL is", catalog_url);
+console.log("Orders URL is", orders_url);
+
+var mongoDbUrl, mongoDbOptions = {};
+var mongoDbCredentials = appEnv.getServiceCreds("insurance-bot-db") || appEnv.services["compose-for-mongodb"][0].credentials;
+if (mongoDbCredentials) {
+  var ca = [new Buffer(mongoDbCredentials.ca_certificate_base64, 'base64')];
+  mongoDbUrl = mongoDbCredentials.uri;
+  mongoDbOptions = {
+    mongos: {
+      ssl: true,
+      sslValidate: true,
+      sslCA: ca,
+      poolSize: 1,
+      reconnectTries: 1
+    }
+  };
+} else if (process.env.MONGODB_URL) {
+  mongoDbUrl = process.env.MONGODB_URL;
+} else {
+  console.error("No MongoDB connection configured!");
+}
+console.log("Connecting to", mongoDbUrl);
+mongoose.connect(mongoDbUrl, mongoDbOptions); // connect to our database
 
 app.use(express.static(__dirname + '/public'));
 
@@ -50,7 +93,7 @@ var bcrypt = require('bcrypt-nodejs');
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
@@ -275,13 +318,13 @@ app.get('/soon', function (req, res) {
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
     res.setHeader('Content-Type', 'application/json');
-	
+
     Benefits.findOne({
         owner: req.user.local.email
     }, function (err, doc) {
 		doc.firstName = req.user.local.first_name;
 		doc.lastName = req.user.local.last_name;
-		
+
         res.send(JSON.stringify(doc, null, 3));
     });
 });
@@ -312,10 +355,11 @@ function makePostRequest(payload, url, res) {
     };
 
     request.post(options, function (err, response) {
-        if (err)
+        if (err) {
             return res.json(err);
-        else
+        } else {
             return res.json(response.body);
+          }
     });
 }
 
@@ -323,18 +367,8 @@ function makePostRequest(payload, url, res) {
  * Constructs a URL for an insurance microservice
  */
 
-function constructApiRoute(prefix, suffix) {
-    return "https://" + prefix + suffix + ".mybluemix.net";
-}
-
-var catalog_url = 'http://insurance-store-front.mybluemix.net/api';
-
-http: //insurance-store-front.mybluemix.net/api/tradeoff
-
     // Allow clients to make policy tradeoff calculations
     app.post('/api/tradeoff', function (req, res, next) {
-
-        console.log(catalog_url + '/tradeoff');
         return makePostRequest(req.body, catalog_url + '/tradeoff', res);
     });
 
@@ -348,10 +382,16 @@ app.post('/api/orders', function (req, res, next) {
 // =====================================
 // Create the service wrapper
 
+var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
+var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
+var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+
 var conversation = watson.conversation( {
-  url: 'https://gateway.watsonplatform.net/conversation/api',
-  username: process.env.CONVERSATION_USERNAME || 'bb6fdcd0-3701-4e0c-9950-32481a94c0bf',
-  password: process.env.CONVERSATION_PASSWORD || 'KOW2LFwhC3sb',
+  url: conversationCredentials.url,
+  username: conversationUsername,
+  password: conversationPassword,
   version_date: '2016-07-11',
   version: 'v1'
 } );
@@ -359,7 +399,7 @@ var conversation = watson.conversation( {
 // Allow clients to interact with Ana
 app.post('/api/ana', function(req, res) {
 
-    var workspace = '1f10726e-3490-40d5-ba82-c91fa57c6f78';
+    var workspace = conversationWorkspace;
 
     if (!workspace) {
         console.log("No workspace detected. Cannot run the Watson Conversation service.");
@@ -403,7 +443,7 @@ app.post('/api/chatlogs', function(req, res) {
     var conversation = req.body.conversation;
     var logs = req.body.logs;
     var file = {};
-	
+
     Log.findOne({
         'conversation': conversation
     }, function(err, doc) {
@@ -440,12 +480,15 @@ app.post('/api/chatlogs', function(req, res) {
             });
         }
     });
-	
+
 
 }); // End app.post 'api/ana/logs'
 
 
 // launch ======================================================================
 
-app.listen(port);
-console.log('running on port ' + port);
+// start server on the specified port and binding host
+app.listen(appEnv.port, "0.0.0.0", function () {
+  // print a message when the server starts listening
+  console.log("server starting on " + appEnv.url);
+});
