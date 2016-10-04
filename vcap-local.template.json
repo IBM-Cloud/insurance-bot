@@ -1,0 +1,25 @@
+{
+  "services": {
+    "compose-for-mongodb": [
+      {
+        "label": "compose-for-mongodb",
+        "name": "insurance-bot-db",
+        "credentials": {
+          "ca_certificate_base64": "",
+          "uri": ""
+        }
+      }
+    ],
+    "conversation": [
+      {
+        "label": "conversation",
+        "name": "insurance-bot-conversation",
+        "credentials": {
+          "url": "https://gateway.watsonplatform.net/conversation/api",
+          "password": "",
+          "username": ""
+        }
+      }
+    ]
+  }
+}

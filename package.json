@@ -1,30 +1,30 @@
 {
-    "name": "CloudCo",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "node app.js"
-    },
-    "dependencies": {
-        "cfenv": "1.0.x",
-        "express": "4.13.x",
-        "body-parser": "~1.13.2",
-        "dotenv": "*",
-        "log4js": "~0.6.36",
-        "node-datetime": "1.0",
-        "request": "~2.73.0",
-        "mongoose": "~4.5.7",
-        "passport": "~0.3.2",
-        "connect-flash": "~0.1.1",
-        "morgan": "~1.7.0",
-        "cookie-parser": "~1.4.3",
-        "express-session": "~1.14.0",
-        "watson-developer-cloud": "*",
-        "bcrypt-nodejs": "0.0.3",
-        "passport-local": "~1.0.0"
-    },
-    "repository": {},
-    "engines": {
-        "node": "4.2.x"
-    }
+  "name": "CloudCo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.13.2",
+    "cfenv": "^1.0.3",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.4.3",
+    "dotenv": "*",
+    "express": "4.13.x",
+    "express-session": "~1.14.0",
+    "log4js": "~0.6.36",
+    "mongoose": "~4.5.7",
+    "morgan": "~1.7.0",
+    "node-datetime": "1.0",
+    "passport": "~0.3.2",
+    "passport-local": "~1.0.0",
+    "request": "~2.73.0",
+    "watson-developer-cloud": "*"
+  },
+  "repository": {},
+  "engines": {
+    "node": "4.2.x"
+  }
 }
