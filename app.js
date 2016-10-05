@@ -116,8 +116,8 @@ app.get('/loginSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		firstName: req.user.local.first_name,
-		lastName: req.user.local.last_name,
+		fname: req.user.local.fname,
+		lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
@@ -133,8 +133,8 @@ app.get('/signupSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		firstName: req.user.local.first_name,
-		lastName: req.user.local.last_name,
+		fname: req.user.local.fname,
+		lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
@@ -155,8 +155,8 @@ app.get('/isLoggedIn', function (req, res) {
     if (req.isAuthenticated()) {
         result.outcome = 'success';
         result.username = req.user.local.email;
-		result.firstName = req.user.local.firstName;
-		result.lastName = req.user.local.lastName;
+		result.fname = req.user.local.fname;
+		result.lname = req.user.local.lname;
     }
 
     res.send(JSON.stringify(result, null, 3));
@@ -215,8 +215,8 @@ app.get('/history', isLoggedIn, function (req, res) {
 
         var output = {
             owner: req.user.local.email,
-			firstName: req.user.local.first_name,
-			lastName: req.user.local.last_name,
+			fname: req.user.local.fname,
+			lname: req.user.local.lname,
             claims: allclaims
         };
 
@@ -313,7 +313,7 @@ app.get('/health', function (req, res) {
 
 app.get('/soon', function (req, res) {
     res.sendfile('./public/soon.html');
-})
+});
 
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
@@ -322,9 +322,6 @@ app.get('/healthBenefits', isLoggedIn, function (req, res) {
     Benefits.findOne({
         owner: req.user.local.email
     }, function (err, doc) {
-		doc.firstName = req.user.local.first_name;
-		doc.lastName = req.user.local.last_name;
-
         res.send(JSON.stringify(doc, null, 3));
     });
 });
@@ -445,11 +442,10 @@ app.post('/api/chatlogs', function(req, res) {
     
     // If a document already exists just update the logs. If new then add logs and other fields.
     // findOneAndUpdate does both $set and $setOnInsert at the same time
-    var update = {$set:{logs:logs}, $setOnInsert:{
+    var update = {$set:{lastContext: req.body.lastContext, logs:logs}, $setOnInsert:{
         owner:req.body.owner,
         date: req.body.date,
         conversation: req.body.conversation,
-        lastContext: req.body.lastContext
         }};
     var options = { upsert: true, returnNewDocument: true };
     var query = {'conversation': conversation};

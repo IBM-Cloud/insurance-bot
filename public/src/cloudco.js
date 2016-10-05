@@ -4,6 +4,7 @@
 var userPolicy;
 var policyTypes;
 var policyProcedures;
+var fname,lname;
 
 function openTravel() {
     window.location = "travel.html";
@@ -19,6 +20,8 @@ function openHealth() {
 
 function makeAccount() {
     console.log('makeAccount');
+    var firstname = document.getElementById('fname').value;
+    var lastname = document.getElementById('lname').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
@@ -42,17 +45,19 @@ function makeAccount() {
             } else {
                 email = '';
                 password = '';
+                firstname = '';
+                lastname = '';
                 messagearea.innerHTML = 'Something went wrong - try again';
             }
         } else if (xhr.status !== 200) {
             alert('Request failed.  Returned status of ' + xhr.status);
         }
     };
-    xhr.send(encodeURI('email=' + email + '&password=' + password));
+    xhr.send(encodeURI('email=' + email + '&password=' + password + '&fname=' + firstname + '&lname=' + lastname));
 }
 
 function login() {
-    console.log('makeAccount');
+    console.log('login');
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
@@ -254,7 +259,7 @@ function getBenefits() {
 		userPolicy = reply;
 
         var header = document.getElementById('owner');
-        owner.innerHTML = reply.owner;
+        header.innerHTML = fname + ' ' + lname;
 
         var policies = reply.policies;
         var policyAreas = [];
@@ -319,6 +324,9 @@ function getBenefits() {
 
         var today = moment().format('YYYY-MM-DD');
         datepicker.value = today;
+        
+        // Load Ana's first message after the user info
+        userMessage('');
     })
 }
 
@@ -403,11 +411,13 @@ function checkStatus() {
 
         if (reply.outcome === 'success') {
 
-            if (login) {
+            if (logout) {
                 login.style.display = 'none';
             }
             if (login) {
                 logout.style.display = 'inherit';
+                fname = reply.fname;
+                lname = reply.lname;
             }
         } else {
             if (logout) {

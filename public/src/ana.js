@@ -132,14 +132,18 @@ function formatPolicy(procedure) {
  */
 function userMessage(message) {
 
-    message = message.toLowerCase(); // Switch the text to lowercase to avoid syntax confusion
-
     // Set parameters for payload to Watson Conversation
     params.input = {
         text: message // User defined text to be sent to service
     }; 
-
+    
     // Add variables to the context as more options are chosen
+    if(message === ''){
+        params.context = {
+            fname: fname,
+            lname: lname
+        };
+    }
     if (context) {
         params.context = context; // Add a context if there is one previously stored
     }

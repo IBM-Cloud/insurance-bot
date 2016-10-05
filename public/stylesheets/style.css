@@ -1106,7 +1106,7 @@
     
     .dropmenu {
         display: flex;
-        height: 250px;
+        height: auto;
         margin: 60px;
         width: 300px;
         z-index: 1000;
