@@ -1,11 +1,16 @@
-[![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insurance-bot)
+# Cloud Insurance Co. - Main web site and chat bot
 
-# Insurance Policy Bot Overview
+| **master** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insurance-bot) |
+| ----- | ----- |
+| **dev** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=dev)](https://travis-ci.org/IBM-Bluemix/insurance-bot) |
+
+This repository is part of the larger [Cloud Insurance Co.](https://github.com/IBM-Bluemix/cloudco-insurance) project.
+
+# Overview
 
 [![Policy Bot](./design/video-cap.png)](https://vimeo.com/165460548 "Policy Bot Concept - Click to Watch!")
 
 Insurance Policy Bot is a collection of experimental Watson & Bluemix concepts applied to the insurance domain.
-
 
 ## Note:
 Login is in progress,
