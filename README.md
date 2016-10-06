@@ -10,22 +10,79 @@ This repository is part of the larger [Cloud Insurance Co.](https://github.com/I
 
 [![Policy Bot](./design/video-cap.png)](https://vimeo.com/165460548 "Policy Bot Concept - Click to Watch!")
 
-Insurance Policy Bot is a collection of experimental Watson & Bluemix concepts applied to the insurance domain.
-
-## Note:
-Login is in progress,
-
+In order to deploy the full set of microservices involved, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
 
 ## Running the app on Bluemix
-<Either add a Deploy to Bluemix button or include detailed instructions on how to deploy the app(s) to Bluemix after cloning the repo. You should assume the user has little to no Bluemix experience and provide as much detail as possible in the steps.>
 
-Coming Soon!
+1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
 
-[Sign up for Bluemix](https://console.ng.bluemix.net/registration) in the meantime!
+1. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
 
-<Create sub-sections to break down larger sequences of steps. General rule of thumb is that you should not have more than 9 steps in each task. Include sanity checks, or ways for the developer to confirm what they have done so far is correct, every 20 steps. Also, avoid directly referencing the Bluemix UI components so that ACE changes don't invalidate your README.>
+1. The app depends on the [Catalog](https://github.com/IBM-Bluemix/insurance-catalog) and [Orders](https://github.com/IBM-Bluemix/insurance-orders) microservices. Make sure to deploy them first.
+
+1. Clone the app to your local environment from your terminal using the following command:
+
+  ```
+  git clone https://github.com/IBM-Bluemix/insurance-bot.git
+  ```
+
+1. `cd` into this newly created directory
+
+1. Open the `manifest.yml` file and change the `host` value to something unique.
+
+  The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
+
+1. Connect to Bluemix in the command line tool and follow the prompts to log in
+
+  ```
+  cf login -a https://api.ng.bluemix.net
+  ```
+
+1. Create a Compose for MongoDB service in Bluemix
+
+  ```
+  cf create-service compose-for-mongodb Standard insurance-bot-db
+  ```
+
+1. Create a Conversation service in Bluemix
+
+  ```
+  cf create-service conversation standard insurance-bot-conversation
+  ```
+
+1. Push the app to Bluemix
+
+  ```
+  cf push --no-start
+  ```
+
+1. Define a variable pointing to the Catalog API deployment.
+
+  ```
+  cf set-env insurance-bot CATALOG_URL https://your-insurance-catalog.mybluemix.net
+  ```
+
+1. Define a variable pointing to the Orders API deployment.
+
+  ```
+  cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
+  ```
+
+1. Start your app
+
+  ```
+  cf start insurance-bot
+  ```
+
+And voila! You now have your very own instance of the app running on Bluemix.
 
 ## Run the app locally
+
+1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
+
+1. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
+
+1. The app depends on the [Catalog](https://github.com/IBM-Bluemix/insurance-catalog) and [Orders](https://github.com/IBM-Bluemix/insurance-orders) microservices. Make sure to have them running first.
 
 1. Create a Compose for MongoDB service in Bluemix
 
@@ -63,25 +120,27 @@ Coming Soon!
   npm start
   ```
 
-## API documentation
-The API methods that this component exposes requires the discovery of dependent services, however, the API will gracefully fail when they are not available.
-
-The API and data models are defined in ...
-
 ## Contribute
-Please check out our [Contributing Guidelines]()for detailed information on how you can lend a hand.
+
+If you find a bug, please report it via the [Issues section][issues_url] or even better, fork the project and submit a pull request with your fix! We are more than happy to accept external contributions to this project if they address something noted in an existing issue.  In order to be considered, pull requests must pass the initial [Travis CI][travis_url] build and/or add substantial value to the sample application.
 
 ## Troubleshooting
 
 The primary source of debugging information for your Bluemix app is the logs. To see them, run the following command using the Cloud Foundry CLI:
 
   ```
-  $ cf logs cloudco --recent
+  $ cf logs insurance-bot --recent
   ```
+
 For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
-
-
 
 ## License
 
 See [License.txt](License.txt) for license information.
+
+[toolchain_url]: https://github.com/IBM-Bluemix/insurance-toolchain
+[bluemix_reg_url]: http://ibm.biz/insurance-store-registration
+[cloud_foundry_url]: https://github.com/cloudfoundry/cli
+[download_node_url]: https://nodejs.org/download/
+[issues_url]: https://github.com/ibm-bluemix/insurance-bot/issues
+[travis_url]: https://travis-ci.org/
