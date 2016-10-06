@@ -4,7 +4,7 @@
 // get all the tools we need
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 5014;
+var cfenv = require('cfenv');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -13,9 +13,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
-var watson = require( 'watson-developer-cloud' ); 
+var io = require('socket.io')();
+var watson = require( 'watson-developer-cloud' );
 
-var configDB = require('./config/database.js');
 require('./config/passport')(passport);
 
 var Account = require('./models/account');
@@ -23,8 +23,51 @@ var Benefits = require('./models/benefit');
 var Log = require('./models/log');
 
 // configuration ===============================================================
+// load local VCAP configuration
+var vcapLocal = null
+try {
+  vcapLocal = require("./vcap-local.json");
+  console.log("Loaded local VCAP", vcapLocal);
+} catch (e) {
+  console.error(e);
+}
 
-mongoose.connect(configDB.url); // connect to our database
+// get the app environment from Cloud Foundry, defaulting to local VCAP
+var appEnvOpts = vcapLocal ? {
+  vcap: vcapLocal
+} : {}
+var appEnv = cfenv.getAppEnv(appEnvOpts);
+
+var appName;
+if (appEnv.isLocal) {
+    require('dotenv').load();
+}
+var catalog_url = process.env.CATALOG_URL;
+var orders_url = process.env.ORDERS_URL;
+console.log("Catalog URL is", catalog_url);
+console.log("Orders URL is", orders_url);
+
+var mongoDbUrl, mongoDbOptions = {};
+var mongoDbCredentials = appEnv.getServiceCreds("insurance-bot-db") || appEnv.services["compose-for-mongodb"][0].credentials;
+if (mongoDbCredentials) {
+  var ca = [new Buffer(mongoDbCredentials.ca_certificate_base64, 'base64')];
+  mongoDbUrl = mongoDbCredentials.uri;
+  mongoDbOptions = {
+    mongos: {
+      ssl: true,
+      sslValidate: true,
+      sslCA: ca,
+      poolSize: 1,
+      reconnectTries: 1
+    }
+  };
+} else if (process.env.MONGODB_URL) {
+  mongoDbUrl = process.env.MONGODB_URL;
+} else {
+  console.error("No MongoDB connection configured!");
+}
+console.log("Connecting to", mongoDbUrl);
+mongoose.connect(mongoDbUrl, mongoDbOptions); // connect to our database
 
 app.use(express.static(__dirname + '/public'));
 
@@ -50,7 +93,7 @@ var bcrypt = require('bcrypt-nodejs');
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
@@ -73,8 +116,8 @@ app.get('/loginSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		firstName: req.user.local.first_name,
-		lastName: req.user.local.last_name,
+		fname: req.user.local.fname,
+		lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
@@ -90,8 +133,8 @@ app.get('/signupSuccess', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		firstName: req.user.local.first_name,
-		lastName: req.user.local.last_name,
+		fname: req.user.local.fname,
+		lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
@@ -112,8 +155,8 @@ app.get('/isLoggedIn', function (req, res) {
     if (req.isAuthenticated()) {
         result.outcome = 'success';
         result.username = req.user.local.email;
-		result.firstName = req.user.local.firstName;
-		result.lastName = req.user.local.lastName;
+		result.fname = req.user.local.fname;
+		result.lname = req.user.local.lname;
     }
 
     res.send(JSON.stringify(result, null, 3));
@@ -172,8 +215,8 @@ app.get('/history', isLoggedIn, function (req, res) {
 
         var output = {
             owner: req.user.local.email,
-			firstName: req.user.local.first_name,
-			lastName: req.user.local.last_name,
+			fname: req.user.local.fname,
+			lname: req.user.local.lname,
             claims: allclaims
         };
 
@@ -270,18 +313,15 @@ app.get('/health', function (req, res) {
 
 app.get('/soon', function (req, res) {
     res.sendfile('./public/soon.html');
-})
+});
 
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
     res.setHeader('Content-Type', 'application/json');
-	
+
     Benefits.findOne({
         owner: req.user.local.email
     }, function (err, doc) {
-		doc.firstName = req.user.local.first_name;
-		doc.lastName = req.user.local.last_name;
-		
         res.send(JSON.stringify(doc, null, 3));
     });
 });
@@ -312,10 +352,11 @@ function makePostRequest(payload, url, res) {
     };
 
     request.post(options, function (err, response) {
-        if (err)
+        if (err) {
             return res.json(err);
-        else
+        } else {
             return res.json(response.body);
+          }
     });
 }
 
@@ -323,18 +364,8 @@ function makePostRequest(payload, url, res) {
  * Constructs a URL for an insurance microservice
  */
 
-function constructApiRoute(prefix, suffix) {
-    return "https://" + prefix + suffix + ".mybluemix.net";
-}
-
-var catalog_url = 'http://insurance-store-front.mybluemix.net/api';
-
-http: //insurance-store-front.mybluemix.net/api/tradeoff
-
     // Allow clients to make policy tradeoff calculations
     app.post('/api/tradeoff', function (req, res, next) {
-
-        console.log(catalog_url + '/tradeoff');
         return makePostRequest(req.body, catalog_url + '/tradeoff', res);
     });
 
@@ -348,10 +379,16 @@ app.post('/api/orders', function (req, res, next) {
 // =====================================
 // Create the service wrapper
 
+var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
+var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
+var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+
 var conversation = watson.conversation( {
-  url: 'https://gateway.watsonplatform.net/conversation/api',
-  username: process.env.CONVERSATION_USERNAME || 'bb6fdcd0-3701-4e0c-9950-32481a94c0bf',
-  password: process.env.CONVERSATION_PASSWORD || 'KOW2LFwhC3sb',
+  url: conversationCredentials.url,
+  username: conversationUsername,
+  password: conversationPassword,
   version_date: '2016-07-11',
   version: 'v1'
 } );
@@ -359,7 +396,7 @@ var conversation = watson.conversation( {
 // Allow clients to interact with Ana
 app.post('/api/ana', function(req, res) {
 
-    var workspace = '1f10726e-3490-40d5-ba82-c91fa57c6f78';
+    var workspace = conversationWorkspace;
 
     if (!workspace) {
         console.log("No workspace detected. Cannot run the Watson Conversation service.");
@@ -402,50 +439,48 @@ app.post('/api/chatlogs', function(req, res) {
     var owner = req.body.owner;
     var conversation = req.body.conversation;
     var logs = req.body.logs;
-    var file = {};
+    
+    // If a document already exists just update the logs. If new then add logs and other fields.
+    // findOneAndUpdate does both $set and $setOnInsert at the same time
+    var update = {$set:{lastContext: req.body.lastContext, logs:logs}, $setOnInsert:{
+        owner:req.body.owner,
+        date: req.body.date,
+        conversation: req.body.conversation,
+        }};
+    var options = { upsert: true, returnNewDocument: true };
+    var query = {'conversation': conversation};
 	
-    Log.findOne({
-        'conversation': conversation
-    }, function(err, doc) {
-
-        //If there is a log then update
-        if (doc) {
-            console.log("Updating doc:", doc);
-            file = doc;
-            file.logs = logs;
-
-            Log.update(file, function(err, data) {
-                if (err) {
-                    console.log("Error updating log: ", err);
-                    return res.status(err.code || 500).json(err);
-                }
-
-                return res.json(data);
-            });
-
-
-        } else { // Otherwise create a new log file
-
-            file = req.body;
-
-            console.log("Creating a log doc for: ", conversation);
-
-            Log.create(file, function(err, data) {
-                if (err) {
-                    console.log("Error in creating log: ", err);
-                    return res.status(err.code || 500).json(err);
-                }
-
-                return res.json(data);
-            });
+    Log.findOneAndUpdate(query, update, options, function(err, doc){
+        if (err) {
+            console.log("Error with log: ",err);
+            return res.status(err.code || 500).json(err);
+        } 
+        
+        if(doc) {
+            console.log("Log update success for conversation id of ",conversation);
+            io.sockets.emit('logDoc',req.body);
+            console.log("request body: ",req.body);
+            return res.json(doc);
         }
     });
 	
 
-}); // End app.post 'api/ana/logs'
+}); // End app.post 'api/chatlogs'
 
 
 // launch ======================================================================
 
-app.listen(port);
-console.log('running on port ' + port);
+var host = process.env.VCAP_APP_HOST || 'localhost';
+var port = process.env.VCAP_APP_PORT || 5014;
+
+io.on('connection', function(socket){
+	console.log("Sockets connected.");
+	
+	// Whenever a new client connects send them the latest data
+	
+	socket.on('disconnect', function(){
+		console.log("Socket disconnected.");
+	});
+});
+io.listen(app.listen(port, host));
+console.log("server starting on port ",port);

@@ -175,6 +175,9 @@ module.exports = function (passport) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, email, password, done) {
+            
+            var firstName = req.body.fname;
+            var lastName = req.body.lname;
 
             console.log('signup');
 
@@ -211,6 +214,8 @@ module.exports = function (passport) {
                         // set the user's local credentials
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
+                        newUser.local.fname = firstName;
+                        newUser.local.lname = lastName;
 
                         // save the user
                         newUser.save(function (err) {
@@ -223,7 +228,7 @@ module.exports = function (passport) {
                             return done(null, newUser);
                         });
 
-                        console.log('made an account');
+                        console.log('made an account: ',newUser);
                     }
 
                 });
