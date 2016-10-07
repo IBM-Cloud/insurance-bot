@@ -282,13 +282,13 @@ function getBenefits() {
 
                 var benefitEntity = createBenefitEntity(policy.type);
                 benefitset.appendChild(benefitEntity);
-				
+
 				if(proc.length>0){
 					policyProcedures.push(proc);
 
 					proc = [];
 				}
-				
+
 				proc.push(policy.title);
             }
 
@@ -301,13 +301,13 @@ function getBenefits() {
 
             anchor.appendChild(benefitRow);
             anchor.appendChild(benefitDetail);
-			
+
 			policyTypes = policyKeys;
         });
-		
+
 		// Push the last array into the procedures array
 		policyProcedures.push(proc);
-		
+
         var uniquebenefits = policyTitles.filter(unique); // returns ['a', 1, 2, '1']
 
         var select = document.getElementById('benefittypes');
@@ -324,7 +324,7 @@ function getBenefits() {
 
         var today = moment().format('YYYY-MM-DD');
         datepicker.value = today;
-        
+
         // Load Ana's first message after the user info
         userMessage('');
     })
@@ -333,18 +333,18 @@ function getBenefits() {
 function submitClaim(source) {
 	var bot = false;
 	console.log("Source is: ",source);
-	
+
 	if(source === watson) {
 		bot = true;
 	}
-	
+
 	var claimFile = {
 		date: null,
 		benefit: null,
 		provider: null,
 		amount: null
 		};
-	
+
 	if(source===watson){
 		claimFile.date = context.claim_date;
 		claimFile.benefit = context.claim_procedure;
@@ -374,7 +374,7 @@ function submitClaim(source) {
         if (xhr.status === 200 && xhr.responseText) {
 			var reply = JSON.parse(xhr.responseText);
 			console.log(bot);
-			
+
             if (reply.outcome === 'success') {
 				if(bot === true ) {
 					console.log('success');
@@ -397,7 +397,7 @@ function submitClaim(source) {
             alert('Request failed.  Returned status of ' + xhr.status);
         }
     };
-	
+
 	console.log("Submitting claim: ",JSON.stringify(claimFile));
     xhr.send(JSON.stringify(claimFile));
 }
@@ -408,18 +408,21 @@ function checkStatus() {
 
         var login = document.getElementById('login');
         var logout = document.getElementById('logout');
+        var askWatson = document.getElementById('askWatson');
 
         if (reply.outcome === 'success') {
-
+            askWatson.style.display = 'inherit';
             if (logout) {
                 login.style.display = 'none';
             }
             if (login) {
                 logout.style.display = 'inherit';
+
                 fname = reply.fname;
                 lname = reply.lname;
             }
         } else {
+            askWatson.style.display = 'none';
             if (logout) {
                 logout.style.display = 'none';
             }
@@ -433,7 +436,7 @@ function checkStatus() {
 // Enter is pressed
 function newEvent(e,target) {
     if (e.which === 13 || e.keyCode === 13) {
-		
+
 		if(target==="login"){
 			login();
 		}
