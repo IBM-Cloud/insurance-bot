@@ -140,7 +140,7 @@ And voila! You now have your very own instance of the app running on Bluemix.
 
 1. Once you have imported the workspace, retrieve the workspace ID by using the `View Details` option
 
-  * If you are using the toolchain, edit the DEPLOY step of `bot (dev)` and `bot (prod)` pipelines and set the value of the CONVERSATION_WORKSPACE environment variable to the workspace ID;
+  * If you are using the toolchain, edit the DEPLOY step of `bot (dev)` and `bot (prod)` pipelines, set the value of the CONVERSATION_WORKSPACE environment variable to the workspace ID, save and re-run the DEPLOY step.
 
   * If you are running the app on Bluemix, define a CONVERSATION_WORKSPACE environment variable with the workspace ID;
 
