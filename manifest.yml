@@ -1,8 +1,8 @@
+---
 applications:
-- path: .
+- name: insurance-bot
+  host: insurance-bot
   memory: 256M
-  instances: 1
-  domain: mybluemix.net
-  name: cloudco
-  host: cloudco
-  disk_quota: 1024M
+  services:
+  - insurance-bot-conversation
+  - insurance-bot-db

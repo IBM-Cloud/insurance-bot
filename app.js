@@ -439,7 +439,7 @@ app.post('/api/chatlogs', function(req, res) {
     var owner = req.body.owner;
     var conversation = req.body.conversation;
     var logs = req.body.logs;
-    
+
     // If a document already exists just update the logs. If new then add logs and other fields.
     // findOneAndUpdate does both $set and $setOnInsert at the same time
     var update = {$set:{lastContext: req.body.lastContext, logs:logs}, $setOnInsert:{
@@ -449,13 +449,13 @@ app.post('/api/chatlogs', function(req, res) {
         }};
     var options = { upsert: true, returnNewDocument: true };
     var query = {'conversation': conversation};
-	
+
     Log.findOneAndUpdate(query, update, options, function(err, doc){
         if (err) {
             console.log("Error with log: ",err);
             return res.status(err.code || 500).json(err);
-        } 
-        
+        }
+
         if(doc) {
             console.log("Log update success for conversation id of ",conversation);
             io.sockets.emit('logDoc',req.body);
@@ -463,24 +463,23 @@ app.post('/api/chatlogs', function(req, res) {
             return res.json(doc);
         }
     });
-	
+
 
 }); // End app.post 'api/chatlogs'
 
 
 // launch ======================================================================
 
-var host = process.env.VCAP_APP_HOST || 'localhost';
-var port = process.env.VCAP_APP_PORT || 5014;
-
 io.on('connection', function(socket){
 	console.log("Sockets connected.");
-	
+
 	// Whenever a new client connects send them the latest data
-	
+
 	socket.on('disconnect', function(){
 		console.log("Socket disconnected.");
 	});
 });
-io.listen(app.listen(port, host));
-console.log("server starting on port ",port);
+io.listen(app.listen(appEnv.port, "0.0.0.0", function () {
+  // print a message when the server starts listening
+  console.log("server starting on " + appEnv.url);
+}));
