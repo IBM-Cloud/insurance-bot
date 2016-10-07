@@ -333,7 +333,7 @@
     }
 
     .tileImage {
-        height: 80px;
+        height: 50px;
     }
 
     .tile {
@@ -364,11 +364,11 @@
 
     .label {
         text-align: center;
-        margin: 10px;
         font-size: 13px;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: #283D56;
+        margin-bottom: 10px;
     }
 
     .call {
@@ -604,6 +604,7 @@
       border-radius: 4px;
       border-color: #5586D6;
       height: 30px;
+      width: 120px;
       flex-direction: row;
       justify-content: center;
       align-self: center;
@@ -1191,7 +1192,7 @@
             padding-top: 0;
             margin-top: 0;
             border-radius: 0;
-            height: 140px;
+            height: 90px;
             z-index: 0;
         }
         .bannersecond {
