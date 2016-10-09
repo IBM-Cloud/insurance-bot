@@ -259,7 +259,12 @@ function getBenefits() {
 		userPolicy = reply;
 
         var header = document.getElementById('owner');
-        header.innerHTML = fname + ' ' + lname;
+        
+        if(fname) {
+             header.innerHTML = fname + ' ' + lname + ' - ' + reply.owner;
+        } else {
+            header.innerHTML = reply.owner;
+        }
 
         var policies = reply.policies;
         var policyAreas = [];
@@ -409,17 +414,22 @@ function checkStatus() {
         var login = document.getElementById('login');
         var logout = document.getElementById('logout');
         var askWatson = document.getElementById('askWatson');
+        
+        if(reply.fname) {
+            fname = reply.fname;
+            lname = reply.lname;
+        }
 
         if (reply.outcome === 'success') {
             askWatson.style.display = 'inherit';
+            
+            console.log(reply);
+            
             if (logout) {
                 login.style.display = 'none';
             }
             if (login) {
                 logout.style.display = 'inherit';
-
-                fname = reply.fname;
-                lname = reply.lname;
             }
         } else {
             askWatson.style.display = 'none';
