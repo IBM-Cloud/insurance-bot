@@ -14,7 +14,29 @@
     }
 
     hr {
-      color : #8C9BA5;
+      border: 0;
+      height: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    button {
+      background: #fff;
+      border: 1px solid;
+      color: #5586D6;
+      border-radius: 4px;
+      border-color: #5586D6;
+      height: 30px;
+      width: 120px;
+      flex-direction: row;
+      justify-content: center;
+      align-self: center;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+
+    button:disabled {
+      opacity: 0.65;
     }
 
     .container {
@@ -39,7 +61,7 @@
         padding: 10px;
         padding-bottom: 0px;
         padding-top: 0;
-        height: 48px;
+        height: 52px;
     }
 
     .bannersecond {
@@ -68,7 +90,7 @@
     }
 
     .tagline {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
 
     .logo {}
@@ -79,7 +101,7 @@
     }
 
     .logoImage {
-        height: 20px;
+        height: 30px;
     }
 
     .watsonLogo {
@@ -331,11 +353,14 @@
     }
 
     .tileImage {
-        height: 50px;
+        height: 60px;
+    }
+
+    .tileButton {
+
     }
 
     .tile {
-        cursor: pointer;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -350,7 +375,6 @@
 
     .homePage .tile {
         margin: 10px;
-        margin-top: 0;
     }
 
     .tiles a {
@@ -362,11 +386,11 @@
 
     .label {
         text-align: center;
-        font-size: 13px;
+        font-size: 15px;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: #283D56;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .call {
@@ -595,19 +619,7 @@
         color: #597a96;
         border: 1px dashed #597a96;
     }
-    .tileButton {
-      background: #fff;
-      border: 1px solid;
-      color: #5586D6;
-      border-radius: 4px;
-      border-color: #5586D6;
-      height: 30px;
-      width: 120px;
-      flex-direction: row;
-      justify-content: center;
-      align-self: center;
-      cursor: pointer;
-    }
+
     .quote {
         background: #a0dcf7;
         border: none;
@@ -1110,7 +1122,7 @@
     }
 
     .logininput {
-        border: 1px solid #12aaeb;
+        border: 1px solid #5586D6;
         border-radius: 4px;
         height: 36px;
         padding: 10px;
@@ -1118,17 +1130,7 @@
     }
 
     .loginbutton {
-        background: #12aaeb;
-        color: white;
-        text-align: center;
-        width: 200px;
-        height: 36px;
-        padding: 5px;
-        align-self: center;
-        border-radius: 4px;
         margin-top: 10px;
-        border: none;
-        font-size: 16px;
     }
 
     .loginArea {
@@ -1147,25 +1149,19 @@
         width: 300px;
         z-index: 1000;
         background: white;
-        border: 1px solid #12aaeb;
+        border: 1px solid #DFE3E6;
         border-radius: 4px;
     }
 
     .menu {
-        font-size: 14px;
-        font-weight: 500;
         margin-right: 30px;
     }
 
     .loginmenu {
-        font-size: 14px;
-        font-weight: 500;
         margin-left: 10px;
     }
 
     .logoutmenu {
-        font-size: 14px;
-        font-weight: 500;
         margin-left: 10px;
         display: none;
     }
@@ -1221,7 +1217,6 @@
             justify-content: center;
             align-items: center;
             align-content: center;
-            width: 320px;
             flex-wrap: wrap;
             margin-bottom: 40px;
         }

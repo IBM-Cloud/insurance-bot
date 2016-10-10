@@ -22,8 +22,8 @@
                     <div class="loginArea">
                         <!-- div class="menu"><a class="menulink" href="./feedback">FEEDBACK</a></div -->
                         <div class="menu"><a class="menulink" href="./about">About</a></div>
-                        <div id="login" class="menu"><a class="menulink" href="./login">Login</a></div>
-                        <div id="logout" class="menu"><a class="menulink" href="./logout">Logout</a></div>
+                        <div id="login" class="menu"><a class="menulink" href="./login">Log In</a></div>
+                        <div id="logout" class="menu" style="display:none"><a class="menulink" href="./logout">Logout</a></div>
                         <div id="status "></div>
                     </div>
                 </div>
@@ -40,13 +40,24 @@
                 <aside class="primary">
                     <div class="tiles">
                       <div class="tile">
+                          <a href="./health">
+                              <div class="glow">
+                                  <img class="tileImage" src="images/HealthHeart.svg ">
+                              </div>
+                              <div class="label ">HEALTH</div>
+                              <div class="label">
+                                <button class="tileButton">View Benefits</button>
+                              </div>
+                          </a>
+                      </div>
+                      <div class="tile">
                           <a href="./soon">
                               <div class="glow">
                                   <img class="tileImage" src="images/Auto.svg ">
                               </div>
                               <div class="label">AUTO</div>
                               <div class="label">
-                                <button class="tileButton" onclick="openWatson() ">Learn more</button>
+                                <button class="tileButton" disabled>Coming Soon</button>
                               </div>
                           </a>
                       </div>
@@ -57,18 +68,7 @@
                                 </div>
                                 <div class="label">HOME</div>
                                 <div class="label">
-                                  <button class="tileButton" onclick="openWatson() ">Learn more</button>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tile">
-                            <a href="./health">
-                                <div class="glow">
-                                    <img class="tileImage" src="images/HealthHeart.svg ">
-                                </div>
-                                <div class="label ">HEALTH</div>
-                                <div class="label">
-                                  <button class="tileButton" onclick="openWatson() ">Learn more</button>
+                                  <button class="tileButton" disabled>Coming Soon</button>
                                 </div>
                             </a>
                         </div>
@@ -79,22 +79,22 @@
                               </div>
                               <div class="label">TRAVEL</div>
                               <div class="label">
-                                <button class="tileButton" onclick="openWatson() ">Learn more</button>
+                                <button class="tileButton" disabled>Coming Soon</button>
                               </div>
                             </a>
                         </div>
                     </div>
                 </aside>
                 <div class="secondary">
-                    <div id = "askWatson" class = "askWatson">
+                    <div id = "askWatson" class = "askWatson" style="display:none">
                       <a href="./health">
-                        <img src = "images/Watson_Avatar.svg" height = "50px" class = "watsonLogo"/>
+                        <img src = "images/Watson_Avatar.svg" height = "60px" class = "watsonLogo"/>
                         <span>Need help? Ask our intelligent policy bot</span>
                       </a>
                       <hr>
                     </div>
 
-                    <div class="welcome"><strong>Cloud Insurance Co.</strong> is a conceptual insurance site built using <a href="http://bluemix.net ">IBM Bluemix</a> and <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">IBM Watson</a>. <br />
+                    <div class="welcome"><strong>Cloud Insurance Co.</strong> is a conceptual insurance site built using <a href="http://www.ibm.com/cloud-computing/bluemix/" target= "_blank">IBM Bluemix</a> and <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">IBM Watson</a>. <br />
                         None of the policies are real ... the site exists to experiment and showcase cognitive and cloud computing ideas in the context of insurance.</p>
                     </div>
                 </div>
