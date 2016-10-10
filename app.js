@@ -315,6 +315,10 @@ app.get('/soon', function (req, res) {
     res.sendfile('./public/soon.html');
 });
 
+app.get('/about', function (req, res){
+  res.redirect("https://github.com/IBM-Bluemix/insurance-bot/wiki");
+})
+
 app.get('/healthBenefits', isLoggedIn, function (req, res) {
 
     res.setHeader('Content-Type', 'application/json');
