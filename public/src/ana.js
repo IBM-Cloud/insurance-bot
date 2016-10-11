@@ -81,7 +81,7 @@ function userMessage(message) {
         if (xhr.status === 200 && xhr.responseText) {
 
             var response = JSON.parse(xhr.responseText);
-            text = response.output.text[0]; // Only display the first response
+            text = response.output.text; // Only display the first response
             context = response.context; // Store the context for next round of questions
 
             console.log("Got response from Ana: ", JSON.stringify(response));

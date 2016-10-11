@@ -1,5 +1,5 @@
 /*eslint-env browser */
-var fname,lname;
+var fname, lname;
 
 function openTravel() {
     window.location = "travel.html";

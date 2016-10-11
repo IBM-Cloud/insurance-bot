@@ -306,7 +306,7 @@ app.get('/profile', isLoggedIn, function(req, res) {
 
 app.get('/health', function(req, res) {
     req.session.lastPage = "/health";
-    
+
     if (req.isAuthenticated()) {
         res.sendfile('./public/health.html');
     } else {
@@ -319,7 +319,7 @@ app.get('/soon', function(req, res) {
     res.sendfile('./public/soon.html');
 });
 
-app.get('/about', function (req, res){  
+app.get('/about', function(req, res) {
     res.redirect("https://github.com/IBM-Bluemix/insurance-bot/wiki");
 });
 
@@ -366,7 +366,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/', function(req, res) {
     req.session.lastPage = "/";
-    
+
     res.render('index.html');
 });
 
@@ -410,13 +410,13 @@ app.post('/api/orders', function(req, res, next) {
 // =====================================
 app.post('/api/ana', function(req, res) {
     if (!req.body.context || !req.body.context.system) {
-            getUserPolicy(req, function(err, doc) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    req.session.userPolicy = doc;
-                }
-            });
+        getUserPolicy(req, function(err, doc) {
+            if (err) {
+                res.send(err);
+            } else {
+                req.session.userPolicy = doc;
+            }
+        });
     }
 
     chatbot.sendMessage(req, function(err, data) {
@@ -424,16 +424,18 @@ app.post('/api/ana', function(req, res) {
             console.log("Error in sending message: ", err);
             return res.status(err.code || 500).json(err);
         } else {
-             
-            Log.findOne({'conversation':req.body.conversation_id}, function(err,doc){
-                if(err) {
-                    console.log("Cannot find log for conversation id of ",req.body.conversation_id);
+
+            Log.findOne({
+                'conversation': req.body.conversation_id
+            }, function(err, doc) {
+                if (err) {
+                    console.log("Cannot find log for conversation id of ", req.body.conversation_id);
                 } else {
                     console.log("Sending log updates to dashboard");
                     io.sockets.emit('logDoc', doc);
                 }
-            }); 
-            
+            });
+
             return res.json(data);
         }
     });

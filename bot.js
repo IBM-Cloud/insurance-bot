@@ -64,7 +64,7 @@ var Log = require('./models/log');
 var chatbot = {
     sendMessage: function(req, callback) {
         var userPolicy = req.session.userPolicy;
-        
+
         buildContextObject(req, function(err, params) {
 
             if (err) {
@@ -85,8 +85,8 @@ var chatbot = {
                     updateContextObject(data, userPolicy, function(err, res) {
                         var owner = req.user.local.email;
                         var conversation = data.context.conversation_id;
-                        
-                        if(data.context.system.dialog_turn_counter>1){
+
+                        if (data.context.system.dialog_turn_counter > 1) {
                             chatLogs(owner, conversation, res);
                         }
 
@@ -103,7 +103,7 @@ var chatbot = {
 // LOG MANAGEMENT FOR USER INPUT FOR ANA =========
 // ===============================================
 function chatLogs(owner, conversation, response) {
-    
+
     console.log("response object is: ", response);
 
     // Blank log file to parse down the response object
@@ -174,8 +174,8 @@ function buildContextObject(req, callback) {
     var message = req.body.text;
     var context;
     var userPolicy;
-    
-    if(req.session.userPolicy) {
+
+    if (req.session.userPolicy) {
         userPolicy = req.session.userPolicy;
     }
 
@@ -246,11 +246,11 @@ function parsePolicyTitles(doc, callback) {
 
                 proc = [];
             }
-            
+
             proc.push(policy.title);
         }
     });
-    
+
     // Push the last array into the procedures array
     policyProcedures.push(proc);
 
@@ -260,7 +260,7 @@ function parsePolicyTitles(doc, callback) {
 /**
  * @summary Update the response object with parsed details
  *
- * Update the response obeject when Ana assigns a chosen variables or
+ * Update the response object when Ana assigns a chosen variables or
  * when updating the text to display detailed policy information.
  *
  * @function updateContextObject
@@ -276,9 +276,9 @@ function updateContextObject(response, userPolicy, callback) {
     var detail = '';
     var procedure_details = {};
     var text = '';
-    
+
     text = response.output.text[0]; // Only display the first response
-    response.output.text = [];
+    response.output.text = '';
 
     // Store the user selected detail to narrow down the info
     if (context.chosen_service) {
@@ -333,10 +333,10 @@ function updateContextObject(response, userPolicy, callback) {
         context.chosen_procedure = '';
         context.chosen_detail = '';
 
-        response.output.text[0] = text;
+        response.output.text = text;
     }
-    
-    response.output.text[0] = text;
+
+    response.output.text = text;
     response.context = context;
 
     return callback(null, response);
