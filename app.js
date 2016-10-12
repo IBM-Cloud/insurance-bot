@@ -23,6 +23,9 @@ var chatbot = require('./bot.js');
 
 var Log = require('./models/log');
 
+//---Deployment Tracker---------------------------------------------------------
+require("cf-deployment-tracker-client").track();
+
 // configuration ===============================================================
 // load local VCAP configuration
 var vcapLocal = null
