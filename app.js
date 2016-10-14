@@ -412,6 +412,7 @@ app.post('/api/orders', function(req, res, next) {
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
 app.post('/api/ana', function(req, res) {
+    console.log("Request is: ",req);
     if (!req.body.context || !req.body.context.system) {
         getUserPolicy(req, function(err, doc) {
             if (err) {
