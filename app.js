@@ -430,12 +430,13 @@ app.post('/api/ana', function(req, res) {
         } else {
 
             Log.findOne({
-                'conversation': req.body.conversation_id
+                'conversation': data.context.conversation_id
             }, function(err, doc) {
                 if (err) {
-                    console.log("Cannot find log for conversation id of ", req.body.conversation_id);
+                    console.log("Cannot find log for conversation id of ", data.context.conversation_id);
                 } else {
                     console.log("Sending log updates to dashboard");
+                    console.log("doc: ", doc);
                     io.sockets.emit('logDoc', doc);
                 }
             });
