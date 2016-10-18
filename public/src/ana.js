@@ -206,6 +206,7 @@ function validateDate(date) {
 
     // Convert most formats to milliseconds
     var userDate = new Date(date);
+    console.log(date);
 
     // If the date is NaN reprompt for correct format
     if (isNaN(userDate)) {
@@ -217,7 +218,7 @@ function validateDate(date) {
             displayMessage(text, watson);
         } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
             var month = '' + (userDate.getMonth() + 1),
-                day = '' + (userDate.getDate() + 1),
+                day = '' + (userDate.getUTCDate()),
                 year = userDate.getFullYear();
 
             if (month.length < 2) {
@@ -228,8 +229,6 @@ function validateDate(date) {
             }
 
             text = [year, month, day].join('-');
-
-            context.claim_date = text; // Store the date for future use
 
             userMessage(text);
         }
