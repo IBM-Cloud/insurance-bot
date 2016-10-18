@@ -1,5 +1,4 @@
 // server.js
-
 // set up ======================================================================
 // get all the tools we need
 var express = require('express');
@@ -14,27 +13,32 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var request = require('request');
 var io = require('socket.io')();
-var watson = require( 'watson-developer-cloud' );
+var watson = require('watson-developer-cloud');
 
 require('./config/passport')(passport);
 
 var Account = require('./models/account');
 var Benefits = require('./models/benefit');
+var chatbot = require('./bot.js');
+
 var Log = require('./models/log');
+
+//---Deployment Tracker---------------------------------------------------------
+require("cf-deployment-tracker-client").track();
 
 // configuration ===============================================================
 // load local VCAP configuration
 var vcapLocal = null
 try {
-  vcapLocal = require("./vcap-local.json");
-  console.log("Loaded local VCAP", vcapLocal);
+    vcapLocal = require("./vcap-local.json");
+    console.log("Loaded local VCAP", vcapLocal);
 } catch (e) {
-  console.error(e);
+    console.error(e);
 }
 
 // get the app environment from Cloud Foundry, defaulting to local VCAP
 var appEnvOpts = vcapLocal ? {
-  vcap: vcapLocal
+    vcap: vcapLocal
 } : {}
 var appEnv = cfenv.getAppEnv(appEnvOpts);
 
@@ -50,21 +54,21 @@ console.log("Orders URL is", orders_url);
 var mongoDbUrl, mongoDbOptions = {};
 var mongoDbCredentials = appEnv.getServiceCreds("insurance-bot-db") || appEnv.services["compose-for-mongodb"][0].credentials;
 if (mongoDbCredentials) {
-  var ca = [new Buffer(mongoDbCredentials.ca_certificate_base64, 'base64')];
-  mongoDbUrl = mongoDbCredentials.uri;
-  mongoDbOptions = {
-    mongos: {
-      ssl: true,
-      sslValidate: true,
-      sslCA: ca,
-      poolSize: 1,
-      reconnectTries: 1
-    }
-  };
+    var ca = [new Buffer(mongoDbCredentials.ca_certificate_base64, 'base64')];
+    mongoDbUrl = mongoDbCredentials.uri;
+    mongoDbOptions = {
+        mongos: {
+            ssl: true,
+            sslValidate: true,
+            sslCA: ca,
+            poolSize: 1,
+            reconnectTries: 1
+        }
+    };
 } else if (process.env.MONGODB_URL) {
-  mongoDbUrl = process.env.MONGODB_URL;
+    mongoDbUrl = process.env.MONGODB_URL;
 } else {
-  console.error("No MongoDB connection configured!");
+    console.error("No MongoDB connection configured!");
 }
 console.log("Connecting to", mongoDbUrl);
 mongoose.connect(mongoDbUrl, mongoDbOptions); // connect to our database
@@ -80,9 +84,9 @@ app.set('view engine', 'html');
 
 // required for passport
 app.use(session({
-	secret: 'ana-insurance-bot',
-	resave: true,
-	saveUninitialized: true
+    secret: 'ana-insurance-bot',
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -98,10 +102,10 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.sendfile('./public/login.html');
 });
 
@@ -112,41 +116,41 @@ app.post('/login', passport.authenticate('local-login', {
     failureFlash: true // allow flash messages
 }));
 
-app.get('/loginSuccess', function (req, res) {
+app.get('/loginSuccess', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		fname: req.user.local.fname,
-		lname: req.user.local.lname,
+        fname: req.user.local.fname,
+        lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
 
-app.get('/loginFailure', function (req, res) {
+app.get('/loginFailure', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         outcome: 'failure'
     }, null, 3));
 })
 
-app.get('/signupSuccess', function (req, res) {
+app.get('/signupSuccess', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         username: req.user.local.email,
-		fname: req.user.local.fname,
-		lname: req.user.local.lname,
+        fname: req.user.local.fname,
+        lname: req.user.local.lname,
         outcome: 'success'
     }, null, 3));
 })
 
-app.get('/signupFailure', function (req, res) {
+app.get('/signupFailure', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
         outcome: 'failure'
     }, null, 3));
 })
 
-app.get('/isLoggedIn', function (req, res) {
+app.get('/isLoggedIn', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     var result = {
         outcome: 'failure'
@@ -155,8 +159,8 @@ app.get('/isLoggedIn', function (req, res) {
     if (req.isAuthenticated()) {
         result.outcome = 'success';
         result.username = req.user.local.email;
-		result.fname = req.user.local.fname;
-		result.lname = req.user.local.lname;
+        result.fname = req.user.local.fname;
+        result.lname = req.user.local.lname;
     }
 
     res.send(JSON.stringify(result, null, 3));
@@ -167,7 +171,7 @@ app.get('/isLoggedIn', function (req, res) {
 // =====================================
 // show the signup form
 
-app.get('/signup', function (req, res) {
+app.get('/signup', function(req, res) {
     res.sendfile('./public/signup.html');
 });
 
@@ -183,23 +187,23 @@ app.post('/signup', passport.authenticate('local-signup', {
 // =====================================
 // show the signup form
 
-app.get('/claims', isLoggedIn, function (req, res) {
+app.get('/claims', isLoggedIn, function(req, res) {
     res.sendfile('./public/claims.html');
 });
 
-app.get('/history', isLoggedIn, function (req, res) {
+app.get('/history', isLoggedIn, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
     Benefits.findOne({
         owner: req.user.local.email
-    }, function (err, doc) {
+    }, function(err, doc) {
 
         var allclaims = [];
 
-        doc.policies.forEach(function (policy) {
+        doc.policies.forEach(function(policy) {
 
             if (policy.claims.length > 0) {
-                policy.claims.forEach(function (claim) {
+                policy.claims.forEach(function(claim) {
                     var detailedclaim = new Object();
                     detailedclaim.date = claim.date;
                     detailedclaim.amount = claim.amount;
@@ -215,8 +219,8 @@ app.get('/history', isLoggedIn, function (req, res) {
 
         var output = {
             owner: req.user.local.email,
-			fname: req.user.local.fname,
-			lname: req.user.local.lname,
+            fname: req.user.local.fname,
+            lname: req.user.local.lname,
             claims: allclaims
         };
 
@@ -229,17 +233,17 @@ app.get('/history', isLoggedIn, function (req, res) {
 });
 
 
-// process the signup form
-app.post('/submitClaim', function (req, res) {
+// submit a claim
+app.post('/submitClaim', function(req, res) {
 
     var claim = req.body;
 
     if (req.isAuthenticated()) {
         Benefits.findOne({
             owner: req.user.local.email
-        }, function (err, doc) {
+        }, function(err, doc) {
 
-            doc.policies.forEach(function (policy) {
+            doc.policies.forEach(function(policy) {
 
                 if (policy.title === claim.benefit) {
 
@@ -269,7 +273,7 @@ app.post('/submitClaim', function (req, res) {
 
                     policy.claims.push(claim);
 
-                    doc.save(function (err) {
+                    doc.save(function(err) {
 
                         res.setHeader('Content-Type', 'application/json');
 
@@ -299,43 +303,73 @@ app.post('/submitClaim', function (req, res) {
 // we will want this protected so you have to be logged in to visit
 // we will use route middleware to verify this (the isLoggedIn function)
 
-app.get('/profile', isLoggedIn, function (req, res) {
+app.get('/profile', isLoggedIn, function(req, res) {
     res.sendfile('./public/index.html');
 });
 
-app.get('/health', function (req, res) {
+app.get('/health', function(req, res) {
+    req.session.lastPage = "/health";
+
     if (req.isAuthenticated()) {
         res.sendfile('./public/health.html');
     } else {
         res.sendfile('./public/login.html');
     }
+
 });
 
-app.get('/soon', function (req, res) {
+app.get('/soon', function(req, res) {
     res.sendfile('./public/soon.html');
 });
 
-app.get('/healthBenefits', isLoggedIn, function (req, res) {
+app.get('/about', function(req, res) {
+    res.redirect("https://github.com/IBM-Bluemix/insurance-bot/wiki");
+});
+
+app.get('/healthBenefits', isLoggedIn, function(req, res) {
 
     res.setHeader('Content-Type', 'application/json');
 
+    if (req.session.userPolicy) {
+        res.send(JSON.stringify(req.session.userPolicy, null, 3));
+    } else {
+        getUserPolicy(req, function(err, doc) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(JSON.stringify(doc, null, 3));
+            }
+        });
+    }
+});
+
+function getUserPolicy(req, callback) {
+
     Benefits.findOne({
         owner: req.user.local.email
-    }, function (err, doc) {
-        res.send(JSON.stringify(doc, null, 3));
+    }, function(err, doc) {
+        if (err) {
+            console.error("Error retrieving user policy: ", err);
+            return callback(err);
+        } else {
+            req.session.userPolicy = doc;
+            return callback(null, doc);
+        }
     });
-});
+}
 
 // =====================================
 // LOGOUT ==============================
 // =====================================
 
-app.get('/logout', function (req, res) {
+app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
+    req.session.lastPage = "/";
+
     res.render('index.html');
 });
 
@@ -351,12 +385,12 @@ function makePostRequest(payload, url, res) {
         url: url
     };
 
-    request.post(options, function (err, response) {
+    request.post(options, function(err, response) {
         if (err) {
             return res.json(err);
         } else {
             return res.json(response.body);
-          }
+        }
     });
 }
 
@@ -364,123 +398,68 @@ function makePostRequest(payload, url, res) {
  * Constructs a URL for an insurance microservice
  */
 
-    // Allow clients to make policy tradeoff calculations
-    app.post('/api/tradeoff', function (req, res, next) {
-        return makePostRequest(req.body, catalog_url + '/tradeoff', res);
-    });
+// Allow clients to make policy tradeoff calculations
+app.post('/api/tradeoff', function(req, res, next) {
+    return makePostRequest(req.body, catalog_url + '/tradeoff', res);
+});
 
 // Allow clients to create new policy orders
-app.post('/api/orders', function (req, res, next) {
+app.post('/api/orders', function(req, res, next) {
     return makePostRequest(req.body, orders_url + '/orders', res);
 });
 
 // =====================================
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
-// Create the service wrapper
-
-var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
-var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
-var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
-console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-
-var conversation = watson.conversation( {
-  url: conversationCredentials.url,
-  username: conversationUsername,
-  password: conversationPassword,
-  version_date: '2016-07-11',
-  version: 'v1'
-} );
-
-// Allow clients to interact with Ana
 app.post('/api/ana', function(req, res) {
-
-    var workspace = conversationWorkspace;
-
-    if (!workspace) {
-        console.log("No workspace detected. Cannot run the Watson Conversation service.");
+    console.log("Request is: ",req);
+    if (!req.body.context || !req.body.context.system) {
+        getUserPolicy(req, function(err, doc) {
+            if (err) {
+                res.send(err);
+            } else {
+                req.session.userPolicy = doc;
+            }
+        });
     }
 
-    var params = {
-        workspace_id: workspace,
-        context: {}, // Null context indicates new conversation
-        input: {} // Holder for message
-    };
-
-    // Update options to send to conversation service with the user input and a context if one exists
-    if (req.body) {
-        if (req.body.input) {
-            params.input = req.body.input;
-        }
-
-        if (req.body.context) {
-            params.context = req.body.context;
-        }
-    }
-
-    // Send message to the conversation service with the current context
-    conversation.message(params, function(err, data) {
+    chatbot.sendMessage(req, function(err, data) {
         if (err) {
             console.log("Error in sending message: ", err);
             return res.status(err.code || 500).json(err);
-        }
+        } else {
 
-        return res.json(data);
+            Log.findOne({
+                'conversation': data.context.conversation_id
+            }, function(err, doc) {
+                if (err) {
+                    console.log("Cannot find log for conversation id of ", data.context.conversation_id);
+                } else {
+                    console.log("Sending log updates to dashboard");
+                    console.log("doc: ", doc);
+                    io.sockets.emit('logDoc', doc);
+                }
+            });
+
+            return res.json(data);
+        }
     });
 
 }); // End app.post 'api/ana'
 
-// ===============================================
-// LOG MANAGEMENT FOR USER INPUT FOR ANA =========
-// ===============================================
-app.post('/api/chatlogs', function(req, res) {
-
-    var owner = req.body.owner;
-    var conversation = req.body.conversation;
-    var logs = req.body.logs;
-    
-    // If a document already exists just update the logs. If new then add logs and other fields.
-    // findOneAndUpdate does both $set and $setOnInsert at the same time
-    var update = {$set:{lastContext: req.body.lastContext, logs:logs}, $setOnInsert:{
-        owner:req.body.owner,
-        date: req.body.date,
-        conversation: req.body.conversation,
-        }};
-    var options = { upsert: true, returnNewDocument: true };
-    var query = {'conversation': conversation};
-	
-    Log.findOneAndUpdate(query, update, options, function(err, doc){
-        if (err) {
-            console.log("Error with log: ",err);
-            return res.status(err.code || 500).json(err);
-        } 
-        
-        if(doc) {
-            console.log("Log update success for conversation id of ",conversation);
-            io.sockets.emit('logDoc',req.body);
-            console.log("request body: ",req.body);
-            return res.json(doc);
-        }
-    });
-	
-
-}); // End app.post 'api/chatlogs'
-
 
 // launch ======================================================================
 
-var host = process.env.VCAP_APP_HOST || 'localhost';
-var port = process.env.VCAP_APP_PORT || 5014;
+io.on('connection', function(socket) {
+    console.log("Sockets connected.");
 
-io.on('connection', function(socket){
-	console.log("Sockets connected.");
-	
-	// Whenever a new client connects send them the latest data
-	
-	socket.on('disconnect', function(){
-		console.log("Socket disconnected.");
-	});
+    // Whenever a new client connects send them the latest data
+
+    socket.on('disconnect', function() {
+        console.log("Socket disconnected.");
+    });
 });
-io.listen(app.listen(port, host));
-console.log("server starting on port ",port);
+io.listen(app.listen(appEnv.port, "0.0.0.0", function() {
+    // print a message when the server starts listening
+    console.log("server starting on " + appEnv.url);
+}));
