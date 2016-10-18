@@ -101,7 +101,7 @@
     }
 
     .logoImage {
-        height: 30px;
+        height: 25px;
     }
 
     .watsonLogo {
@@ -334,7 +334,8 @@
 
     .menuLink {
         color: white !important;
-
+        font-size: 13px;
+        font-weight: bold;
     }
 
     .logout {
