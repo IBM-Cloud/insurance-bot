@@ -11,7 +11,6 @@ align-items: center;
 
 .benefitdata {
     /*    border: 1px solid #aaa;*/
-    min-width: 340px;
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -31,22 +30,16 @@ align-items: center;
 }
 
 .owner {
-    text-align: justify;
+    text-align: right;
     color: #225282;
-    margin-left: 10px;
     font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 30px;
 }
 
 .header {
     text-align: justify;
-    color: #12aaeb;
-    margin: 10px;
-    font-size: 16px;
+    color: #2E425B;
+    font-size: 20px;
     font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
 .benefitfacts {
@@ -73,21 +66,30 @@ align-items: center;
     display: none;
     flex-direction: row;
     align-content: center;
-    justify-content: center;
     align-items: center;
+    background-color: white;
+    border-top: 1px solid #ECF0F1;
+}
+
+.benefitTypeTitle {
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
 .benefitset {
-    margin-left: -60px;
+    width: 500px;
+}
+
+.benefitMenu{
+  font-size: 13px;
+  color: #5586D6;
 }
 
 .benefit {
-    display: flex;
     flex-direction: row;
-    margin: 10px;
     min-height: 30px;
     min-width: 26px;
-    margin-bottom: 60px;
 }
 
 .benefitblock {
@@ -95,8 +97,6 @@ align-items: center;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    align-items: center;
-    width: 270px;
 }
 
 .sideline {
@@ -169,11 +169,12 @@ align-items: center;
     display: flex;
     flex-direction: row;
     align-content: center;
-    justify-content: center;
     align-items: center;
     height: 40px;
     min-width: 280px;
     cursor: pointer;
+    background-color: white;
+    margin-top: 10px;
 }
 
 .benefitchanneltop {
@@ -194,14 +195,13 @@ align-items: center;
 
 .benefitTitle {
     min-width: 200px;
-    width: 200px;
+    width: 300px;
     /* text-align: center; */
     color: #225282;
     text-transform: uppercase;
     letter-spacing: 1;
     font-size: 12px;
     font-weight: bold;
-    margin-left: 30px;
 }
 
 .interactions {

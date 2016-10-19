@@ -149,10 +149,9 @@ function createBenefitRow(policy) {
     row.innerHTML = '<div class="benefiticon">' +
         '<img class="benefitimage" src="images/health/' + policy.icon + '.svg">' +
         '</div>' +
-        '<div class="benefitchannel">' +
-        '<div class="benefitmarker"></div>' +
         '</div>' +
-        '<div class="benefitTitle">' + policy.title + '</div>';
+        '<div class="benefitTitle">' + policy.title + '</div>' +
+        '<div class="benefitMenu">View Benefit</div>';
     row.onclick = function() {
         toggleDetails(policy.title);
     }
@@ -165,11 +164,10 @@ function createBenefitEntity(type) {
     var benefit = document.createElement('div');
     benefit.className = 'benefit';
 
-    benefit.innerHTML = '<div class="sideline">' + type + '</div>' +
-        '<div class="benefitblock">' +
+    benefit.innerHTML = '<div class="benefitblock">' +
         '<div class="benefitcap">' +
         '<div class="benefiticon"></div>' +
-        '<div class="benefitchanneltop"></div>' +
+
         '<div class="benefitTitle"></div>' +
         '</div>' +
         '<div id="' + type + '" class="benefitrows">' +
@@ -177,7 +175,6 @@ function createBenefitEntity(type) {
 
         '<div class="benefitcap">' +
         '<div class="benefiticon"></div>' +
-        '<div class="benefitchannelbottom"></div>' +
         '<div class="benefitTitle"></div>' +
         '</div>' +
         '</div>';
@@ -191,10 +188,7 @@ function createBenefitDetail(policy) {
     detail.className = 'benefitdetail';
     detail.id = policy.title;
 
-    detail.innerHTML = ' <div class="benefiticon">' +
-        '<div class="padding"></div>' +
-        '</div>' +
-        '<div class="benefitdetailchannel">' + '</div>' +
+    detail.innerHTML =
         '<div class="benefitfacts">' +
         '<div class="benefitfact">' +
         '<div class="factlabel">benefit</div>' +
@@ -275,8 +269,11 @@ function getBenefits() {
                 policyAreas[policy.type] = [];
                 policyAreas[policy.type].push(policy);
                 policyKeys.push(policy.type);
-
+                var benefitTitle = document.createElement('div');
+                benefitTitle.className = "benefitTypeTitle";
+                benefitTitle.innerHTML = policy.type + " Benefits";
                 var benefitEntity = createBenefitEntity(policy.type);
+                benefitset.appendChild(benefitTitle);
                 benefitset.appendChild(benefitEntity);
 
             }
