@@ -376,8 +376,9 @@ function checkStatus() {
         }
 
         if (reply.outcome === 'success') {
-            askWatson.style.display = 'inherit';
-
+            if(askWatson) {
+              askWatson.style.display = 'inherit';
+            }
             if (logout) {
                 login.style.display = 'none';
             }
