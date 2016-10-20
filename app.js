@@ -412,40 +412,45 @@ app.post('/api/orders', function(req, res, next) {
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
 app.post('/api/ana', function(req, res) {
-    console.log("Request is: ",req);
+    console.log("Request body is: ",req.body);
+
+    // ensure user policies are loaded
     if (!req.body.context || !req.body.context.system) {
-        getUserPolicy(req, function(err, doc) {
-            if (err) {
-                res.send(err);
-            } else {
-                req.session.userPolicy = doc;
-            }
-        });
-    }
-
-    chatbot.sendMessage(req, function(err, data) {
+      getUserPolicy(req, function(err, doc) {
         if (err) {
-            console.log("Error in sending message: ", err);
-            return res.status(err.code || 500).json(err);
+          res.status(err.code || 500).json(err);
         } else {
-
-            Log.findOne({
-                'conversation': data.context.conversation_id
-            }, function(err, doc) {
-                if (err) {
-                    console.log("Cannot find log for conversation id of ", data.context.conversation_id);
-                } else {
-                    console.log("Sending log updates to dashboard");
-                    console.log("doc: ", doc);
-                    io.sockets.emit('logDoc', doc);
-                }
-            });
-
-            return res.json(data);
+          processChatMessage(req, res);
         }
-    });
-
+      });
+    } else {
+      processChatMessage(req, res);
+    }
 }); // End app.post 'api/ana'
+
+function processChatMessage(req, res) {
+  chatbot.sendMessage(req, function(err, data) {
+      if (err) {
+          console.log("Error in sending message: ", err);
+          res.status(err.code || 500).json(err);
+      } else {
+
+          Log.findOne({
+              'conversation': data.context.conversation_id
+          }, function(err, doc) {
+              if (err) {
+                  console.log("Cannot find log for conversation id of ", data.context.conversation_id);
+              } else {
+                  console.log("Sending log updates to dashboard");
+                  console.log("doc: ", doc);
+                  io.sockets.emit('logDoc', doc);
+              }
+          });
+
+          res.json(data);
+      }
+  });
+}
 
 
 // launch ======================================================================

@@ -199,7 +199,7 @@ function buildContextObject(req, callback) {
     };
 
     // This is the first message, add the user's name and get their healthcare object
-    if (message === '' && !context) {
+    if ((!message || message === '') && !context) {
         params.context = {
             fname: req.user.local.fname,
             lname: req.user.local.lname
