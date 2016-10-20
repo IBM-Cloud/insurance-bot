@@ -151,7 +151,7 @@ function createBenefitRow(policy) {
         '</div>' +
         '</div>' +
         '<div class="benefitTitle">' + policy.title + '</div>' +
-        '<div class="benefitMenu">View Benefit</div>';
+        '<div class="benefitMenu">View Benefit&nbsp;&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></div>';
     row.onclick = function() {
         toggleDetails(policy.title);
     }
@@ -309,6 +309,34 @@ function getBenefits() {
         // Load Ana's first message after the user info
         userMessage('');
     })
+}
+
+function selectClaimTab() {
+  var benefitTab = document.getElementById('benefitset');
+  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+  var claimTab = document.getElementById('claimTab');
+  var claimTabMenu = document.getElementById('claimTabMenu');
+
+  if(claimTab && benefitTab && claimTabMenu) {
+    benefitTab.style.display = 'none';
+    claimTab.style.display = 'flex';
+    claimTabMenu.className = 'healthTab selected';
+    benefitsTabMenu.className = 'healthTab';
+  }
+}
+
+function selectBenefitsTab() {
+  var benefitTab = document.getElementById('benefitset');
+  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+  var claimTab = document.getElementById('claimTab');
+  var claimTabMenu = document.getElementById('claimTabMenu');
+
+  if(claimTab && benefitTab && claimTabMenu) {
+    benefitTab.style.display = 'block';
+    claimTab.style.display = 'none';
+    claimTabMenu.className = 'healthTab';
+    benefitsTabMenu.className = 'healthTab selected';
+  }
 }
 
 function submitClaim(source) {

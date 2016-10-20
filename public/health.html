@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/benefit.css">
     <link rel="stylesheet" href="/stylesheets/ana.css">
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 </head>
 
@@ -31,29 +32,25 @@
                     <a href = "https://github.com/IBM-Bluemix/insurance-bot"><img height="25px" src = "images/github.svg"/></a>
                 </div>
             </header>
-            <section class="layout">
+            <section class="healthLayout">
 
-                <div style="margin:40px;">
+                <div style="margin:20px;">
 
                     <div class="benefitkit">
                         <div class="benefitdata">
                             <div id="header" class="header">Health Insurance</div>
-                            <div id="owner" class="owner"></div>
+                            <div id="owner" class="owner" style = "display:none"></div>
+                            <div class="healthTabArea">
+                              <div id="benefitsTabMenu" class = "healthTab selected"  onClick="selectBenefitsTab()">YOUR HEALTH BENEFITS</div>
+                              <div id="claimTabMenu" class = "healthTab" onClick="selectClaimTab()">FILE A CLAIM</div>
+                              <div id="historyTabMenu" accesskey=""class = "healthTab" onClick="location.href='./claims'">CLAIM HISTORY</div>
+
+                            </div>
                             <div class="benefitset" id="benefitset">
 
                             </div>
-                        </div>
-                        <div class="interactions">
-                            <div class="chatbot">
-                                <div class = "anaBanner">Questions? Try asking Ana.</div>
-                                <div id="chatBox" class="dialogcontainer"></div>
-                                <input type = text id="chatMessage" class="dialoginput" placeholder="Type your message here " onkeypress="return newEvent(event)"></input>
-
-
-                            </div>
-
-                            <div class = "claimTab" style = "display:none">
-                              <div id="chatSubmit" class="interactionsub">or submit a claim ...</div>
+                            <div id = "claimTab" class = "claimTab" style = "display:none">
+                              <div id="chatSubmit" class="interactionsub"></div>
 
                               <div class="claimbox">
                                   <div class="claimrow">
@@ -75,12 +72,22 @@
                                   </div>
                               </div>
                               <div class="claimcontrols">
-                                  <a href="./claims.html">history</a>
                                   <button class="claimbutton" onclick="submitClaim()">Claim</button>
                               </div>
 
                               <div class="claimmessages" id="claimmessages"></div>
                           </div>
+                        </div>
+                        <div class="">
+                            <div class="chatbot">
+                                <div class = "anaBanner">Questions? Try asking Ana.</div>
+                                <div id="chatBox" class="dialogcontainer"></div>
+                                <input type = text id="chatMessage" class="dialoginput" placeholder="Type your message here " onkeypress="return newEvent(event)"></input>
+
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
