@@ -2,15 +2,7 @@
   margin-left: 5%;
 }
 .benefitkit {
-    display: flex;
-    flex-direction: row;
-    width: 600px;
-    overflow: scroll;
-    /*
-    justify-content: center;
-align-content: center;
-align-items: center;
-*/
+
 }
 
 .benefitdata {
@@ -51,18 +43,17 @@ align-items: center;
     display: flex;
     flex-direction: column;
     min-width: 200px;
-    font-size: 11px;
+    font-size: 12px;
     margin-left: 30px;
-    color: #225282;
-    text-transform: uppercase;
+    padding: 10px;
 }
 
 .factlabel {
     max-width: 70px;
     min-width: 70px;
     font-weight: bold;
-    color: #12aaeb;
-    /* text-align: right; */
+    color: #919FA8;
+    text-transform: uppercase;
     margin-right: 10px;
 }
 
@@ -72,13 +63,16 @@ align-items: center;
     align-content: center;
     align-items: center;
     background-color: white;
-    border-top: 1px solid #ECF0F1;
+    border-bottom: 1px solid #EAEAEA;
+    border-left: 1px solid #EAEAEA;
+    border-right: 1px solid #EAEAEA;
 }
 
 .benefitTypeTitle {
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 20px;
+  letter-spacing: 1px;
 }
 
 .benefitset {
@@ -88,6 +82,8 @@ align-items: center;
 .benefitMenu{
   font-size: 13px;
   color: #5586D6;
+  width: 100px;
+
 }
 
 .benefit {
@@ -121,13 +117,11 @@ align-items: center;
 }
 
 .benefitimage {
-    height: 26px;
-    min-width: 30px;
+    width: 20px;
     margin-right: 10px;
 }
 
 .benefiticon {
-    min-width: 66px;
 }
 
 .benefitchannel {
@@ -179,6 +173,9 @@ align-items: center;
     cursor: pointer;
     background-color: white;
     margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #EAEAEA;
 }
 
 .benefitchanneltop {
@@ -206,6 +203,7 @@ align-items: center;
     letter-spacing: 1;
     font-size: 12px;
     font-weight: bold;
+    flex: 1;
 }
 
 .interactions {
@@ -249,6 +247,7 @@ align-items: center;
     background-color: white;
     width: 320px;
     padding: 10px;
+    border: 1px solid #EAEAEA;
 }
 
 .claimlabel {
@@ -303,18 +302,20 @@ align-items: center;
 
 .healthTabArea {
   display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .healthTab {
   width: 33%;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 20px;
   text-align: center;
   border-bottom: 1px solid #ECF0F1;
+
   color:#919FA8;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .healthTab.selected{

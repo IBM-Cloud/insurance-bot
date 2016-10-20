@@ -151,7 +151,8 @@ function createBenefitRow(policy) {
         '</div>' +
         '</div>' +
         '<div class="benefitTitle">' + policy.title + '</div>' +
-        '<div class="benefitMenu">View Benefit&nbsp;&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></div>';
+        '<div id="' + policy.title + '-ToggleTextOpen" class="benefitMenu">View Benefit<i style = "padding-left:10px" class="fa fa-angle-down" aria-hidden="true"></i></div>' +
+        '<div id="' + policy.title + '-ToggleTextClose" class="benefitMenu" style = "display:none">Close Benefit<i style = "padding-left:10px" class="fa fa-angle-up" aria-hidden="true"></i></div>';
     row.onclick = function() {
         toggleDetails(policy.title);
     }
@@ -226,12 +227,19 @@ function createBenefitDetail(policy) {
 
 function toggleDetails(id) {
     var details = document.getElementById(id);
+    var toggleTextOpen = document.getElementById(id+ "-ToggleTextOpen");
+    var toggleTextClose = document.getElementById(id+ "-ToggleTextClose");
 
     if (details.style.display !== 'flex') {
         details.style.display = 'flex';
+        toggleTextOpen.style.display = 'none';
+        toggleTextClose.style.display = 'block';
     } else {
         details.style.display = 'none'
+        toggleTextOpen.style.display = 'block';
+        toggleTextClose.style.display = 'none';
     }
+
 
 }
 
