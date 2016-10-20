@@ -22,11 +22,10 @@
   font-weight: bold;
   font-size: 1rem;
 }
+
 .dialogcontainer {
     display: flex;
     flex-direction: column;
-    font-size: 14px;
-    width: 250px;
     height: 100%;
     max-width: 400px;
     margin: 0;
@@ -42,7 +41,6 @@
     background-size: 100px;
     overflow-y: auto;
     overflow-x: hidden;
-    color: #597a96;
 }
 
 .dialoginput {
@@ -62,7 +60,13 @@
 .message {
     margin-top: 0.5em;
     font-size: 13px;
-    font-weight: bold;
+}
+
+.userTitle {
+    text-align: right;
+    padding: 0.5em;
+    font-weight: normal;
+    color: #919FA8;
 }
 
 .ana {
@@ -78,6 +82,13 @@
         -ms-animation: fadein 2s;
          -o-animation: fadein 2s;
             animation: fadein 2s;
+}
+
+.anaTitle {
+    text-align: left;
+    padding: 0.5em;
+    font-weight: normal;
+    color: #919FA8;
 }
 
 .user {

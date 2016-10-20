@@ -13,7 +13,7 @@ var context;
  * When a user presses enter in the chat input window it triggers the service interactions.
  *
  * @function newEvent
- * @param {Object} e - Information about the keyboard event. 
+ * @param {Object} e - Information about the keyboard event.
  */
 function newEvent(e) {
     // Only check for a return/enter press - Event 13
@@ -31,7 +31,7 @@ function newEvent(e) {
             displayMessage(text, user);
             userInput.value = '';
 
-            // Ana is on claim step for date or amount. 
+            // Ana is on claim step for date or amount.
             if (context.claim_step === "date") {
                 validateDate(text);
             } else if (context.claim_step === "amount") {
@@ -54,12 +54,12 @@ function newEvent(e) {
 /**
  * @summary Main User Interaction with Service.
  *
- * Primary function for parsing the conversation context  object, updating the list of 
+ * Primary function for parsing the conversation context  object, updating the list of
  * variables available to Ana, handling when a conversation thread ends and resetting the
- * context, and kicking off log generation. 
+ * context, and kicking off log generation.
  *
  * @function userMessage
- * @param {String} message - Input message from user or page load.  
+ * @param {String} message - Input message from user or page load.
  */
 function userMessage(message) {
 
@@ -102,6 +102,10 @@ function userMessage(message) {
 }
 
 
+function getTimestamp() {
+  var d = new Date();
+  return d.getHours() + ":" + d.getMinutes();
+}
 /**
  * @summary Display Chat Bubble.
  *
@@ -109,7 +113,7 @@ function userMessage(message) {
  *
  * @function displayMessage
  * @param {String} text - Text to be dispalyed in chat box.
- * @param {String} user - Denotes if the message is from Ana or the user. 
+ * @param {String} user - Denotes if the message is from Ana or the user.
  * @return null
  */
 function displayMessage(text, user) {
@@ -120,9 +124,14 @@ function displayMessage(text, user) {
 
     // Set chat bubble color and position based on the user parameter
     if (user === watson) {
-        bubble.innerHTML = "<div class='ana'>" + text + "</div>";
+      var name = "Ana";
+      bubble.innerHTML = "<div class='anaTitle'>" + name + " | " + getTimestamp() + "</div><div class='ana'>" + text + "</div>";
     } else {
-        bubble.innerHTML = "<div class='user'>" + text + "</div>";
+        var name = "John";
+        if(context && context.fname & context.fname.length > 0){
+          name = context.fname.length;
+        }
+        bubble.innerHTML = "<div class='userTitle'>" + name + " | " + getTimestamp() + "</div><div class='user'>" + text + "</div>";
     }
 
     chat.appendChild(bubble);
@@ -133,19 +142,19 @@ function displayMessage(text, user) {
 /**
  * @summary Validate Date Input.
  *
- * Parses and converts the date down to a YYYY-MM-DD format for creating a 
- * valid claim document. 
+ * Parses and converts the date down to a YYYY-MM-DD format for creating a
+ * valid claim document.
  *
  * @function validateDate
- * @param  {String} date - User entered date from chat dialog. 
- * @return {String} text - Formatted string passed to Ana. 
+ * @param  {String} date - User entered date from chat dialog.
+ * @return {String} text - Formatted string passed to Ana.
  */
 function validateDate(date) {
 
     // Set current date for checking if user is trying to claim in the future
     var cDate = new Date();
     var userDate = new Date();
-    
+
     if(date==='yesterday'){
         userDate.setDate(userDate.getDate()-1);
     } else {
@@ -155,7 +164,7 @@ function validateDate(date) {
         // Convert most formats to milliseconds
         userDate = new Date(date);
     }
-    
+
     console.log(userDate);
 
     // If the date is NaN reprompt for correct format
@@ -163,7 +172,7 @@ function validateDate(date) {
         text = "Invalid date format. Please use YYYY-MM-DD.";
         displayMessage(text, watson);
     } else if (userDate) { // If for some reason there is no date then reprompt
-        if (userDate > cDate) { // If user tries to claim a date in the future 
+        if (userDate > cDate) { // If user tries to claim a date in the future
             text = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
             displayMessage(text, watson);
         } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
@@ -192,7 +201,7 @@ function validateDate(date) {
  * @summary Create Valid Float Type.
  *
  * Trims the user input for the claim amount to a decimal/float type for entry
- * into a claim document. 
+ * into a claim document.
  *
  * @function validateAmount
  * @param  {String} amount - User entered claim amount from chat dialog.
