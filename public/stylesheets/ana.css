@@ -52,6 +52,7 @@
 .message {
     margin-top: 0.5em;
     font-size: 13px;
+    position: relative;
 }
 
 .userTitle {
@@ -76,6 +77,17 @@
             animation: fadein 2s;
 }
 
+.ana:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 14px;
+  top: 15px;
+  border: 7px solid;
+  border-color: transparent transparent #F7F9F9 transparent;
+}
+
 .anaTitle {
     text-align: left;
     padding: 0.5em;
@@ -96,6 +108,17 @@
         -ms-animation: fadein 1s;
          -o-animation: fadein 1s;
             animation: fadein 1s;
+}
+
+.user:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 284px;
+  top: 15px;
+  border: 7px solid;
+  border-color: transparent transparent #EEF2FA transparent;
 }
 
 @keyframes fadein {
