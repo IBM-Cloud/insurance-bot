@@ -1,8 +1,19 @@
-.healthLayout {
-  margin-left: 5%;
+.healthContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
-.benefitkit {
 
+.healthLayout {
+  padding-left: 60px;
+  display: flex;
+  flex: 1;
+}
+
+.benefitkit {
+  flex: 1;
+  overflow: auto;
 }
 
 .benefitdata {
@@ -10,8 +21,6 @@
     display: flex;
     flex-direction: column;
     margin: 10px;
-    min-height: 200px;
-    width: 600px;
 }
 
 .benefitfact {
@@ -76,7 +85,7 @@
 }
 
 .benefitset {
-    width: 500px;
+  max-width: 600px;
 }
 
 .benefitMenu{
@@ -310,7 +319,6 @@
   width: 33%;
   font-size: 12px;
   line-height: 20px;
-  text-align: center;
   border-bottom: 1px solid #ECF0F1;
 
   color:#919FA8;
@@ -318,8 +326,46 @@
   letter-spacing: 1px;
 }
 
-.healthTab.selected{
+.tabLink {
+  line-height: 36px;
+  padding: 0.7rem 0;
+}
+
+.tabLink.selected{
   font-weight: bold;
   border-bottom: 1px solid #5586D6;
   color:#5586D6;
+}
+@media only screen and (max-width: 800px) {
+  .healthContainer {
+    display: flex;
+    overflow: auto;
+    min-height: auto;
+  }
+  .healthLayout {
+    padding: 0px;
+    flex-direction: column;
+  }
+
+  .healthLayout {
+    flex: none;
+  }
+
+  .benefitKit {
+    flex: none;
+  }
+
+  .healthTabArea {
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  .healthTab {
+    width: auto;
+    border: none;
+    text-align: center;
+  }
+
+
 }

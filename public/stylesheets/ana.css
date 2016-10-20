@@ -1,14 +1,10 @@
 /* Styling for the chat bot */
 .chatbot {
     background-color: white;
-    position: absolute;
-    top: 52px;
-    right: 0;
-    bottom: 0;
     border-left: 2px solid #EAEAEA;
-    max-width: 400px;
-    min-width: 250px;
-    width: 25%;
+    min-width: 325px;
+    display: flex;
+    flex-direction: column;
 
 }
 
@@ -24,12 +20,9 @@
 }
 
 .dialogcontainer {
-    display: flex;
-    flex-direction: column;
+    flex: 1;
     height: 100%;
-    max-width: 400px;
     margin: 0;
-    min-width: 226px;
     padding: 5px;
     background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
     background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
@@ -46,6 +39,7 @@
 .dialoginput {
     border: none;
     border-top: 2px solid #EAEAEA;
+    border-bottom: 2px solid #EAEAEA;
     width: 100%;
     width: 100%;
     height: 50px;
@@ -53,8 +47,6 @@
     font-weight: bold;
     padding-left: 10px;
     color: #225282;
-    position: absolute;
-    bottom: 0;
 }
 
 .message {
@@ -127,4 +119,19 @@
 @-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .chatbot {
+    border: none;
+    order: -1;
+    margin-bottom: 1rem;
+  }
+
+  .dialogcontainer {
+    flex: none;
+    height: 350px;
+  }
+
 }

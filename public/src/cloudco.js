@@ -328,8 +328,8 @@ function selectClaimTab() {
   if(claimTab && benefitTab && claimTabMenu) {
     benefitTab.style.display = 'none';
     claimTab.style.display = 'flex';
-    claimTabMenu.className = 'healthTab selected';
-    benefitsTabMenu.className = 'healthTab';
+    claimTabMenu.className = 'tabLink selected';
+    benefitsTabMenu.className = 'tabLink';
   }
 }
 
@@ -342,8 +342,8 @@ function selectBenefitsTab() {
   if(claimTab && benefitTab && claimTabMenu) {
     benefitTab.style.display = 'block';
     claimTab.style.display = 'none';
-    claimTabMenu.className = 'healthTab';
-    benefitsTabMenu.className = 'healthTab selected';
+    claimTabMenu.className = 'tabLink';
+    benefitsTabMenu.className = 'tabLink selected';
   }
 }
 

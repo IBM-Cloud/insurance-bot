@@ -14,8 +14,8 @@
 
 <body class="homePage" onload="getBenefits();">
 
-    <div class="container">
-        <div class="outline">
+    <div class="healthContainer">
+
             <header>
                 <div class="banner">
                     <div class="titleArea">
@@ -41,9 +41,9 @@
                             <div id="header" class="header">Health Insurance</div>
                             <div id="owner" class="owner" style = "display:none"></div>
                             <div class="healthTabArea">
-                              <div id="benefitsTabMenu" class = "healthTab selected"  onClick="selectBenefitsTab()">YOUR HEALTH BENEFITS</div>
-                              <div id="claimTabMenu" class = "healthTab" onClick="selectClaimTab()">FILE A CLAIM</div>
-                              <div id="historyTabMenu" accesskey=""class = "healthTab" onClick="location.href='./claims'">CLAIM HISTORY</div>
+                              <div  class = "healthTab"  onClick="selectBenefitsTab()"><span id="benefitsTabMenu" class = "tabLink selected">YOUR HEALTH BENEFITS</span></div>
+                              <div  class = "healthTab" onClick="selectClaimTab()"><span id="claimTabMenu" class = "tabLink">FILE A CLAIM</span></div>
+                              <div  accesskey="" class = "healthTab" onClick="location.href='./claims'"><span id="historyTabMenu" class = "tabLink">CLAIM HISTORY</span></div>
 
                             </div>
                             <div class="benefitset" id="benefitset">
@@ -90,7 +90,7 @@
 
 
             </section>
-        </div>
+
     </div>
 
     <!-- footer section -->
