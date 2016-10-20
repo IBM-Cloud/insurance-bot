@@ -174,12 +174,16 @@ function buildContextObject(req, callback) {
     var message = req.body.text;
     var context;
     var userPolicy;
+    
+    if(!message) {
+        message = '';
+    }
 
     if (req.session.userPolicy) {
         userPolicy = req.session.userPolicy;
     }
 
-    // Null out the parameter obejct to start building
+    // Null out the parameter object to start building
     var params = {
         workspace_id: conversationWorkspace,
         input: {},
@@ -317,7 +321,7 @@ function updateContextObject(response, userPolicy, callback) {
     }
 
     // Do manual conversation for displaying procedure details 
-    if (context.chosen_detail) {
+    if (context.chosen_detail && context.chosen_procedure) {
         detail = context.chosen_detail;
         procedure_details = context.procedure_details;
 

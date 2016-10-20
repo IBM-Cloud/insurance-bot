@@ -88,13 +88,6 @@ function userMessage(message) {
 
             displayMessage(text, watson);
 
-            // File a claim when the step is verify
-            if (context.claim_step === "verify") {
-
-                botClaim(context);
-
-            }
-
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
         }
@@ -106,54 +99,6 @@ function userMessage(message) {
 
     console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
-}
-
-function botClaim(context) {
-    var claimFile = {
-        date: null,
-        benefit: null,
-        provider: null,
-        amount: null
-    };
-
-    var xhr = new XMLHttpRequest();
-
-    var uri = '/submitClaim';
-
-    claimFile.date = context.claim_date;
-    claimFile.benefit = context.claim_procedure;
-    claimFile.provider = context.claim_provider;
-    claimFile.amount = context.claim_amount;
-
-    xhr.open('POST', uri, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function(response) {
-        if (xhr.status === 200 && xhr.responseText) {
-            var reply = JSON.parse(xhr.responseText);
-            console.log("reply is: ", reply);
-            if (reply.outcome === 'success') {
-                console.log('success');
-                displayMessage("Your claim for " + context.claim_amount + " was successfully filed!", watson);
-                context.claim_step = '';
-                context.claim_date = '';
-                context.claim_provider = '';
-                context.claim_amount = '';
-                context.system = '';
-            } else {
-                displayMessage("Oh no! Something went wrong. Please try again.", watson);
-                context.claim_step = '';
-                context.claim_date = '';
-                context.claim_provider = '';
-                context.claim_amount = '';
-                context.system = '';
-            }
-        } else {
-            alert('Request failed.  Returned status of ' + xhr.status);
-        }
-    };
-
-    console.log("Submitting claim: ", JSON.stringify(claimFile));
-    xhr.send(JSON.stringify(claimFile));
 }
 
 
@@ -199,14 +144,19 @@ function validateDate(date) {
 
     // Set current date for checking if user is trying to claim in the future
     var cDate = new Date();
-
-    // Strip modifiers for dates and the phrase 'of'
-    var stripPattern = /(th|rd|nd|st|of)/gi;
-    date = date.replace(stripPattern, '');
-
-    // Convert most formats to milliseconds
-    var userDate = new Date(date);
-    console.log(date);
+    var userDate = new Date();
+    
+    if(date==='yesterday'){
+        userDate.setDate(userDate.getDate()-1);
+    } else {
+        // Strip modifiers for dates and the phrase 'of'
+        var stripPattern = /(th|rd|nd|st|of)/gi;
+        date = date.replace(stripPattern, '');
+        // Convert most formats to milliseconds
+        userDate = new Date(date);
+    }
+    
+    console.log(userDate);
 
     // If the date is NaN reprompt for correct format
     if (isNaN(userDate)) {
@@ -217,7 +167,7 @@ function validateDate(date) {
             text = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
             displayMessage(text, watson);
         } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
-            var month = '' + (userDate.getMonth() + 1),
+            var month = '' + (userDate.getUTCMonth()),
                 day = '' + (userDate.getUTCDate()),
                 year = userDate.getFullYear();
 
