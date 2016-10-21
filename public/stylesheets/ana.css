@@ -1,20 +1,29 @@
 /* Styling for the chat bot */
-
 .chatbot {
-    margin-bottom: 30px;
+    background-color: white;
+    border-left: 2px solid #EAEAEA;
+    min-width: 200px;
+    max-width: 325px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.anaBanner {
+  height: 48px;
+  line-height: 48px;
+  background-color: #5586D6;
+  vertical-align: middle;
+  padding-left: 15px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .dialogcontainer {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    width: 226px;
-    max-width: 300px;
-    height: 300px;
-    max-height: 300px;
+    flex: 1;
+    height: 100%;
     margin: 0;
-    min-width: 226px;
-    border-radius: 4px;
     padding: 5px;
     background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
     background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/ana.svg");
@@ -26,58 +35,91 @@
     background-size: 100px;
     overflow-y: auto;
     overflow-x: hidden;
-    color: #597a96;
-    border: 1px solid #12aaeb;
 }
 
 .dialoginput {
-    width: 240px;
-    margin-top: 15px;
-    border: 1px solid #12aaeb;
-    height: 60px;
+    border: none;
+    border-top: 2px solid #EAEAEA;
+    border-bottom: 2px solid #EAEAEA;
+    width: 100%;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
     font-weight: bold;
-    border-radius: 4px;
-    font-size: 13px;
-    padding: 10px;
+    padding-left: 10px;
     color: #225282;
-    max-width: 240px;
 }
 
 .message {
     margin-top: 0.5em;
     font-size: 13px;
-    font-weight: bold;
-    color: #fff;
+    position: relative;
+}
+
+.userTitle {
+    text-align: right;
+    padding: 0.5em;
+    font-weight: normal;
+    color: #919FA8;
 }
 
 .ana {
     padding: 0.5em;
     border-radius: 5px;
-    background-color: #12aaeb;
+    background-color: #F7F9F9;
     margin-left: 0.5em;
     margin-right: 30%;
     -webkit-align-self: flex-start;
     align-self: flex-start;
-	-webkit-animation: fadein 2s; 
-       -moz-animation: fadein 2s; 
-        -ms-animation: fadein 2s; 
-         -o-animation: fadein 2s; 
+	-webkit-animation: fadein 2s;
+       -moz-animation: fadein 2s;
+        -ms-animation: fadein 2s;
+         -o-animation: fadein 2s;
             animation: fadein 2s;
+}
+
+.ana:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 14px;
+  top: 15px;
+  border: 7px solid;
+  border-color: transparent transparent #F7F9F9 transparent;
+}
+
+.anaTitle {
+    text-align: left;
+    padding: 0.5em;
+    font-weight: normal;
+    color: #919FA8;
 }
 
 .user {
     padding: 0.5em;
     border-radius: 5px;
-    background-color: rgba(34, 82, 130, 0.9);
+    background-color: #EEF2FA;
     margin-right: 0.5em;
     margin-left: 30%;
     -webkit-align-self: flex-end;
     align-self: flex-end;
-	-webkit-animation: fadein 1s; 
+	-webkit-animation: fadein 1s;
        -moz-animation: fadein 1s;
-        -ms-animation: fadein 1s; 
-         -o-animation: fadein 1s; 
+        -ms-animation: fadein 1s;
+         -o-animation: fadein 1s;
             animation: fadein 1s;
+}
+
+.user:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 284px;
+  top: 15px;
+  border: 7px solid;
+  border-color: transparent transparent #EEF2FA transparent;
 }
 
 @keyframes fadein {
@@ -101,4 +143,20 @@
 @-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .chatbot {
+    border: none;
+    order: -1;
+    margin-bottom: 1rem;
+    max-width: none;
+  }
+
+  .dialogcontainer {
+    flex: none;
+    height: 350px;
+  }
+
 }

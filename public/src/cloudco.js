@@ -149,10 +149,10 @@ function createBenefitRow(policy) {
     row.innerHTML = '<div class="benefiticon">' +
         '<img class="benefitimage" src="images/health/' + policy.icon + '.svg">' +
         '</div>' +
-        '<div class="benefitchannel">' +
-        '<div class="benefitmarker"></div>' +
         '</div>' +
-        '<div class="benefitTitle">' + policy.title + '</div>';
+        '<div class="benefitTitle">' + policy.title + '</div>' +
+        '<div id="' + policy.title + '-ToggleTextOpen" class="benefitMenu">View Benefit<i style = "padding-left:10px" class="fa fa-angle-down" aria-hidden="true"></i></div>' +
+        '<div id="' + policy.title + '-ToggleTextClose" class="benefitMenu" style = "display:none">Close Benefit<i style = "padding-left:10px" class="fa fa-angle-up" aria-hidden="true"></i></div>';
     row.onclick = function() {
         toggleDetails(policy.title);
     }
@@ -165,11 +165,10 @@ function createBenefitEntity(type) {
     var benefit = document.createElement('div');
     benefit.className = 'benefit';
 
-    benefit.innerHTML = '<div class="sideline">' + type + '</div>' +
-        '<div class="benefitblock">' +
+    benefit.innerHTML = '<div class="benefitblock">' +
         '<div class="benefitcap">' +
         '<div class="benefiticon"></div>' +
-        '<div class="benefitchanneltop"></div>' +
+
         '<div class="benefitTitle"></div>' +
         '</div>' +
         '<div id="' + type + '" class="benefitrows">' +
@@ -177,7 +176,6 @@ function createBenefitEntity(type) {
 
         '<div class="benefitcap">' +
         '<div class="benefiticon"></div>' +
-        '<div class="benefitchannelbottom"></div>' +
         '<div class="benefitTitle"></div>' +
         '</div>' +
         '</div>';
@@ -191,10 +189,7 @@ function createBenefitDetail(policy) {
     detail.className = 'benefitdetail';
     detail.id = policy.title;
 
-    detail.innerHTML = ' <div class="benefiticon">' +
-        '<div class="padding"></div>' +
-        '</div>' +
-        '<div class="benefitdetailchannel">' + '</div>' +
+    detail.innerHTML =
         '<div class="benefitfacts">' +
         '<div class="benefitfact">' +
         '<div class="factlabel">benefit</div>' +
@@ -232,12 +227,19 @@ function createBenefitDetail(policy) {
 
 function toggleDetails(id) {
     var details = document.getElementById(id);
+    var toggleTextOpen = document.getElementById(id+ "-ToggleTextOpen");
+    var toggleTextClose = document.getElementById(id+ "-ToggleTextClose");
 
     if (details.style.display !== 'flex') {
         details.style.display = 'flex';
+        toggleTextOpen.style.display = 'none';
+        toggleTextClose.style.display = 'block';
     } else {
         details.style.display = 'none'
+        toggleTextOpen.style.display = 'block';
+        toggleTextClose.style.display = 'none';
     }
+
 
 }
 
@@ -275,8 +277,11 @@ function getBenefits() {
                 policyAreas[policy.type] = [];
                 policyAreas[policy.type].push(policy);
                 policyKeys.push(policy.type);
-
+                var benefitTitle = document.createElement('div');
+                benefitTitle.className = "benefitTypeTitle";
+                benefitTitle.innerHTML = policy.type + " Benefits";
                 var benefitEntity = createBenefitEntity(policy.type);
+                benefitset.appendChild(benefitTitle);
                 benefitset.appendChild(benefitEntity);
 
             }
@@ -312,6 +317,34 @@ function getBenefits() {
         // Load Ana's first message after the user info
         userMessage('');
     })
+}
+
+function selectClaimTab() {
+  var benefitTab = document.getElementById('benefitset');
+  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+  var claimTab = document.getElementById('claimTab');
+  var claimTabMenu = document.getElementById('claimTabMenu');
+
+  if(claimTab && benefitTab && claimTabMenu) {
+    benefitTab.style.display = 'none';
+    claimTab.style.display = 'flex';
+    claimTabMenu.className = 'tabLink selected';
+    benefitsTabMenu.className = 'tabLink';
+  }
+}
+
+function selectBenefitsTab() {
+  var benefitTab = document.getElementById('benefitset');
+  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+  var claimTab = document.getElementById('claimTab');
+  var claimTabMenu = document.getElementById('claimTabMenu');
+
+  if(claimTab && benefitTab && claimTabMenu) {
+    benefitTab.style.display = 'block';
+    claimTab.style.display = 'none';
+    claimTabMenu.className = 'tabLink';
+    benefitsTabMenu.className = 'tabLink selected';
+  }
 }
 
 function submitClaim(source) {
@@ -376,8 +409,9 @@ function checkStatus() {
         }
 
         if (reply.outcome === 'success') {
-            askWatson.style.display = 'inherit';
-
+            if(askWatson) {
+              askWatson.style.display = 'inherit';
+            }
             if (logout) {
                 login.style.display = 'none';
             }

@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/benefit.css">
     <link rel="stylesheet" href="/stylesheets/ana.css">
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 </head>
 
 <body class="homePage" onload="getBenefits();">
 
-    <div class="container">
-        <div class="outline">
+    <div class="healthContainer">
+
             <header>
                 <div class="banner">
                     <div class="titleArea">
@@ -24,83 +25,74 @@
                     <div class="loginArea">
                         <!-- div class="menu"><a class="menulink" href="./feedback">FEEDBACK</a></div -->
                         <div class="menu"><a class="menulink" href="./about">About</a></div>
-                        <div id="login" class="loginmenu"><a class="login" href="./login">Log In</a></div>
-                        <div id="logout" class="logoutmenu"><a class="logout" href="./logout">Logout</a></div>
+                        <div id="login" class="menu"><a class="menulink" href="./login">Log In</a></div>
+                        <div id="logout" class="menu"><a class="menulink" href="./logout">Logout</a></div>
                         <div id="status "></div>
                     </div>
+                    <a href = "https://github.com/IBM-Bluemix/cloudco-insurance"><img height="25px" src = "images/github.svg"/></a>
                 </div>
             </header>
-            <section class="layout">
+            <section class="healthLayout">
 
-                <div style="margin:40px;">
+
 
                     <div class="benefitkit">
                         <div class="benefitdata">
-                            <div id="header" class="header">Health Benefits</div>
-                            <div id="owner" class="owner"></div>
+                            <div id="header" class="header">Health Insurance</div>
+                            <div id="owner" class="owner" style = "display:none"></div>
+                            <div class="healthTabArea">
+                              <div  class = "healthTab"  onClick="selectBenefitsTab()"><span id="benefitsTabMenu" class = "tabLink selected">HEALTH BENEFITS</span></div>
+                              <div  class = "healthTab" onClick="selectClaimTab()"><span id="claimTabMenu" class = "tabLink">FILE A CLAIM</span></div>
+                              <div  accesskey="" class = "healthTab" onClick="location.href='./claims'"><span id="historyTabMenu" class = "tabLink">CLAIM HISTORY</span></div>
+
+                            </div>
                             <div class="benefitset" id="benefitset">
 
                             </div>
-                        </div>
-                        <div class="interactions">
-                            <div class="interactionheader ">INTERACT</div>
-                            <div id=" " class="interactionsub ">ask Ana ...</div>
+                            <div id = "claimTab" class = "claimTab" style = "display:none">
+                              <div id="chatSubmit" class="interactionsub"></div>
 
-                            <div class="chatbot">
-                                <div id="chatBox" class="dialogcontainer"></div>
-                                <textarea rows="4" id="chatMessage" class="dialoginput" placeholder="chat about your policies ... " onkeypress="return newEvent(event)"></textarea>
+                              <div class="claimbox">
+                                  <div class="claimrow">
+                                      <label class="claimlabel">Date</label>
+                                      <input id="claimdate" type="date" class="claiminput">
+                                  </div>
+                                  <div class="claimrow">
+                                      <label class="claimlabel">Benefit</label>
+                                      <select id="benefittypes" class="claiminput">
+                                      </select>
+                                  </div>
+                                  <div class="claimrow">
+                                      <label class="claimlabel">Provider</label>
+                                      <input id="provider" class="claiminput">
+                                  </div>
+                                  <div class="claimrow">
+                                      <label class="claimlabel">Amount ($)</label>
+                                      <input id="claimamount" type=number class="claiminput">
+                                  </div>
+                              </div>
+                              <div class="claimcontrols">
+                                  <button class="claimbutton" onclick="submitClaim()">Claim</button>
+                              </div>
 
-
-                            </div>
-
-                            <div id="chatSubmit" class="interactionsub">or submit a claim ...</div>
-
-                            <div class="claimbox">
-                                <div class="claimrow">
-                                    <label class="claimlabel">Date</label>
-                                    <input id="claimdate" type="date" class="claiminput">
-                                </div>
-                                <div class="claimrow">
-                                    <label class="claimlabel">Benefit</label>
-                                    <select id="benefittypes" class="claiminput">
-                                    </select>
-                                </div>
-                                <div class="claimrow">
-                                    <label class="claimlabel">Provider</label>
-                                    <input id="provider" class="claiminput">
-                                </div>
-                                <div class="claimrow">
-                                    <label class="claimlabel">Amount ($)</label>
-                                    <input id="claimamount" type=number class="claiminput">
-                                </div>
-                            </div>
-                            <div class="claimcontrols">
-                                <a href="./claims.html">history</a>
-                                <button class="claimbutton" onclick="submitClaim()">Claim</button>
-                            </div>
-
-                            <div class="claimmessages" id="claimmessages"></div>
+                              <div class="claimmessages" id="claimmessages"></div>
+                          </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="chatbot">
+                        <div class = "anaBanner">Questions? Try asking Ana.</div>
+                        <div id="chatBox" class="dialogcontainer"></div>
+                        <input type = text id="chatMessage" class="dialoginput" placeholder="Type your message here " onkeypress="return newEvent(event)"></input>
+
+
+                    </div>
+
 
             </section>
-        </div>
+
     </div>
 
-    <footer>
-        <section class="layout">
-            <p>
-            </p>
-            <div class="github">
-                <span class="octicon octicon-octoface " style="font-size:22px;padding-right:10px; ">
-    </span>
-
-            </div>
-            <p></p>
-        </section>
-        <!-- layout -->
-    </footer>
     <!-- footer section -->
 
 </body>

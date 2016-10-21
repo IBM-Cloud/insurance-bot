@@ -1,11 +1,9 @@
     body,
     html {
-        background-color: #F7F9F9;
-        width: 100%;
-        height: 100%;
+        background-color: #F8F8F9;
         margin: 0 auto;
-        font-family: Libre Franklin,sans-serif;
-        color: #12aaeb;
+        font-family: Lato,sans-serif;
+        color: #283D56;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -97,11 +95,11 @@
 
     a {
         text-decoration: none;
-        color: #12aaeb;
+        color: #5586D6;
     }
 
     .logoImage {
-        height: 30px;
+        height: 25px;
     }
 
     .watsonLogo {
@@ -334,7 +332,8 @@
 
     .menuLink {
         color: white !important;
-
+        font-size: 13px;
+        font-weight: bold;
     }
 
     .logout {
@@ -521,6 +520,7 @@
         flex-direction: row;
         justify-content: center;
         padding-bottom: 20px;
+        padding-top: 20px;
         align-self: center;
     }
 
@@ -1154,7 +1154,7 @@
     }
 
     .menu {
-        margin-right: 30px;
+      padding: 0 1rem;
     }
 
     .loginmenu {
@@ -1177,7 +1177,7 @@
             width: 100%;
         }
         .banner {
-            display: flex;
+            /*display: flex;
             flex-direction: column;
             align-items: center;
             background: #225282;
@@ -1187,7 +1187,7 @@
             margin-top: 0;
             border-radius: 0;
             height: 90px;
-            z-index: 0;
+            z-index: 0;*/
         }
         .bannersecond {
             display: flex;
@@ -1208,8 +1208,7 @@
         .menu {
             font-size: 14px;
             font-weight: 500;
-            margin-left: 10px;
-            padding: 20px;
+            padding: 10px;
         }
         .tiles {
             isplay: flex;

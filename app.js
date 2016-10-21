@@ -239,15 +239,34 @@ app.post('/submitClaim', function(req, res) {
     var claim = req.body;
 
     if (req.isAuthenticated()) {
+        var owner = req.user.local.email;
+        
+        res.setHeader('Content-Type', 'application/json');
+
+        fileClaim(owner, claim, function(err, result) {
+            if (err) {
+                console.log("Error filing claim: ", err);
+                res.status(500).json(err);
+            } else if (result) {
+                console.log("Claim filed");
+                res.status(200).json(JSON.stringify(result, null, 3));
+            }
+        });
+
+    }
+});
+
+function fileClaim(owner, claim, callback) {
+
+    if (owner && claim) {
         Benefits.findOne({
-            owner: req.user.local.email
+            owner: owner
         }, function(err, doc) {
 
             doc.policies.forEach(function(policy) {
+                var message = '';
 
                 if (policy.title === claim.benefit) {
-
-                    /* default */
 
                     claim.outcome = 'DENIED';
                     claim.payment = 0;
@@ -263,38 +282,47 @@ app.post('/submitClaim', function(req, res) {
                         claim.outcome = 'PARTIAL';
                         claim.payment = policy.Limit - policy.amountClaimed;
                         policy.amountClaimed = policy.Limit;
+                        message = "You have reached max coverage. Remaining $"+ amountAvailable + "of policy limit applied.";
+                    } 
+                    
+                    if (amountAvailable <= 0) {
+                        claim.outcome = 'NONE';
+                        claim.payment = 0;
+                        message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
                     }
-
+                    
                     if (possibleEligibility < amountAvailable) {
                         claim.outcome = 'FULL';
                         claim.payment = possibleEligibility;
                         policy.amountClaimed = policy.amountClaimed + possibleEligibility;
+                        message = "$" + possibleEligibility + " was covered by your insurance!";
                     }
 
                     policy.claims.push(claim);
+                    console.log("Claim is: ",claim);
 
                     doc.save(function(err) {
 
-                        res.setHeader('Content-Type', 'application/json');
-
                         var result = {
-                            outcome: 'failure'
+                            outcome: 'failure',
+                            message: message
                         };
 
                         if (err) {
-                            throw err;
+                            return callback(err);
                         } else {
                             result.outcome = 'success';
                         }
 
-                        var responseString = JSON.stringify(result, null, 3);
-                        res.send(responseString);
+                        console.log(JSON.stringify(result, null, 3));
+                        return callback(null, result);
                     });
                 }
             });
         });
     }
-});
+
+}
 
 
 // =====================================
@@ -323,7 +351,7 @@ app.get('/soon', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-    res.redirect("https://github.com/IBM-Bluemix/insurance-bot/wiki");
+    res.redirect("https://github.com/IBM-Bluemix/cloudco-insurance/wiki");
 });
 
 app.get('/healthBenefits', isLoggedIn, function(req, res) {
@@ -412,23 +440,28 @@ app.post('/api/orders', function(req, res, next) {
 // WATSON CONVERSATION FOR ANA =========
 // =====================================
 app.post('/api/ana', function(req, res) {
-    console.log("Request is: ",req);
+
+    // ensure user policies are loaded
     if (!req.body.context || !req.body.context.system) {
         getUserPolicy(req, function(err, doc) {
             if (err) {
-                res.send(err);
+                res.status(err.code || 500).json(err);
             } else {
-                req.session.userPolicy = doc;
+                processChatMessage(req, res);
             }
         });
+    } else {
+        processChatMessage(req, res);
     }
+}); // End app.post 'api/ana'
 
+function processChatMessage(req, res) {
     chatbot.sendMessage(req, function(err, data) {
         if (err) {
             console.log("Error in sending message: ", err);
-            return res.status(err.code || 500).json(err);
+            res.status(err.code || 500).json(err);
         } else {
-
+            
             Log.findOne({
                 'conversation': data.context.conversation_id
             }, function(err, doc) {
@@ -436,16 +469,54 @@ app.post('/api/ana', function(req, res) {
                     console.log("Cannot find log for conversation id of ", data.context.conversation_id);
                 } else {
                     console.log("Sending log updates to dashboard");
-                    console.log("doc: ", doc);
+                    //console.log("doc: ", doc);
                     io.sockets.emit('logDoc', doc);
                 }
             });
 
-            return res.json(data);
+            var context = data.context;
+            var amount = context.claim_amount;
+            var owner = req.user.local.email;
+
+            // File a claim for the user
+            if (context.claim_step === "verify") {
+                var claimFile = {
+                    date: null,
+                    benefit: null,
+                    provider: null,
+                    amount: null
+                };
+
+                claimFile.date = context.claim_date;
+                claimFile.benefit = context.claim_procedure;
+                claimFile.provider = context.claim_provider;
+                claimFile.amount = context.claim_amount;
+                
+                console.log("Filing data: "+owner+ " claimFile: " + JSON.stringify(claimFile));
+
+                fileClaim(owner, claimFile, function(err, reply) {
+                    
+                    data.output.text = '';
+                    data.context.claim_step = '';
+                    
+                    console.log("Reply for claim file: ",reply);
+
+                    if (reply && reply.outcome === 'success') {
+                        data.output.text = "Your " + context.claim_procedure + " claim for " + amount + " was successfully filed! "+reply.message;
+                        res.status(200).json(data);
+
+                    } else {
+                        res.status(500).json(err);
+                    }
+
+                });
+
+            } else {
+                res.status(200).json(data);
+            }
         }
     });
-
-}); // End app.post 'api/ana'
+}
 
 
 // launch ======================================================================
