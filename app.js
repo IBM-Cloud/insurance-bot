@@ -282,20 +282,20 @@ function fileClaim(owner, claim, callback) {
                         claim.outcome = 'PARTIAL';
                         claim.payment = policy.Limit - policy.amountClaimed;
                         policy.amountClaimed = policy.Limit;
-                        message = "You have reached max coverage. Future services are out-of-pocket.";
+                        message = "You have reached max coverage. Remaining $"+ amountAvailable + "of policy limit applied.";
                     } 
                     
                     if (amountAvailable <= 0) {
                         claim.outcome = 'NONE';
                         claim.payment = 0;
-                        message = "Max claim reached. Coverage is out-of-pocket.";
+                        message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
                     }
                     
                     if (possibleEligibility < amountAvailable) {
                         claim.outcome = 'FULL';
                         claim.payment = possibleEligibility;
                         policy.amountClaimed = policy.amountClaimed + possibleEligibility;
-                        message = "Procedure is fully covered!";
+                        message = "$" + possibleEligibility + " was covered by your insurance!";
                     }
 
                     policy.claims.push(claim);
@@ -497,16 +497,12 @@ function processChatMessage(req, res) {
                 fileClaim(owner, claimFile, function(err, reply) {
                     
                     data.output.text = '';
-                    context.claim_step = '';
-                    context.claim_date = '';
-                    context.claim_provider = '';
-                    context.claim_amount = '';
-                    context.system = '';
+                    data.context.claim_step = '';
                     
                     console.log("Reply for claim file: ",reply);
 
                     if (reply && reply.outcome === 'success') {
-                        data.output.text = "Your " + context.claim_procedure + " claim for " + amount + " was successfully filed!";
+                        data.output.text = "Your " + context.claim_procedure + " claim for " + amount + " was successfully filed! "+reply.message;
                         res.status(200).json(data);
 
                     } else {

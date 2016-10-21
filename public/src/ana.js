@@ -31,15 +31,8 @@ function newEvent(e) {
             displayMessage(text, user);
             userInput.value = '';
 
-            // Ana is on claim step for date or amount.
-            if (context.claim_step === "date") {
-                validateDate(text);
-            } else if (context.claim_step === "amount") {
-                validateAmount(text);
-            } else {
-                userMessage(text);
-            }
-
+            userMessage(text);
+            
         } else {
 
             // Blank user message. Do nothing.
@@ -90,21 +83,29 @@ function userMessage(message) {
 
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
+            displayMessage("I ran into an error. Could you please try again.", watson);
         }
     };
 
     xhr.onerror = function() {
         console.error('Network error trying to send message!');
+        displayMessage("I can't reach my brain right now. Try again in a few minutes.", watson);
     };
 
     console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
 }
 
-
 function getTimestamp() {
-  var d = new Date();
-  return d.getHours() + ":" + d.getMinutes();
+    var d = new Date();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
 }
 /**
  * @summary Display Chat Bubble.
@@ -137,84 +138,4 @@ function displayMessage(text, user) {
     chat.appendChild(bubble);
     chat.scrollTop = chat.scrollHeight; // Move chat down to the last message displayed
     document.getElementById('chatMessage').focus();
-}
-
-/**
- * @summary Validate Date Input.
- *
- * Parses and converts the date down to a YYYY-MM-DD format for creating a
- * valid claim document.
- *
- * @function validateDate
- * @param  {String} date - User entered date from chat dialog.
- * @return {String} text - Formatted string passed to Ana.
- */
-function validateDate(date) {
-
-    // Set current date for checking if user is trying to claim in the future
-    var cDate = new Date();
-    var userDate = new Date();
-
-    if(date==='yesterday'){
-        userDate.setDate(userDate.getDate()-1);
-    } else {
-        // Strip modifiers for dates and the phrase 'of'
-        var stripPattern = /(th|rd|nd|st|of)/gi;
-        date = date.replace(stripPattern, '');
-        // Convert most formats to milliseconds
-        userDate = new Date(date);
-    }
-
-    console.log(userDate);
-
-    // If the date is NaN reprompt for correct format
-    if (isNaN(userDate)) {
-        text = "Invalid date format. Please use YYYY-MM-DD.";
-        displayMessage(text, watson);
-    } else if (userDate) { // If for some reason there is no date then reprompt
-        if (userDate > cDate) { // If user tries to claim a date in the future
-            text = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
-            displayMessage(text, watson);
-        } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
-            var month = '' + (userDate.getUTCMonth()),
-                day = '' + (userDate.getUTCDate()),
-                year = userDate.getFullYear();
-
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (day.length < 2) {
-                day = '0' + day;
-            }
-
-            text = [year, month, day].join('-');
-
-            userMessage(text);
-        }
-    } else {
-        text = "Not a valid date. Please enter the date is YYYY-MM-DD.";
-        displayMessage(text, watson);
-    }
-}
-
-/**
- * @summary Create Valid Float Type.
- *
- * Trims the user input for the claim amount to a decimal/float type for entry
- * into a claim document.
- *
- * @function validateAmount
- * @param  {String} amount - User entered claim amount from chat dialog.
- */
-function validateAmount(amount) {
-    console.log(amount);
-    // Strip any non-numerics out
-    amount = amount.replace(/[^0-9.]/g, "");
-
-    // Strip decimals down to two
-    amount = parseFloat(amount);
-    amount = amount.toFixed(2);
-    amount = amount.toString();
-
-    userMessage(amount);
 }

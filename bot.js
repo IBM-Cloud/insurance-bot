@@ -12,6 +12,7 @@
  */
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
+var chrono = require('chrono-node');
 
 // load local VCAP configuration
 var vcapLocal = null
@@ -64,6 +65,7 @@ var Log = require('./models/log');
 var chatbot = {
     sendMessage: function(req, callback) {
         var userPolicy = req.session.userPolicy;
+        var owner = req.user.local.email;
 
         buildContextObject(req, function(err, params) {
 
@@ -72,9 +74,28 @@ var chatbot = {
                 return callback(err);
             }
 
-            if (params) {
+            if (params.message) {
+                var conv = req.body.context.conversation_id;
+                var context = req.body.context;
+
+                var res = {
+                    intents: [],
+                    entities: [],
+                    input: req.body.text,
+                    output: {
+                        text: params.message
+                    },
+                    context: context
+                };
+
+                chatLogs(owner, conv, res);
+
+                return callback(null, res);
+            } else if (params) {
                 // Send message to the conversation service with the current context
                 conversation.message(params, function(err, data) {
+                    var conv = data.context.conversation_id;
+
                     if (err) {
                         console.log("Error in sending message: ", err);
                         return callback(err);
@@ -83,11 +104,9 @@ var chatbot = {
                     console.log("Got response from Ana: ", JSON.stringify(data));
 
                     updateContextObject(data, userPolicy, function(err, res) {
-                        var owner = req.user.local.email;
-                        var conversation = data.context.conversation_id;
 
                         if (data.context.system.dialog_turn_counter > 1) {
-                            chatLogs(owner, conversation, res);
+                            chatLogs(owner, conv, res);
                         }
 
                         return callback(null, res);
@@ -174,8 +193,8 @@ function buildContextObject(req, callback) {
     var message = req.body.text;
     var context;
     var userPolicy;
-    
-    if(!message) {
+
+    if (!message) {
         message = '';
     }
 
@@ -189,10 +208,63 @@ function buildContextObject(req, callback) {
         input: {},
         context: {}
     };
+    var reprompt = {
+        message: '',
+    };
 
     if (req.body.context) {
         context = req.body.context;
         params.context = context;
+
+        if (context.claim_step === "amount") {
+            // Strip any non-numerics out
+            message = message.replace(/[^0-9.]/g, "");
+
+            if (message && message !== '') {
+                // Strip decimals down to two
+                message = parseFloat(message);
+                message = message.toFixed(2);
+                message = message.toString();
+            } else {
+                reprompt.message = "You didn't enter a valid amount. Please enter the amount paid for the procedure.";
+                return callback(null, reprompt);
+            }
+        } else if (context.claim_step === "date") {
+            var date = message;
+
+            // Set current date for checking if user is trying to claim in the future
+            var cDate = new Date();
+            var userDate = chrono.parseDate(date);
+
+            console.log("Date: ", userDate);
+
+            // If the date is NaN reprompt for correct format
+            if (isNaN(userDate)) {
+                reprompt.message = "That doesn't look like a date. Please try again.";
+                return callback(null, reprompt);
+            } else if (userDate) {
+                if (userDate > cDate) { // If user tries to claim a date in the future
+                    reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
+                    return callback(null, reprompt);
+                } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
+                    var month = '' + (userDate.getUTCMonth()),
+                        day = '' + (userDate.getUTCDate()),
+                        year = userDate.getFullYear();
+
+                    if (month.length < 2) {
+                        month = '0' + month;
+                    }
+                    if (day.length < 2) {
+                        day = '0' + day;
+                    }
+
+                    message = [year, month, day].join('-');
+                }
+            } else {
+                reprompt.message = "That doesn't look like a valid date. Please try again.";
+                return callback(null, reprompt);
+            }
+        }
     } else {
         context = '';
     }
