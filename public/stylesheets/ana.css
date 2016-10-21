@@ -2,7 +2,8 @@
 .chatbot {
     background-color: white;
     border-left: 2px solid #EAEAEA;
-    min-width: 325px;
+    min-width: 200px;
+    max-width: 325px;
     display: flex;
     flex-direction: column;
 
@@ -150,6 +151,7 @@
     border: none;
     order: -1;
     margin-bottom: 1rem;
+    max-width: none;
   }
 
   .dialogcontainer {
