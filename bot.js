@@ -1,7 +1,7 @@
 /**
- * This file contains all of the web and hybrid functions for interacting with 
+ * This file contains all of the web and hybrid functions for interacting with
  * Ana and the Watson Conversation service. When API calls are not needed, the
- * functions also do basic messaging between the client and the server. 
+ * functions also do basic messaging between the client and the server.
  *
  * @summary   Functions for Ana Chat Bot.
  *
@@ -37,7 +37,7 @@ if (appEnv.isLocal) {
 // =====================================
 // CREATE THE SERVICE WRAPPER ==========
 // =====================================
-// Create the service wrapper 
+// Create the service wrapper
 var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
 var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
 var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
@@ -94,12 +94,12 @@ var chatbot = {
             } else if (params) {
                 // Send message to the conversation service with the current context
                 conversation.message(params, function(err, data) {
-                    var conv = data.context.conversation_id;
 
                     if (err) {
                         console.log("Error in sending message: ", err);
                         return callback(err);
                     }
+                    var conv = data.context.conversation_id;
 
                     console.log("Got response from Ana: ", JSON.stringify(data));
 
@@ -182,8 +182,8 @@ function chatLogs(owner, conversation, response) {
 /**
  * @summary Form the parameter object to be sent to the service
  *
- * Update the context object based on the user state in the conversation and 
- * the existence of variables. 
+ * Update the context object based on the user state in the conversation and
+ * the existence of variables.
  *
  * @function buildContextObject
  * @param {Object} req - Req by user sent in POST with session and user message
@@ -294,12 +294,12 @@ function buildContextObject(req, callback) {
 /**
  * @summary Arrays for Policy Areas and the Procedures for each.
  *
- * Dynamically generate an array of the available subjects to query on for the 
+ * Dynamically generate an array of the available subjects to query on for the
  * #list_options intent. This is to anticipate a scenario in which a user doesn't
- * have coverage for an area such as vision or dental. 
+ * have coverage for an area such as vision or dental.
  *
  * @function parsePolicyTitles
- * @param {Object} doc - Policy document to search through. 
+ * @param {Object} doc - Policy document to search through.
  */
 function parsePolicyTitles(doc, callback) {
 
@@ -392,7 +392,7 @@ function updateContextObject(response, userPolicy, callback) {
         context.procedure_details = procedure_details;
     }
 
-    // Do manual conversation for displaying procedure details 
+    // Do manual conversation for displaying procedure details
     if (context.chosen_detail && context.chosen_procedure) {
         detail = context.chosen_detail;
         procedure_details = context.procedure_details;
