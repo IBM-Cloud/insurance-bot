@@ -32,7 +32,7 @@ function newEvent(e) {
             userInput.value = '';
 
             userMessage(text);
-            
+
         } else {
 
             // Blank user message. Do nothing.
@@ -102,7 +102,7 @@ function getTimestamp() {
     var minutes = d.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
-    hours = hours ? hours : 12; 
+    hours = hours ? hours : 12;
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
@@ -129,8 +129,8 @@ function displayMessage(text, user) {
       bubble.innerHTML = "<div class='anaTitle'>" + name + " | " + getTimestamp() + "</div><div class='ana'>" + text + "</div>";
     } else {
         var name = "John";
-        if(context && context.fname & context.fname.length > 0){
-          name = context.fname.length;
+        if(context && context.fname && context.fname.length > 0){
+          name = context.fname;
         }
         bubble.innerHTML = "<div class='userTitle'>" + name + " | " + getTimestamp() + "</div><div class='user'>" + text + "</div>";
     }

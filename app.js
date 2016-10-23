@@ -277,19 +277,19 @@ function fileClaim(owner, claim, callback) {
 
                     console.log('eligibility: ' + possibleEligibility);
                     console.log('available: ' + amountAvailable);
-
-                    if (policy.amountClaimed > amountAvailable && amountAvailable > 0) {
-                        claim.outcome = 'PARTIAL';
-                        claim.payment = policy.Limit - policy.amountClaimed;
-                        policy.amountClaimed = policy.Limit;
-                        message = "You have reached max coverage. Remaining $"+ amountAvailable + "of policy limit applied.";
-                    } 
                     
-                    if (amountAvailable <= 0) {
+                    if (amountAvailable - claim.amount <= 0) {
                         claim.outcome = 'NONE';
                         claim.payment = 0;
                         message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
                     }
+
+                    if (policy.amountClaimed > amountAvailable && amountAvailable > 0) {
+                        claim.outcome = 'PARTIAL';
+                        claim.payment = amountAvailable;
+                        policy.amountClaimed = policy.Limit;
+                        message = "You have reached max coverage. Remaining $"+ amountAvailable + " of policy limit applied.";
+                    } 
                     
                     if (possibleEligibility < amountAvailable) {
                         claim.outcome = 'FULL';
@@ -370,6 +370,15 @@ app.get('/healthBenefits', isLoggedIn, function(req, res) {
         });
     }
 });
+
+/*
+app.get('/resetUserPolicy', isLoggedIn, function(req,res) {
+    
+    res.setHeader('Content-Type', 'application/json');
+    
+    var user = req.user.local.email;
+*/
+    
 
 function getUserPolicy(req, callback) {
 
