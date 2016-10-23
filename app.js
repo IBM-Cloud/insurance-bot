@@ -274,11 +274,15 @@ function fileClaim(owner, claim, callback) {
                     var possibleEligibility = claim.amount * policy.percentCovered / 100;
 
                     var amountAvailable = policy.claimLimit - policy.amountClaimed;
+                    
+                    if (isNaN(amountAvailable)) {
+                        amountAvailable = 0;
+                    }
 
                     console.log('eligibility: ' + possibleEligibility);
                     console.log('available: ' + amountAvailable);
                     
-                    if (amountAvailable - claim.amount <= 0) {
+                    if (amountAvailable <= 0) {
                         claim.outcome = 'NONE';
                         claim.payment = 0;
                         message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
