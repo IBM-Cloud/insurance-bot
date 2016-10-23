@@ -247,7 +247,7 @@ function buildContextObject(req, callback) {
                     reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
                     return callback(null, reprompt);
                 } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
-                    var month = '' + (userDate.getUTCMonth()),
+                    var month = '' + (userDate.getUTCMonth()+1),
                         day = '' + (userDate.getUTCDate()),
                         year = userDate.getFullYear();
 
