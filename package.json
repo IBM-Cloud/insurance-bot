@@ -24,7 +24,7 @@
     "passport-local": "~1.0.0",
     "request": "~2.73.0",
     "chrono-node":"*",
-    "watson-developer-cloud": "*"
+    "watson-developer-cloud": "2.6.2"
   },
   "repository": {
     "type": "git",
