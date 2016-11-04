@@ -136,7 +136,7 @@ And voila! You now have your very own instance of the app running on Bluemix.
 
 1. Select the option to import a workspace from a JSON file.
 
-1. Select the most recent file from the [conversation](./conversation) folders.
+1. Select `Ana.json` from the [conversation](./conversation) folders.
 
 1. Once you have imported the workspace, retrieve the workspace ID by using the `View Details` option
 
