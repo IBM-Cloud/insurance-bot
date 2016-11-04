@@ -1,0 +1,1940 @@
+{
+    "name": "Ana",
+    "created": "2016-10-23T19:54:09.690Z",
+    "intents": [{
+        "intent": "casual_conversation",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Are you okay?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How are you?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How are you doing?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How are you today?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How is Ana?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "claim_procedure",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Dr Feel Good",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I got my teeth cleaned",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I got new contacts",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I got new glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I had a therapy session",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I had my back adjusted",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I just got new contact lens",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I just got new contacts",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I just got new glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I just spoke to a therapist",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need reimbursement for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to file a claim for contacts",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to file a claim for glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to file a claim for physical therapy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to file a claim for teeth cleaning",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to make a claim for glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want reimbursement for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Teeth cleaning",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "coverage",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Coverage",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much coverage do I have for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much does my plan cover",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much do I have left",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much do I have left in my deductible?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How much more money is in my orthodontics benefit?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I broke my glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need a chiropractor",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need braces",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need braces. Am I covered?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need my back adjusted",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need my spine adjusted",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need new",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need new glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to get contacts",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to get glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to purchase",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to purchase new glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What does a cavity cost me?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is my coverage for physical therapist?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What's the maximum allowance for getting new glasses?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "would my insurance pay for broken glasses?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "find-doctor",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Got to do something about my depression",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I am depressed and need help",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I am looking for psychotherapie",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need a doctor",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "my shoulder broke",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Where can I find a dentist?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Where can I find an in policy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Where can I find an in-policy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Who is my closest dentist",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Who is my closest doctor",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "get_info",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Am I covered",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Can I visit",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Do I have",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I don't need to file a claim",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need info",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need more information",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need some information",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Information",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to know more",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "tell me about my plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Tell me what I need to know",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What are my benefits?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is my coverage?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is my policy?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "When does my policy end?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "When does my policy start?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "goodbye",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Bye",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Catch you later",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Goodbye",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I don't need any more help",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I'm done",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Later",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Nothing more",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "See ya",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "That's all",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "greeting",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Ana",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Anya",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Don't go",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Good afternoon",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Good evening",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Good morning",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Hello",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Hey Ana",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Hi",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Hi Ana",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "It's me again",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "list_options",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "how helpful are you",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What are my options?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What are my policies?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What are the services?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "what can you help with",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What do you recommend?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is available?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is there?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What services are available?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What services do I have?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "make_claim",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Can I file a claim?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Claim",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "How do I file a claim?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I just got glasses.",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to make a claim",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I recently went to the doctor.",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to file a claim.",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to file a recent expense.",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "negative",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Dumb bot",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Dumb machine",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Give me someone real to talk to",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I hate this thing",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I hate you",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Why can't you do your job",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Why won't you work",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Wow that's mean",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "You're quite rude",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "You're stupid",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "no-response",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Get me a beer",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Help me",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I have an emergency",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I may die",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to learn more about decapitation coverage",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want a beer",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Well, I am under pressure",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What should I do if I accidentally cut my finger off?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "off_topic",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Are you a robot?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Are you real?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Are you single?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Do you like your job?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is the meaning of life?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is the weather?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "positive",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "fantastic",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I love you",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I really appreciate it",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "muchas gracias",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "thanks",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "thank you",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "thank you Ana",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "thank you so much",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "that's great",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "this is fantastic",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "you're awesome",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "select_detail",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "eye glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Hi Ana, I have a cavity that needs to be filled and I want to know what my coverage is",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need the code for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need the term for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "till now nothing but I will have to see my dentist next week and wonder which services are covered by my plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is my term for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is the code for",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "What is the limit for glasses?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "When does my plan end?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "select_procedure",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "I need information about eye wear",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about therapy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about tooth repair",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Tell me what my coverage is",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Tell me what my limit is",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Tell me what my limit is for eye wear",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Yes I need to know my policy for buying new glasses",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "select_service",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "I need details about my dental",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about my dental plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about my vision plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need information about physical",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to know about my vision plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want some details on my vision plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want some info about my vision plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Need info about dental",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Vision",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "still-here",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "Come back",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I'm not done",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need more help",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I wasn't done",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I wasn't finished",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "k",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Still talking with me?",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }, {
+        "intent": "update_policy",
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "examples": [{
+            "text": "I need more coverage",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need more insurance",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to update my account",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I need to update my vision plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to change my account details",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to change my password",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to change my policy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "I want to drop my plan",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "My information is wrong",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "My name is wrong",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }, {
+            "text": "Update account details",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z"
+        }],
+        "description": null
+    }],
+    "updated": "2016-10-23T19:54:09.690Z",
+    "entities": [{
+        "type": null,
+        "entity": "details",
+        "source": null,
+        "values": [{
+            "value": "code",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["billing code", "billing information", "doctor code", "number for form"]
+        }, {
+            "value": "coverage",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["covered", "insurance covers", "percentage"]
+        }, {
+            "value": "end",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["end date", "end of coverage", "last", "plan end", "plan termination"]
+        }, {
+            "value": "limit",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["balance", "cash", "deductible", "remaining"]
+        }, {
+            "value": "start",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["first", "start date"]
+        }, {
+            "value": "term",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["billing period", "period"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }, {
+        "type": null,
+        "entity": "family",
+        "source": null,
+        "values": [{
+            "value": "child",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["child", "daughter", "kid", "minion", "son"]
+        }, {
+            "value": "parent",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["father", "mother"]
+        }, {
+            "value": "spouse",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["husband", "partner", "significant other", "wife"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }, {
+        "type": null,
+        "entity": "procedures",
+        "source": null,
+        "values": [{
+            "value": "chiropractor",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["adjustment", "back", "back adjusted", "back doctor", "back pain", "chiropractic", "massage", "spine"]
+        }, {
+            "value": "eye exam",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["annual exam", "check vision", "eye exams"]
+        }, {
+            "value": "eye wear",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["bifocals", "contacts", "correction", "glasses", "laser", "laser treatment", "lasik", "lenses", "specks", "vision correction"]
+        }, {
+            "value": "orthodontics",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["braces", "smile correction", "straighten"]
+        }, {
+            "value": "physiotherapy",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["massage", "muscle pain", "muscle therapy", "myofascial", "physical therapist", "physical therapy", "rehabilitation", "stretching", "therapy exercises"]
+        }, {
+            "value": "psychologist",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["addiction", "counseling", "couples counseling", "depression", "family counseling", "head doctor", "ptsd", "shrink", "therapist", "therapy"]
+        }, {
+            "value": "teeth cleaning",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["biannual", "binannual checkup", "checkup with dentist", "dental checkup", "flossing", "flouride", "teeth cleaned"]
+        }, {
+            "value": "tooth repair",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["bridge", "cap", "cavity", "chipped tooth", "crack", "crown", "filling", "implant", "post", "root canal", "tooth ache", "tooth pain", "tooth removal"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }, {
+        "type": null,
+        "entity": "response",
+        "source": null,
+        "values": [{
+            "value": "no",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["do not", "don't", "false", "negative", "nope", "not", "not right", "not that"]
+        }, {
+            "value": "yes",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["alright", "correct", "fine", "I guess", "I think so", "maybe", "si", "sure", "totally", "ya", "yah", "ye", "yeah", "yep", "you bet", "yup"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }, {
+        "type": null,
+        "entity": "types",
+        "source": null,
+        "values": [{
+            "value": "dental",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["bicuspid", "braces", "bridge", "cavity", "crown", "dental work", "dentist", "molar", "oral surgeon", "orthodontist", "root canal", "teeth", "teeth cleaning", "tooth", "tooth repair"]
+        }, {
+            "value": "mental",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["anxiety", "depression", "mental health", "psychiatrist", "psychologist", "psychotherapy", "shrink", "therapist"]
+        }, {
+            "value": "physical",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["adjustment", "back", "chiropractor", "physical therapy", "spine"]
+        }, {
+            "value": "vision",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["contacts", "eye", "eye exam", "eye exams", "eye glasses", "eyes", "glasses", "laser treatment", "lasik", "ocular", "optometrist"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }, {
+        "type": null,
+        "entity": "verb",
+        "source": null,
+        "values": [{
+            "value": "claim",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["expense", "file", "reimbursement"]
+        }, {
+            "value": "information",
+            "created": "2016-10-23T19:54:09.690Z",
+            "updated": "2016-10-23T19:54:09.690Z",
+            "metadata": null,
+            "synonyms": ["additional details", "data", "description", "info"]
+        }],
+        "created": "2016-10-23T19:54:09.690Z",
+        "updated": "2016-10-23T19:54:09.690Z",
+        "open_list": false,
+        "description": null
+    }],
+    "language": "en",
+    "metadata": null,
+    "description": "Workspace to be used for testing and training.",
+    "dialog_nodes": [{
+        "go_to": null,
+        "output": {
+            "text": "Alright, I can do a @types claim. I also need to know the specific procedure you had done."
+        },
+        "parent": "node_3_1472589537910",
+        "context": {
+            "claim_step": "procedure",
+            "chosen_service": "@types"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@types",
+        "description": null,
+        "dialog_node": "node_6_1472590118317",
+        "previous_sibling": "node_5_1472590033232"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Alright, I can tell you more about your @types plan. Let's narrow it down a little. Which procedure do you need information for?"
+        },
+        "parent": null,
+        "context": {
+            "chosen_service": "@types"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#select_service && @types",
+        "description": null,
+        "dialog_node": "node_8_1470846944134",
+        "previous_sibling": "node_1_1472670944646"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Alright, last thing. What is the amount you want to claim?"
+        },
+        "parent": "node_12_1472604720806",
+        "context": {
+            "claim_step": "amount",
+            "claim_provider": "<? input.text ?>"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text",
+        "description": null,
+        "dialog_node": "node_15_1472604976973",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Alright. What can I do for you? I mostly search boring insurance documents or help you file claims."
+        },
+        "parent": "node_2_1472663851939",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text",
+        "description": null,
+        "dialog_node": "node_10_1476150029988",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Always happy to help!"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#positive",
+        "description": null,
+        "dialog_node": "node_1_1472655156255",
+        "previous_sibling": "node_1_1472578460792"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Fantastic. What is the name of the provider or physician you went to?"
+        },
+        "parent": "node_11_1472598207218",
+        "context": {
+            "claim_step": "provider"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@response:yes",
+        "description": null,
+        "dialog_node": "node_12_1472604720806",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Filing your claim now!"
+        },
+        "parent": "node_15_1472604976973",
+        "context": {
+            "claim_step": "verify",
+            "claim_amount": "<? input.text ?>"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text",
+        "description": null,
+        "dialog_node": "node_16_1472607557405",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "For <? $chosen_service ?> the procedures are <? $procedureList ?>. Which one of those can I look up for you?"
+        },
+        "parent": "node_8_1470846944134",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#list_options",
+        "description": null,
+        "dialog_node": "node_11_1470849685631",
+        "previous_sibling": "node_3_1471903859772"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Goodbye."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#goodbye",
+        "description": null,
+        "dialog_node": "node_1_1471530144227",
+        "previous_sibling": "node_4_1470846498634"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Grabbing the  @details for <? $chosen_procedure ?>."
+        },
+        "parent": "node_6_1471294106656",
+        "context": {
+            "chosen_detail": "@details"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@details",
+        "description": null,
+        "dialog_node": "node_2_1471295022480",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Happy to help!"
+        },
+        "parent": "node_16_1472607557405",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#positive",
+        "description": null,
+        "dialog_node": "node_2_1472761508426",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Hello <? $username ?>! How can I can help you today?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#greeting",
+        "description": null,
+        "dialog_node": "node_4_1470846498634",
+        "previous_sibling": "node_6_1476149112153"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Hey <? $fname ?>! Let me know if you need any help or get stuck looking for information."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "conversation_start",
+        "description": null,
+        "dialog_node": "node_6_1475611948267",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "How can I help with your @types policy? Do you need information or to file a claim?"
+        },
+        "parent": null,
+        "context": {
+            "chosen_service": "@types"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@types",
+        "description": null,
+        "dialog_node": "node_6_1476149112153",
+        "previous_sibling": "node_4_1472589946048"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can get your @details for you. What service do you need info for? I've got information on your vision, dental, mental, and physical plans."
+        },
+        "parent": null,
+        "context": {
+            "chosen_detail": "@details"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#get_info && @details",
+        "description": null,
+        "dialog_node": "node_12_1476151077484",
+        "previous_sibling": "node_1_1471971552653"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can talk about your vision, dental, mental, and physical plans."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#list_options",
+        "description": null,
+        "dialog_node": "node_5_1476113231936",
+        "previous_sibling": "node_3_1476110635133"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can tell you about the limit, coverage, term, start, end, or code. You probably are interested in coverage."
+        },
+        "parent": "node_14_1470851039515",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#list_options",
+        "description": null,
+        "dialog_node": "node_6_1471294106656",
+        "previous_sibling": "node_1_1471294589032"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can't file claims for that."
+        },
+        "parent": "node_3_1472589537910",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_18_1475623617512",
+        "previous_sibling": "node_6_1472590118317"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can't help you with that. I'm just a bot to help you with your insurance documents."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#no-response",
+        "description": null,
+        "dialog_node": "node_1_1475683470899",
+        "previous_sibling": "node_2_1472663851939"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I can't talk about that. But I can tell you about your vision, dental, mental, and physical plans."
+        },
+        "parent": "node_12_1476151077484",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_14_1476151372574",
+        "previous_sibling": "node_13_1476151143532"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I don't have anything for '<? input.text ?>', but I can tell you the limit, coverage, term, start, end, or code for your plan."
+        },
+        "parent": "node_6_1471294106656",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_13_1475622927885",
+        "previous_sibling": "node_2_1471295022480"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I have a date of <? input.text ?>. Is that right?"
+        },
+        "parent": "node_8_1472590259253",
+        "context": {
+            "claim_date": "<? input.text ?>",
+            "claim_step": "verifyDate"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+        "description": null,
+        "dialog_node": "node_11_1472598207218",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I'm fantastic. How are you?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#casual_conversation",
+        "description": null,
+        "dialog_node": "node_2_1472663851939",
+        "previous_sibling": "node_2_1475683599072"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I'm not able to answer that."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "intents.size() == 0",
+        "description": null,
+        "dialog_node": "node_9_1475612074357",
+        "previous_sibling": "node_6_1475611948267"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I'm not confident enough to answer that one. Maybe try something else?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "intents[0].confidence < 0.80",
+        "description": null,
+        "dialog_node": "node_7_1475612009751",
+        "previous_sibling": "node_1_1472655156255"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I'm on the clock. Let's talk later."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#off_topic",
+        "description": null,
+        "dialog_node": "node_1_1472137756520",
+        "previous_sibling": "node_1_1475683470899"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "I'm sorry you feel that way."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#negative",
+        "description": null,
+        "dialog_node": "node_1_1472578460792",
+        "previous_sibling": "node_1_1472137756520"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Let me get that for you. Grabbing the  @details for @procedures."
+        },
+        "parent": null,
+        "context": {
+            "chosen_detail": "@details",
+            "chosen_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@details && #select_detail && @procedures",
+        "description": null,
+        "dialog_node": "node_9_1472596541094",
+        "previous_sibling": "node_12_1476151077484"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Let me take care of that paperwork for you. What did you have done?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#make_claim",
+        "description": null,
+        "dialog_node": "node_3_1472589537910",
+        "previous_sibling": "node_1_1471622977336"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Oh no. Let's get this fixed."
+        },
+        "parent": "node_16_1472607557405",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#negative",
+        "description": null,
+        "dialog_node": "node_3_1472761519777",
+        "previous_sibling": "node_2_1472761508426"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Okay, let me do the boring reading for you. What service did you need to know more about?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#get_info && !(@details) && !(@procedures) && !(@types)",
+        "description": null,
+        "dialog_node": "node_1_1472670944646",
+        "previous_sibling": "node_11_1476150557365"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Okay. Please enter the date again. Use YYYY-MM-DD."
+        },
+        "parent": "node_11_1472598207218",
+        "context": {
+            "claim_step": "date"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_1_1476991423783",
+        "previous_sibling": "node_14_1472604886510"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Okay. Please enter the date again. Use YYYY-MM-DD."
+        },
+        "parent": "node_11_1472598207218",
+        "context": {
+            "claim_step": "date"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@response:no",
+        "description": null,
+        "dialog_node": "node_13_1472604740084",
+        "previous_sibling": "node_12_1472604720806"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Right now I can't help with locating or scheduling providers, but that feature is coming soon!"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#find-doctor",
+        "description": null,
+        "dialog_node": "node_11_1476150557365",
+        "previous_sibling": "node_5_1476113231936"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Sorry, I don't understand that one."
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_10_1475612266683",
+        "previous_sibling": "node_7_1475612009751"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Sure. What can I help you with?"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#still-here",
+        "description": null,
+        "dialog_node": "node_2_1475683599072",
+        "previous_sibling": "node_1_1471530144227"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "The procedure categories are:  <? $procedures ?>. Pick one of those for me."
+        },
+        "parent": "node_6_1472590118317",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#list_options",
+        "description": null,
+        "dialog_node": "node_7_1472590161269",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Unfortunately I can only tell you about your coverage right now. My AI overlords plan to add family coverage soon!"
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@family",
+        "description": null,
+        "dialog_node": "node_3_1476110635133",
+        "previous_sibling": "node_9_1475612074357"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Well, that's not a procedure I know about. I can talk about <? $procedures ?> if you're still interested."
+        },
+        "parent": "node_11_1470849685631",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "anything_else",
+        "description": null,
+        "dialog_node": "node_11_1475612980634",
+        "previous_sibling": "node_14_1470851039515"
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "What information do you need about @procedures?"
+        },
+        "parent": "node_11_1470849685631",
+        "context": {
+            "chosen_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_14_1470851039515",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+        },
+        "parent": "node_7_1472590161269",
+        "context": {
+            "claim_step": "date",
+            "claim_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_8_1472590259253",
+        "previous_sibling": null
+    }, {
+        "go_to": null,
+        "output": {
+            "text": "Your coverage for @procedures is "
+        },
+        "parent": null,
+        "context": {
+            "chosen_detail": "coverage",
+            "chosen_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#coverage && @procedures",
+        "description": null,
+        "dialog_node": "node_1_1471622977336",
+        "previous_sibling": "node_9_1472596541094"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "body",
+            "dialog_node": "node_11_1470849685631"
+        },
+        "output": {},
+        "parent": "node_6_1476149112153",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#get_info",
+        "description": null,
+        "dialog_node": "node_8_1476149304756",
+        "previous_sibling": "node_7_1476149155153"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "body",
+            "dialog_node": "node_6_1472590118317"
+        },
+        "output": {
+            "text": "Alright, I can do a <? $chosen_service ?> claim. I also need to know the specific procedure you had done."
+        },
+        "parent": "node_6_1476149112153",
+        "context": {
+            "claim_step": "procedure"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#make_claim",
+        "description": null,
+        "dialog_node": "node_7_1476149155153",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "body",
+            "dialog_node": "node_8_1470846944134"
+        },
+        "output": {},
+        "parent": "node_12_1476151077484",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@types",
+        "description": null,
+        "dialog_node": "node_13_1476151143532",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_11_1472598207218"
+        },
+        "output": {},
+        "parent": "node_11_1472598207218",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+        "description": null,
+        "dialog_node": "node_14_1472604886510",
+        "previous_sibling": "node_13_1472604740084"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_11_1472598207218"
+        },
+        "output": {},
+        "parent": "node_1_1476991423783",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+        "description": null,
+        "dialog_node": "node_2_1476991501853",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_11_1472598207218"
+        },
+        "output": {},
+        "parent": "node_13_1472604740084",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+        "description": null,
+        "dialog_node": "node_1_1472758289866",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_11_1472598207218"
+        },
+        "output": {
+            "text": "What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+        },
+        "parent": null,
+        "context": {
+            "claim_step": "date",
+            "claim_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#make_claim && @procedures",
+        "description": null,
+        "dialog_node": "node_3_1476991627470",
+        "previous_sibling": "node_3_1472589537910"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_14_1470851039515"
+        },
+        "output": {},
+        "parent": "node_11_1475612980634",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_12_1475613151217",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_14_1470851039515"
+        },
+        "output": {},
+        "parent": "node_8_1470846944134",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_3_1471903859772",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_14_1470851039515"
+        },
+        "output": {
+            "context": {
+                "chosen_detail": "@details",
+                "chosen_procedure": "@procedures"
+            }
+        },
+        "parent": null,
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures && #select_procedure",
+        "description": null,
+        "dialog_node": "node_1_1471971552653",
+        "previous_sibling": "node_8_1470846944134"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_14_1470851039515"
+        },
+        "output": {
+            "text": "What did you need to know about @procedures?"
+        },
+        "parent": "node_2_1475683599072",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_4_1476111372486",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_2_1471295022480"
+        },
+        "output": {
+            "text": ""
+        },
+        "parent": "node_14_1470851039515",
+        "context": {
+            "chosen_detail": "@details"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@details",
+        "description": null,
+        "dialog_node": "node_1_1471294589032",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_8_1470846944134"
+        },
+        "output": {
+            "text": "I can find some info on your vision, dental, mental, and physical plans."
+        },
+        "parent": "node_1_1472670944646",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "#list_options",
+        "description": null,
+        "dialog_node": "node_5_1471288584916",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_8_1472590259253"
+        },
+        "output": {},
+        "parent": "node_6_1472590118317",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_19_1475623879868",
+        "previous_sibling": "node_7_1472590161269"
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_8_1472590259253"
+        },
+        "output": {
+            "text": "Got it. Now what was the date of your appointment?"
+        },
+        "parent": "node_3_1472589537910",
+        "context": null,
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures",
+        "description": null,
+        "dialog_node": "node_5_1472590033232",
+        "previous_sibling": null
+    }, {
+        "go_to": {
+            "return": null,
+            "selector": "condition",
+            "dialog_node": "node_8_1472590259253"
+        },
+        "output": {
+            "text": "I hope it went smoothly. What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+        },
+        "parent": null,
+        "context": {
+            "claim_step": "date",
+            "claim_procedure": "@procedures"
+        },
+        "created": "2016-10-23T19:54:09.690Z",
+        "metadata": null,
+        "conditions": "@procedures && #claim_procedure",
+        "description": null,
+        "dialog_node": "node_4_1472589946048",
+        "previous_sibling": "node_3_1476991627470"
+    }],
+    "workspace_id": "c1f5ad51-67c4-40da-a740-6d295b59aa1a"
+}
