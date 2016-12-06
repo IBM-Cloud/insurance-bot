@@ -158,7 +158,8 @@ function chatLogs(owner, conversation, response) {
     var options = {
         safe: true,
         upsert: true,
-        new: true
+        new: true,
+        w: 'majority'
     };
 
     var query = {
