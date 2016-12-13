@@ -376,7 +376,9 @@ function updateContextObject(response, userPolicy, callback) {
         var policies = userPolicy.policies;
 
         for (var n = 0; n < policies.length; n++) {
-            if (policies[n].title === procedure) {
+            // ignore case when comparing as procedure in conversation model is all lowercase
+            // but the display value for policies has a mixed case.
+            if (policies[n].title.toUpperCase() === procedure.toUpperCase()) {
                 procedure_details = {
                     "limit": "$" + policies[n].claimLimit,
                     "claimed": "$" + policies[n].amountClaimed,
