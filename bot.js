@@ -192,6 +192,7 @@ function chatLogs(owner, conversation, response) {
 function buildContextObject(req, callback) {
 
     var message = req.body.text;
+    var userTime = req.body.user_time;
     var context;
     var userPolicy;
 
@@ -235,18 +236,26 @@ function buildContextObject(req, callback) {
 
             // Set current date for checking if user is trying to claim in the future
             var cDate = new Date();
-            var userDate = chrono.parseDate(date);
+            if (userTime) {
+              console.log("Using user local time as reference for relative operations");
+              cDate = new Date(userTime);
+            }
 
-            console.log("Date: ", userDate);
+            console.log("Reference date:", cDate);
+            userDate = chrono.parseDate(date, cDate);
 
             // If the date is NaN reprompt for correct format
             if (isNaN(userDate)) {
                 reprompt.message = "That doesn't look like a date. Please try again.";
                 return callback(null, reprompt);
             } else if (userDate) {
-                if (userDate > cDate) { // If user tries to claim a date in the future
-                    reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
-                    return callback(null, reprompt);
+                console.log("Date:", userDate);
+                // If user tries to claim a date in the future
+                if (!(userDate.getFullYear() <= cDate.getFullYear() &&
+                      userDate.getUTCMonth() <= cDate.getUTCMonth() &&
+                      userDate.getUTCDate() <= cDate.getUTCDate())) {
+                  reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
+                  return callback(null, reprompt);
                 } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
                     var month = '' + (userDate.getUTCMonth()+1),
                         day = '' + (userDate.getUTCDate()),
