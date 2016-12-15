@@ -27,7 +27,7 @@ function createPolicies(account) {
     var eyeExam = new Policy();
     eyeExam.type = 'vision';
     eyeExam.icon = 'eyeexam';
-    eyeExam.title = 'eye exams';
+    eyeExam.title = 'eye exam';
     eyeExam.description = 'Eye examinations';
     eyeExam.claimLimit = 100;
     eyeExam.percentCovered = 100;
@@ -83,7 +83,7 @@ function createPolicies(account) {
     var mentalHealth = new Policy();
     mentalHealth.type = 'mental';
     mentalHealth.icon = 'talk';
-    mentalHealth.title = 'Psychologist';
+    mentalHealth.title = 'psychologist';
     mentalHealth.description = 'Psychologist';
     mentalHealth.claimLimit = 1400;
     mentalHealth.percentCovered = 70;
@@ -97,7 +97,7 @@ function createPolicies(account) {
     var physio = new Policy();
     physio.type = 'physical';
     physio.icon = 'body';
-    physio.title = 'Physiotherapy';
+    physio.title = 'physiotherapy';
     physio.description = 'Physiotherapy';
     physio.claimLimit = 800;
     physio.percentCovered = 60;
@@ -111,7 +111,7 @@ function createPolicies(account) {
     var chiropractor = new Policy();
     chiropractor.type = 'physical';
     chiropractor.icon = 'spine';
-    chiropractor.title = 'Chiropractor';
+    chiropractor.title = 'chiropractor';
     chiropractor.description = 'Chiropractic Services';
     chiropractor.claimLimit = 400;
     chiropractor.percentCovered = 50;
@@ -175,7 +175,7 @@ module.exports = function (passport) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, email, password, done) {
-            
+
             var firstName = req.body.fname;
             var lastName = req.body.lname;
 
