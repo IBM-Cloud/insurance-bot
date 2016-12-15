@@ -240,7 +240,7 @@ app.post('/submitClaim', function(req, res) {
 
     if (req.isAuthenticated()) {
         var owner = req.user.local.email;
-        
+
         res.setHeader('Content-Type', 'application/json');
 
         fileClaim(owner, claim, function(err, result) {
@@ -263,10 +263,13 @@ function fileClaim(owner, claim, callback) {
             owner: owner
         }, function(err, doc) {
 
+          console.log('fileClaim', err, doc);
+            var policyFound = false;
             doc.policies.forEach(function(policy) {
                 var message = '';
 
                 if (policy.title === claim.benefit) {
+                    policyFound = true;
 
                     claim.outcome = 'DENIED';
                     claim.payment = 0;
@@ -274,14 +277,14 @@ function fileClaim(owner, claim, callback) {
                     var possibleEligibility = claim.amount * policy.percentCovered / 100;
 
                     var amountAvailable = policy.claimLimit - policy.amountClaimed;
-                    
+
                     if (isNaN(amountAvailable)) {
                         amountAvailable = 0;
                     }
 
                     console.log('eligibility: ' + possibleEligibility);
                     console.log('available: ' + amountAvailable);
-                    
+
                     if (amountAvailable <= 0) {
                         claim.outcome = 'NONE';
                         claim.payment = 0;
@@ -293,8 +296,8 @@ function fileClaim(owner, claim, callback) {
                         claim.payment = amountAvailable;
                         policy.amountClaimed = policy.Limit;
                         message = "You have reached max coverage. Remaining $"+ amountAvailable + " of policy limit applied.";
-                    } 
-                    
+                    }
+
                     if (possibleEligibility < amountAvailable) {
                         claim.outcome = 'FULL';
                         claim.payment = possibleEligibility;
@@ -323,6 +326,10 @@ function fileClaim(owner, claim, callback) {
                     });
                 }
             });
+
+            if (!policyFound) {
+              callback(new Error("policy not found"));
+            }
         });
     }
 
@@ -377,12 +384,12 @@ app.get('/healthBenefits', isLoggedIn, function(req, res) {
 
 /*
 app.get('/resetUserPolicy', isLoggedIn, function(req,res) {
-    
+
     res.setHeader('Content-Type', 'application/json');
-    
+
     var user = req.user.local.email;
 */
-    
+
 
 function getUserPolicy(req, callback) {
 
@@ -474,7 +481,7 @@ function processChatMessage(req, res) {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
         } else {
-            
+
             Log.findOne({
                 'conversation': data.context.conversation_id
             }, function(err, doc) {
@@ -504,14 +511,14 @@ function processChatMessage(req, res) {
                 claimFile.benefit = context.claim_procedure;
                 claimFile.provider = context.claim_provider;
                 claimFile.amount = context.claim_amount;
-                
+
                 console.log("Filing data: "+owner+ " claimFile: " + JSON.stringify(claimFile));
 
                 fileClaim(owner, claimFile, function(err, reply) {
-                    
+
                     data.output.text = '';
                     data.context.claim_step = '';
-                    
+
                     console.log("Reply for claim file: ",reply);
 
                     if (reply && reply.outcome === 'success') {
