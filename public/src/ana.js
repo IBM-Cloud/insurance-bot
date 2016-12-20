@@ -58,7 +58,7 @@ function userMessage(message) {
 
     // Set parameters for payload to Watson Conversation
     params.text = message; // User defined text to be sent to service
-
+    params.user_time = new Date();
     if (context) {
         params.context = context;
     }
