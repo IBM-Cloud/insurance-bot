@@ -29,11 +29,13 @@ require("cf-deployment-tracker-client").track();
 // configuration ===============================================================
 // load local VCAP configuration
 var vcapLocal = null
-try {
+if (require('fs').existsSync('./vcap-local.json')) {
+  try {
     vcapLocal = require("./vcap-local.json");
     console.log("Loaded local VCAP", vcapLocal);
-} catch (e) {
+  } catch (e) {
     console.error(e);
+  }
 }
 
 // get the app environment from Cloud Foundry, defaulting to local VCAP
