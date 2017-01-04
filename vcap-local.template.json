@@ -1,13 +1,17 @@
 {
   "services": {
-    "compose-for-mongodb": [
+    "cloudantNoSQLDB": [
       {
-        "label": "compose-for-mongodb",
-        "name": "insurance-bot-db",
+        "name": "insurance-cloudant",
+        "label": "cloudantNoSQLDB",
+        "plan": "Lite",
         "credentials": {
-          "ca_certificate_base64": "",
-          "uri": ""
-        }
+            "username": "",
+            "password": "",
+            "host": "",
+            "port": 443,
+            "url": ""
+            }
       }
     ],
     "conversation": [
@@ -15,9 +19,9 @@
         "label": "conversation",
         "name": "insurance-bot-conversation",
         "credentials": {
-          "url": "https://gateway.watsonplatform.net/conversation/api",
-          "password": "",
-          "username": ""
+            "url": "https://gateway.watsonplatform.net/conversation/api",
+            "password": "",
+            "username": ""
         }
       }
     ]

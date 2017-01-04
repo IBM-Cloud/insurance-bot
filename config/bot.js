@@ -13,52 +13,99 @@
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
+var fs = require('fs');
 
 // load local VCAP configuration
-var vcapLocal = null
-if (require('fs').existsSync('./vcap-local.json')) {
-  try {
-    vcapLocal = require("./vcap-local.json");
-    console.log("Loaded local VCAP", vcapLocal);
-  } catch (e) {
-    console.error(e);
-  }
-}
+var vcapLocal = null;
+var appEnv = null;
+var appEnvOpts = {};
+
+var conversationUsername, conversationPassword, conversationURL;
+
+fs.stat('./vcap-local.json', function(err, stat) {
+    if (err && err.code === 'ENOENT') {
+        // file does not exist
+        console.log('No vcap-local.json');
+        initializeAppEnv();
+    } else if (err) {
+        console.log('Error retrieving local vcap: ', err.code);
+    } else {
+        vcapLocal = require("../vcap-local.json");
+        console.log("Loaded local VCAP", vcapLocal);
+        appEnvOpts = {
+            vcap: vcapLocal
+        };
+        initializeAppEnv();
+    }
+});
 
 // get the app environment from Cloud Foundry, defaulting to local VCAP
-var appEnvOpts = vcapLocal ? {
-    vcap: vcapLocal
-} : {}
-var appEnv = cfenv.getAppEnv(appEnvOpts);
+function initializeAppEnv() {
+    appEnv = cfenv.getAppEnv(appEnvOpts);
 
-var appName;
-if (appEnv.isLocal) {
-    require('dotenv').load();
+    if (appEnv.isLocal) {
+        require('dotenv').load();
+    }
+
+    if (appEnv.services.cloudantNoSQLDB) {
+        initCloudant();
+    } else {
+        console.error("No Cloudant service exists.");
+    }
+
+    if (appEnv.services.conversation) {
+        initConversation();
+    } else {
+        console.error("No Watson conversation service exists");
+    }
+}
+
+// =====================================
+// CLOUDANT SETUP ======================
+// =====================================
+//var cloudantURL = process.env.CLOUDANT_URL;
+var dbname = "logs";
+var Logs;
+
+function initCloudant() {
+    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-cloudant").url;
+    var Cloudant = require('cloudant')(cloudantURL);
+    // Create the accounts Logs if it doesn't exist
+    Cloudant.db.create(dbname, function(err, body) {
+        if (err) {
+            console.log("Database already exists: ", dbname);
+        } else {
+            console.log("New database created: ", dbname);
+        }
+    });
+    Logs = Cloudant.db.use(dbname);
 }
 
 // =====================================
 // CREATE THE SERVICE WRAPPER ==========
 // =====================================
 // Create the service wrapper
-var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
-var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
-var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
-console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+function initConversation() {
+    var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
+    console.log(conversationCredentials);
+    conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
+    conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+    conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
+    var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+    console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
 
-var conversation = watson.conversation({
-    url: conversationCredentials.url,
-    username: conversationUsername,
-    password: conversationPassword,
-    version_date: '2016-07-11',
-    version: 'v1'
-});
+    var conversation = watson.conversation({
+        url: conversationURL,
+        username: conversationUsername,
+        password: conversationPassword,
+        version_date: '2016-07-11',
+        version: 'v1'
+    });
 
-if (!conversationWorkspace) {
-    console.log("No workspace detected. Cannot run the Watson Conversation service.");
+    if (!conversationWorkspace) {
+        console.log("No workspace detected. Cannot run the Watson Conversation service.");
+    }
 }
-
-var Log = require('./models/log');
 
 // =====================================
 // REQUEST FOR ANA =====================
@@ -67,7 +114,7 @@ var Log = require('./models/log');
 var chatbot = {
     sendMessage: function(req, callback) {
         var userPolicy = req.session.userPolicy;
-        var owner = req.user.local.email;
+        var owner = req.user.username;
 
         buildContextObject(req, function(err, params) {
 
@@ -125,7 +172,7 @@ var chatbot = {
 // ===============================================
 function chatLogs(owner, conversation, response) {
 
-    console.log("response object is: ", response);
+    console.log("Response object is: ", response);
 
     // Blank log file to parse down the response object
     var logFile = {
@@ -142,39 +189,50 @@ function chatLogs(owner, conversation, response) {
     logFile.date = new Date();
 
     var date = new Date();
+    var doc = {};
 
-    var update = {
-        $set: {
-            lastContext: response.context,
-        },
-        $push: {
-            logs: logFile
-        },
-        $setOnInsert: {
-            owner: owner,
-            date: date,
-            conversation: conversation,
+    Logs.find({
+        selector: {
+            'conversation': conversation
         }
-    };
-
-    var options = {
-        safe: true,
-        upsert: true,
-        new: true,
-        w: 'majority'
-    };
-
-    var query = {
-        'conversation': conversation
-    };
-
-    Log.findOneAndUpdate(query, update, options, function(err, doc) {
+    }, function(err, result) {
         if (err) {
-            console.log("Error with log: ", err);
-        }
+            console.log("Couldn't find logs.");
+        } else {
+            doc = result.docs[0];
 
-        if (doc) {
-            console.log("Log update success for conversation id of ", conversation);
+            if (result.docs.length === 0) {
+                console.log("No log. Creating new one.");
+
+                doc = {
+                    owner: owner,
+                    date: date,
+                    conversation: conversation,
+                    lastContext: response.context,
+                    logs: []
+                };
+
+                doc.logs.push(logFile);
+
+                Logs.insert(doc, function(err, body) {
+                    if (err) {
+                        console.log("There was an error creating the log: ", err);
+                    } else {
+                        console.log("Log successfull created: ", body);
+                    }
+                });
+            } else {
+                doc.lastContext = response.context;
+                doc.logs.push(logFile);
+
+                Logs.insert(doc, function(err, body) {
+                    if (err) {
+                        console.log("There was an error updating the log: ", err);
+                    } else {
+                        console.log("Log successfull updated: ", body);
+                    }
+                });
+            }
         }
     });
 }
@@ -239,8 +297,8 @@ function buildContextObject(req, callback) {
             // Set current date for checking if user is trying to claim in the future
             var cDate = new Date();
             if (userTime) {
-              console.log("Using user local time as reference for relative operations");
-              cDate = new Date(userTime);
+                console.log("Using user local time as reference for relative operations");
+                cDate = new Date(userTime);
             }
 
             console.log("Reference date:", cDate);
@@ -254,12 +312,12 @@ function buildContextObject(req, callback) {
                 console.log("Date:", userDate);
                 // If user tries to claim a date in the future
                 if (!(userDate.getFullYear() <= cDate.getFullYear() &&
-                      userDate.getUTCMonth() <= cDate.getUTCMonth() &&
-                      userDate.getUTCDate() <= cDate.getUTCDate())) {
-                  reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
-                  return callback(null, reprompt);
+                        userDate.getUTCMonth() <= cDate.getUTCMonth() &&
+                        userDate.getUTCDate() <= cDate.getUTCDate())) {
+                    reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
+                    return callback(null, reprompt);
                 } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
-                    var month = '' + (userDate.getUTCMonth()+1),
+                    var month = '' + (userDate.getUTCMonth() + 1),
                         day = '' + (userDate.getUTCDate()),
                         year = userDate.getFullYear();
 
@@ -289,8 +347,8 @@ function buildContextObject(req, callback) {
     // This is the first message, add the user's name and get their healthcare object
     if ((!message || message === '') && !context) {
         params.context = {
-            fname: req.user.local.fname,
-            lname: req.user.local.lname
+            fname: req.user.fname,
+            lname: req.user.lname
         };
 
         parsePolicyTitles(userPolicy, function(services, procedures) {

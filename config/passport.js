@@ -1,17 +1,81 @@
-// config/passport.js
-
-// load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
+var cfenv = require('cfenv');
+var fs = require('fs');
 
-// load up the user model
-var User = require('../models/account');
-var Health = require('../models/benefit');
-var Policy = require('../models/policy');
-var Claim = require('../models/claim');
+// load local VCAP configuration
+var vcapLocal = null;
+var appEnv = null;
+var appEnvOpts = {};
 
+fs.stat('./vcap-local.json', function(err, stat) {
+    if (err && err.code === 'ENOENT') {
+        // file does not exist
+        console.log('No vcap-local.json');
+        initializeAppEnv();
+    } else if (err) {
+        console.log('Error retrieving local vcap: ', err.code);
+    } else {
+        vcapLocal = require("../vcap-local.json");
+        console.log("Loaded local VCAP", vcapLocal);
+        appEnvOpts = {
+            vcap: vcapLocal
+        };
+        initializeAppEnv();
+    }
+});
+
+// get the app environment from Cloud Foundry, defaulting to local VCAP
+function initializeAppEnv() {
+    appEnv = cfenv.getAppEnv(appEnvOpts);
+
+    if (appEnv.isLocal) {
+        require('dotenv').load();
+    }
+
+    if (appEnv.services.cloudantNoSQLDB) {
+        initCloudant();
+    } else {
+        console.error("No Cloudant service exists.");
+    }
+}
+
+// =====================================
+// CLOUDANT SETUP ======================
+// =====================================
+var dba = "account";
+var dbb = "benefits";
+var Account, Benefits;
+
+function initCloudant() {
+    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-cloudant").url;
+    var Cloudant = require('cloudant')(cloudantURL);
+
+    // Create the accounts DB if it doesn't exist
+    Cloudant.db.create(dba, function(err, body) {
+        if (err) {
+            console.log("Database already exists: ", dba);
+        } else {
+            console.log("New database created: ", dba);
+        }
+    });
+    Cloudant.db.create(dbb, function(err, body) {
+        if (err) {
+            console.log("Database already exists: ", dbb);
+        } else {
+            console.log("New database created: ", dbb);
+        }
+    });
+    Account = Cloudant.use(dba);
+    Benefits = Cloudant.use(dbb);
+}
+
+
+// =====================================
+// POLICY DEFAULTS =====================
+// =====================================
 function createPolicies(account) {
 
-    var eyeWear = new Policy();
+    var eyeWear = {};
     eyeWear.type = 'vision';
     eyeWear.icon = 'eyewear';
     eyeWear.title = 'eye wear';
@@ -23,8 +87,9 @@ function createPolicies(account) {
     eyeWear.startDate = new Date(2016, 1, 1);
     eyeWear.endDate = new Date(2017, 12, 31);
     eyeWear.code = 100;
+    eyeWear.claims = [];
 
-    var eyeExam = new Policy();
+    var eyeExam = {};
     eyeExam.type = 'vision';
     eyeExam.icon = 'eyeexam';
     eyeExam.title = 'eye exam';
@@ -37,8 +102,9 @@ function createPolicies(account) {
     eyeExam.startDate = new Date(2016, 1, 1);
     eyeExam.endDate = new Date(2017, 12, 31);
     eyeExam.code = 200;
+    eyeExam.claims = [];
 
-    var teethCleaning = new Policy();
+    var teethCleaning = {};
     teethCleaning.type = 'dental';
     teethCleaning.icon = 'toothbrush';
     teethCleaning.title = 'teeth cleaning';
@@ -51,8 +117,9 @@ function createPolicies(account) {
     teethCleaning.startDate = new Date(2016, 1, 1);
     teethCleaning.endDate = new Date(2016, 12, 31);
     teethCleaning.code = 300;
+    teethCleaning.claims = [];
 
-    var orthodontics = new Policy();
+    var orthodontics = {};
     orthodontics.type = 'dental';
     orthodontics.icon = 'braces';
     orthodontics.title = 'orthodontics';
@@ -65,8 +132,9 @@ function createPolicies(account) {
     orthodontics.startDate = new Date(2016, 1, 1);
     orthodontics.endDate = new Date(2036, 1, 1);
     orthodontics.code = 400;
+    orthodontics.claims = [];
 
-    var teethRepair = new Policy();
+    var teethRepair = {};
     teethRepair.type = 'dental';
     teethRepair.icon = 'tooth';
     teethRepair.title = 'tooth repair';
@@ -79,8 +147,9 @@ function createPolicies(account) {
     teethRepair.startDate = new Date(2016, 1, 1);
     teethRepair.endDate = new Date(2016, 12, 31);
     teethRepair.code = 500;
+    teethRepair.claims = [];
 
-    var mentalHealth = new Policy();
+    var mentalHealth = {};
     mentalHealth.type = 'mental';
     mentalHealth.icon = 'talk';
     mentalHealth.title = 'psychologist';
@@ -93,8 +162,9 @@ function createPolicies(account) {
     mentalHealth.startDate = new Date(2016, 1, 1);
     mentalHealth.endDate = new Date(2016, 12, 31);
     mentalHealth.code = 600;
+    mentalHealth.claims = [];
 
-    var physio = new Policy();
+    var physio = {};
     physio.type = 'physical';
     physio.icon = 'body';
     physio.title = 'physiotherapy';
@@ -107,8 +177,9 @@ function createPolicies(account) {
     physio.startDate = new Date(2016, 1, 1);
     physio.endDate = new Date(2016, 12, 31);
     physio.code = 800;
+    physio.claims = [];
 
-    var chiropractor = new Policy();
+    var chiropractor = {};
     chiropractor.type = 'physical';
     chiropractor.icon = 'spine';
     chiropractor.title = 'chiropractor';
@@ -121,9 +192,12 @@ function createPolicies(account) {
     chiropractor.startDate = new Date(2016, 1, 1);
     chiropractor.endDate = new Date(2016, 12, 31);
     chiropractor.code = 700;
+    chiropractor.claims = [];
 
-    var healthBenefits = new Health();
+    var healthBenefits = {};
+    healthBenefits._id = account;
     healthBenefits.owner = account;
+    healthBenefits.policies = [];
     healthBenefits.policies.push(eyeWear);
     healthBenefits.policies.push(eyeExam);
     healthBenefits.policies.push(teethCleaning);
@@ -133,16 +207,19 @@ function createPolicies(account) {
     healthBenefits.policies.push(chiropractor);
     healthBenefits.policies.push(physio);
 
-    healthBenefits.save(function (err) {
+    Benefits.insert(healthBenefits, function(err) {
         if (err) {
             throw err;
         }
     });
 }
 
+// =====================================
+// EXPORT LOGIN & SIGNUP ===============
+// =====================================
+module.exports = function(passport) {
 
-// expose this function to our app using module.exports
-module.exports = function (passport) {
+    var bcrypt = require('bcrypt-nodejs');
 
     // =========================================================================
     // passport session setup ==================================================
@@ -151,127 +228,114 @@ module.exports = function (passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
+    passport.serializeUser(function(user, done) {
+        done(null, user.username);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
-            done(err, user);
+    passport.deserializeUser(function(username, done) {
+        Account.find({
+            selector: {
+                username: username
+            }
+        }, function(err, result) {
+            if (err) {
+                return done(err);
+            }
+            var user = result.docs[0];
+            done(null, user);
         });
     });
+
+    passport.use('local-login', new LocalStrategy({
+            usernameField: 'username',
+            passwordField: 'password',
+            passReqToCallback: true
+        },
+        function(req, username, password, done) {
+
+            console.log("Got login request");
+
+            // Use Cloudant query to find the user 
+            Account.find({
+                selector: {
+                    'username': username
+                }
+            }, function(err, result) {
+                if (err) {
+                    console.log("There was an error finding the user: " + err);
+                    return done(null, null, err);
+                }
+                if (result.docs.length === 0) {
+                    console.log("Username was not found");
+                    return done(null, false, "Username or password incorrect.");
+                }
+
+                // user was found, now determine if password matches
+                var user = result.docs[0];
+                if (bcrypt.compareSync(password, user.password)) {
+                    console.log("Password matches");
+                    return done(null, user, null);
+                } else {
+                    console.log("Password is not correct");
+                    return done(null, null, "Username or password incorrect.");
+                }
+            });
+        }
+    ));
 
     // =========================================================================
     // LOCAL SIGNUP ============================================================
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
-
     passport.use('local-signup', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
-            usernameField: 'email',
+            usernameField: 'username',
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
-        function (req, email, password, done) {
+        function(req, username, password, done) {
+            console.log('Signup for: ', username);
 
             var firstName = req.body.fname;
             var lastName = req.body.lname;
 
-            console.log('signup');
-
-            console.log('passport.js email:' + email);
-
-            // asynchronous
-            // User.findOne wont fire unless data is sent back
-            process.nextTick(function () {
-
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
-                User.findOne({
-                    'local.email': email
-                }, function (err, user) {
-                    // if there are any errors, return the error
-                    if (err) {
-                        console.log('signup error');
-                        return done(err);
-                    }
-
-                    // check to see if theres already a user with that email
-                    if (user) {
-						console.log('That email is already taken');
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                    } else {
-
-                        console.log('attempting to make an account');
-
-                        // if there is no user with that email
-                        // create the user
-                        var newUser = new User();
-
-
-                        // set the user's local credentials
-                        newUser.local.email = email;
-                        newUser.local.password = newUser.generateHash(password);
-                        newUser.local.fname = firstName;
-                        newUser.local.lname = lastName;
-
-                        // save the user
-                        newUser.save(function (err) {
-                            if (err) {
-                                throw err;
-                            }
-
-                            createPolicies(email);
-
-                            return done(null, newUser);
-                        });
-
-                        console.log('made an account: ',newUser);
-                    }
-
-                });
-
-            });
-
-        }));
-
-    passport.use('local-login', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
-            usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true // allows us to pass back the entire request to the callback
-        },
-        function (req, email, password, done) { // callback with email and password from our form
-
-            // find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists
-            User.findOne({
-                'local.email': email
-            }, function (err, user) {
-                // if there are any errors, return the error before anything else
+            // Use Cloudant query to find the user just based on user name
+            Account.find({
+                selector: {
+                    'username': username
+                }
+            }, function(err, result) {
                 if (err) {
-                    return done(err);
+                    console.log("There was an error registering the user: " + err);
+                    return done(null, null, err);
+                } else if (result.docs.length > 0) {
+                    console.log("Username was found");
+                    return done(null, null, "User already exists. User another username address.");
                 }
 
-                // if no user is found, return the message
-                if (!user) {
-                    console.log('user not found');
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
-                } // req.flash is the way to set flashdata using connect-flash
+                // create the new user
+                var hash_pass = bcrypt.hashSync(password);
+                var user = {
+                    "_id": username,
+                    "username": username,
+                    "password": hash_pass,
+                    "fname": firstName,
+                    "lname": lastName
+                };
 
-                // if the user is found but the password is wrong
-                if (!user.validPassword(password)) {
-
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-                } // create the loginMessage and save it to session as flashdata
-
-                // all is well, return successful user
-
-                console.log('successful login');
-                return done(null, user);
+                Account.insert(user, function(err, body) {
+                    if (err) {
+                        console.log("There was an error registering the user: " + err);
+                        return done(null, null, err);
+                    } else {
+                        console.log("User successfully registered.");
+                        createPolicies(username);
+                        // successful creation of the user
+                        return done(null, user, null);
+                    }
+                });
             });
-
-        }));
+        }
+    ));
 };
