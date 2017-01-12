@@ -49,8 +49,13 @@ console.log("Orders URL is", orders_url);
 
 // Cloudant
 var Logs, Benefits;
-var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-cloudant").url;
-var Cloudant = require('cloudant')(cloudantURL);
+var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
+var Cloudant = require('cloudant')({
+  url: cloudantURL,
+  plugin: 'retry',
+  retryAttempts: 10,
+  retryTimeout: 500
+});
 
 if (cloudantURL) {
 
@@ -277,7 +282,7 @@ function fileClaim(owner, claim, callback) {
             } else if (result.docs.length > 0) {
                 var doc = result.docs[0];
                 var policyFound = false;
-                
+
                 doc.policies.forEach(function(policy) {
                     var message = '';
 
@@ -336,9 +341,9 @@ function fileClaim(owner, claim, callback) {
                             console.log(JSON.stringify(result, null, 3));
                             return callback(null, result);
                         });
-                    } 
+                    }
                 });
-                
+
                 if (!policyFound) {
                     callback(new Error("policy not found"));
                 }

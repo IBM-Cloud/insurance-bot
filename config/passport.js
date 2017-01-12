@@ -48,7 +48,12 @@ var Account, Benefits;
 
 function initCloudant() {
     var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-cloudant").url;
-    var Cloudant = require('cloudant')(cloudantURL);
+    var Cloudant = require('cloudant')({
+      url: cloudantURL,
+      plugin: 'retry',
+      retryAttempts: 10,
+      retryTimeout: 500
+    });
 
     // Create the accounts DB if it doesn't exist
     Cloudant.db.create(dba, function(err, body) {
@@ -256,7 +261,7 @@ module.exports = function(passport) {
 
             console.log("Got login request");
 
-            // Use Cloudant query to find the user 
+            // Use Cloudant query to find the user
             Account.find({
                 selector: {
                     'username': username

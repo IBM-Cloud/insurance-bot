@@ -20,7 +20,7 @@ var vcapLocal = null;
 var appEnv = null;
 var appEnvOpts = {};
 
-var conversationUsername, conversationPassword, conversationURL;
+var onversationWorkspace, conversation;
 
 fs.stat('./vcap-local.json', function(err, stat) {
     if (err && err.code === 'ENOENT') {
@@ -68,8 +68,13 @@ var dbname = "logs";
 var Logs;
 
 function initCloudant() {
-    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-cloudant").url;
-    var Cloudant = require('cloudant')(cloudantURL);
+    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
+    var Cloudant = require('cloudant')({
+      url: cloudantURL,
+      plugin: 'retry',
+      retryAttempts: 10,
+      retryTimeout: 500
+    });
     // Create the accounts Logs if it doesn't exist
     Cloudant.db.create(dbname, function(err, body) {
         if (err) {
@@ -88,13 +93,13 @@ function initCloudant() {
 function initConversation() {
     var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
     console.log(conversationCredentials);
-    conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-    conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
-    conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
-    var conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
+    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+    var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
+    conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
     console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
 
-    var conversation = watson.conversation({
+    conversation = watson.conversation({
         url: conversationURL,
         username: conversationUsername,
         password: conversationPassword,
