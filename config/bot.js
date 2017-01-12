@@ -142,9 +142,10 @@ var chatbot = {
                     context: context
                 };
 
-                chatLogs(owner, conv, res);
+                chatLogs(owner, conv, res, () => {
+                  return callback(null, res);
+                });
 
-                return callback(null, res);
             } else if (params) {
                 // Send message to the conversation service with the current context
                 conversation.message(params, function(err, data) {
@@ -160,10 +161,12 @@ var chatbot = {
                     updateContextObject(data, userPolicy, function(err, res) {
 
                         if (data.context.system.dialog_turn_counter > 1) {
-                            chatLogs(owner, conv, res);
+                            chatLogs(owner, conv, res, () => {
+                              return callback(null, res);
+                            });
+                        } else {
+                          return callback(null, res);
                         }
-
-                        return callback(null, res);
                     });
                 });
             }
@@ -175,7 +178,7 @@ var chatbot = {
 // ===============================================
 // LOG MANAGEMENT FOR USER INPUT FOR ANA =========
 // ===============================================
-function chatLogs(owner, conversation, response) {
+function chatLogs(owner, conversation, response, callback) {
 
     console.log("Response object is: ", response);
 
@@ -203,6 +206,7 @@ function chatLogs(owner, conversation, response) {
     }, function(err, result) {
         if (err) {
             console.log("Couldn't find logs.");
+            callback(null);
         } else {
             doc = result.docs[0];
 
@@ -225,6 +229,7 @@ function chatLogs(owner, conversation, response) {
                     } else {
                         console.log("Log successfull created: ", body);
                     }
+                    callback(null);
                 });
             } else {
                 doc.lastContext = response.context;
@@ -236,6 +241,7 @@ function chatLogs(owner, conversation, response) {
                     } else {
                         console.log("Log successfull updated: ", body);
                     }
+                    callback(null);
                 });
             }
         }
