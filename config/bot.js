@@ -20,7 +20,7 @@ var vcapLocal = null;
 var appEnv = null;
 var appEnvOpts = {};
 
-var onversationWorkspace, conversation;
+var conversationWorkspace, conversation;
 
 fs.stat('./vcap-local.json', function(err, stat) {
     if (err && err.code === 'ENOENT') {
