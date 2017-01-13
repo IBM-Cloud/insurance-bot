@@ -4,7 +4,6 @@
 var express = require('express');
 var app = express();
 var cfenv = require('cfenv');
-var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
 var morgan = require('morgan');
@@ -16,12 +15,7 @@ var io = require('socket.io')();
 var watson = require('watson-developer-cloud');
 
 require('./config/passport')(passport);
-
-var Account = require('./models/account');
-var Benefits = require('./models/benefit');
-var chatbot = require('./bot.js');
-
-var Log = require('./models/log');
+var chatbot = require('./config/bot.js');
 
 //---Deployment Tracker---------------------------------------------------------
 require("cf-deployment-tracker-client").track();
@@ -30,12 +24,12 @@ require("cf-deployment-tracker-client").track();
 // load local VCAP configuration
 var vcapLocal = null
 if (require('fs').existsSync('./vcap-local.json')) {
-  try {
-    vcapLocal = require("./vcap-local.json");
-    console.log("Loaded local VCAP", vcapLocal);
-  } catch (e) {
-    console.error(e);
-  }
+    try {
+        vcapLocal = require("./vcap-local.json");
+        console.log("Loaded local VCAP", vcapLocal);
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 // get the app environment from Cloud Foundry, defaulting to local VCAP
@@ -53,27 +47,24 @@ var orders_url = process.env.ORDERS_URL;
 console.log("Catalog URL is", catalog_url);
 console.log("Orders URL is", orders_url);
 
-var mongoDbUrl, mongoDbOptions = {};
-var mongoDbCredentials = appEnv.getServiceCreds("insurance-bot-db") || appEnv.services["compose-for-mongodb"][0].credentials;
-if (mongoDbCredentials) {
-    var ca = [new Buffer(mongoDbCredentials.ca_certificate_base64, 'base64')];
-    mongoDbUrl = mongoDbCredentials.uri;
-    mongoDbOptions = {
-        mongos: {
-            ssl: true,
-            sslValidate: true,
-            sslCA: ca,
-            poolSize: 1,
-            reconnectTries: 1
-        }
-    };
-} else if (process.env.MONGODB_URL) {
-    mongoDbUrl = process.env.MONGODB_URL;
+// Cloudant
+var Logs, Benefits;
+var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
+var Cloudant = require('cloudant')({
+  url: cloudantURL,
+  plugin: 'retry',
+  retryAttempts: 10,
+  retryTimeout: 500
+});
+
+if (cloudantURL) {
+
+    Logs = Cloudant.db.use('logs');
+    Benefits = Cloudant.db.use('benefits');
+
 } else {
-    console.error("No MongoDB connection configured!");
+    console.error("No Cloudant connection configured!");
 }
-console.log("Connecting to", mongoDbUrl);
-mongoose.connect(mongoDbUrl, mongoDbOptions); // connect to our database
 
 app.use(express.static(__dirname + '/public'));
 
@@ -96,93 +87,106 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 var bcrypt = require('bcrypt-nodejs');
 
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+// =====================================
+// REGISTER/SIGNUP =====================
+// =====================================
+app.get('/', function(req, res) {
+    req.session.lastPage = "/";
 
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/login');
-}
+    res.render('index.html');
+});
 
 app.get('/login', function(req, res) {
     res.sendfile('./public/login.html');
 });
 
+app.get('/logout',
+    function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+app.get('/signup', function(req, res) {
+    res.sendfile('./public/signup.html');
+});
+
 // process the login form
-app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/loginSuccess', // redirect to the secure profile section
-    failureRedirect: '/loginFailure', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
-}));
+app.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err || info) {
+            res.status(500).json({
+                'message': info
+            });
+        } else {
+            req.logIn(user, function(err) {
+                if (err) {
+                    res.status(500).json({
+                        'message': 'Error logging in. Contact admin.'
+                    });
+                } else {
+                    res.status(200).json({
+                        'username': user.username,
+                        'fname': user.fname,
+                        'lname': user.lname
+                    });
+                }
+            });
+        }
+    })(req, res, next);
+});
 
-app.get('/loginSuccess', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-        username: req.user.local.email,
-        fname: req.user.local.fname,
-        lname: req.user.local.lname,
-        outcome: 'success'
-    }, null, 3));
-})
-
-app.get('/loginFailure', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-        outcome: 'failure'
-    }, null, 3));
-})
-
-app.get('/signupSuccess', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-        username: req.user.local.email,
-        fname: req.user.local.fname,
-        lname: req.user.local.lname,
-        outcome: 'success'
-    }, null, 3));
-})
-
-app.get('/signupFailure', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-        outcome: 'failure'
-    }, null, 3));
-})
+app.post('/signup', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err || info) {
+            res.status(500).json({
+                'message': info
+            });
+        } else {
+            console.log("Got user, now verify:",JSON.stringify(user));
+            req.logIn(user, function(err) {
+                if (err) {
+                    console.log("Server error:",JSON.stringify(err));
+                    res.status(500).json({
+                        'message': "Error validating user. Try logging in."
+                    });
+                } else {
+                    res.status(200).json({
+                        'username': user.username,
+                        'fname': user.fname,
+                        'lname': user.lname
+                    });
+                }
+            });
+        }
+    })(req, res, next);
+});
 
 app.get('/isLoggedIn', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
     var result = {
         outcome: 'failure'
     };
 
     if (req.isAuthenticated()) {
         result.outcome = 'success';
-        result.username = req.user.local.email;
-        result.fname = req.user.local.fname;
-        result.lname = req.user.local.lname;
+        result.username = req.user.username;
+        result.fname = req.user.fname;
+        result.lname = req.user.lname;
     }
 
     res.send(JSON.stringify(result, null, 3));
-})
-
-// =====================================
-// SIGNUP ==============================
-// =====================================
-// show the signup form
-
-app.get('/signup', function(req, res) {
-    res.sendfile('./public/signup.html');
 });
 
-// process the signup form
-app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/signupSuccess', // redirect to the secure profile section
-    failureRedirect: '/signupFailure', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
-}));
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
+}
 
 // =====================================
 // CLAIMS ==============================
@@ -196,42 +200,49 @@ app.get('/claims', isLoggedIn, function(req, res) {
 app.get('/history', isLoggedIn, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    Benefits.findOne({
-        owner: req.user.local.email
-    }, function(err, doc) {
+    Benefits.find({ selector: {
+        '_id': req.user.username
+    }}, function(err, result) {
 
-        var allclaims = [];
+        if (err) {
+            console.log("There was an error finding benefits: " + err);
+            return (err);
+        } else if (result.docs.length > 0) {
+            var doc = result.docs[0];
 
-        doc.policies.forEach(function(policy) {
+            var allclaims = [];
 
-            if (policy.claims.length > 0) {
-                policy.claims.forEach(function(claim) {
-                    var detailedclaim = new Object();
-                    detailedclaim.date = claim.date;
-                    detailedclaim.amount = claim.amount;
-                    detailedclaim.provider = claim.provider;
-                    detailedclaim.payment = claim.payment;
-                    detailedclaim.outcome = claim.outcome;
-                    detailedclaim.policy = policy.title;
-                    detailedclaim.icon = policy.icon;
-                    allclaims.push(detailedclaim);
-                })
-            }
-        })
+            doc.policies.forEach(function(policy) {
 
-        var output = {
-            owner: req.user.local.email,
-            fname: req.user.local.fname,
-            lname: req.user.local.lname,
-            claims: allclaims
-        };
+                if (policy.claims.length > 0) {
+                    policy.claims.forEach(function(claim) {
+                        var detailedclaim = {};
+                        detailedclaim.date = claim.date;
+                        detailedclaim.amount = claim.amount;
+                        detailedclaim.provider = claim.provider;
+                        detailedclaim.payment = claim.payment;
+                        detailedclaim.outcome = claim.outcome;
+                        detailedclaim.policy = policy.title;
+                        detailedclaim.icon = policy.icon;
+                        allclaims.push(detailedclaim);
+                    });
+                }
+            });
 
-        var responseString = JSON.stringify(output, null, 3);
+            var output = {
+                owner: req.user.username,
+                fname: req.user.fname,
+                lname: req.user.lname,
+                claims: allclaims
+            };
 
-        console.log(responseString);
+            var responseString = JSON.stringify(output, null, 3);
 
-        res.send(responseString);
-    })
+            console.log(responseString);
+
+            res.send(responseString);
+        }
+    });
 });
 
 
@@ -241,7 +252,7 @@ app.post('/submitClaim', function(req, res) {
     var claim = req.body;
 
     if (req.isAuthenticated()) {
-        var owner = req.user.local.email;
+        var owner = req.user.username;
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -261,80 +272,84 @@ app.post('/submitClaim', function(req, res) {
 function fileClaim(owner, claim, callback) {
 
     if (owner && claim) {
-        Benefits.findOne({
-            owner: owner
-        }, function(err, doc) {
+        Benefits.find({ selector: {
+            '_id': owner
+        }}, function(err, result) {
 
-          console.log('fileClaim', err, doc);
-            var policyFound = false;
-            doc.policies.forEach(function(policy) {
-                var message = '';
+            if (err) {
+                console.log("There was an error finding benefits: " + err);
+                return (err);
+            } else if (result.docs.length > 0) {
+                var doc = result.docs[0];
+                var policyFound = false;
 
-                if (policy.title === claim.benefit) {
-                    policyFound = true;
+                doc.policies.forEach(function(policy) {
+                    var message = '';
 
-                    claim.outcome = 'DENIED';
-                    claim.payment = 0;
+                    if (policy.title === claim.benefit) {
+                        policyFound = true;
 
-                    var possibleEligibility = claim.amount * policy.percentCovered / 100;
-
-                    var amountAvailable = policy.claimLimit - policy.amountClaimed;
-
-                    if (isNaN(amountAvailable)) {
-                        amountAvailable = 0;
-                    }
-
-                    console.log('eligibility: ' + possibleEligibility);
-                    console.log('available: ' + amountAvailable);
-
-                    if (amountAvailable <= 0) {
-                        claim.outcome = 'NONE';
+                        claim.outcome = 'DENIED';
                         claim.payment = 0;
-                        message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
-                    }
 
-                    if (policy.amountClaimed > amountAvailable && amountAvailable > 0) {
-                        claim.outcome = 'PARTIAL';
-                        claim.payment = amountAvailable;
-                        policy.amountClaimed = policy.Limit;
-                        message = "You have reached max coverage. Remaining $"+ amountAvailable + " of policy limit applied.";
-                    }
+                        var possibleEligibility = claim.amount * policy.percentCovered / 100;
 
-                    if (possibleEligibility < amountAvailable) {
-                        claim.outcome = 'FULL';
-                        claim.payment = possibleEligibility;
-                        policy.amountClaimed = policy.amountClaimed + possibleEligibility;
-                        message = "$" + possibleEligibility + " was covered by your insurance!";
-                    }
+                        var amountAvailable = policy.claimLimit - policy.amountClaimed;
 
-                    policy.claims.push(claim);
-                    console.log("Claim is: ",claim);
-
-                    doc.save(function(err) {
-
-                        var result = {
-                            outcome: 'failure',
-                            message: message
-                        };
-
-                        if (err) {
-                            return callback(err);
-                        } else {
-                            result.outcome = 'success';
+                        if (isNaN(amountAvailable)) {
+                            amountAvailable = 0;
                         }
 
-                        console.log(JSON.stringify(result, null, 3));
-                        return callback(null, result);
-                    });
+                        console.log('Eligibility: ' + possibleEligibility);
+                        console.log('Available: ' + amountAvailable);
+
+                        if (amountAvailable <= 0) {
+                            claim.outcome = 'NONE';
+                            claim.payment = 0;
+                            message = "Sorry, you reached your claim limit. So none of the amount could be covered by your insurance.";
+                        }
+
+                        if (policy.amountClaimed > amountAvailable && amountAvailable > 0) {
+                            claim.outcome = 'PARTIAL';
+                            claim.payment = amountAvailable;
+                            policy.amountClaimed = policy.Limit;
+                            message = "You have reached max coverage. Remaining $" + amountAvailable + " of policy limit applied.";
+                        }
+
+                        if (possibleEligibility < amountAvailable) {
+                            claim.outcome = 'FULL';
+                            claim.payment = possibleEligibility;
+                            policy.amountClaimed = policy.amountClaimed + possibleEligibility;
+                            message = "$" + possibleEligibility + " was covered by your insurance!";
+                        }
+
+                        policy.claims.push(claim);
+
+                        Benefits.insert(doc, function(err, body) {
+
+                            var result = {
+                                outcome: 'failure',
+                                message: message
+                            };
+
+                            if (err) {
+                                return callback(err);
+                            } else {
+                                result.outcome = 'success';
+                            }
+
+                            console.log(JSON.stringify(result, null, 3));
+                            return callback(null, result);
+                        });
+                    }
+                });
+
+                if (!policyFound) {
+                    callback(new Error("policy not found"));
                 }
-            });
-
-            if (!policyFound) {
-              callback(new Error("policy not found"));
-            }
-        });
+            } // End else if results.docs.length > 0
+        }); // End Benefits.find
     }
-
 }
 
 
@@ -384,45 +399,25 @@ app.get('/healthBenefits', isLoggedIn, function(req, res) {
     }
 });
 
-/*
-app.get('/resetUserPolicy', isLoggedIn, function(req,res) {
-
-    res.setHeader('Content-Type', 'application/json');
-
-    var user = req.user.local.email;
-*/
-
-
 function getUserPolicy(req, callback) {
+    //console.log(req);
 
-    Benefits.findOne({
-        owner: req.user.local.email
-    }, function(err, doc) {
+    Benefits.find({ selector: {
+        '_id': req.user.username
+    }}, function(err, result) {
         if (err) {
             console.error("Error retrieving user policy: ", err);
             return callback(err);
-        } else {
+        } else if (result.docs.length > 0) {
+            var doc = result.docs[0];
             req.session.userPolicy = doc;
             return callback(null, doc);
+        } else {
+            console.error("No user policy found.");
+            return callback("No user policy found.");
         }
     });
 }
-
-// =====================================
-// LOGOUT ==============================
-// =====================================
-
-app.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
-app.get('/', function(req, res) {
-    req.session.lastPage = "/";
-
-    res.render('index.html');
-});
-
 
 // =====================================
 // WATSON TRADEOFF TRAVEL ==============
@@ -484,21 +479,24 @@ function processChatMessage(req, res) {
             res.status(err.code || 500).json(err);
         } else {
 
-            Log.findOne({
+            Logs.find({selector: {
                 'conversation': data.context.conversation_id
-            }, function(err, doc) {
+            }}, function(err, result) {
                 if (err) {
                     console.log("Cannot find log for conversation id of ", data.context.conversation_id);
-                } else {
+                } else if(result.docs.length > 0) {
+                    var doc = result.docs[0];
                     console.log("Sending log updates to dashboard");
                     //console.log("doc: ", doc);
                     io.sockets.emit('logDoc', doc);
+                } else {
+                    console.log("No log file found.");
                 }
             });
 
             var context = data.context;
             var amount = context.claim_amount;
-            var owner = req.user.local.email;
+            var owner = req.user.username;
 
             // File a claim for the user
             if (context.claim_step === "verify") {
@@ -514,17 +512,17 @@ function processChatMessage(req, res) {
                 claimFile.provider = context.claim_provider;
                 claimFile.amount = context.claim_amount;
 
-                console.log("Filing data: "+owner+ " claimFile: " + JSON.stringify(claimFile));
+                console.log("Filing data: " + owner + " claimFile: " + JSON.stringify(claimFile));
 
                 fileClaim(owner, claimFile, function(err, reply) {
 
                     data.output.text = '';
                     data.context.claim_step = '';
 
-                    console.log("Reply for claim file: ",reply);
+                    console.log("Reply for claim file: ", reply);
 
                     if (reply && reply.outcome === 'success') {
-                        data.output.text = "Your " + context.claim_procedure + " claim for " + amount + " was successfully filed! "+reply.message;
+                        data.output.text = "Your " + context.claim_procedure + " claim for " + amount + " was successfully filed! " + reply.message;
                         res.status(200).json(data);
 
                     } else {

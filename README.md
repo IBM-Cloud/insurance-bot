@@ -38,10 +38,10 @@ In order to deploy the full set of microservices involved, check out the [insura
   cf login -a https://api.ng.bluemix.net
   ```
 
-1. Create a Compose for MongoDB service in Bluemix
+1. Create a Cloudant service in Bluemix
 
   ```
-  cf create-service compose-for-mongodb Standard insurance-bot-db
+  cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
 1. Create a Conversation service in Bluemix
@@ -90,10 +90,10 @@ And voila! You now have your very own instance of the app running on Bluemix.
 
 1. The app depends on the [Catalog](https://github.com/IBM-Bluemix/insurance-catalog) and [Orders](https://github.com/IBM-Bluemix/insurance-orders) microservices. Make sure to have them running first.
 
-1. Create a Compose for MongoDB service in Bluemix
+1. Create a Cloudant service in Bluemix
 
   ```
-  cf create-service compose-for-mongodb Standard insurance-bot-db
+  cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
 1. Create a Conversation service in Bluemix
@@ -102,13 +102,13 @@ And voila! You now have your very own instance of the app running on Bluemix.
   cf create-service conversation standard insurance-bot-conversation
   ```
 
-1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the MongoDB and Conversation services. You can retrieve the service credentials from the Bluemix console.
+1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the Bluemix console.
 
   ```
   cp vcap-local.template.json vcap-local.json
   ```
 
-1. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the MongoDB and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
+1. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the Cloudant and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
 
   ```
   cp .template.env .env
