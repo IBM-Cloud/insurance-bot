@@ -13,84 +13,108 @@ function openHealth() {
     console.log('open health');
 }
 
-function makeAccount() {
-    console.log('makeAccount');
+function register() {
     var firstname = document.getElementById('fname').value;
     var lastname = document.getElementById('lname').value;
-    var email = document.getElementById('email').value;
+    var username = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    var messagearea = document.getElementById('messagearea');
-    messagearea.innerHTML = '';
-
-    console.log('email:' + email);
+    var message = document.getElementById('messagearea');
+    message.innerHTML = '';
 
     var xhr = new XMLHttpRequest();
 
     var uri = 'signup';
 
-    xhr.open('POST', encodeURI(uri));
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function(response) {
+    var user = {
+        'username': username,
+        'password': password,
+        'fname': firstname,
+        'lname': lastname
+    };
 
-        var reply = JSON.parse(xhr.responseText);
-        if (xhr.status === 200) {
-            if (reply.outcome === 'success') {
-                window.location = './login'
+    xhr.open('POST', uri, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+
+        if (xhr.status === 200 && xhr.responseText) {
+
+            var response = JSON.parse(xhr.responseText);
+            console.log("Got response from passport: ", JSON.stringify(response));
+
+            if (response.username) {
+                window.location = './login';
             } else {
-                email = '';
+                message.innerHTML = response.message;
+                username = '';
                 password = '';
                 firstname = '';
                 lastname = '';
-                messagearea.innerHTML = 'Something went wrong - try again';
             }
-        } else if (xhr.status !== 200) {
-            alert('Request failed.  Returned status of ' + xhr.status);
+        } else {
+            var response = JSON.parse(xhr.responseText);
+            console.error('Server error for passport. Return status of: ', xhr.statusText);
+            message.innerHTML = response.message;
         }
+
+        return false;
     };
-    xhr.send(encodeURI('email=' + email + '&password=' + password + '&fname=' + firstname + '&lname=' + lastname));
+
+    xhr.onerror = function() {
+        console.error('Network error trying to send message!');
+    };
+
+    console.log(JSON.stringify(user));
+    xhr.send(JSON.stringify(user));
 }
 
 function login() {
-    console.log('login');
-    var email = document.getElementById('email').value;
+    var username = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    console.log('email:' + email);
-
     var xhr = new XMLHttpRequest();
-
     var uri = 'login';
 
-    var messagearea = document.getElementById('messagearea');
-    messagearea.innerHTML = '';
+    var message = document.getElementById('messagearea');
+    message.innerHTML = '';
 
-    xhr.open('POST', encodeURI(uri));
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function(response) {
-        if (xhr.status === 200) {
-
-            console.log('response');
-            console.log(xhr.responseText);
-
-            var reply = JSON.parse(xhr.responseText);
-
-            console.log(reply);
-
-            if (reply.outcome === 'success') {
-                window.location = './health'
-            } else {
-                messagearea.innerHTML = 'Something went wrong - try again';
-            }
-
-
-        } else if (xhr.status !== 200) {
-            alert('Request failed.  Returned status of ' + xhr.status);
-        }
+    var user = {
+        'username': username,
+        'password': password
     };
-    xhr.send(encodeURI('email=' + email + '&password=' + password));
-}
 
+    xhr.open('POST', uri, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+
+        var response = JSON.parse(xhr.responseText);
+
+        if (xhr.status === 200 && xhr.responseText) {
+
+            console.log("Got response from passport: ", JSON.stringify(response));
+
+            if (response.username) {
+                window.location = './health';
+            } else {
+                message.innerHTML = response.message;
+                username = '';
+                password = '';
+            }
+        } else {
+            message.innerHTML = response.message;
+            console.error('Server error for passport. Return status of: ', xhr.statusText);
+        }
+
+        return false;
+    };
+
+    xhr.onerror = function() {
+        console.error('Network error trying to send message!');
+    };
+
+    //console.log(JSON.stringify(user));
+    xhr.send(JSON.stringify(user));
+}
 
 function get(path, callback) {
     var xmlhttp = new XMLHttpRequest();
@@ -102,7 +126,6 @@ function get(path, callback) {
     xmlhttp.open("GET", path, true);
     xmlhttp.send();
 }
-
 
 function makeHistoryRow(claim) {
 
@@ -141,7 +164,6 @@ function getClaims() {
         });
     })
 }
-
 
 function createBenefitRow(policy) {
     var row = document.createElement('div');
@@ -224,11 +246,10 @@ function createBenefitDetail(policy) {
     return detail;
 }
 
-
 function toggleDetails(id) {
     var details = document.getElementById(id);
-    var toggleTextOpen = document.getElementById(id+ "-ToggleTextOpen");
-    var toggleTextClose = document.getElementById(id+ "-ToggleTextClose");
+    var toggleTextOpen = document.getElementById(id + "-ToggleTextOpen");
+    var toggleTextClose = document.getElementById(id + "-ToggleTextClose");
 
     if (details.style.display !== 'flex') {
         details.style.display = 'flex';
@@ -320,31 +341,31 @@ function getBenefits() {
 }
 
 function selectClaimTab() {
-  var benefitTab = document.getElementById('benefitset');
-  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
-  var claimTab = document.getElementById('claimTab');
-  var claimTabMenu = document.getElementById('claimTabMenu');
+    var benefitTab = document.getElementById('benefitset');
+    var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+    var claimTab = document.getElementById('claimTab');
+    var claimTabMenu = document.getElementById('claimTabMenu');
 
-  if(claimTab && benefitTab && claimTabMenu) {
-    benefitTab.style.display = 'none';
-    claimTab.style.display = 'flex';
-    claimTabMenu.className = 'tabLink selected';
-    benefitsTabMenu.className = 'tabLink';
-  }
+    if (claimTab && benefitTab && claimTabMenu) {
+        benefitTab.style.display = 'none';
+        claimTab.style.display = 'flex';
+        claimTabMenu.className = 'tabLink selected';
+        benefitsTabMenu.className = 'tabLink';
+    }
 }
 
 function selectBenefitsTab() {
-  var benefitTab = document.getElementById('benefitset');
-  var benefitsTabMenu = document.getElementById('benefitsTabMenu');
-  var claimTab = document.getElementById('claimTab');
-  var claimTabMenu = document.getElementById('claimTabMenu');
+    var benefitTab = document.getElementById('benefitset');
+    var benefitsTabMenu = document.getElementById('benefitsTabMenu');
+    var claimTab = document.getElementById('claimTab');
+    var claimTabMenu = document.getElementById('claimTabMenu');
 
-  if(claimTab && benefitTab && claimTabMenu) {
-    benefitTab.style.display = 'block';
-    claimTab.style.display = 'none';
-    claimTabMenu.className = 'tabLink';
-    benefitsTabMenu.className = 'tabLink selected';
-  }
+    if (claimTab && benefitTab && claimTabMenu) {
+        benefitTab.style.display = 'block';
+        claimTab.style.display = 'none';
+        claimTabMenu.className = 'tabLink';
+        benefitsTabMenu.className = 'tabLink selected';
+    }
 }
 
 function submitClaim(source) {
@@ -381,8 +402,6 @@ function submitClaim(source) {
             if (reply.outcome === 'success') {
                 claimmessages.innerHTML = 'Your claim was filed.';
             } else {
-                email = '';
-                password = '';
                 claimmessages.innerHTML = 'Something went wrong - try again';
 
             }
@@ -396,38 +415,53 @@ function submitClaim(source) {
 }
 
 function checkStatus() {
+    var login = document.getElementById('login');
+    var logout = document.getElementById('logout');
+    var askWatson = document.getElementById('askWatson');
 
-    get('./isLoggedIn', function(reply) {
+    var xhr = new XMLHttpRequest();
+    var path = '/isLoggedIn';
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var reply = JSON.parse(xhr.responseText);
+            console.log("Reply: ", reply);
 
-        var login = document.getElementById('login');
-        var logout = document.getElementById('logout');
-        var askWatson = document.getElementById('askWatson');
 
-        if (reply.fname) {
-            fname = reply.fname;
-            lname = reply.lname;
-        }
-
-        if (reply.outcome === 'success') {
-            if(askWatson) {
-              askWatson.style.display = 'inherit';
-            }
-            if (logout) {
-                login.style.display = 'none';
-            }
-            if (login) {
-                logout.style.display = 'inherit';
+            if (reply.outcome === 'success') {
+                if (askWatson) {
+                    askWatson.style.display = 'inherit';
+                }
+                if (logout) {
+                    login.style.display = 'none';
+                }
+                if (login) {
+                    logout.style.display = 'inherit';
+                }
+            } else {
+                if (askWatson) {
+                    askWatson.style.display = 'none';
+                }
+                if (logout) {
+                    logout.style.display = 'none';
+                }
+                if (login) {
+                    login.style.display = 'inherit';
+                }
             }
         } else {
-            askWatson.style.display = 'none';
-            if (logout) {
-                logout.style.display = 'none';
-            }
             if (login) {
                 login.style.display = 'inherit';
             }
+            if (logout) {
+                logout.style.display = 'none';
+            }
+            if (askWatson) {
+                askWatson.style.display = 'inherit';
+            }
         }
-    });
+    };
+    xhr.open("GET", path, true);
+    xhr.send();
 }
 
 // Enter is pressed
