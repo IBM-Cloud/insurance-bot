@@ -311,6 +311,11 @@ function buildContextObject(req, callback) {
                 console.log("Using user local time as reference for relative operations");
                 cDate = new Date(userTime);
             }
+            // reset hours/minutes/seconds
+            cDate.setHours(0);
+            cDate.setMinutes(0);
+            cDate.setSeconds(0);
+            cDate.setMilliseconds(0);
 
             console.log("Reference date:", cDate);
             userDate = chrono.parseDate(date, cDate);
@@ -320,11 +325,13 @@ function buildContextObject(req, callback) {
                 reprompt.message = "That doesn't look like a date. Please try again.";
                 return callback(null, reprompt);
             } else if (userDate) {
+                userDate.setHours(0);
+                userDate.setMinutes(0);
+                userDate.setSeconds(0);
+                userDate.setMilliseconds(0);
                 console.log("Date:", userDate);
                 // If user tries to claim a date in the future
-                if (!(userDate.getFullYear() <= cDate.getFullYear() &&
-                        userDate.getUTCMonth() <= cDate.getUTCMonth() &&
-                        userDate.getUTCDate() <= cDate.getUTCDate())) {
+                if (userDate.getTime() > cDate.getTime()) {
                     reprompt.message = "Sorry, Marty McFly, you can't make a claim in the future. Please try the date again.";
                     return callback(null, reprompt);
                 } else { // Otherwise format the date to YYYY-MM-DD - Ana will also verify
