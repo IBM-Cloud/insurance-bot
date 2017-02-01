@@ -262,7 +262,7 @@ app.post('/submitClaim', function(req, res) {
                 res.status(500).json(err);
             } else if (result) {
                 console.log("Claim filed");
-                res.status(200).json(JSON.stringify(result, null, 3));
+                res.status(200).json(result);
             }
         });
 
