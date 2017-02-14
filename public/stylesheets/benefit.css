@@ -9,6 +9,7 @@
   padding-left: 60px;
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 .benefitkit {
