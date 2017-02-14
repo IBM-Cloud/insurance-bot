@@ -311,11 +311,6 @@ function buildContextObject(req, callback) {
                 console.log("Using user local time as reference for relative operations");
                 cDate = new Date(userTime);
             }
-            // reset hours/minutes/seconds
-            cDate.setHours(0);
-            cDate.setMinutes(0);
-            cDate.setSeconds(0);
-            cDate.setMilliseconds(0);
 
             console.log("Reference date:", cDate);
             userDate = chrono.parseDate(date, cDate);
@@ -325,10 +320,10 @@ function buildContextObject(req, callback) {
                 reprompt.message = "That doesn't look like a date. Please try again.";
                 return callback(null, reprompt);
             } else if (userDate) {
-                userDate.setHours(0);
-                userDate.setMinutes(0);
-                userDate.setSeconds(0);
-                userDate.setMilliseconds(0);
+                userDate.setHours(cDate.getHours());
+                userDate.setMinutes(cDate.getMinutes());
+                userDate.setSeconds(cDate.getSeconds());
+                userDate.setMilliseconds(cDate.getMilliseconds());
                 console.log("Date:", userDate);
                 // If user tries to claim a date in the future
                 if (userDate.getTime() > cDate.getTime()) {
