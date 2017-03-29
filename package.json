@@ -24,7 +24,7 @@
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
     "request": "~2.73.0",
-    "watson-developer-cloud": "2.6.2"
+    "watson-developer-cloud": "2.27.1"
   },
   "repository": {
     "type": "git",
