@@ -68,12 +68,6 @@ In order to deploy the full set of microservices involved, check out the [insura
   cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
   ```
 
-1. Define the Watson Conversation workspace ID to use. Refer to [this step](#importWorkspace) to get a workspace id.
-
-  ```
-  cf set-env insurance-bot CONVERSATION_WORKSPACE <your-workspace-id>
-  ```
-
 1. Start your app
 
   ```
@@ -125,26 +119,6 @@ And voila! You now have your very own instance of the app running on Bluemix.
   ```
   npm start
   ```
-
-## <a name="importWorkspace"></a> Importing the conversation workspace into your Watson Conversation service
-
-:warning: Whether you have deployed the application with the toolchain, or manually or even running locally, you will need to initialize the Watson Conversation service with the conversation model before you can interact with the chat bot.
-
-1. Go to the Watson Conversation service in Bluemix.
-
-1. Launch the Watson Conversation tool.
-
-1. Select the option to import a workspace from a JSON file.
-
-1. Select `Ana.json` from the [conversation](./conversation) folders.
-
-1. Once you have imported the workspace, retrieve the workspace ID by using the `View Details` option
-
-  * If you are using the toolchain, edit the DEPLOY step of `bot (dev)` and `bot (prod)` pipelines, set the value of the CONVERSATION_WORKSPACE environment variable to the workspace ID, save and re-run the DEPLOY step.
-
-  * If you are running the app on Bluemix, define a CONVERSATION_WORKSPACE environment variable with the workspace ID;
-
-  * If you are running the app locally, edit the `.env` file and set the value of the CONVERSATION_WORKSPACE variable to the workspace ID.
 
 ## Contribute
 
