@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.13.2",
+    "body-parser": "1.17.1",
     "cf-deployment-tracker-client": "*",
     "cfenv": "^1.0.3",
     "chrono-node":"*",
@@ -15,15 +15,14 @@
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.4.3",
     "dotenv": "*",
-    "express": "4.13.x",
-    "express-session": "~1.14.0",
-    "log4js": "~0.6.36",
-    "morgan": "~1.7.0",
+    "express": "4.15.2",
+    "express-session": "1.15.2",
+    "morgan": "1.8.1",
     "node-datetime": "1.0",
     "socket.io":"*",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
-    "request": "~2.73.0",
+    "request": "2.81.0",
     "watson-developer-cloud": "2.27.1"
   },
   "repository": {
