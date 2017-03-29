@@ -27,6 +27,9 @@ if ! cf app $CF_APP; then
   cf push $CF_APP -n $CF_APP -f $MANIFEST --no-start
   cf set-env $CF_APP CATALOG_URL https://$CATALOG_APP_NAME$domain
   cf set-env $CF_APP ORDERS_URL https://$ORDERS_APP_NAME$domain
+  if [ ! -z "$CONVERSATION_WORKSPACE" ]; then
+    cf set-env $CF_APP CONVERSATION_WORKSPACE $CONVERSATION_WORKSPACE
+  fi
   cf start $CF_APP
 else
   OLD_CF_APP=${CF_APP}-OLD-$(date +"%s")
@@ -45,6 +48,9 @@ else
   cf push $CF_APP -n $CF_APP -f $MANIFEST --no-start
   cf set-env $CF_APP CATALOG_URL https://$CATALOG_APP_NAME$domain
   cf set-env $CF_APP ORDERS_URL https://$ORDERS_APP_NAME$domain
+  if [ ! -z "$CONVERSATION_WORKSPACE" ]; then
+    cf set-env $CF_APP CONVERSATION_WORKSPACE $CONVERSATION_WORKSPACE
+  fi
   cf start $CF_APP
   cf delete $OLD_CF_APP -f
 fi
