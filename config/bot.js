@@ -120,7 +120,8 @@ function initConversation() {
         } else {
           const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
           if (workspace) {
-            console.log('Found existing workspace', workspace.workspace_id);
+            conversationWorkspace = workspace.workspace_id;
+            console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
           } else {
             console.log('Importing workspace from ./conversation/Ana.json');
             // create the workspace
