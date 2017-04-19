@@ -1,18 +1,6 @@
 /*eslint-env browser */
 var fname, lname;
 
-function openTravel() {
-    window.location = "travel.html";
-}
-
-function openTravelPolicies() {
-    window.location = "watson.html";
-}
-
-function openHealth() {
-    console.log('open health');
-}
-
 function register() {
     var firstname = document.getElementById('fname').value;
     var lastname = document.getElementById('lname').value;
