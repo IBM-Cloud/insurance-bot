@@ -419,39 +419,9 @@ function getUserPolicy(req, callback) {
     });
 }
 
-// =====================================
-// WATSON TRADEOFF TRAVEL ==============
-// =====================================
-
-function makePostRequest(payload, url, res) {
-    var options = {
-        body: payload,
-        json: true,
-        url: url
-    };
-
-    request.post(options, function(err, response) {
-        if (err) {
-            return res.json(err);
-        } else {
-            return res.json(response.body);
-        }
-    });
-}
-
 /**
  * Constructs a URL for an insurance microservice
  */
-
-// Allow clients to make policy tradeoff calculations
-app.post('/api/tradeoff', function(req, res, next) {
-    return makePostRequest(req.body, catalog_url + '/tradeoff', res);
-});
-
-// Allow clients to create new policy orders
-app.post('/api/orders', function(req, res, next) {
-    return makePostRequest(req.body, orders_url + '/orders', res);
-});
 
 // =====================================
 // WATSON CONVERSATION FOR ANA =========
