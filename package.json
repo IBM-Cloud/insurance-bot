@@ -8,7 +8,6 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.17.1",
-    "cf-deployment-tracker-client": "*",
     "cfenv": "^1.0.3",
     "chrono-node":"*",
     "cloudant":"~1.6.2",

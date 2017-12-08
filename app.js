@@ -17,9 +17,6 @@ var watson = require('watson-developer-cloud');
 require('./config/passport')(passport);
 var chatbot = require('./config/bot.js');
 
-//---Deployment Tracker---------------------------------------------------------
-require("cf-deployment-tracker-client").track();
-
 // configuration ===============================================================
 // load local VCAP configuration
 var vcapLocal = null
