@@ -1,8 +1,8 @@
 # Cloud Insurance Co. - Main web site and chat bot
 
-| **master** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insurance-bot) |
+| **master** | [![Build Status](https://travis-ci.org/IBM-Cloud/insurance-bot.svg?branch=master)](https://travis-ci.org/IBM-Cloud/insurance-bot) |
 | ----- | ----- |
-| **dev** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=dev)](https://travis-ci.org/IBM-Bluemix/insurance-bot) |
+| **dev** | [![Build Status](https://travis-ci.org/IBM-Cloud/insurance-bot.svg?branch=dev)](https://travis-ci.org/IBM-Cloud/insurance-bot) |
 
 This repository is part of the larger [Cloud Insurance Co.](https://github.com/IBM-Cloud/cloudco-insurance) project.
 
@@ -10,68 +10,70 @@ This repository is part of the larger [Cloud Insurance Co.](https://github.com/I
 
 [![Policy Bot](./design/video-cap.png)](https://vimeo.com/165460548 "Policy Bot Concept - Click to Watch!")
 
+# Deploy
 In order to deploy the full set of microservices involved, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
 
 ## Running the app on IBM Cloud
 
 1. If you do not already have a IBM Cloud account, [sign up here][bluemix_reg_url]
 
-1. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
+2. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
 
-1. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to deploy them first.
+3. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to deploy them first.
 
-1. Clone the app to your local environment from your terminal using the following command:
+4. Clone the app to your local environment from your terminal using the following command:
 
   ```
   git clone https://github.com/IBM-Cloud/insurance-bot.git
   ```
 
-1. `cd` into this newly created directory
+5. `cd` into this newly created directory
 
-1. Open the `manifest.yml` file and change the `host` value to something unique.
+6. Open the `manifest.yml` file and change the `host` value to something unique.
 
   The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
 
-1. Connect to IBM Cloud in the command line tool and follow the prompts to log in
+7. Connect to IBM Cloud in the command line tool and follow the prompts to log in. Download and setup [IBM Cloud CLI](https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started)
 
   ```
-  cf login -a https://api.ng.bluemix.net
+  ibmcloud login
   ```
+  Use `ibmcloud target --cf` to set org and space; Run `ibmcloud regions` to find API endpoints.
 
-1. Create a Cloudant service in IBM Cloud
-
-  ```
-  cf create-service cloudantNoSQLDB Lite insurance-bot-db
-  ```
-
-1. Create a Conversation service in IBM Cloud
+8. Create a Cloudant service in IBM Cloud
 
   ```
-  cf create-service conversation free insurance-bot-conversation
+  ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
-1. Push the app to IBM Cloud
+9. Create a Conversation service in IBM Cloud
 
   ```
-  cf push --no-start
+  ibmcloud cf create-service conversation free insurance-bot-conversation
   ```
 
-1. Define a variable pointing to the Catalog API deployment.
+10. Push the app to IBM Cloud
 
   ```
-  cf set-env insurance-bot CATALOG_URL https://your-insurance-catalog.mybluemix.net
+  ibmcloud cf push --no-start
   ```
 
-1. Define a variable pointing to the Orders API deployment.
+11. Define a variable pointing to the Catalog API deployment.
 
   ```
-  cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
+  ibmcloud cf set-env insurance-bot CATALOG_URL https://your-insurance-catalog.mybluemix.net
   ```
 
-1. Start your app
+12. Define a variable pointing to the Orders API deployment.
 
   ```
-  cf start insurance-bot
+  ibmcloud cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
+  ```
+
+13. Start your app
+
+  ```
+  ibmcloud cf start insurance-bot
   ```
 
 And voila! You now have your very own instance of the app running on IBM Cloud.
@@ -80,41 +82,41 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
 
 1. If you do not already have a IBM Cloud account, [sign up here][bluemix_reg_url]
 
-1. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
+2. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
 
-1. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to have them running first.
+3. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to have them running first.
 
-1. Create a Cloudant service in IBM Cloud
-
-  ```
-  cf create-service cloudantNoSQLDB Lite insurance-bot-db
-  ```
-
-1. Create a Conversation service in IBM Cloud
+4. Create a Cloudant service in IBM Cloud
 
   ```
-  cf create-service conversation free insurance-bot-conversation
+  ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
-1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the IBM Cloud console.
+5. Create a Conversation service in IBM Cloud
+
+  ```
+  ibmcloud cf create-service conversation free insurance-bot-conversation
+  ```
+
+6. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the IBM Cloud console.
 
   ```
   cp vcap-local.template.json vcap-local.json
   ```
 
-1. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the Cloudant and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
+7. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the Cloudant and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
 
   ```
   cp .template.env .env
   ```
 
-1. Run
+8. Install the dependencies
 
   ```
   npm install
   ```
 
-1. Run
+9. Run the app locally
 
   ```
   npm start
