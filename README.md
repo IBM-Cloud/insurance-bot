@@ -4,7 +4,7 @@
 | ----- | ----- |
 | **dev** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-bot.svg?branch=dev)](https://travis-ci.org/IBM-Bluemix/insurance-bot) |
 
-This repository is part of the larger [Cloud Insurance Co.](https://github.com/IBM-Bluemix/cloudco-insurance) project.
+This repository is part of the larger [Cloud Insurance Co.](https://github.com/IBM-Cloud/cloudco-insurance) project.
 
 # Overview
 
@@ -12,18 +12,18 @@ This repository is part of the larger [Cloud Insurance Co.](https://github.com/I
 
 In order to deploy the full set of microservices involved, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
 
-## Running the app on Bluemix
+## Running the app on IBM Cloud
 
-1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
+1. If you do not already have a IBM Cloud account, [sign up here][bluemix_reg_url]
 
 1. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
 
-1. The app depends on the [Catalog](https://github.com/IBM-Bluemix/insurance-catalog) and [Orders](https://github.com/IBM-Bluemix/insurance-orders) microservices. Make sure to deploy them first.
+1. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to deploy them first.
 
 1. Clone the app to your local environment from your terminal using the following command:
 
   ```
-  git clone https://github.com/IBM-Bluemix/insurance-bot.git
+  git clone https://github.com/IBM-Cloud/insurance-bot.git
   ```
 
 1. `cd` into this newly created directory
@@ -32,25 +32,25 @@ In order to deploy the full set of microservices involved, check out the [insura
 
   The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
 
-1. Connect to Bluemix in the command line tool and follow the prompts to log in
+1. Connect to IBM Cloud in the command line tool and follow the prompts to log in
 
   ```
   cf login -a https://api.ng.bluemix.net
   ```
 
-1. Create a Cloudant service in Bluemix
+1. Create a Cloudant service in IBM Cloud
 
   ```
   cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
-1. Create a Conversation service in Bluemix
+1. Create a Conversation service in IBM Cloud
 
   ```
-  cf create-service conversation standard insurance-bot-conversation
+  cf create-service conversation free insurance-bot-conversation
   ```
 
-1. Push the app to Bluemix
+1. Push the app to IBM Cloud
 
   ```
   cf push --no-start
@@ -74,29 +74,29 @@ In order to deploy the full set of microservices involved, check out the [insura
   cf start insurance-bot
   ```
 
-And voila! You now have your very own instance of the app running on Bluemix.
+And voila! You now have your very own instance of the app running on IBM Cloud.
 
 ## Run the app locally
 
-1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
+1. If you do not already have a IBM Cloud account, [sign up here][bluemix_reg_url]
 
 1. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
 
-1. The app depends on the [Catalog](https://github.com/IBM-Bluemix/insurance-catalog) and [Orders](https://github.com/IBM-Bluemix/insurance-orders) microservices. Make sure to have them running first.
+1. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to have them running first.
 
-1. Create a Cloudant service in Bluemix
+1. Create a Cloudant service in IBM Cloud
 
   ```
   cf create-service cloudantNoSQLDB Lite insurance-bot-db
   ```
 
-1. Create a Conversation service in Bluemix
+1. Create a Conversation service in IBM Cloud
 
   ```
-  cf create-service conversation standard insurance-bot-conversation
+  cf create-service conversation free insurance-bot-conversation
   ```
 
-1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the Bluemix console.
+1. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the IBM Cloud console.
 
   ```
   cp vcap-local.template.json vcap-local.json
@@ -126,21 +126,21 @@ If you find a bug, please report it via the [Issues section][issues_url] or even
 
 ## Troubleshooting
 
-The primary source of debugging information for your Bluemix app is the logs. To see them, run the following command using the Cloud Foundry CLI:
+The primary source of debugging information for your IBM Cloud app is the logs. To see them, run the following command using the Cloud Foundry CLI:
 
   ```
   $ cf logs insurance-bot --recent
   ```
 
-For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
+For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://console.bluemix.net/docs/get-support/ts_overview.html#ts-overview) in the IBM Cloud documentation.
 
 ## License
 
 See [License.txt](License.txt) for license information.
 
-[toolchain_url]: https://github.com/IBM-Bluemix/insurance-toolchain
+[toolchain_url]: https://github.com/IBM-Cloud/insurance-toolchain
 [bluemix_reg_url]: http://ibm.biz/insurance-store-registration
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
 [download_node_url]: https://nodejs.org/download/
-[issues_url]: https://github.com/ibm-bluemix/insurance-bot/issues
+[issues_url]: https://github.com/IBM-Cloud/insurance-bot/issues
 [travis_url]: https://travis-ci.org/

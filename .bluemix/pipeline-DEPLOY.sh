@@ -11,7 +11,7 @@ echo "Using manifest file: $MANIFEST"
 echo "Using prefix: $PREFIX"
 
 # Create CF services
-cf create-service conversation standard insurance-bot-conversation
+cf create-service conversation free insurance-bot-conversation
 cf create-service cloudantNoSQLDB Lite ${PREFIX}insurance-bot-db
 # Set app's env vars
 domain=".mybluemix.net"
@@ -21,6 +21,9 @@ case "${REGION_ID}" in
   ;;
   ibm:yp:au-syd)
   domain=".au-syd.mybluemix.net"
+  ;;
+  ibm:yp:eu-de)
+  domain=".eu-de.mybluemix.net"
   ;;
 esac
 if ! cf app $CF_APP; then

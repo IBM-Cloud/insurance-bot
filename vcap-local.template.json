@@ -19,7 +19,7 @@
         "label": "conversation",
         "name": "insurance-bot-conversation",
         "credentials": {
-            "url": "https://gateway.watsonplatform.net/conversation/api",
+            "url": "",
             "password": "",
             "username": ""
         }
