@@ -35,46 +35,46 @@ In order to deploy the full set of microservices involved, check out the [insura
 
 7. Connect to IBM Cloud in the command line tool and follow the prompts to log in. Download and setup [IBM Cloud CLI](https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started)
 
-  ```
-  ibmcloud login
-  ```
-  Use `ibmcloud target --cf` to set org and space; Run `ibmcloud regions` to find API endpoints.
+    ```
+    ibmcloud login
+    ```
+    Use `ibmcloud target --cf` to set org and space; Run `ibmcloud regions` to find API endpoints.
 
 8. Create a Cloudant service in IBM Cloud
 
-  ```
-  ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
-  ```
+    ```
+    ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
+    ```
 
 9. Create a Conversation service in IBM Cloud
 
-  ```
-  ibmcloud cf create-service conversation free insurance-bot-conversation
-  ```
+    ```
+    ibmcloud cf create-service conversation free insurance-bot-conversation
+    ```
 
 10. Push the app to IBM Cloud
 
-  ```
-  ibmcloud cf push --no-start
-  ```
+    ```
+    ibmcloud cf push --no-start
+    ```
 
 11. Define a variable pointing to the Catalog API deployment.
 
-  ```
-  ibmcloud cf set-env insurance-bot CATALOG_URL https://your-insurance-catalog.mybluemix.net
-  ```
+    ```
+    ibmcloud cf set-env insurance-bot CATALOG_URL https://your-insurance-catalog.mybluemix.net
+    ```
 
 12. Define a variable pointing to the Orders API deployment.
 
-  ```
-  ibmcloud cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
-  ```
+    ```
+    ibmcloud cf set-env insurance-bot ORDERS_URL https://your-insurance-orders.mybluemix.net
+    ```
 
 13. Start your app
 
-  ```
-  ibmcloud cf start insurance-bot
-  ```
+    ```
+    ibmcloud cf start insurance-bot
+    ```
 
 And voila! You now have your very own instance of the app running on IBM Cloud.
 
@@ -88,39 +88,39 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
 
 4. Create a Cloudant service in IBM Cloud
 
-  ```
-  ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
-  ```
+    ```
+    ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
+    ```
 
 5. Create a Conversation service in IBM Cloud
 
-  ```
-  ibmcloud cf create-service conversation free insurance-bot-conversation
-  ```
+    ```
+    ibmcloud cf create-service conversation free insurance-bot-conversation
+    ```
 
 6. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the IBM Cloud console.
 
-  ```
-  cp vcap-local.template.json vcap-local.json
-  ```
+    ```
+    cp vcap-local.template.json vcap-local.json
+    ```
 
 7. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the Cloudant and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
 
-  ```
-  cp .template.env .env
-  ```
+    ```
+    cp .template.env .env
+    ```
 
 8. Install the dependencies
 
-  ```
-  npm install
-  ```
+    ```
+    npm install
+    ```
 
 9. Run the app locally
 
-  ```
-  npm start
-  ```
+    ```
+    npm start
+    ```
 
 ## Contribute
 
