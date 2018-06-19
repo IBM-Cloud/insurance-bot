@@ -376,7 +376,7 @@ app.get('/soon', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-    res.redirect("https://github.com/IBM-Bluemix/cloudco-insurance/wiki");
+    res.redirect("https://github.com/IBM-Cloud/cloudco-insurance/wiki");
 });
 
 app.get('/healthBenefits', isLoggedIn, function(req, res) {
