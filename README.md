@@ -17,7 +17,7 @@ In order to deploy the full set of microservices involved, check out the [insura
 
 1. If you do not already have a IBM Cloud account, [sign up here][bluemix_reg_url]
 
-2. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
+2. Download and install the [IBM Cloud CLI][ibmcloud_cli_url] tool
 
 3. The app depends on the [Catalog](https://github.com/IBM-Cloud/insurance-catalog) and [Orders](https://github.com/IBM-Cloud/insurance-orders) microservices. Make sure to deploy them first.
 
@@ -122,6 +122,9 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
     npm start
     ```
 
+## Cleanup
+See the [**Cleanup** section in the toolchain repository](https://github.com/IBM-Cloud/insurance-toolchain#cleanup) for instructions on how to remove the resources associated with the entire project.
+
 ## Contribute
 
 If you find a bug, please report it via the [Issues section][issues_url] or even better, fork the project and submit a pull request with your fix! We are more than happy to accept external contributions to this project if they address something noted in an existing issue.  In order to be considered, pull requests must pass the initial [Travis CI][travis_url] build and/or add substantial value to the sample application.
@@ -142,7 +145,7 @@ See [License.txt](License.txt) for license information.
 
 [toolchain_url]: https://github.com/IBM-Cloud/insurance-toolchain
 [bluemix_reg_url]: http://ibm.biz/insurance-store-registration
-[cloud_foundry_url]: https://github.com/cloudfoundry/cli
+[ibmcloud_cli_url]: https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started
 [download_node_url]: https://nodejs.org/download/
 [issues_url]: https://github.com/IBM-Cloud/insurance-bot/issues
 [travis_url]: https://travis-ci.org/
