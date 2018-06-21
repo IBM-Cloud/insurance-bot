@@ -39,10 +39,6 @@ var appName;
 if (appEnv.isLocal) {
     require('dotenv').load();
 }
-var catalog_url = process.env.CATALOG_URL;
-var orders_url = process.env.ORDERS_URL;
-console.log("Catalog URL is", catalog_url);
-console.log("Orders URL is", orders_url);
 
 // Cloudant
 var Logs, Benefits;
