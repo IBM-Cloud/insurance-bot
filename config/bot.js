@@ -102,7 +102,7 @@ function initConversation() {
         url: conversationURL,
         username: conversationUsername,
         password: conversationPassword,
-        version_date: '2016-07-11',
+        version_date: '2018-02-16',
         version: 'v1'
     });
 
