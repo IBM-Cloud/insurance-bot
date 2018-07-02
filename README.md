@@ -121,6 +121,9 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
     ```
     npm start
     ```
+## Improvement
+
+For continuous improvement, refer [additional improvement](https://github.com/IBM-Cloud/insurance-bot-dashboard#additional-improvement) section.
 
 ## Cleanup
 See the [**Cleanup** section in the toolchain repository](https://github.com/IBM-Cloud/insurance-toolchain#cleanup) for instructions on how to remove the resources associated with the entire project.
