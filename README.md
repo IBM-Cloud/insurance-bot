@@ -21,9 +21,9 @@ In order to deploy the full set of microservices involved, check out the [insura
 
 3. Clone the app to your local environment from your terminal using the following command:
 
-  ```
-  git clone https://github.com/IBM-Cloud/insurance-bot.git
-  ```
+   ```
+   git clone https://github.com/IBM-Cloud/insurance-bot.git
+   ```
 
 4. `cd` into this newly created directory
 
