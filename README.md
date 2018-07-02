@@ -27,9 +27,7 @@ In order to deploy the full set of microservices involved, check out the [insura
 
 4. `cd` into this newly created directory
 
-5. Open the `manifest.yml` file and change the `host` value to something unique.
-
-  The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
+5. Open the `manifest.yml` file and change the `host` value to something unique. The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
 
 6. Connect to IBM Cloud in the command line tool and follow the prompts to log in. Download and setup [IBM Cloud CLI](https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started)
 
