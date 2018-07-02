@@ -104,7 +104,7 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
     cp vcap-local.template.json vcap-local.json
     ```
 
-7. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the credentials for the Cloudant and Conversation services. Refer to [this step](#importWorkspace) to get a workspace id.
+7. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the URLs for the Catalog and Orders API services.
 
     ```
     cp .template.env .env
