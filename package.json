@@ -30,6 +30,6 @@
     "url": "https://github.com/IBM-Cloud/insurance-bot.git"
   },
   "engines": {
-    "node": "4.2.x"
+    "node": "~10.5.x"
   }
 }
