@@ -69,7 +69,7 @@ var Logs;
 
 function initCloudant() {
     var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
-    var Cloudant = require('cloudant')({
+    var Cloudant = require('@cloudant/cloudant')({
       url: cloudantURL,
       plugin: 'retry',
       retryAttempts: 10,
