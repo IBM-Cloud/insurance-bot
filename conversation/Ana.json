@@ -1889,15 +1889,17 @@
 			"claim_step": "date",
 			"claim_procedure": "@procedures"
 		},
-		"metadata": null,
+		"metadata": {},
 		"next_step": {
 			"behavior": "jump_to",
 			"selector": "condition",
 			"dialog_node": "node_11_1472598207218"
 		},
 		"conditions": "#make_claim && @procedures",
+		"digress_in": "returns",
 		"description": null,
 		"dialog_node": "node_3_1476991627470",
+		"digress_out": "allow_all",
 		"previous_sibling": "node_3_1472589537910"
 	}, {
 		"type": "standard",
@@ -1969,11 +1971,13 @@
 		"context": {
 			"chosen_service": "@types"
 		},
-		"metadata": null,
+		"metadata": {},
 		"next_step": null,
 		"conditions": "@types",
+		"digress_in": "returns",
 		"description": null,
 		"dialog_node": "node_6_1476149112153",
+		"digress_out": "allow_all",
 		"previous_sibling": "node_4_1472589946048"
 	}, {
 		"type": "standard",
@@ -1983,11 +1987,13 @@
 		},
 		"parent": null,
 		"context": null,
-		"metadata": null,
+		"metadata": {},
 		"next_step": null,
 		"conditions": "#make_claim",
+		"digress_in": "does_not_return",
 		"description": null,
 		"dialog_node": "node_3_1472589537910",
+		"digress_out": "allow_all",
 		"previous_sibling": "node_1_1471622977336"
 	}, {
 		"type": "standard",
@@ -2044,11 +2050,13 @@
 		"context": {
 			"chosen_detail": "@details"
 		},
-		"metadata": null,
+		"metadata": {},
 		"next_step": null,
 		"conditions": "#get_info && @details",
+		"digress_in": "returns",
 		"description": null,
 		"dialog_node": "node_12_1476151077484",
+		"digress_out": "allow_all",
 		"previous_sibling": "node_1_1471971552653"
 	}, {
 		"type": "standard",
@@ -2154,15 +2162,17 @@
 			"claim_step": "date",
 			"claim_procedure": "@procedures"
 		},
-		"metadata": null,
+		"metadata": {},
 		"next_step": {
 			"behavior": "jump_to",
 			"selector": "condition",
 			"dialog_node": "node_8_1472590259253"
 		},
 		"conditions": "@procedures && #claim_procedure",
+		"digress_in": "returns",
 		"description": null,
 		"dialog_node": "node_4_1472589946048",
+		"digress_out": "allow_all",
 		"previous_sibling": "node_3_1476991627470"
 	}, {
 		"type": "standard",
