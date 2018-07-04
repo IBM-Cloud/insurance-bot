@@ -13,7 +13,7 @@ echo "Using prefix: $PREFIX"
 # Create CF services
 cf create-service conversation free insurance-bot-conversation
 cf create-service cloudantNoSQLDB Lite ${PREFIX}insurance-bot-db
-cf create-service AppID graduated-tier insurance-bot-appid
+cf create-service appid "Graduated tier" insurance-bot-appid
 # Set app's env vars
 domain=".mybluemix.net"
 case "${REGION_ID}" in
