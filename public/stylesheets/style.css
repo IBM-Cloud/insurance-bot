@@ -5,6 +5,8 @@
         font-family: Lato,sans-serif;
         color: #283D56;
         -webkit-font-smoothing: antialiased;
+        /* For smooth scrolling on mobile devices*/
+        -webkit-overflow-scrolling: touch;
     }
 
     h2 {
