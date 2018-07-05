@@ -4,5 +4,5 @@ applications:
   memory: 256M
   services:
   - insurance-bot-conversation
-  - dev-insurance-bot-db
+  - insurance-bot-db
   - insurance-bot-appid
