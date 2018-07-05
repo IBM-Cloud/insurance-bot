@@ -27,10 +27,10 @@ APPID_MGMT_URL=`bx service key-show insurance-bot-appid for-pipeline | grep "\"m
 # We need the IAM token
 IAM_OAUTH_TOKEN=`bx iam oauth-tokens | sed -n 1p | awk 'NF>1{print $NF}'`
 # Now configure App ID for Cloud Directory
-curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' \
-           --header 'Authorization: Bearer $IAM_OAUTH_TOKEN' \
-           -d @".bluemix/appid-config.json"  $APPID_MGMT_URL
-
+FILENAME=".bluemix/appid-config.json"
+curl -v -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' \
+           --header "Authorization: Bearer $IAM_OAUTH_TOKEN" \
+           -d @$FILENAME  $APPID_MGMT_URL/config/idps/cloud_directory
 
 # Deploy the app
 if ! bx app show $CF_APP; then
