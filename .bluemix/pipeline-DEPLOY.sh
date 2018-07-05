@@ -29,7 +29,7 @@ IAM_OAUTH_TOKEN=`bx iam oauth-tokens | sed -n 1p | awk 'NF>1{print $NF}'`
 # Now configure App ID for Cloud Directory
 curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' \
            --header 'Authorization: Bearer $IAM_OAUTH_TOKEN' \
-           -d @"appid-config.json"  '$APPID_MGMT_URL'
+           -d @".bluemix/appid-config.json"  $APPID_MGMT_URL
 
 
 # Deploy the app
