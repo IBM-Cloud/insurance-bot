@@ -4,5 +4,6 @@ applications:
   host: dev-insurance-bot
   memory: 256M
   services:
-  - insurance-bot-conversation
+  - dev-insurance-bot-conversation
   - dev-insurance-bot-db
+  - dev-insurance-bot-appid

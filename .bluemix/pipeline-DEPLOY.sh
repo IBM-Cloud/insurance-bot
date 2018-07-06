@@ -13,17 +13,17 @@ echo "Using manifest file: $MANIFEST"
 echo "Using prefix: $PREFIX"
 
 # Create services
-bx service create conversation free insurance-bot-conversation
+bx service create conversation free ${PREFIX}insurance-bot-conversation
 bx service create cloudantNoSQLDB Lite ${PREFIX}insurance-bot-db
-bx service create appid "Graduated tier" insurance-bot-appid
+bx service create appid "Graduated tier" ${PREFIX}insurance-bot-appid
 
 # Set up App ID service
 # Note: We only configure Cloud Directory and don't turn Google / Facebook off
 #
 # Create service key from which to obtain managementUrl
-bx service key-create insurance-bot-appid for-pipeline
+bx service key-create ${PREFIX}insurance-bot-appid for-pipeline
 # managementUrl includes tenantId
-APPID_MGMT_URL=`bx service key-show insurance-bot-appid for-pipeline | grep "\"managementUrl\"" | awk '{print $2}' | tr -d '","'`
+APPID_MGMT_URL=`bx service key-show ${PREFIX}insurance-bot-appid for-pipeline | grep "\"managementUrl\"" | awk '{print $2}' | tr -d '","'`
 # We need the IAM token
 IAM_OAUTH_TOKEN=`bx iam oauth-tokens | sed -n 1p | awk 'NF>1{print $NF}'`
 # Now configure App ID for Cloud Directory

@@ -196,9 +196,14 @@ app.post('/signup', function(req, res) {
 		}).catch(function (err) {
 			if (err && err.code) {
 				console.error("error code:" + err.code + " ,bad sign up input: " + err.message);
+        res.status(500).json({
+          'message': err.message
+        });
 			} else {
 				console.error(err);
-				res.status(500).send('Something went wrong');
+				res.status(500).json({
+          'message': 'Something went wrong!'
+        });
 			}
 		});
 });

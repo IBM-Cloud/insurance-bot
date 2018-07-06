@@ -24,6 +24,26 @@
             "username": ""
         }
       }
+    ],
+    "AppID": [
+      {
+        "label": "AppID",
+        "name": "insurance-bot-appid",
+        "credentials": {
+          "apikey": "",
+          "clientId": "",
+          "iam_apikey_description": "",
+          "iam_apikey_name": "",
+          "iam_role_crn": "",
+          "iam_serviceid_crn": "",
+          "managementUrl": "",
+          "oauthServerUrl": "",
+          "profilesUrl": "",
+          "secret": "",
+          "tenantId": "",
+          "version": 3
+        }
+      }
     ]
   }
 }
