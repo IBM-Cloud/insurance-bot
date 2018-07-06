@@ -42,7 +42,7 @@ In order to deploy the full set of microservices involved, check out the [insura
     ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
     ```
 
-8. Create a Conversation service in IBM Cloud
+8. Create a Watson Assistant (formerly Conversation) service in IBM Cloud
 
     ```
     ibmcloud cf create-service conversation free insurance-bot-conversation
@@ -68,13 +68,13 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
     ibmcloud cf create-service cloudantNoSQLDB Lite insurance-bot-db
     ```
 
-4. Create a Conversation service in IBM Cloud
+4. Create a Watson Assistant (formerly Conversation) service in IBM Cloud
 
     ```
     ibmcloud cf create-service conversation free insurance-bot-conversation
     ```
 
-5. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Conversation services. You can retrieve the service credentials from the IBM Cloud console.
+5. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Watson Assistant (formerly Conversation) services. You can retrieve the service credentials from the IBM Cloud console.
 
     ```
     cp vcap-local.template.json vcap-local.json
