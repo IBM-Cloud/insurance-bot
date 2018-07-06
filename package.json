@@ -8,27 +8,28 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.17.1",
-    "cfenv": "^1.0.3",
+    "cfenv": "^1.1.0",
     "chrono-node":"*",
-    "cloudant":"~1.6.2",
+    "@cloudant/cloudant":"~2.3.0",
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.4.3",
     "dotenv": "*",
-    "express": "4.15.2",
-    "express-session": "1.15.2",
+    "express": "4.16.3",
+    "express-session": "1.15.6",
     "morgan": "1.8.1",
     "node-datetime": "1.0",
     "socket.io":"*",
-    "passport": "~0.3.2",
+    "passport": "~0.4.0",
     "passport-local": "~1.0.0",
     "request": "2.81.0",
-    "watson-developer-cloud": "2.27.1"
+    "watson-developer-cloud": "3.5.0",
+    "ibmcloud-appid": "4.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/IBM-Cloud/insurance-bot.git"
   },
   "engines": {
-    "node": "4.2.x"
+    "node": "~10.5.x"
   }
 }

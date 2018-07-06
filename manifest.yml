@@ -1,8 +1,8 @@
 ---
 applications:
 - name: insurance-bot
-  host: insurance-bot
   memory: 256M
   services:
   - insurance-bot-conversation
   - insurance-bot-db
+  - insurance-bot-appid
