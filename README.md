@@ -52,7 +52,7 @@ In order to deploy the full set of microservices involved, check out the [insura
 
    ```
    ibmcloud service create appid "Graduated tier" insurance-bot-appid
-  ```
+   ```
 
 10. Push the app to IBM Cloud
 
