@@ -92,7 +92,7 @@ function initCloudant() {
 // Create the service wrapper
 function initConversation() {
 
-    var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
+    var conversationCredentials = appEnv.services.conversation[0].credentials || appEnv.getServiceCreds("insurance-bot-conversation");
     console.log(conversationCredentials);
     var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
     var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
