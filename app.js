@@ -13,8 +13,12 @@ var session = require('express-session');
 var request = require('request');
 var io = require('socket.io')();
 var watson = require('watson-developer-cloud');
+const WebAppStrategy = require('ibmcloud-appid').WebAppStrategy;
+//const userProfileManager = require("ibmcloud-appid").UserProfileManager;
+const SelfServiceManager = require("ibmcloud-appid").SelfServiceManager;
 
-require('./config/passport')(passport);
+
+//require('./config/passport')(passport);
 var chatbot = require('./config/bot.js');
 
 // configuration ===============================================================
@@ -40,10 +44,21 @@ if (appEnv.isLocal) {
     require('dotenv').load();
 }
 
+// Configure passport with App ID, application environment is needed
+require('./config/passport')(passport,appEnv);
+// userProfileManager currently not used
+//userProfileManager.init({profilesUrl: appEnv.services.AppID[0].credentials.profilesUrl, oauthServerUrl: appEnv.services.AppID[0].credentials.oauthServerUrl});
+
+// Initialize App ID self service manager - used for user signup
+let selfServiceManager = new SelfServiceManager({
+	iamApiKey: appEnv.services.AppID[0].credentials.apikey,
+	managementUrl: appEnv.services.AppID[0].credentials.managementUrl
+});
+
 // Cloudant
 var Logs, Benefits;
 var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
-var Cloudant = require('cloudant')({
+var Cloudant = require('@cloudant/cloudant')({
   url: cloudantURL,
   plugin: 'retry',
   retryAttempts: 10,
@@ -93,6 +108,17 @@ app.get('/login', function(req, res) {
     res.sendfile('./public/login.html');
 });
 
+app.get('/sociallogin', passport.authenticate(WebAppStrategy.STRATEGY_NAME, {
+	successRedirect: '/redirect',
+	forceLogin: true
+}));
+
+// redirect without any additional processing - came here from App ID
+app.get('/redirect', function(req, res) {
+  res.redirect('/health');
+});
+
+
 app.get('/logout',
     function(req, res) {
         req.logout();
@@ -103,12 +129,12 @@ app.get('/signup', function(req, res) {
     res.sendfile('./public/signup.html');
 });
 
-// process the login form
+
 app.post('/login', function(req, res, next) {
-    passport.authenticate('local-login', function(err, user, info) {
+  passport.authenticate(WebAppStrategy.STRATEGY_NAME, function(err, user, info) {
         if (err || info) {
-            res.status(500).json({
-                'message': info
+          res.status(500).json({
+                'message': info.message
             });
         } else {
             req.logIn(user, function(err) {
@@ -118,7 +144,8 @@ app.post('/login', function(req, res, next) {
                     });
                 } else {
                     res.status(200).json({
-                        'username': user.username,
+                        'username': user.email,
+                        'name': user.name,
                         'fname': user.fname,
                         'lname': user.lname
                     });
@@ -128,30 +155,53 @@ app.post('/login', function(req, res, next) {
     })(req, res, next);
 });
 
-app.post('/signup', function(req, res, next) {
-    passport.authenticate('local-signup', function(err, user, info) {
-        if (err || info) {
-            res.status(500).json({
-                'message': info
-            });
-        } else {
-            console.log("Got user, now verify:",JSON.stringify(user));
-            req.logIn(user, function(err) {
-                if (err) {
-                    console.log("Server error:",JSON.stringify(err));
-                    res.status(500).json({
-                        'message': "Error validating user. Try logging in."
+function _generateUserScim(body) {
+	let userScim = {};
+	if (body.password) {
+		userScim.password = body.password;
+	}
+	userScim.emails = [];
+	userScim.emails[0] = {
+		value: body.username,
+		primary: true
+	};
+	if (body.lname || body.lname) {
+		userScim.name = {};
+		if (body.fname) {
+			userScim.name.givenName = body.fname;
+		}
+		if (body.lname) {
+			userScim.name.familyName = body.lname;
+		}
+	}
+	return userScim;
+};
+
+app.post('/signup', function(req, res) {
+	let userData = _generateUserScim(req.body);
+	let language = 'en';
+	let password = req.body.password;
+	selfServiceManager.signUp(userData, language).then(function (user) {
+			console.log('user created successfully '+JSON.stringify(user));
+      createAccountBenefits(user.emails[0].value);
+      res.status(200).json({
+                        'username': user.emails[0].value,
+                        'fname': user.name.givenName,
+                        'lname': user.name.familyName
                     });
-                } else {
-                    res.status(200).json({
-                        'username': user.username,
-                        'fname': user.fname,
-                        'lname': user.lname
-                    });
-                }
-            });
-        }
-    })(req, res, next);
+		}).catch(function (err) {
+			if (err && err.code) {
+				console.error("error code:" + err.code + " ,bad sign up input: " + err.message);
+        res.status(500).json({
+          'message': err.message
+        });
+			} else {
+				console.error(err);
+				res.status(500).json({
+          'message': 'Something went wrong!'
+        });
+			}
+		});
 });
 
 app.get('/isLoggedIn', function(req, res) {
@@ -160,8 +210,14 @@ app.get('/isLoggedIn', function(req, res) {
     };
 
     if (req.isAuthenticated()) {
+      // retrieve more user profile attributes - seems to be currently empty
+      // userProfileManager.getAllAttributes(req.session[WebAppStrategy.AUTH_CONTEXT].accessToken).then(function (attributes) {
+      //    console.error("attributes: "+JSON.stringify(attributes));
+      //   });
         result.outcome = 'success';
         result.username = req.user.username;
+        result.email = req.user.email;
+        result.name = req.user.name;
         result.fname = req.user.fname;
         result.lname = req.user.lname;
     }
@@ -245,7 +301,7 @@ app.post('/submitClaim', function(req, res) {
     var claim = req.body;
 
     if (req.isAuthenticated()) {
-        var owner = req.user.username;
+        var owner = req.user.email;
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -392,11 +448,33 @@ app.get('/healthBenefits', isLoggedIn, function(req, res) {
     }
 });
 
+
+function createAccountBenefits(account) {
+  var healthBenefits;
+  if (require('fs').existsSync('./config/default-policy.json')) {
+      try {
+          healthBenefits = require("./config/default-policy.json");
+      } catch (e) {
+          console.error(e);
+      }
+  }
+  healthBenefits._id = account;
+  healthBenefits.owner = account;
+
+  Benefits.insert(healthBenefits, function(err) {
+    if (err) {
+      throw err;
+    }
+  });
+}
+
+
+
 function getUserPolicy(req, callback) {
     //console.log(req);
 
     Benefits.find({ selector: {
-        '_id': req.user.username
+        '_id': req.user.email
     }}, function(err, result) {
         if (err) {
             console.error("Error retrieving user policy: ", err);
@@ -456,10 +534,9 @@ function processChatMessage(req, res) {
                     console.log("No log file found.");
                 }
             });
-
             var context = data.context;
             var amount = context.claim_amount;
-            var owner = req.user.username;
+            var owner = req.user.email;
 
             // File a claim for the user
             if (context.claim_step === "verify") {

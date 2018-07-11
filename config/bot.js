@@ -69,7 +69,7 @@ var Logs;
 
 function initCloudant() {
     var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("insurance-bot-db").url;
-    var Cloudant = require('cloudant')({
+    var Cloudant = require('@cloudant/cloudant')({
       url: cloudantURL,
       plugin: 'retry',
       retryAttempts: 10,
@@ -92,7 +92,7 @@ function initCloudant() {
 // Create the service wrapper
 function initConversation() {
 
-    var conversationCredentials = appEnv.getServiceCreds("insurance-bot-conversation");
+    var conversationCredentials = appEnv.services.conversation[0].credentials || appEnv.getServiceCreds("insurance-bot-conversation");
     console.log(conversationCredentials);
     var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
     var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;

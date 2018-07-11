@@ -48,7 +48,13 @@ In order to deploy the full set of microservices involved, check out the [insura
     ibmcloud cf create-service conversation free insurance-bot-conversation
     ```
 
-9. Push the app to IBM Cloud
+9. Create an App ID service in IBM Cloud
+
+   ```
+   ibmcloud service create appid "Graduated tier" insurance-bot-appid
+   ```
+
+10. Push the app to IBM Cloud
 
     ```
     ibmcloud cf push
@@ -74,19 +80,25 @@ And voila! You now have your very own instance of the app running on IBM Cloud.
     ibmcloud cf create-service conversation free insurance-bot-conversation
     ```
 
-5. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Watson Assistant (formerly Conversation) services. You can retrieve the service credentials from the IBM Cloud console.
+5. Create an App ID service in IBM Cloud
+
+   ```
+   ibmcloud service create appid "Graduated tier" insurance-bot-appid
+    ```
+
+6. In the checkout directory, copy the file ```vcap-local.template.json``` to ```vcap-local.json```. Edit ```vcap-local.json``` and update the credentials for the Cloudant and Watson Assistant (formerly Conversation) services. You can retrieve the service credentials from the IBM Cloud console.
 
     ```
     cp vcap-local.template.json vcap-local.json
     ```
 
-6. Install the dependencies
+7. Install the dependencies
 
     ```
     npm install
     ```
 
-7. Run the app locally
+8. Run the app locally
 
     ```
     npm start
