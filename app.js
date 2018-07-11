@@ -131,21 +131,11 @@ app.get('/signup', function(req, res) {
 
 
 app.post('/login', function(req, res, next) {
-  passport.authenticate(WebAppStrategy.STRATEGY_NAME, {
-successRedirect: '/health',
-failureRedirect: '/login',
-failureFlash : true // allow flash messages
-}, function(err, user, info) {
+  passport.authenticate(WebAppStrategy.STRATEGY_NAME, function(err, user, info) {
         if (err || info) {
-          if (err) {
-            res.status(500).json({
-                'message': err.message
+          res.status(500).json({
+                'message': info.message
             });
-          } else {
-            res.status(500).json({
-                'message': info
-            });
-          }
         } else {
             req.logIn(user, function(err) {
                 if (err) {

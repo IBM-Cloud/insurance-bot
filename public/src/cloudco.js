@@ -89,6 +89,7 @@ function login() {
                 password = '';
             }
         } else {
+            console.log("Got error response from passport: ", JSON.stringify(response));
             message.innerHTML = response.message;
             console.error('Server error for passport. Return status of: ', xhr.statusText);
         }
