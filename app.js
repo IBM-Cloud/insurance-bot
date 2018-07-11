@@ -137,9 +137,15 @@ failureRedirect: '/login',
 failureFlash : true // allow flash messages
 }, function(err, user, info) {
         if (err || info) {
+          if (err) {
+            res.status(500).json({
+                'message': err.message
+            });
+          } else {
             res.status(500).json({
                 'message': info
             });
+          }
         } else {
             req.logIn(user, function(err) {
                 if (err) {
