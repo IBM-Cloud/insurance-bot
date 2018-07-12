@@ -79,7 +79,10 @@ app.use(express.static(__dirname + '/public'));
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser()); // get information from html forms
+app.use(bodyParser.urlencoded({
+  extended: true
+})); // get information from html forms
+app.use(bodyParser.json()); // get information from html forms
 
 app.set('view engine', 'html');
 
@@ -105,7 +108,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-    res.sendfile('./public/login.html');
+    res.sendFile('./public/login.html',{root: __dirname});
 });
 
 app.get('/sociallogin', passport.authenticate(WebAppStrategy.STRATEGY_NAME, {
@@ -126,7 +129,7 @@ app.get('/logout',
     });
 
 app.get('/signup', function(req, res) {
-    res.sendfile('./public/signup.html');
+    res.sendFile('./public/signup.html',{root: __dirname});
 });
 
 
@@ -243,7 +246,7 @@ function isLoggedIn(req, res, next) {
 // show the signup form
 
 app.get('/claims', isLoggedIn, function(req, res) {
-    res.sendfile('./public/claims.html');
+    res.sendFile('./public/claims.html',{root: __dirname});
 });
 
 app.get('/history', isLoggedIn, function(req, res) {
@@ -409,22 +412,22 @@ function fileClaim(owner, claim, callback) {
 // we will use route middleware to verify this (the isLoggedIn function)
 
 app.get('/profile', isLoggedIn, function(req, res) {
-    res.sendfile('./public/index.html');
+    res.sendFile('./public/index.html',{root: __dirname});
 });
 
 app.get('/health', function(req, res) {
     req.session.lastPage = "/health";
 
     if (req.isAuthenticated()) {
-        res.sendfile('./public/health.html');
+        res.sendFile('./public/health.html',{root: __dirname});
     } else {
-        res.sendfile('./public/login.html');
+        res.sendFile('./public/login.html',{root: __dirname});
     }
 
 });
 
 app.get('/soon', function(req, res) {
-    res.sendfile('./public/soon.html');
+    res.sendFile('./public/soon.html',{root: __dirname});
 });
 
 app.get('/about', function(req, res) {
