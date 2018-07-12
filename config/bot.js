@@ -10,7 +10,7 @@
  * @requires  app.js
  *
  */
-var watson = require('watson-developer-cloud');
+var watson = require('watson-developer-cloud/assistant/v1');
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');
@@ -98,7 +98,7 @@ function initConversation() {
     var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
     var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
 
-    conversation = watson.conversation({
+    conversation = new watson({
         url: conversationURL,
         username: conversationUsername,
         password: conversationPassword,
