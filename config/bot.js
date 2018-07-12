@@ -102,8 +102,7 @@ function initConversation() {
         url: conversationURL,
         username: conversationUsername,
         password: conversationPassword,
-        version_date: '2018-02-16',
-        version: 'v1'
+        version: '2018-02-16'
     });
 
     // check if the workspace ID is specified in the environment
