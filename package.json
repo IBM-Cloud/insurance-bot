@@ -9,8 +9,8 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.17.1",
     "cfenv": "^1.1.0",
-    "chrono-node":"*",
-    "@cloudant/cloudant":"~2.3.0",
+    "chrono-node": "*",
+    "@cloudant/cloudant": "~2.3.0",
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.4.3",
     "dotenv": "*",
@@ -18,7 +18,7 @@
     "express-session": "1.15.6",
     "morgan": "1.8.1",
     "node-datetime": "1.0",
-    "socket.io":"*",
+    "socket.io": "*",
     "passport": "~0.4.0",
     "passport-local": "~1.0.0",
     "request": "2.81.0",
@@ -30,6 +30,6 @@
     "url": "https://github.com/IBM-Cloud/insurance-bot.git"
   },
   "engines": {
-    "node": "~10.5.x"
+    "node": "~10.x.x"
   }
 }
