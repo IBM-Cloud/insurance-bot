@@ -23,7 +23,7 @@
     "passport-local": "~1.0.0",
     "request": "2.81.0",
     "watson-developer-cloud": "3.5.0",
-    "ibmcloud-appid": "4.0.0"
+    "ibmcloud-appid": "6.0.0"
   },
   "repository": {
     "type": "git",
