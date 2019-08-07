@@ -12,9 +12,19 @@ fi
 echo "Using manifest file: $MANIFEST"
 echo "Using prefix: $PREFIX"
 
+if [ -z "$ASSISTANT_PLAN" ]; then
+  export ASSISTANT_PLAN=free
+fi
+echo "ASSISTANT_PLAN=$ASSISTANT_PLAN"
+
+if [ -z "$CLOUDANT_PLAN" ]; then
+  export CLOUDANT_PLAN=Lite
+fi
+echo "CLOUDANT_PLAN=$CLOUDANT_PLAN"
+
 # Create services
-bx service create conversation free ${PREFIX}insurance-bot-conversation
-bx service create cloudantNoSQLDB Lite ${PREFIX}insurance-bot-db
+bx service create conversation ${ASSISTANT_PLAN} ${PREFIX}insurance-bot-conversation
+bx service create cloudantNoSQLDB ${CLOUDANT_PLAN} ${PREFIX}insurance-bot-db
 bx service create appid "Graduated tier" ${PREFIX}insurance-bot-appid
 
 # Set up App ID service
