@@ -10,7 +10,8 @@
  * @requires  app.js
  *
  */
-var watson = require('watson-developer-cloud/assistant/v1');
+var watson = require('ibm-watson/assistant/v1');
+var { IAMAuthenticator } = require('ibm-cloud-sdk-core');
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');
@@ -94,14 +95,12 @@ function initConversation() {
 
     var conversationCredentials = appEnv.services.conversation[0].credentials || appEnv.getServiceCreds("insurance-bot-conversation");
     console.log(conversationCredentials);
-    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+    var conversationApiKey = process.env.CONVERSATION_APIKEY || conversationCredentials.apikey;
     var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
 
     conversation = new watson({
         url: conversationURL,
-        username: conversationUsername,
-        password: conversationPassword,
+        authenticator: new IamAuthenticator({ apikey: conversationApiKey }),
         version: '2018-02-16'
     });
 
