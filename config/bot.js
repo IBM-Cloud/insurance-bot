@@ -1,6 +1,6 @@
 /**
  * This file contains all of the web and hybrid functions for interacting with
- * Ana and the Watson Conversation service. When API calls are not needed, the
+ * Ana and the Watson Assistant service. When API calls are not needed, the
  * functions also do basic messaging between the client and the server.
  *
  * @summary   Functions for Ana Chat Bot.
@@ -57,7 +57,7 @@ function initializeAppEnv() {
     if (appEnv.services.conversation) {
         initConversation();
     } else {
-        console.error("No Watson conversation service exists");
+        console.error("No Watson Assistant service exists");
     }
 }
 
@@ -117,7 +117,7 @@ function initConversation() {
         const workspace = res.result.workspaces.find(workspace => workspace.name === workspaceName);
         if (workspace) {
           conversationWorkspace = workspace.workspace_id;
-          console.log("Using Watson Conversation with workspace", conversationWorkspace);
+          console.log("Using Watson Assistant with workspace", conversationWorkspace);
         } else {
           console.log('Importing workspace from ./conversation/Ana.json');
           // create the workspace
@@ -130,7 +130,7 @@ function initConversation() {
             } else {
               conversationWorkspace = res.result.workspace_id;
               console.log(`Successfully created the workspace '${workspaceName}'`);
-              console.log("Using Watson Conversation with workspace", conversationWorkspace);
+              console.log("Using Watson Assistant with workspace", conversationWorkspace);
             }
           });
         }
@@ -141,7 +141,7 @@ function initConversation() {
       });
     } else {
       console.log('Workspace ID was specified as an environment variable.');
-      console.log("Using Watson Conversation with workspace", conversationWorkspace);
+      console.log("Using Watson Assistant with workspace", conversationWorkspace);
     }
 }
 
@@ -187,14 +187,14 @@ var chatbot = {
 
                     console.log("Got response from Ana: ", JSON.stringify(res.result));
 
-                    updateContextObject(res.result, userPolicy, function(err, res) {
+                    updateContextObject(res.result, userPolicy, function(err, conres) {
 
-                        if (res.context.system.dialog_turn_counter > 1) {
-                            chatLogs(owner, conv, res, () => {
-                              return callback(null, res);
+                        if (conres.context.system.dialog_turn_counter > 1) {
+                            chatLogs(owner, conv, conres, () => {
+                              return callback(null, conres);
                             });
                         } else {
-                          return callback(null, res);
+                          return callback(null, conres);
                         }
                     });
                   })
@@ -384,7 +384,7 @@ function buildContextObject(req, callback) {
         context = '';
     }
 
-    // Set parameters for payload to Watson Conversation
+    // Set parameters for payload to Watson Assistant
     params.input = {
         text: message // User defined text to be sent to service
     };
