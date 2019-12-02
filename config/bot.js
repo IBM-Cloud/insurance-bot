@@ -189,7 +189,7 @@ var chatbot = {
 
                     updateContextObject(res.result, userPolicy, function(err, res) {
 
-                        if (res.result.context.system.dialog_turn_counter > 1) {
+                        if (res.context.system.dialog_turn_counter > 1) {
                             chatLogs(owner, conv, res, () => {
                               return callback(null, res);
                             });
