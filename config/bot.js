@@ -183,13 +183,14 @@ var chatbot = {
                 // Send message to the conversation service with the current context
                 conversation.message(params)
                 .then(res => {
-                    var conv = res.result.context.conversation_id;
+                    var data = res.result;
+                    var conv = data.context.conversation_id;
 
-                    console.log("Got response from Ana: ", JSON.stringify(res.result));
+                    console.log("Got response from Ana: ", JSON.stringify(data));
 
-                    updateContextObject(res.result, userPolicy, function(err, conres) {
+                    updateContextObject(data, userPolicy, function(err, conres) {
 
-                        if (conres.context.system.dialog_turn_counter > 1) {
+                        if (data.context.system.dialog_turn_counter > 1) {
                             chatLogs(owner, conv, conres, () => {
                               return callback(null, conres);
                             });
