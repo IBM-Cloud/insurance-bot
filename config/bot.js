@@ -101,7 +101,7 @@ function initConversation() {
     conversation = new watson({
         url: conversationURL,
         authenticator: new IamAuthenticator({ apikey: conversationApiKey }),
-        version: '2018-02-16'
+        version: '2019-02-28'
     });
 
     // check if the workspace ID is specified in the environment
@@ -118,7 +118,7 @@ function initConversation() {
         } else {
           const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
           if (workspace) {
-            conversationWorkspace = workspace.workspaceId;
+            conversationWorkspace = workspace.workspace_id;
             console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
           } else {
             console.log('Importing workspace from ./conversation/Ana.json');
@@ -130,7 +130,7 @@ function initConversation() {
               if (createErr) {
                 console.log('Failed to create workspace', err);
               } else {
-                conversationWorkspace = workspace.workspaceId;
+                conversationWorkspace = workspace.workspace_id;
                 console.log(`Successfully created the workspace '${workspaceName}'`);
                 console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
               }
