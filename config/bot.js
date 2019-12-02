@@ -183,7 +183,7 @@ var chatbot = {
                 // Send message to the conversation service with the current context
                 conversation.message(params)
                 .then(res => {
-                    var conv = data.context.conversation_id;
+                    var conv = res.result.context.conversation_id;
 
                     console.log("Got response from Ana: ", JSON.stringify(res.result));
 
