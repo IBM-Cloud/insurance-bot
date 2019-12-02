@@ -114,6 +114,7 @@ function initConversation() {
       console.log(`Looking for a workspace named '${workspaceName}'...`);
       conversation.listWorkspaces()
       .then(res => {
+          console.log(res);
         const workspace = res.workspaces.find(workspace => workspace.name === workspaceName);
         if (workspace) {
           conversationWorkspace = workspace.workspace_id;
