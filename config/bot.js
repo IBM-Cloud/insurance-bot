@@ -1,6 +1,6 @@
 /**
  * This file contains all of the web and hybrid functions for interacting with
- * Ana and the Watson Conversation service. When API calls are not needed, the
+ * Ana and the Watson Assistant service. When API calls are not needed, the
  * functions also do basic messaging between the client and the server.
  *
  * @summary   Functions for Ana Chat Bot.
@@ -10,7 +10,8 @@
  * @requires  app.js
  *
  */
-var watson = require('watson-developer-cloud/assistant/v1');
+var watson = require('ibm-watson/assistant/v1');
+const { IamAuthenticator } = require('ibm-watson/auth');
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');
@@ -56,7 +57,7 @@ function initializeAppEnv() {
     if (appEnv.services.conversation) {
         initConversation();
     } else {
-        console.error("No Watson conversation service exists");
+        console.error("No Watson Assistant service exists");
     }
 }
 
@@ -94,15 +95,13 @@ function initConversation() {
 
     var conversationCredentials = appEnv.services.conversation[0].credentials || appEnv.getServiceCreds("insurance-bot-conversation");
     console.log(conversationCredentials);
-    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
+    var conversationApiKey = process.env.CONVERSATION_APIKEY || conversationCredentials.apikey;
     var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
 
     conversation = new watson({
         url: conversationURL,
-        username: conversationUsername,
-        password: conversationPassword,
-        version: '2018-02-16'
+        authenticator: new IamAuthenticator({ apikey: conversationApiKey }),
+        version: '2019-02-28'
     });
 
     // check if the workspace ID is specified in the environment
@@ -113,35 +112,36 @@ function initConversation() {
       const workspaceName = 'Ana';
       console.log('No conversation workspace configured in the environment.');
       console.log(`Looking for a workspace named '${workspaceName}'...`);
-      conversation.listWorkspaces((err, result) => {
-        if (err) {
-          console.log('Failed to query workspaces. Conversation will not work.', err);
+      conversation.listWorkspaces()
+      .then(res => {
+        const workspace = res.result.workspaces.find(workspace => workspace.name === workspaceName);
+        if (workspace) {
+          conversationWorkspace = workspace.workspace_id;
+          console.log("Using Watson Assistant with workspace", conversationWorkspace);
         } else {
-          const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
-          if (workspace) {
-            conversationWorkspace = workspace.workspace_id;
-            console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-          } else {
-            console.log('Importing workspace from ./conversation/Ana.json');
-            // create the workspace
-            const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
-            // force the name to our expected name
-            anaWorkspace.name = workspaceName;
-            conversation.createWorkspace(anaWorkspace, (createErr, workspace) => {
-              if (createErr) {
-                console.log('Failed to create workspace', err);
-              } else {
-                conversationWorkspace = workspace.workspace_id;
-                console.log(`Successfully created the workspace '${workspaceName}'`);
-                console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-              }
-            });
-          }
+          console.log('Importing workspace from ./conversation/Ana.json');
+          // create the workspace
+          const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
+          // force the name to our expected name
+          anaWorkspace.name = workspaceName;
+          conversation.createWorkspace(anaWorkspace, (createErr, res) => {
+            if (createErr) {
+              console.log('Failed to create workspace', err);
+            } else {
+              conversationWorkspace = res.result.workspace_id;
+              console.log(`Successfully created the workspace '${workspaceName}'`);
+              console.log("Using Watson Assistant with workspace", conversationWorkspace);
+            }
+          });
         }
+      console.log(JSON.stringify(res, null, 2));
+      })
+      .catch(err => {
+        console.log('Failed to query workspaces. Conversation will not work.', err);
       });
     } else {
       console.log('Workspace ID was specified as an environment variable.');
-      console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+      console.log("Using Watson Assistant with workspace", conversationWorkspace);
     }
 }
 
@@ -181,27 +181,27 @@ var chatbot = {
 
             } else if (params) {
                 // Send message to the conversation service with the current context
-                conversation.message(params, function(err, data) {
-
-                    if (err) {
-                        console.log("Error in sending message: ", err);
-                        return callback(err);
-                    }
+                conversation.message(params)
+                .then(res => {
+                    var data = res.result;
                     var conv = data.context.conversation_id;
 
                     console.log("Got response from Ana: ", JSON.stringify(data));
 
-                    updateContextObject(data, userPolicy, function(err, res) {
+                    updateContextObject(data, userPolicy, function(err, conres) {
 
                         if (data.context.system.dialog_turn_counter > 1) {
-                            chatLogs(owner, conv, res, () => {
-                              return callback(null, res);
+                            chatLogs(owner, conv, conres, () => {
+                              return callback(null, conres);
                             });
                         } else {
-                          return callback(null, res);
+                          return callback(null, conres);
                         }
                     });
-                });
+                  })
+                  .catch(err => {
+                    console.log("Error in sending message: ", err);
+                  });
             }
 
         });
@@ -310,7 +310,7 @@ function buildContextObject(req, callback) {
 
     // Null out the parameter object to start building
     var params = {
-        workspace_id: conversationWorkspace,
+        workspaceId: conversationWorkspace,
         input: {},
         context: {}
     };
@@ -385,7 +385,7 @@ function buildContextObject(req, callback) {
         context = '';
     }
 
-    // Set parameters for payload to Watson Conversation
+    // Set parameters for payload to Watson Assistant
     params.input = {
         text: message // User defined text to be sent to service
     };
