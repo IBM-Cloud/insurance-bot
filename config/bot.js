@@ -181,19 +181,15 @@ var chatbot = {
 
             } else if (params) {
                 // Send message to the conversation service with the current context
-                conversation.message(params, function(err, data) {
-
-                    if (err) {
-                        console.log("Error in sending message: ", err);
-                        return callback(err);
-                    }
+                conversation.message(params)
+                .then(res => {
                     var conv = data.context.conversation_id;
 
-                    console.log("Got response from Ana: ", JSON.stringify(data));
+                    console.log("Got response from Ana: ", JSON.stringify(res.result));
 
-                    updateContextObject(data, userPolicy, function(err, res) {
+                    updateContextObject(res.result, userPolicy, function(err, res) {
 
-                        if (data.context.system.dialog_turn_counter > 1) {
+                        if (res.result.context.system.dialog_turn_counter > 1) {
                             chatLogs(owner, conv, res, () => {
                               return callback(null, res);
                             });
@@ -201,7 +197,10 @@ var chatbot = {
                           return callback(null, res);
                         }
                     });
-                });
+                  })
+                  .catch(err => {
+                    console.log("Error in sending message: ", err);
+                  });
             }
 
         });
