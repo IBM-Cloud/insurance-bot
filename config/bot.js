@@ -124,11 +124,11 @@ function initConversation() {
           const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
           // force the name to our expected name
           anaWorkspace.name = workspaceName;
-          conversation.createWorkspace(anaWorkspace, (createErr, workspace) => {
+          conversation.createWorkspace(anaWorkspace, (createErr, res) => {
             if (createErr) {
               console.log('Failed to create workspace', err);
             } else {
-              conversationWorkspace = workspace.workspace_id;
+              conversationWorkspace = res.result.workspace_id;
               console.log(`Successfully created the workspace '${workspaceName}'`);
               console.log("Using Watson Conversation with workspace", conversationWorkspace);
             }
