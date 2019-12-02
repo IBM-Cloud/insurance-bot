@@ -112,32 +112,60 @@ function initConversation() {
       const workspaceName = 'Ana';
       console.log('No conversation workspace configured in the environment.');
       console.log(`Looking for a workspace named '${workspaceName}'...`);
-      conversation.listWorkspaces((err, result) => {
-        if (err) {
-          console.log('Failed to query workspaces. Conversation will not work.', err);
+      conversation.listWorkspaces()
+      .then(res => {
+        const workspace = res.workspaces.find(workspace => workspace.name === workspaceName);
+        if (workspace) {
+          conversationWorkspace = workspace.workspace_id;
+          console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
         } else {
-          const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
-          if (workspace) {
-            conversationWorkspace = workspace.workspace_id;
-            console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-          } else {
-            console.log('Importing workspace from ./conversation/Ana.json');
-            // create the workspace
-            const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
-            // force the name to our expected name
-            anaWorkspace.name = workspaceName;
-            conversation.createWorkspace(anaWorkspace, (createErr, workspace) => {
-              if (createErr) {
-                console.log('Failed to create workspace', err);
-              } else {
-                conversationWorkspace = workspace.workspace_id;
-                console.log(`Successfully created the workspace '${workspaceName}'`);
-                console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
-              }
-            });
-          }
+          console.log('Importing workspace from ./conversation/Ana.json');
+          // create the workspace
+          const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
+          // force the name to our expected name
+          anaWorkspace.name = workspaceName;
+          conversation.createWorkspace(anaWorkspace, (createErr, workspace) => {
+            if (createErr) {
+              console.log('Failed to create workspace', err);
+            } else {
+              conversationWorkspace = workspace.workspace_id;
+              console.log(`Successfully created the workspace '${workspaceName}'`);
+              console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+            }
+          });
         }
+      console.log(JSON.stringify(res, null, 2));
+      })
+      .catch(err => {
+        console.log('Failed to query workspaces. Conversation will not work.', err);
       });
+
+    //   conversation.listWorkspaces((err, result) => {
+    //     if (err) {
+    //       console.log('Failed to query workspaces. Conversation will not work.', err);
+    //     } else {
+    //       const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
+    //       if (workspace) {
+    //         conversationWorkspace = workspace.workspace_id;
+    //         console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+    //       } else {
+    //         console.log('Importing workspace from ./conversation/Ana.json');
+    //         // create the workspace
+    //         const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
+    //         // force the name to our expected name
+    //         anaWorkspace.name = workspaceName;
+    //         conversation.createWorkspace(anaWorkspace, (createErr, workspace) => {
+    //           if (createErr) {
+    //             console.log('Failed to create workspace', err);
+    //           } else {
+    //             conversationWorkspace = workspace.workspace_id;
+    //             console.log(`Successfully created the workspace '${workspaceName}'`);
+    //             console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+    //           }
+    //         });
+    //       }
+    //     }
+    //   });
     } else {
       console.log('Workspace ID was specified as an environment variable.');
       console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
