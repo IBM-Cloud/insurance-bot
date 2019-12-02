@@ -11,7 +11,7 @@
  *
  */
 var watson = require('ibm-watson/assistant/v1');
-const { IAMAuthenticator } = require('ibm-watson/auth');
+const { IamAuthenticator } = require('ibm-watson/auth');
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');
