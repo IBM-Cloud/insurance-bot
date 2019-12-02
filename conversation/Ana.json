@@ -1165,7 +1165,7 @@
 		}
 	},
 	"description": "Workspace to be used for testing and training.",
-	"dialog_nodes": [{
+	"dialogNodes": [{
 		"type": "standard",
 		"title": null,
 		"output": {
