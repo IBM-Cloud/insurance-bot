@@ -118,7 +118,7 @@ function initConversation() {
         } else {
           const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
           if (workspace) {
-            conversationWorkspace = workspace.workspace_id;
+            conversationWorkspace = workspace.workspaceId;
             console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
           } else {
             console.log('Importing workspace from ./conversation/Ana.json');
@@ -130,7 +130,7 @@ function initConversation() {
               if (createErr) {
                 console.log('Failed to create workspace', err);
               } else {
-                conversationWorkspace = workspace.workspace_id;
+                conversationWorkspace = workspace.workspaceId;
                 console.log(`Successfully created the workspace '${workspaceName}'`);
                 console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
               }
@@ -309,7 +309,7 @@ function buildContextObject(req, callback) {
 
     // Null out the parameter object to start building
     var params = {
-        workspace_id: conversationWorkspace,
+        workspaceId: conversationWorkspace,
         input: {},
         context: {}
     };
