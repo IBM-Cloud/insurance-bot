@@ -114,8 +114,7 @@ function initConversation() {
       console.log(`Looking for a workspace named '${workspaceName}'...`);
       conversation.listWorkspaces()
       .then(res => {
-          console.log(res);
-        const workspace = res.workspaces.find(workspace => workspace.name === workspaceName);
+        const workspace = res.result.workspaces.find(workspace => workspace.name === workspaceName);
         if (workspace) {
           conversationWorkspace = workspace.workspace_id;
           console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
