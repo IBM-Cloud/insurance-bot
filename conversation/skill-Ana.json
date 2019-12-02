@@ -1,0 +1,2615 @@
+{
+  "name": "Ana",
+  "intents": [
+    {
+      "intent": "General_Agent_Capabilities",
+      "examples": [
+        {
+          "text": "I'd like to know what type of questions you can answer for me."
+        },
+        {
+          "text": "Where can I find the frequently asked questions?"
+        },
+        {
+          "text": "What kinds of things can you do?"
+        },
+        {
+          "text": "What is this 4?"
+        },
+        {
+          "text": "What features are in here?"
+        },
+        {
+          "text": "What else can you help me with?"
+        },
+        {
+          "text": "What do you handle?"
+        },
+        {
+          "text": "What do you do?"
+        },
+        {
+          "text": "What can I ask you to do?"
+        },
+        {
+          "text": "What are you used for?"
+        },
+        {
+          "text": "What are your skills?"
+        },
+        {
+          "text": "What are you good at?"
+        },
+        {
+          "text": "What are you capable of?"
+        },
+        {
+          "text": "What are you able to understand?"
+        },
+        {
+          "text": "What are you able to deal with?"
+        },
+        {
+          "text": "What are my options that you can help with?"
+        },
+        {
+          "text": "What are my options?"
+        },
+        {
+          "text": "Tell me something"
+        },
+        {
+          "text": "Tell me about what kind of things you do?"
+        },
+        {
+          "text": "Is there anything you can help me with?"
+        },
+        {
+          "text": "I do not know what to ask"
+        },
+        {
+          "text": "How do I use you?"
+        },
+        {
+          "text": "How can you solve my problems?"
+        },
+        {
+          "text": "How can you help me?"
+        },
+        {
+          "text": "How can you help?"
+        },
+        {
+          "text": "How can I use you?"
+        },
+        {
+          "text": "Hi, what do you do?"
+        },
+        {
+          "text": "Help now"
+        },
+        {
+          "text": "Do you have a list of things I can talk to you about?"
+        },
+        {
+          "text": "Can you tell me what services you are able to help me with?"
+        },
+        {
+          "text": "Can you please give me a list of the types of things you can help me with?"
+        }
+      ],
+      "description": "Request capabilities of the bot."
+    },
+    {
+      "intent": "make_claim",
+      "examples": [
+        {
+          "text": "How do I file a claim?"
+        },
+        {
+          "text": "I just got glasses."
+        },
+        {
+          "text": "I need to make a claim"
+        },
+        {
+          "text": "I recently went to the doctor."
+        },
+        {
+          "text": "I want to file a claim."
+        },
+        {
+          "text": "I want to file a recent expense."
+        },
+        {
+          "text": "Claim"
+        },
+        {
+          "text": "Can I file a claim?"
+        }
+      ]
+    },
+    {
+      "intent": "General_Security_Assurance",
+      "examples": [
+        {
+          "text": "Is my card info secure?"
+        },
+        {
+          "text": "Is my payment information secure?"
+        },
+        {
+          "text": "Is there a reason to distrust this chat?"
+        },
+        {
+          "text": "Is this an official chat?"
+        },
+        {
+          "text": "Is this a trusted chat site?"
+        },
+        {
+          "text": "Are you safe?"
+        },
+        {
+          "text": "Are you safe on hackers?"
+        },
+        {
+          "text": "Can I be sure that my stored card details are held securely?"
+        },
+        {
+          "text": "Conversation secure?"
+        },
+        {
+          "text": "Customer info secured?"
+        },
+        {
+          "text": "Do you have protection against hacks?"
+        },
+        {
+          "text": "How do I know if my card info is kept safe?"
+        },
+        {
+          "text": "How do I know this chat is not a scam?"
+        },
+        {
+          "text": "Why would I trust this chat?"
+        },
+        {
+          "text": "Precautions hackers?"
+        },
+        {
+          "text": "Protection hacks?"
+        },
+        {
+          "text": "Secure conversation?"
+        },
+        {
+          "text": "How is my credit card info secured?"
+        },
+        {
+          "text": "How safe is my data?"
+        },
+        {
+          "text": "I'd like proof of a secure chat"
+        },
+        {
+          "text": "In what way can I tell if my plastic is safe?"
+        },
+        {
+          "text": "What guards do you have in place to protect your customer's data?"
+        },
+        {
+          "text": "What makes this chat trustworthy?"
+        },
+        {
+          "text": "Will my conversation remain secured?"
+        },
+        {
+          "text": "What safety measures are used to ensure that chat is secure?"
+        },
+        {
+          "text": "Is this conversation secure?"
+        }
+      ],
+      "description": "Express concerns about the security of the bot."
+    },
+    {
+      "intent": "goodbye",
+      "examples": [
+        {
+          "text": "Nothing more"
+        },
+        {
+          "text": "See ya"
+        },
+        {
+          "text": "That's all"
+        },
+        {
+          "text": "Bye"
+        },
+        {
+          "text": "Catch you later"
+        },
+        {
+          "text": "Goodbye"
+        },
+        {
+          "text": "I don't need any more help"
+        },
+        {
+          "text": "I'm done"
+        },
+        {
+          "text": "Later"
+        }
+      ]
+    },
+    {
+      "intent": "General_Negative_Feedback",
+      "examples": [
+        {
+          "text": "I do not like you"
+        },
+        {
+          "text": "Do not like you?"
+        },
+        {
+          "text": "Everyone hates you"
+        },
+        {
+          "text": "Hate you"
+        },
+        {
+          "text": "I hate this!"
+        },
+        {
+          "text": "I hate you"
+        },
+        {
+          "text": "It is annoying"
+        },
+        {
+          "text": "Quit annoying me"
+        },
+        {
+          "text": "Robots are boring"
+        },
+        {
+          "text": "Robots are stupid"
+        },
+        {
+          "text": "Stupid"
+        },
+        {
+          "text": "Why are you so annoying?"
+        },
+        {
+          "text": "Why are you stupid?"
+        },
+        {
+          "text": "You are having delusions"
+        },
+        {
+          "text": "You are on my nerves"
+        },
+        {
+          "text": "You are very frustrating"
+        },
+        {
+          "text": "You do not seem smart"
+        },
+        {
+          "text": "You're really frustrating"
+        },
+        {
+          "text": "You're really irritating"
+        },
+        {
+          "text": "You're too stupid"
+        }
+      ],
+      "description": "Express unfavorable feedback."
+    },
+    {
+      "intent": "General_Jokes",
+      "examples": [
+        {
+          "text": "Do you have a joke?"
+        },
+        {
+          "text": "Can you tell a joke?"
+        },
+        {
+          "text": "Are there jokes?"
+        },
+        {
+          "text": "Surprise me with something hilarious"
+        },
+        {
+          "text": "One more joke"
+        },
+        {
+          "text": "I want a joke"
+        },
+        {
+          "text": "I'm bored"
+        },
+        {
+          "text": "I am getting bored"
+        },
+        {
+          "text": "Do you like humor?"
+        },
+        {
+          "text": "Do you like fun?"
+        },
+        {
+          "text": "Do you have humor?"
+        },
+        {
+          "text": "Can you tell me a joke?"
+        },
+        {
+          "text": "Another joke"
+        },
+        {
+          "text": "What is your favorite joke?"
+        },
+        {
+          "text": "What do you do for fun?"
+        },
+        {
+          "text": "Tell me something funny"
+        },
+        {
+          "text": "Tell me a joke"
+        }
+      ],
+      "description": "Request a joke."
+    },
+    {
+      "intent": "select_service",
+      "examples": [
+        {
+          "text": "I need details about my dental"
+        },
+        {
+          "text": "I want some details on my vision plan"
+        },
+        {
+          "text": "I need to know about my vision plan"
+        },
+        {
+          "text": "I need information about physical"
+        },
+        {
+          "text": "I need information about my vision plan"
+        },
+        {
+          "text": "I need information about my dental plan"
+        },
+        {
+          "text": "Vision"
+        },
+        {
+          "text": "Need info about dental"
+        },
+        {
+          "text": "I want some info about my vision plan"
+        }
+      ]
+    },
+    {
+      "intent": "General_Connect_to_Agent",
+      "examples": [
+        {
+          "text": "Operator please"
+        },
+        {
+          "text": "Call agent"
+        },
+        {
+          "text": "A real agent, please."
+        },
+        {
+          "text": "Agent help"
+        },
+        {
+          "text": "Yes, take me to a real person"
+        },
+        {
+          "text": "Where is the closest agent?"
+        },
+        {
+          "text": "Send me to an agent"
+        },
+        {
+          "text": "Put me through to someone"
+        },
+        {
+          "text": "Pls connect"
+        },
+        {
+          "text": "Please let me talk to a human being."
+        },
+        {
+          "text": "Please connect me to a live agent"
+        },
+        {
+          "text": "Please assist me to get to an agent"
+        },
+        {
+          "text": "Need help from human"
+        },
+        {
+          "text": "I would like to speak to someone"
+        },
+        {
+          "text": "I would like to speak to a human"
+        },
+        {
+          "text": "I want to talk to a person"
+        },
+        {
+          "text": "I want an agent to help me"
+        },
+        {
+          "text": "I want a manager"
+        },
+        {
+          "text": "I want agent"
+        },
+        {
+          "text": "Is there anyone there I can actually talk to for real?"
+        },
+        {
+          "text": "I need to speak to a representative. How would I go about doing so?"
+        },
+        {
+          "text": "I don't want to talk to you"
+        },
+        {
+          "text": "I don't want to talk to a bot."
+        },
+        {
+          "text": "How can I skip the recorded menu and go straight to a live person?"
+        },
+        {
+          "text": "Hi can you transfer me"
+        },
+        {
+          "text": "Do not want a robot?"
+        },
+        {
+          "text": "Customer service representative please."
+        },
+        {
+          "text": "Could you please transfer me to your master?"
+        },
+        {
+          "text": "Contact person"
+        },
+        {
+          "text": "Connect me to a live operator please."
+        },
+        {
+          "text": "Can you connect me with a real person?"
+        },
+        {
+          "text": "Can you assist me to connect to an agent?"
+        },
+        {
+          "text": "Can I talk to someone?"
+        },
+        {
+          "text": "Can I speak with somebody?"
+        },
+        {
+          "text": "Can I speak to an advisor?"
+        },
+        {
+          "text": "Can I speak to a live person?"
+        },
+        {
+          "text": "Can I speak to a human please?"
+        },
+        {
+          "text": "Can I connect to an agent?"
+        }
+      ],
+      "description": "Request a human agent."
+    },
+    {
+      "intent": "select_procedure",
+      "examples": [
+        {
+          "text": "I need information about eye wear"
+        },
+        {
+          "text": "I need information about glasses"
+        },
+        {
+          "text": "I need information about therapy"
+        },
+        {
+          "text": "I need information about tooth repair"
+        },
+        {
+          "text": "Tell me what my coverage is"
+        },
+        {
+          "text": "Tell me what my limit is"
+        },
+        {
+          "text": "Tell me what my limit is for eye wear"
+        },
+        {
+          "text": "Yes I need to know my policy for buying new glasses"
+        }
+      ]
+    },
+    {
+      "intent": "list_options",
+      "examples": [
+        {
+          "text": "What are my options?"
+        },
+        {
+          "text": "What are my policies?"
+        },
+        {
+          "text": "What are the services?"
+        },
+        {
+          "text": "what can you help with"
+        },
+        {
+          "text": "What do you recommend?"
+        },
+        {
+          "text": "What is available?"
+        },
+        {
+          "text": "What is there?"
+        },
+        {
+          "text": "What services are available?"
+        },
+        {
+          "text": "What services do I have?"
+        },
+        {
+          "text": "how helpful are you"
+        }
+      ]
+    },
+    {
+      "intent": "select_detail",
+      "examples": [
+        {
+          "text": "Hi Ana, I have a cavity that needs to be filled and I want to know what my coverage is"
+        },
+        {
+          "text": "eye glasses"
+        },
+        {
+          "text": "When does my plan end?"
+        },
+        {
+          "text": "What is the limit for glasses?"
+        },
+        {
+          "text": "What is the code for"
+        },
+        {
+          "text": "What is my term for"
+        },
+        {
+          "text": "till now nothing but I will have to see my dentist next week and wonder which services are covered by my plan"
+        },
+        {
+          "text": "I need the term for"
+        },
+        {
+          "text": "I need the code for"
+        }
+      ]
+    },
+    {
+      "intent": "General_Greetings",
+      "examples": [
+        {
+          "text": "Have you been well?"
+        },
+        {
+          "text": "Greetings"
+        },
+        {
+          "text": "I am doing good."
+        },
+        {
+          "text": "You there"
+        },
+        {
+          "text": "Who is this?"
+        },
+        {
+          "text": "What's up?"
+        },
+        {
+          "text": "What's new?"
+        },
+        {
+          "text": "Ok take me back"
+        },
+        {
+          "text": "Looking good eve"
+        },
+        {
+          "text": "How r u?"
+        },
+        {
+          "text": "How is it going?"
+        },
+        {
+          "text": "Hey twin"
+        },
+        {
+          "text": "Hey you"
+        },
+        {
+          "text": "Hi advisor"
+        },
+        {
+          "text": "Hi there"
+        },
+        {
+          "text": "How are things going?"
+        },
+        {
+          "text": "How are you today?"
+        },
+        {
+          "text": "How have you been?"
+        },
+        {
+          "text": "Good evening"
+        },
+        {
+          "text": "Good day"
+        },
+        {
+          "text": "Good morning"
+        },
+        {
+          "text": "Good to see you"
+        },
+        {
+          "text": "Hey there"
+        },
+        {
+          "text": "Hey there all"
+        },
+        {
+          "text": "Hey how are you doing"
+        },
+        {
+          "text": "Hello I am looking for some help here"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hello Agent"
+        }
+      ],
+      "description": "Greet the bot."
+    },
+    {
+      "intent": "casual_conversation",
+      "examples": [
+        {
+          "text": "How is Ana?"
+        },
+        {
+          "text": "Are you okay?"
+        },
+        {
+          "text": "How are you?"
+        },
+        {
+          "text": "How are you doing?"
+        },
+        {
+          "text": "How are you today?"
+        }
+      ]
+    },
+    {
+      "intent": "General_About_You",
+      "examples": [
+        {
+          "text": "Tell me something about yourself"
+        },
+        {
+          "text": "What languages do you speak?"
+        },
+        {
+          "text": "What should I know about you?"
+        },
+        {
+          "text": "What's your name?"
+        },
+        {
+          "text": "Where are you from?"
+        },
+        {
+          "text": "Where were you born?"
+        },
+        {
+          "text": "Who are you?"
+        },
+        {
+          "text": "Why are you here?"
+        },
+        {
+          "text": "Introduce your self"
+        },
+        {
+          "text": "I want to set up the chat bot for my shop"
+        },
+        {
+          "text": "Let us talk about you"
+        },
+        {
+          "text": "Can I use another language?"
+        },
+        {
+          "text": "Describe your self"
+        },
+        {
+          "text": "Do you have a name?"
+        },
+        {
+          "text": "About you"
+        },
+        {
+          "text": "Do you know who you are?"
+        },
+        {
+          "text": "How can I configure you?"
+        },
+        {
+          "text": "How do you function?"
+        },
+        {
+          "text": "How old are you?"
+        },
+        {
+          "text": "Tell me about your life"
+        }
+      ],
+      "description": "Request generic personal attributes."
+    },
+    {
+      "intent": "no-response",
+      "examples": [
+        {
+          "text": "I need to learn more about decapitation coverage"
+        },
+        {
+          "text": "What should I do if I accidentally cut my finger off?"
+        },
+        {
+          "text": "Well, I am under pressure"
+        },
+        {
+          "text": "I want a beer"
+        },
+        {
+          "text": "I may die"
+        },
+        {
+          "text": "I have an emergency"
+        },
+        {
+          "text": "Help me"
+        },
+        {
+          "text": "Get me a beer"
+        }
+      ]
+    },
+    {
+      "intent": "get_info",
+      "examples": [
+        {
+          "text": "I need some information"
+        },
+        {
+          "text": "I need more information"
+        },
+        {
+          "text": "I need info"
+        },
+        {
+          "text": "I don't need to file a claim"
+        },
+        {
+          "text": "Do I have"
+        },
+        {
+          "text": "Can I visit"
+        },
+        {
+          "text": "Am I covered"
+        },
+        {
+          "text": "When does my policy start?"
+        },
+        {
+          "text": "When does my policy end?"
+        },
+        {
+          "text": "What is my policy?"
+        },
+        {
+          "text": "What is my coverage?"
+        },
+        {
+          "text": "What are my benefits?"
+        },
+        {
+          "text": "Tell me what I need to know"
+        },
+        {
+          "text": "tell me about my plan"
+        },
+        {
+          "text": "I want to know more"
+        },
+        {
+          "text": "Information"
+        }
+      ]
+    },
+    {
+      "intent": "negative",
+      "examples": [
+        {
+          "text": "Dumb bot"
+        },
+        {
+          "text": "Give me someone real to talk to"
+        },
+        {
+          "text": "I hate you"
+        },
+        {
+          "text": "Why can't you do your job"
+        },
+        {
+          "text": "You're quite rude"
+        },
+        {
+          "text": "You're stupid"
+        },
+        {
+          "text": "I hate this thing"
+        },
+        {
+          "text": "Why won't you work"
+        },
+        {
+          "text": "Wow that's mean"
+        },
+        {
+          "text": "Dumb machine"
+        }
+      ]
+    },
+    {
+      "intent": "still-here",
+      "examples": [
+        {
+          "text": "Come back"
+        },
+        {
+          "text": "I need more help"
+        },
+        {
+          "text": "I wasn't done"
+        },
+        {
+          "text": "I wasn't finished"
+        },
+        {
+          "text": "k"
+        },
+        {
+          "text": "Still talking with me?"
+        },
+        {
+          "text": "I'm not done"
+        }
+      ]
+    },
+    {
+      "intent": "General_Human_or_Bot",
+      "examples": [
+        {
+          "text": "Are you even real?"
+        },
+        {
+          "text": "Are you a robot?"
+        },
+        {
+          "text": "Are you a human or a bot?"
+        },
+        {
+          "text": "Am I talking to Watson?"
+        },
+        {
+          "text": "Am I talking to a person or am I talking to an AI?"
+        },
+        {
+          "text": "Am I talking to a Bot?"
+        },
+        {
+          "text": "Am I chatting with a human?"
+        },
+        {
+          "text": "Are you real?"
+        },
+        {
+          "text": "How can you prove you are a human?"
+        },
+        {
+          "text": "Is this a computer?"
+        },
+        {
+          "text": "Tell me, are you a human or no?"
+        },
+        {
+          "text": "Are you human?"
+        }
+      ],
+      "description": "Ask if speaking to a human or a bot."
+    },
+    {
+      "intent": "find-doctor",
+      "examples": [
+        {
+          "text": "Where can I find an in policy"
+        },
+        {
+          "text": "Got to do something about my depression"
+        },
+        {
+          "text": "Who is my closest doctor"
+        },
+        {
+          "text": "Who is my closest dentist"
+        },
+        {
+          "text": "Where can I find an in-policy"
+        },
+        {
+          "text": "Where can I find a dentist?"
+        },
+        {
+          "text": "my shoulder broke"
+        },
+        {
+          "text": "I need a doctor"
+        },
+        {
+          "text": "I am looking for psychotherapie"
+        },
+        {
+          "text": "I am depressed and need help"
+        }
+      ]
+    },
+    {
+      "intent": "General_Positive_Feedback",
+      "examples": [
+        {
+          "text": "You are awesome"
+        },
+        {
+          "text": "You are great"
+        },
+        {
+          "text": "You are the best"
+        },
+        {
+          "text": "You are wonderful"
+        },
+        {
+          "text": "You gave me exactly what I need!"
+        },
+        {
+          "text": "You're a genius!"
+        },
+        {
+          "text": "Can't believe you are that good"
+        },
+        {
+          "text": "Brilliant!"
+        },
+        {
+          "text": "How cool is this?"
+        },
+        {
+          "text": "I like what you did there! :)"
+        },
+        {
+          "text": "I'm looking forward to working with you again! :)"
+        },
+        {
+          "text": "Love your work"
+        },
+        {
+          "text": "Ok thank you"
+        },
+        {
+          "text": "Thank you"
+        },
+        {
+          "text": "This is good"
+        },
+        {
+          "text": "This is great"
+        },
+        {
+          "text": "This is so cool"
+        },
+        {
+          "text": "You the man"
+        },
+        {
+          "text": "You've been so helpful :)"
+        }
+      ],
+      "description": "Express positive sentiment or gratitude."
+    },
+    {
+      "intent": "greeting",
+      "examples": [
+        {
+          "text": "It's me again"
+        },
+        {
+          "text": "Hi Ana"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hey Ana"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Good evening"
+        },
+        {
+          "text": "Good afternoon"
+        },
+        {
+          "text": "Don't go"
+        },
+        {
+          "text": "Anya"
+        },
+        {
+          "text": "Ana"
+        },
+        {
+          "text": "Good morning"
+        }
+      ]
+    },
+    {
+      "intent": "coverage",
+      "examples": [
+        {
+          "text": "I need my back adjusted"
+        },
+        {
+          "text": "would my insurance pay for broken glasses?"
+        },
+        {
+          "text": "What is my coverage for physical therapist?"
+        },
+        {
+          "text": "What does a cavity cost me?"
+        },
+        {
+          "text": "I want to purchase new glasses"
+        },
+        {
+          "text": "I want to purchase"
+        },
+        {
+          "text": "I want to get glasses"
+        },
+        {
+          "text": "I want to get contacts"
+        },
+        {
+          "text": "I need new glasses"
+        },
+        {
+          "text": "I need new"
+        },
+        {
+          "text": "I need my spine adjusted"
+        },
+        {
+          "text": "I need glasses"
+        },
+        {
+          "text": "I need braces. Am I covered?"
+        },
+        {
+          "text": "I need braces"
+        },
+        {
+          "text": "I need a chiropractor"
+        },
+        {
+          "text": "I broke my glasses"
+        },
+        {
+          "text": "How much more money is in my orthodontics benefit?"
+        },
+        {
+          "text": "How much do I have left in my deductible?"
+        },
+        {
+          "text": "How much do I have left"
+        },
+        {
+          "text": "How much does my plan cover"
+        },
+        {
+          "text": "How much coverage do I have for"
+        },
+        {
+          "text": "How much"
+        },
+        {
+          "text": "Coverage"
+        },
+        {
+          "text": "What's the maximum allowance for getting new glasses?"
+        }
+      ]
+    },
+    {
+      "intent": "off_topic",
+      "examples": [
+        {
+          "text": "What is the weather?"
+        },
+        {
+          "text": "What is the meaning of life?"
+        },
+        {
+          "text": "Do you like your job?"
+        },
+        {
+          "text": "Are you single?"
+        },
+        {
+          "text": "Are you real?"
+        },
+        {
+          "text": "Are you a robot?"
+        }
+      ]
+    },
+    {
+      "intent": "General_Ending",
+      "examples": [
+        {
+          "text": "I'm done"
+        },
+        {
+          "text": "Go off"
+        },
+        {
+          "text": "Hey bot go away"
+        },
+        {
+          "text": "I am leaving"
+        },
+        {
+          "text": "I am out of here"
+        },
+        {
+          "text": "I d like to stop doing this"
+        },
+        {
+          "text": "I have got to go"
+        },
+        {
+          "text": "Im done"
+        },
+        {
+          "text": "Im good thank you"
+        },
+        {
+          "text": "I'm leaving now"
+        },
+        {
+          "text": "It was nice chatting with you"
+        },
+        {
+          "text": "I want to quit"
+        },
+        {
+          "text": "Ok goodbye"
+        },
+        {
+          "text": "See you later"
+        },
+        {
+          "text": "Shut up"
+        },
+        {
+          "text": "Stop doing this"
+        },
+        {
+          "text": "Stop talking to me"
+        },
+        {
+          "text": "Thanks, bye!"
+        },
+        {
+          "text": "Thanks very much, bye!"
+        },
+        {
+          "text": "Thank you for your time"
+        },
+        {
+          "text": "That is all"
+        },
+        {
+          "text": "That's everything"
+        },
+        {
+          "text": "Time to go"
+        },
+        {
+          "text": "See you"
+        },
+        {
+          "text": "Bye bye"
+        },
+        {
+          "text": "Bye now"
+        },
+        {
+          "text": "Catch you later"
+        },
+        {
+          "text": "Cya later"
+        },
+        {
+          "text": "Ending this session"
+        },
+        {
+          "text": "End trial"
+        },
+        {
+          "text": "Finished now, good bye"
+        },
+        {
+          "text": "Get lost"
+        },
+        {
+          "text": "Go away"
+        },
+        {
+          "text": "Going now"
+        },
+        {
+          "text": "Goodbye"
+        },
+        {
+          "text": "Good. bye."
+        },
+        {
+          "text": "Have a nice day?"
+        }
+      ],
+      "description": "End the conversation."
+    },
+    {
+      "intent": "update_policy",
+      "examples": [
+        {
+          "text": "I want to drop my plan"
+        },
+        {
+          "text": "My information is wrong"
+        },
+        {
+          "text": "My name is wrong"
+        },
+        {
+          "text": "I need more coverage"
+        },
+        {
+          "text": "Update account details"
+        },
+        {
+          "text": "I want to change my policy"
+        },
+        {
+          "text": "I need more insurance"
+        },
+        {
+          "text": "I need to update my account"
+        },
+        {
+          "text": "I need to update my vision plan"
+        },
+        {
+          "text": "I want to change my account details"
+        },
+        {
+          "text": "I want to change my password"
+        }
+      ]
+    },
+    {
+      "intent": "claim_procedure",
+      "examples": [
+        {
+          "text": "I need to file a claim for contacts"
+        },
+        {
+          "text": "I got new glasses"
+        },
+        {
+          "text": "I need to file a claim for glasses"
+        },
+        {
+          "text": "I had a therapy session"
+        },
+        {
+          "text": "I just got new contact lens"
+        },
+        {
+          "text": "I just got new contacts"
+        },
+        {
+          "text": "I had my back adjusted"
+        },
+        {
+          "text": "Dr Feel Good"
+        },
+        {
+          "text": "Glasses"
+        },
+        {
+          "text": "I got my teeth cleaned"
+        },
+        {
+          "text": "I got new contacts"
+        },
+        {
+          "text": "I need to make a claim for glasses"
+        },
+        {
+          "text": "I need to file a claim for teeth cleaning"
+        },
+        {
+          "text": "I need to file a claim for physical therapy"
+        },
+        {
+          "text": "I just got new glasses"
+        },
+        {
+          "text": "I just spoke to a therapist"
+        },
+        {
+          "text": "I need reimbursement for"
+        },
+        {
+          "text": "Teeth cleaning"
+        },
+        {
+          "text": "I want reimbursement for"
+        }
+      ]
+    },
+    {
+      "intent": "positive",
+      "examples": [
+        {
+          "text": "thank you so much"
+        },
+        {
+          "text": "that's great"
+        },
+        {
+          "text": "this is fantastic"
+        },
+        {
+          "text": "you're awesome"
+        },
+        {
+          "text": "thank you"
+        },
+        {
+          "text": "thanks"
+        },
+        {
+          "text": "I really appreciate it"
+        },
+        {
+          "text": "I love you"
+        },
+        {
+          "text": "muchas gracias"
+        },
+        {
+          "text": "fantastic"
+        },
+        {
+          "text": "thank you Ana"
+        }
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "entity": "family",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "parent",
+          "synonyms": [
+            "father",
+            "mother"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "spouse",
+          "synonyms": [
+            "husband",
+            "partner",
+            "significant other",
+            "wife"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "child",
+          "synonyms": [
+            "child",
+            "daughter",
+            "kid",
+            "minion",
+            "son"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "sys-person",
+      "values": []
+    },
+    {
+      "entity": "details",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "coverage",
+          "synonyms": [
+            "covered",
+            "insurance covers",
+            "percentage"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "end",
+          "synonyms": [
+            "end date",
+            "end of coverage",
+            "last",
+            "plan end",
+            "plan termination"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "limit",
+          "synonyms": [
+            "balance",
+            "cash",
+            "deductible",
+            "remaining"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "start",
+          "synonyms": [
+            "first",
+            "start date"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "code",
+          "synonyms": [
+            "billing code",
+            "billing information",
+            "doctor code",
+            "number for form"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "term",
+          "synonyms": [
+            "billing period",
+            "period"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "types",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "mental",
+          "synonyms": [
+            "anxiety",
+            "depression",
+            "mental health",
+            "psychiatrist",
+            "psychologist",
+            "psychotherapy",
+            "shrink",
+            "therapist"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "physical",
+          "synonyms": [
+            "adjustment",
+            "back",
+            "chiropractor",
+            "physical therapy",
+            "spine"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "vision",
+          "synonyms": [
+            "contacts",
+            "eye",
+            "eye exam",
+            "eye exams",
+            "eye glasses",
+            "eyes",
+            "glasses",
+            "laser treatment",
+            "lasik",
+            "ocular",
+            "optometrist"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "dental",
+          "synonyms": [
+            "bicuspid",
+            "braces",
+            "bridge",
+            "cavity",
+            "crown",
+            "dental work",
+            "dentist",
+            "molar",
+            "oral surgeon",
+            "orthodontist",
+            "root canal",
+            "teeth",
+            "teeth cleaning",
+            "tooth",
+            "tooth repair"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "procedures",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "teeth cleaning",
+          "synonyms": [
+            "biannual",
+            "binannual checkup",
+            "checkup with dentist",
+            "dental checkup",
+            "flossing",
+            "flouride",
+            "teeth cleaned"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "chiropractor",
+          "synonyms": [
+            "adjustment",
+            "back",
+            "back adjusted",
+            "back doctor",
+            "back pain",
+            "chiropractic",
+            "massage",
+            "spine"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "eye exam",
+          "synonyms": [
+            "annual exam",
+            "check vision",
+            "eye exams"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "eye wear",
+          "synonyms": [
+            "bifocals",
+            "contacts",
+            "correction",
+            "glasses",
+            "laser",
+            "laser treatment",
+            "lasik",
+            "lenses",
+            "specks",
+            "vision correction"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "orthodontics",
+          "synonyms": [
+            "braces",
+            "smile correction",
+            "straighten"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "physiotherapy",
+          "synonyms": [
+            "massage",
+            "muscle pain",
+            "muscle therapy",
+            "myofascial",
+            "physical therapist",
+            "physical therapy",
+            "rehabilitation",
+            "stretching",
+            "therapy exercises"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "psychologist",
+          "synonyms": [
+            "addiction",
+            "counseling",
+            "couples counseling",
+            "depression",
+            "family counseling",
+            "head doctor",
+            "ptsd",
+            "shrink",
+            "therapist",
+            "therapy"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "tooth repair",
+          "synonyms": [
+            "bridge",
+            "cap",
+            "cavity",
+            "chipped tooth",
+            "crack",
+            "crown",
+            "filling",
+            "implant",
+            "post",
+            "root canal",
+            "tooth ache",
+            "tooth pain",
+            "tooth removal"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "response",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "no",
+          "synonyms": [
+            "do not",
+            "don't",
+            "false",
+            "negative",
+            "nope",
+            "not",
+            "not right",
+            "not that"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "yes",
+          "synonyms": [
+            "alright",
+            "correct",
+            "fine",
+            "I guess",
+            "I think so",
+            "maybe",
+            "si",
+            "sure",
+            "totally",
+            "ya",
+            "yah",
+            "ye",
+            "yeah",
+            "yep",
+            "you bet",
+            "yup"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "sys-date",
+      "values": []
+    },
+    {
+      "entity": "verb",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "claim",
+          "synonyms": [
+            "expense",
+            "file",
+            "reimbursement"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "information",
+          "synonyms": [
+            "additional details",
+            "data",
+            "description",
+            "info"
+          ]
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-09-20"
+    }
+  },
+  "skill_id": "e528a381-6322-4d5e-a515-0a8b52433add",
+  "description": "Ana",
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "output": {
+        "text": "Alright, I can do a @types claim. I also need to know the specific procedure you had done."
+      },
+      "parent": "node_3_1472589537910",
+      "context": {
+        "claim_step": "procedure",
+        "chosen_service": "@types"
+      },
+      "conditions": "@types",
+      "dialog_node": "node_6_1472590118317",
+      "previous_sibling": "node_5_1472590033232"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can't file claims for that."
+      },
+      "parent": "node_3_1472589537910",
+      "conditions": "anything_else",
+      "dialog_node": "node_18_1475623617512",
+      "previous_sibling": "node_6_1472590118317"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Got it. Now what was the date of your appointment?"
+      },
+      "parent": "node_3_1472589537910",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1472590259253"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_5_1472590033232"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Oh no. Let's get this fixed."
+      },
+      "parent": "node_16_1472607557405",
+      "conditions": "#negative",
+      "dialog_node": "node_3_1472761519777",
+      "previous_sibling": "node_2_1472761508426"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Happy to help!"
+      },
+      "parent": "node_16_1472607557405",
+      "conditions": "#positive",
+      "dialog_node": "node_2_1472761508426"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Alright, last thing. What is the amount you want to claim?"
+      },
+      "parent": "node_12_1472604720806",
+      "context": {
+        "claim_step": "amount",
+        "claim_provider": "<? input.text ?>"
+      },
+      "conditions": "input.text",
+      "dialog_node": "node_15_1472604976973"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_15_1530000131381",
+      "event_name": "focus",
+      "dialog_node": "handler_17_1530000131381",
+      "previous_sibling": "handler_16_1530000131381"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_15_1530000131381",
+      "event_name": "input",
+      "dialog_node": "handler_16_1530000131381"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can find some info on your vision, dental, mental, and physical plans."
+      },
+      "parent": "node_1_1472670944646",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1470846944134"
+      },
+      "conditions": "#list_options",
+      "dialog_node": "node_5_1471288584916"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": []
+        }
+      },
+      "parent": "node_6_1475611948267",
+      "context": {},
+      "disabled": true,
+      "metadata": {},
+      "dialog_node": "node_14_1529927344999",
+      "previous_sibling": "slot_15_1530000131381"
+    },
+    {
+      "type": "slot",
+      "parent": "node_6_1475611948267",
+      "dialog_node": "slot_15_1530000131381",
+      "previous_sibling": "handler_2_1530060199281"
+    },
+    {
+      "type": "event_handler",
+      "parent": "node_6_1475611948267",
+      "event_name": "focus",
+      "dialog_node": "handler_2_1530060199281"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_11_1475612980634",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_14_1470851039515"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_12_1475613151217"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can tell you about the limit, coverage, term, start, end, or code. You probably are interested in coverage."
+      },
+      "parent": "node_14_1470851039515",
+      "conditions": "#list_options",
+      "dialog_node": "node_6_1471294106656",
+      "previous_sibling": "node_1_1471294589032"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": ""
+      },
+      "parent": "node_14_1470851039515",
+      "context": {
+        "chosen_detail": "@details"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1471295022480"
+      },
+      "conditions": "@details",
+      "dialog_node": "node_1_1471294589032"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I don't have anything for '<? input.text ?>', but I can tell you the limit, coverage, term, start, end, or code for your plan."
+      },
+      "parent": "node_6_1471294106656",
+      "conditions": "anything_else",
+      "dialog_node": "node_13_1475622927885",
+      "previous_sibling": "node_2_1471295022480"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Grabbing the  @details for <? $chosen_procedure ?>."
+      },
+      "parent": "node_6_1471294106656",
+      "context": {
+        "chosen_detail": "@details"
+      },
+      "conditions": "@details",
+      "dialog_node": "node_2_1471295022480"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I have a date of <? input.text ?>. Is that right?"
+      },
+      "parent": "node_8_1472590259253",
+      "context": {
+        "claim_date": "<? input.text ?>",
+        "claim_step": "verifyDate"
+      },
+      "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+      "dialog_node": "node_11_1472598207218"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "For <? $chosen_service ?> the procedures are <? $procedureList ?>. Which one of those can I look up for you?"
+      },
+      "parent": "node_8_1470846944134",
+      "conditions": "#list_options",
+      "dialog_node": "node_11_1470849685631",
+      "previous_sibling": "node_3_1471903859772"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_8_1470846944134",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_14_1470851039515"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_3_1471903859772"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_1_1476991423783",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_11_1472598207218"
+      },
+      "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+      "dialog_node": "node_2_1476991501853"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_6_1472590118317",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1472590259253"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_19_1475623879868",
+      "previous_sibling": "node_7_1472590161269"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "The procedure categories are:  <? $procedures ?>. Pick one of those for me."
+      },
+      "parent": "node_6_1472590118317",
+      "conditions": "#list_options",
+      "dialog_node": "node_7_1472590161269"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can't talk about that. But I can tell you about your vision, dental, mental, and physical plans."
+      },
+      "parent": "node_12_1476151077484",
+      "conditions": "anything_else",
+      "dialog_node": "node_14_1476151372574",
+      "previous_sibling": "node_13_1476151143532"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_12_1476151077484",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1470846944134"
+      },
+      "conditions": "@types",
+      "dialog_node": "node_13_1476151143532"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Well, that's not a procedure I know about. I can talk about <? $procedures ?> if you're still interested."
+      },
+      "parent": "node_11_1470849685631",
+      "conditions": "anything_else",
+      "dialog_node": "node_11_1475612980634",
+      "previous_sibling": "node_14_1470851039515"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "What information do you need about @procedures?"
+      },
+      "parent": "node_11_1470849685631",
+      "context": {
+        "chosen_procedure": "@procedures"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_14_1470851039515"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "What did you need to know about @procedures?"
+      },
+      "parent": "node_2_1475683599072",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_14_1470851039515"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_4_1476111372486"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Alright. What can I do for you? I mostly search boring insurance documents or help you file claims."
+      },
+      "parent": "node_2_1472663851939",
+      "conditions": "input.text",
+      "dialog_node": "node_10_1476150029988"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_6_1476149112153",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_11_1470849685631"
+      },
+      "conditions": "#get_info",
+      "dialog_node": "node_8_1476149304756",
+      "previous_sibling": "node_7_1476149155153"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Alright, I can do a <? $chosen_service ?> claim. I also need to know the specific procedure you had done."
+      },
+      "parent": "node_6_1476149112153",
+      "context": {
+        "claim_step": "procedure"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_6_1472590118317"
+      },
+      "conditions": "#make_claim",
+      "dialog_node": "node_7_1476149155153"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_13_1472604740084",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_11_1472598207218"
+      },
+      "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+      "dialog_node": "node_1_1472758289866"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Okay. Please enter the date again. Use YYYY-MM-DD."
+      },
+      "parent": "node_11_1472598207218",
+      "context": {
+        "claim_step": "date"
+      },
+      "conditions": "@response:no",
+      "dialog_node": "node_13_1472604740084",
+      "previous_sibling": "node_12_1472604720806"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Okay. Please enter the date again. Use YYYY-MM-DD."
+      },
+      "parent": "node_11_1472598207218",
+      "context": {
+        "claim_step": "date"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "node_1_1476991423783",
+      "previous_sibling": "node_14_1472604886510"
+    },
+    {
+      "type": "standard",
+      "output": {},
+      "parent": "node_11_1472598207218",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_11_1472598207218"
+      },
+      "conditions": "input.text.matches('^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$')",
+      "dialog_node": "node_14_1472604886510",
+      "previous_sibling": "node_13_1472604740084"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Fantastic. What is the name of the provider or physician you went to?"
+      },
+      "parent": "node_11_1472598207218",
+      "context": {
+        "claim_step": "provider"
+      },
+      "conditions": "@response:yes",
+      "dialog_node": "node_12_1472604720806"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+      },
+      "parent": "node_7_1472590161269",
+      "context": {
+        "claim_step": "date",
+        "claim_procedure": "@procedures"
+      },
+      "conditions": "@procedures",
+      "dialog_node": "node_8_1472590259253"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Filing your claim now!"
+      },
+      "parent": "node_15_1472604976973",
+      "context": {
+        "claim_step": "verify",
+        "claim_amount": "<? input.text ?>"
+      },
+      "conditions": "input.text",
+      "dialog_node": "node_16_1472607557405"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+      },
+      "context": {
+        "claim_step": "date",
+        "claim_procedure": "@procedures"
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_11_1472598207218"
+      },
+      "conditions": "#make_claim && @procedures",
+      "digress_in": "returns",
+      "dialog_node": "node_3_1476991627470",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_3_1472589537910"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            "Hi $fname! I am Ana, just an AI chatbot trying to mimic humans :)",
+            "Hey!! I am Ana the chatbot."
+          ],
+          "selection_policy": "random"
+        }
+      },
+      "metadata": {},
+      "conditions": "#General_Human_or_Bot || #General_About_You",
+      "dialog_node": "node_1_1530002818792",
+      "previous_sibling": "node_7_1475612009751"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Alright, I can tell you more about your @types plan. Let's narrow it down a little. Which procedure do you need information for?"
+      },
+      "context": {
+        "chosen_service": "@types"
+      },
+      "metadata": {},
+      "conditions": "#select_service && @types",
+      "dialog_node": "node_8_1470846944134",
+      "previous_sibling": "node_1_1472670944646"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm not able to answer that."
+      },
+      "conditions": "intents.size() == 0",
+      "dialog_node": "node_9_1475612074357",
+      "previous_sibling": "node_6_1475611948267"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Let me take care of that paperwork for you. What did you have done?"
+      },
+      "metadata": {},
+      "conditions": "#make_claim",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_3_1472589537910",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1471622977336"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "context": {
+          "chosen_detail": "@details",
+          "chosen_procedure": "@procedures"
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_14_1470851039515"
+      },
+      "conditions": "@procedures && #select_procedure",
+      "dialog_node": "node_1_1471971552653",
+      "previous_sibling": "node_8_1470846944134"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Sure. What can I help you with?"
+      },
+      "conditions": "#still-here",
+      "dialog_node": "node_2_1475683599072",
+      "previous_sibling": "node_1_1471530144227"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can get your @details for you. What service do you need info for? I've got information on your vision, dental, mental, and physical plans."
+      },
+      "context": {
+        "chosen_detail": "@details"
+      },
+      "metadata": {},
+      "conditions": "#get_info && @details",
+      "digress_in": "returns",
+      "dialog_node": "node_12_1476151077484",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1471971552653"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Let me get that for you. Grabbing the  @details for @procedures."
+      },
+      "context": {
+        "chosen_detail": "@details",
+        "chosen_procedure": "@procedures"
+      },
+      "conditions": "@details && #select_detail && @procedures",
+      "dialog_node": "node_9_1472596541094",
+      "previous_sibling": "node_12_1476151077484"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm on the clock. Let's talk later."
+      },
+      "conditions": "#off_topic",
+      "dialog_node": "node_1_1472137756520",
+      "previous_sibling": "node_1_1475683470899"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Goodbye $fname."
+      },
+      "metadata": {},
+      "conditions": "#goodbye || #General_Ending",
+      "dialog_node": "node_1_1471530144227",
+      "previous_sibling": "node_4_1470846498634"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm fantastic. How are you?"
+      },
+      "conditions": "#casual_conversation",
+      "dialog_node": "node_2_1472663851939",
+      "previous_sibling": "node_2_1475683599072"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            "Sorry!! I am in my office hours."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "metadata": {},
+      "conditions": "#General_Jokes",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_1_1530002230950",
+      "previous_sibling": "node_1_1472137756520"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Always happy to help $fname!"
+      },
+      "metadata": {},
+      "conditions": "#positive || #General_Positive_Feedback",
+      "dialog_node": "node_1_1472655156255",
+      "previous_sibling": "node_1_1472578460792"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Your coverage for @procedures is "
+      },
+      "context": {
+        "chosen_detail": "coverage",
+        "chosen_procedure": "@procedures"
+      },
+      "conditions": "#coverage && @procedures",
+      "dialog_node": "node_1_1471622977336",
+      "previous_sibling": "node_9_1472596541094"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I hope it went smoothly. What was the date of your appointment? I prefer YYYY-MM-DD to make filing easier for me."
+      },
+      "context": {
+        "claim_step": "date",
+        "claim_procedure": "@procedures"
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1472590259253"
+      },
+      "conditions": "@procedures && #claim_procedure",
+      "digress_in": "returns",
+      "dialog_node": "node_4_1472589946048",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_3_1476991627470"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Right now I can't help with locating or scheduling providers, but that feature is coming soon!"
+      },
+      "conditions": "#find-doctor",
+      "dialog_node": "node_11_1476150557365",
+      "previous_sibling": "node_5_1476113231936"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "How can I help with your @types policy? Do you need information or to file a claim?"
+      },
+      "context": {
+        "chosen_service": "@types"
+      },
+      "metadata": {},
+      "conditions": "@types",
+      "digress_in": "returns",
+      "dialog_node": "node_6_1476149112153",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_4_1472589946048"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm not confident enough to answer that one. Maybe try something else?"
+      },
+      "conditions": "intents[0].confidence < 0.80",
+      "dialog_node": "node_7_1475612009751",
+      "previous_sibling": "node_1_1472655156255"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can't help you with that. I'm just a bot to help you with your insurance documents."
+      },
+      "conditions": "#no-response",
+      "dialog_node": "node_1_1475683470899",
+      "previous_sibling": "node_2_1472663851939"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Hello $fname ! How can I help you today?"
+      },
+      "metadata": {},
+      "conditions": "#greeting || #General_Greetings",
+      "dialog_node": "node_4_1470846498634",
+      "previous_sibling": "node_6_1476149112153"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I can talk about your vision, dental, mental, and physical plans."
+      },
+      "metadata": {},
+      "conditions": "#list_options || #General_Agent_Capabilities",
+      "dialog_node": "node_5_1476113231936",
+      "previous_sibling": "node_3_1476110635133"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm sorry you feel that way."
+      },
+      "metadata": {},
+      "conditions": "#negative || #General_Negative_Feedback",
+      "dialog_node": "node_1_1472578460792",
+      "previous_sibling": "node_1_1530002230950"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Sorry, I don't understand that one."
+      },
+      "conditions": "anything_else",
+      "dialog_node": "node_10_1475612266683",
+      "previous_sibling": "node_1_1530002818792"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Okay, let me do the boring reading for you. What service did you need to know more about?"
+      },
+      "conditions": "#get_info && !(@details) && !(@procedures) && !(@types)",
+      "dialog_node": "node_1_1472670944646",
+      "previous_sibling": "node_11_1476150557365"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Unfortunately I can only tell you about your coverage right now. My AI overlords plan to add family coverage soon!"
+      },
+      "conditions": "@family",
+      "dialog_node": "node_3_1476110635133",
+      "previous_sibling": "node_9_1475612074357"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            "Hey <? $fname ?>! how are you today? Let me know if you need any help or get stuck looking for information."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "context": {},
+      "metadata": {
+        "fallback": "leave",
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "conditions": "conversation_start",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_6_1475611948267",
+      "digress_out": "allow_all"
+    }
+  ],
+  "workspace_id": "e528a381-6322-4d5e-a515-0a8b52433add",
+  "counterexamples": [],
+  "learning_opt_out": false,
+  "status": "Available"
+}

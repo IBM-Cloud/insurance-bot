@@ -121,7 +121,7 @@ function initConversation() {
         } else {
           console.log('Importing workspace from ./conversation/Ana.json');
           // create the workspace
-          const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/Ana.json'));
+          const anaWorkspace = JSON.parse(fs.readFileSync('./conversation/skill-Ana.json'));
           // force the name to our expected name
           anaWorkspace.name = workspaceName;
           conversation.createWorkspace(anaWorkspace, (createErr, res) => {
